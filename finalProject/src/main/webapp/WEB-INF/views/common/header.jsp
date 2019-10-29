@@ -37,8 +37,12 @@
 <!-- Theme style  -->
 <link rel="stylesheet" href="resources/css/style.css">
 
+<!-- Mypage style (경희) -->
+<link rel="stylesheet" href="resources/css/mypage.css">
 <!-- Modernizr JS -->
 <script src="resources/js/modernizr-2.6.2.min.js"></script>
+
+
 
 <style>
 a:hover, a:active, a:focus {
@@ -143,6 +147,7 @@ body {
 }
 
 .catalog {
+	z-index: 100;
 	display: inline-block;
 	text-align: center;
 	width: 100%;

@@ -7,55 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.mypageCategory {
-	float: left;
-	width: 150px;
-	padding: 10px;
-}
-
-.container {
-	width: 100%;
-	height: 100%;
-	margin: 0 auto;
-}
-
-ul.tabs {
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
-}
-
-ul.tabs li {
-	background: none;
-	color: #222;
-	display: inline-block;
-	padding: 10px 15px;
-	cursor: pointer;
-	border-top-left-radius: 15px;
-	border-top-right-radius: 15px;
-}
-
-ul.tabs li.current {
-	background: #F2D7C6;
-	color: #222;
-}
-
-.tab-content {
-	display: none;
-	height: 90%;
-	background: #F2D7C6;
-	padding: 10px;
-	margin: 0;
-	border: 0;
-}
-
-.tab-content.current {
-	display: inherit;
-}
-
-.page-container {
-	float: right;
-}
 
 .btn.btn-info {
 	font-size: 9px;
@@ -91,6 +42,7 @@ ul.tabs li.current {
 .post-title {
 	text-align: left !important;
 }
+
 </style>
 </head>
 <body>
