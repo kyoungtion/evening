@@ -1,6 +1,10 @@
 @charset "UTF-8";
 
 
+::selection {
+	background-color: lightgray;
+}
+
 .mypageCategory {
 	float: left;
 	width: 150px;
@@ -32,6 +36,7 @@ ul.tabs li {
 ul.tabs li.current {
 	background: #E0BBB6;
 	color: #222;
+	
 }
 
 ul.my-tabs {
@@ -52,10 +57,11 @@ ul.my-tabs li.my-tab :hover{
 .tab-content {
 	display: none;
 	height: 90% !important;
-	background: #E0BBB6 !important;
+	background: white !important;
 	padding: 15px !important;
 	margin: 0 !important;
 	border: 0 !important;
+	border: 1px solid #E0BBB6 !important;
 }
 
 .tab-content.current {
@@ -64,4 +70,32 @@ ul.my-tabs li.my-tab :hover{
 
 .page-container {
 	float: right;
+}
+
+
+ul.my-tabs a:hover, a:active, a:focus {
+    color: grey !important;
+    outline: none;
+    text-decoration: none;
+}
+
+.no-drag {
+	-ms-user-select: none; 
+	-moz-user-select: -moz-none; 
+	-webkit-user-select: none; 
+	-khtml-user-select: none; 
+	user-select:none;
+}
+
+.contact-wrap {
+	background: ;	
+}
+
+@media (max-width:900px){
+	* {
+		font-size: 12px;
+	}
+	.btn {
+		font-size: 10px;
+	}
 }

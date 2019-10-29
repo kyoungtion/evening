@@ -49,7 +49,7 @@
 	<c:import url="/WEB-INF/views/common/header.jsp" />
 	<div class="my-panel"
 		style="width: 100%; height: 1000px; display: flex;">
-		<div class="mypageCategory">
+		<div class="mypageCategory no-drag">
 			<ul class="my-tabs">
 				<li class="my-tab"><a href="myinfo.me">내 정보 보기</a></li>
 				<li class="my-tab"><a href="favorites.me">관심상품목록</a></li>
@@ -62,7 +62,7 @@
 				<form style="height: 100%;">
 					<h3 style="font-size: 15px">내가 쓴 글</h3>
 					<div class="container">
-						<ul class="tabs">
+						<ul class="tabs no-drag">
 							<li class="tab-link current" data-tab="tab-1">글 목록</li>
 						</ul>
 						<div id="tab-1" class="tab-content current">

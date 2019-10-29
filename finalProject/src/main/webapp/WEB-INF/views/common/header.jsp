@@ -147,7 +147,7 @@ body {
 }
 
 .catalog {
-	z-index: 100;
+	z-index: 99;
 	display: inline-block;
 	text-align: center;
 	width: 100%;
@@ -242,6 +242,9 @@ body {
 span:after, span:before {
 	background: #D98396 !important;
 }
+
+
+
 </style>
 </head>
 <body>
@@ -251,7 +254,7 @@ span:after, span:before {
 
 
 	<header class="ebHeader">
-		<div class="ebHeader-bar">
+		<div class="ebHeader-bar no-drag">
 			<div style="height: 100%; overflow: hidden;">
 				<div id="hLogo">
 					<img src="resources/images/eve-logo.png">
@@ -279,7 +282,7 @@ span:after, span:before {
 			</div>
 		</div>
 	</header>
-	<div class="catalog">
+	<div class="catalog no-drag">
 		<div style="text-align: center; display: inline-block;">
 			<ul class="catalog-ul">
 				<li class="catalog-tap"><a style="font-size: 21px;">중고</a>

@@ -47,7 +47,7 @@
 
 	<div class="my-panel"
 		style="width: 100%; height: 1000px; display: flex;">
-		<div class="mypageCategory">
+		<div class="mypageCategory no-drag">
 			<ul class="my-tabs">
 				<li class="my-tab"><a href="myinfo.me">내 정보 보기</a></li>
 				<li class="my-tab"><a href="favorites.me">관심상품목록</a></li>
@@ -59,7 +59,7 @@
 			<div class="contact-wrap" style="height: 900px;">
 				<h3 style="font-size: 15px">내 정보 보기</h3>
 				<div class="container">
-					<ul class="tabs">
+					<ul class="tabs no-drag">
 						<li class="tab-link current" data-tab="tab-1">입찰중인 상품</li>
 						<li class="tab-link" data-tab="tab-2">결제완료내역</li>
 					</ul>
