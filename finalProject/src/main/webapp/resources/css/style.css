@@ -345,8 +345,8 @@ h1, h2, h3, h4, h5, h6, figure {
           color: #000; }
         #colorlib-hero .flexslider .slider-text > .slider-text-inner .head-1 {
           font-weight: 700;
-          font-size: 60px;
-          margin-bottom: 5px; }
+          margin-bottom: 5px; 
+        }
         #colorlib-hero .flexslider .slider-text > .slider-text-inner .head-2 {
           font-size: 30px;
           font-weight: 500;
@@ -360,7 +360,6 @@ h1, h2, h3, h4, h5, h6, figure {
           margin-bottom: 30px; }
           #colorlib-hero .flexslider .slider-text > .slider-text-inner .category span {
             font-weight: 100;
-            font-size: 20px;
             color: gray; }
         #colorlib-hero .flexslider .slider-text > .slider-text-inner .btn {
           font-size: 12px;

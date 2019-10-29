@@ -37,6 +37,8 @@
 <!-- Theme style  -->
 <link rel="stylesheet" href="resources/css/style.css">
 
+<link href="https://fonts.googleapis.com/css?family=Gothic+A1|Noto+Sans+KR&display=swap" rel="stylesheet">
+
 <!-- Mypage style (경희) -->
 <link rel="stylesheet" href="resources/css/mypage.css">
 <!-- Modernizr JS -->
@@ -45,6 +47,11 @@
 
 
 <style>
+
+* {
+font-family: 'Noto Sans KR', sans-serif;
+/* font-family: 'Gothic A1', sans-serif; */
+}
 a:hover, a:active, a:focus {
 	color: #D98396;
 	outline: none;
@@ -142,7 +149,6 @@ body {
 
 #hLogo img {
 	background: white;
-	width: 70px;
 	height: 70px;
 }
 
@@ -154,8 +160,8 @@ body {
 	height: 60px;
 	background: white;
 	margin: auto;
-	position: relative;
-	border-bottom: 1px solid #D98396
+	position: relative;/* 
+	border-bottom: 1px solid #D98396; */
 }
 
 .catalog ul {
