@@ -31,7 +31,7 @@
                 <property name="minimumIdle" value="5" />
                 <property name="maximumPoolSize" value="10" />
                 <property name="connectionTestQuery" value="select 1 from sys.dual" />
-                <property name="connectionTimeout"  value="300000" />
+                <property name="connectionTimeout"  value="310000" />
             </bean>
         </constructor-arg>
     </bean>
