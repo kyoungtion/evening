@@ -8,7 +8,7 @@
 		
 	<!-- DB정보, AOP관련설정 -->	
 	
-<!-- 	<bean id="dataSource" 
+ 	<bean id="dataSource" 
 		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
@@ -16,8 +16,8 @@
 		<property name="password" value="EVENING"/>
 		<property name="defaultAutoCommit" value="false"/>
 	</bean>
-	 -->
-	  <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+	
+	  <!-- <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
         <constructor-arg>
             <bean class="com.zaxxer.hikari.HikariConfig">
                 <constructor-arg>
@@ -34,7 +34,7 @@
                 <property name="connectionTimeout"  value="310000" />
             </bean>
         </constructor-arg>
-    </bean>
+    </bean> -->
 
 
 	 
