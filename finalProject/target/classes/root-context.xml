@@ -8,7 +8,7 @@
 		
 	<!-- DB정보, AOP관련설정 -->	
 	
-	<bean id="dataSource" 
+<!-- 	<bean id="dataSource" 
 		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
@@ -16,7 +16,28 @@
 		<property name="password" value="EVENING"/>
 		<property name="defaultAutoCommit" value="false"/>
 	</bean>
-	
+	 -->
+	  <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <constructor-arg>
+            <bean class="com.zaxxer.hikari.HikariConfig">
+                <constructor-arg>
+                    <props>
+                        <prop key="jdbcUrl">jdbc:oracle:thin:@localhost:1521:XE</prop>
+                        <prop key="username">EVENING</prop>
+                        <prop key="password">EVENING</prop>
+                    </props>
+                </constructor-arg>
+                <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+                <property name="minimumIdle" value="5" />
+                <property name="maximumPoolSize" value="10" />
+                <property name="connectionTestQuery" value="select 1 from sys.dual" />
+                <property name="connectionTimeout"  value="300000" />
+            </bean>
+        </constructor-arg>
+    </bean>
+
+
+	 
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis-config.xml"/>
 		<property name="dataSource" ref="dataSource"/>
