@@ -150,7 +150,7 @@ body {
 
 #hLogo img {
 	background: white;
-	height: 70px;
+	height: 100%;
 }
 
 .catalog {
