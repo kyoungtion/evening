@@ -246,6 +246,8 @@ body {
 	font-size: 13px;
 }
 
+
+
 span:after, span:before {
 	background: #D98396 !important;
 }
