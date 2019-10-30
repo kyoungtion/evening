@@ -282,7 +282,7 @@ span:after, span:before {
 									<li><a href="mypost.me">내가 쓴 글</a></li>
 								</ul>
 							</div></li>
-						<li><a href="../push bell/p_main.jsp" target="_blank"></a></li>
+						<li><img src="../push_bell/img/bell.png" alt=""></li>
 					</ul>
 				</div>
 			</div>
@@ -315,7 +315,6 @@ span:after, span:before {
 			</ul>
 		</div>
 	</div>
-
 
 
 
