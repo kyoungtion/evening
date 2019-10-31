@@ -21,7 +21,7 @@
 						<div class="row row-pb-lg">
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
-									<div class="product-img" style="background-image: url(images/item-5.jpg);">
+									<div class="product-img" style="background-image: url(resources/images/item-5.jpg);">
 										<p class="tag"><span class="new">New</span></p>
 										<div class="cart">
 											<p>
@@ -40,7 +40,7 @@
 							</div>
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
-									<div class="product-img" style="background-image: url(images/item-6.jpg);">
+									<div class="product-img" style="background-image: url(resources/images/item-6.jpg);">
 										<p class="tag"><span class="sale">Sale</span></p>
 										<div class="cart">
 											<p>
@@ -59,7 +59,7 @@
 							</div>
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
-									<div class="product-img" style="background-image: url(images/item-7.jpg);">
+									<div class="product-img" style="background-image: url(resources/images/item-7.jpg);">
 										<p class="tag"><span class="new">New</span></p>
 										<div class="cart">
 											<p>
@@ -78,7 +78,7 @@
 							</div>
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
-									<div class="product-img" style="background-image: url(images/item-8.jpg);">
+									<div class="product-img" style="background-image: url(resources/images/item-8.jpg);">
 										<div class="cart">
 											<p>
 												<span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span> 
@@ -96,7 +96,7 @@
 							</div>
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
-									<div class="product-img" style="background-image: url(images/item-9.jpg);">
+									<div class="product-img" style="background-image: url(resources/images/item-9.jpg);">
 										<p class="tag"><span class="sale">Sale</span></p>
 										<div class="cart">
 											<p>
@@ -115,7 +115,7 @@
 							</div>
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
-									<div class="product-img" style="background-image: url(images/item-10.jpg);">
+									<div class="product-img" style="background-image: url(resources/images/item-10.jpg);">
 										<p class="tag"><span class="new">New</span></p>
 										<div class="cart">
 											<p>
@@ -134,7 +134,7 @@
 							</div>
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
-									<div class="product-img" style="background-image: url(images/item-11.jpg);">
+									<div class="product-img" style="background-image: url(resources/images/item-11.jpg);">
 										<div class="cart">
 											<p>
 												<span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span> 
@@ -152,7 +152,7 @@
 							</div>
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
-									<div class="product-img" style="background-image: url(images/item-12.jpg);">
+									<div class="product-img" style="background-image: url(resources/images/item-12.jpg);">
 										<p class="tag"><span class="new">New</span></p>
 										<div class="cart">
 											<p>
@@ -171,7 +171,7 @@
 							</div>
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
-									<div class="product-img" style="background-image: url(images/item-13.jpg);">
+									<div class="product-img" style="background-image: url(resources/images/item-13.jpg);">
 										<p class="tag"><span class="new">New</span></p>
 										<div class="cart">
 											<p>
@@ -190,7 +190,7 @@
 							</div>
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
-									<div class="product-img" style="background-image: url(images/item-14.jpg);">
+									<div class="product-img" style="background-image: url(resources/images/item-14.jpg);">
 										<p class="tag"><span class="new">New</span></p>
 										<div class="cart">
 											<p>
@@ -209,7 +209,7 @@
 							</div>
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
-									<div class="product-img" style="background-image: url(images/item-15.jpg);">
+									<div class="product-img" style="background-image: url(resources/images/item-15.jpg);">
 										<p class="tag"><span class="new">New</span></p>
 										<div class="cart">
 											<p>
@@ -228,7 +228,7 @@
 							</div>
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
-									<div class="product-img" style="background-image: url(images/item-16.jpg);">
+									<div class="product-img" style="background-image: url(resources/images/item-16.jpg);">
 										<p class="tag"><span class="new">New</span></p>
 										<div class="cart">
 											<p>
@@ -407,6 +407,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 		
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 
