@@ -260,11 +260,12 @@
 						</div>
 					</div>
 					<div class="col-md-2 col-md-pull-10">
-						<div class="sidebar">
-							<div class="side">
-								<h2>Categories</h2>
+						<div class="sidebar"> <!-- 사이드바 -->
+							<div class="side"> <!-- side 하나당 사이이드바 칸 한개씩 추가됨 -->
+								<h2>정렬 순서</h2>
 								<div class="fancy-collapse-panel">
 			                  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+			                     <!-- 판넬식 방법 (템플릿)
 			                     <div class="panel panel-default">
 			                         <div class="panel-heading" role="tab" id="headingOne">
 			                             <h4 class="panel-title">
@@ -282,64 +283,22 @@
 			                                 </ul>
 			                             </div>
 			                         </div>
-			                     </div>
-			                     <div class="panel panel-default">
-			                         <div class="panel-heading" role="tab" id="headingTwo">
-			                             <h4 class="panel-title">
-			                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Women
-			                                 </a>
-			                             </h4>
-			                         </div>
-			                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-			                             <div class="panel-body">
-			                                <ul>
-			                                 	<li><a href="#">Jeans</a></li>
-			                                 	<li><a href="#">T-Shirt</a></li>
-			                                 	<li><a href="#">Jacket</a></li>
-			                                 	<li><a href="#">Shoes</a></li>
-			                                 </ul>
-			                             </div>
-			                         </div>
-			                     </div>
-			                     <div class="panel panel-default">
-			                         <div class="panel-heading" role="tab" id="headingThree">
-			                             <h4 class="panel-title">
-			                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Jewelry
-			                                 </a>
-			                             </h4>
-			                         </div>
-			                         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-			                             <div class="panel-body">
-			                                <ul>
-			                                 	<li><a href="#">Jeans</a></li>
-			                                 	<li><a href="#">T-Shirt</a></li>
-			                                 	<li><a href="#">Jacket</a></li>
-			                                 	<li><a href="#">Shoes</a></li>
-			                                 </ul>
-			                             </div>
-			                         </div>
-			                     </div>
-			                     <div class="panel panel-default">
-			                         <div class="panel-heading" role="tab" id="headingFour">
-			                             <h4 class="panel-title">
-			                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">Jewelry
-			                                 </a>
-			                             </h4>
-			                         </div>
-			                         <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-			                             <div class="panel-body">
-			                                <ul>
-			                                 	<li><a href="#">Jeans</a></li>
-			                                 	<li><a href="#">T-Shirt</a></li>
-			                                 	<li><a href="#">Jacket</a></li>
-			                                 	<li><a href="#">Shoes</a></li>
-			                                 </ul>
-			                             </div>
-			                         </div>
-			                     </div>
+			                     </div> -->
+			                     <div><a href="">마감 시간순</a></div>
+			                     <div><a href="">최근 등록순</a></div>
+			                     
 			                  </div>
 			               </div>
+						</div>
+						
+						<div class="side">
+							<h2>최근에 본 물건</h2>
+							<div>test D
+								<div>test S</div>
 							</div>
+						</div>
+							
+							<!-- 안쓸것 같은 사이드바 칸 (일단 잠금)
 							<div class="side">
 								<h2>Price Range</h2>
 								<form method="post" class="colorlib-form-2">
@@ -359,6 +318,7 @@
 				                    </div>
 				                  </div>
 				                </div>
+				                
 				                <div class="col-md-12">
 				                  <div class="form-group">
 				                    <label for="guests">Price to:</label>
@@ -377,6 +337,7 @@
 				              </div>
 				            </form>
 							</div>
+							
 							<div class="side">
 								<h2>Color</h2>
 								<div class="color-wrap">
@@ -389,6 +350,7 @@
 									</p>
 								</div>
 							</div>
+							
 							<div class="side">
 								<h2>Size</h2>
 								<div class="size-wrap">
@@ -402,6 +364,8 @@
 									</p>
 								</div>
 							</div>
+							 -->
+							 
 						</div>
 					</div>
 				</div>
