@@ -150,7 +150,7 @@ body {
 
 #hLogo img {
 	background: white;
-	height: 70px;
+	height: 100%;
 }
 
 .catalog {
@@ -245,6 +245,8 @@ body {
 #test a {
 	font-size: 13px;
 }
+
+
 
 span:after, span:before {
 	background: #D98396 !important;
