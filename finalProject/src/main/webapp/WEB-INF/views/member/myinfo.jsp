@@ -14,9 +14,7 @@
 }
 </style>
 <!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-<!-- iamport.payment.js -->
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 </head>
 <body>
@@ -103,20 +101,51 @@
 										<input type="text" id="name"></input>
 										<button type="button" id="certi">휴대폰 인증</button>
 									</div>
-									<script>
-										$(function(){
-											$('#certi').click(function(){
-												location.href="/WEB-INF/views/member/certification.jsp";
-											})
-										});
-									</script>
 								</div>
 								<div class="row form-group">
 									<div class="col-md-12">
 										<label for="email">계좌 인증</label>
-										<button type="button">계좌 인증</button>
+										<button type="button" id="account">계좌 인증</button>
 									</div>
 								</div>
+								<script>
+									$(function(){
+										$('#account').click(function(){
+											var obj = new Object();
+											obj.bank_code_std = '098';
+											obj.account_num = '0001230000678';
+											obj.account_holder_info = '8801012';
+											obj.tran_dtime = '20160310101921';
+											
+											var jsonData = JSON.stringify(obj);
+											
+											console.log(jsonData);
+										$.ajax({
+											crossOrigin: true,
+											url:"https://openapi.open-platform.or.kr/inquiry/real_name",
+											type:"POST",
+											dataType:"json",
+											header: {
+												"Authorization": "Bearer 5a965cd7-0ec3-4312-a7aa-dc8da4838e18",
+												"Access-Control-Allow-Origin":"*"
+												
+											}, 
+											data:{
+												/* "bank_code_std": "098",
+												"account_num": "0001230000678",
+												"account_holder_info": "8801012",
+												"tran_dtime": "20160310101921" */
+												json : jsonData
+											},
+											success: function(data){
+												alert(data.bank_name);
+											}/* , error: function(data){
+												alert('no');
+											} */
+										});
+										});
+									});
+								</script>
 
 
 								<div class="form-group text-center">
