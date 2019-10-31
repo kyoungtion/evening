@@ -13,6 +13,11 @@
 	font-size : 10px;}
 }
 </style>
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
@@ -80,7 +85,48 @@
 							</form>
 						</div>
 					</div>
-					<div id="tab-2" class="tab-content">판매자 전환 내용</div>
+					
+					<!-- 판매자 인증 화면 -->
+					<div id="tab-2" class="tab-content">
+						<div class="content-wrap" style="height:100%">
+							<form action="#">
+								<div class="row form-group">
+									<div class="col-md-12 padding-bottom">
+										<label for="user_id">유저아이디</label> <input type="text"
+											name="user_id" class="form-control" value="유저아이디"
+											style="background: lightgray !important" disabled>
+									</div>
+								</div>
+								<div class="row form-group">
+									<div class="col-md-12">
+										<label for="phone">실명 인증</label>
+										<input type="text" id="name"></input>
+										<button type="button" id="certi">휴대폰 인증</button>
+									</div>
+									<script>
+										$(function(){
+											$('#certi').click(function(){
+												location.href="/WEB-INF/views/member/certification.jsp";
+											})
+										});
+									</script>
+								</div>
+								<div class="row form-group">
+									<div class="col-md-12">
+										<label for="email">계좌 인증</label>
+										<button type="button">계좌 인증</button>
+									</div>
+								</div>
+
+
+								<div class="form-group text-center">
+									<input type="submit" value="판매자 전환신청" class="btn btn-primary">
+									<input type="reset" value="취소" class="btn btn-info">
+								</div>
+							</form>
+						</div>
+					
+					</div>
 
 				</div>
 
