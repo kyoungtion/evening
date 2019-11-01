@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,20 +25,19 @@
 
 <!-- Owl Carousel -->
 <link rel="stylesheet" href="resources/css/owl.carousel.min.css">
-<link rel="stylesheet"
-	href="resources/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="resources/css/owl.theme.default.min.css">
 
 <!-- Date Picker -->
-<link rel="stylesheet"
-	href="resources/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="resources/css/bootstrap-datepicker.css">
 <!-- Flaticons  -->
-<link rel="stylesheet"
-	href="resources/fonts/flaticon/font/flaticon.css">
+<link rel="stylesheet" href="resources/fonts/flaticon/font/flaticon.css">
 
 <!-- Theme style  -->
 <link rel="stylesheet" href="resources/css/style.css">
 
-<link href="https://fonts.googleapis.com/css?family=Gothic+A1|Noto+Sans+KR&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Gothic+A1|Noto+Sans+KR&display=swap"
+	rel="stylesheet">
 
 <!-- Mypage style (경희) -->
 <link rel="stylesheet" href="resources/css/mypage.css">
@@ -48,11 +47,11 @@
 
 
 <style>
-
 * {
-font-family: 'Noto Sans KR', sans-serif;
-/* font-family: 'Gothic A1', sans-serif; */
+	font-family: 'Noto Sans KR', sans-serif;
+	/* font-family: 'Gothic A1', sans-serif; */
 }
+
 a:hover, a:active, a:focus {
 	color: #D98396;
 	outline: none;
@@ -161,7 +160,7 @@ body {
 	height: 60px;
 	background: white;
 	margin: auto;
-	position: relative;/* 
+	position: relative; /* 
 	border-bottom: 1px solid #D98396; */
 }
 
@@ -251,15 +250,14 @@ body {
 span:after, span:before {
 	background: #D98396 !important;
 }
-
-
-
 </style>
 </head>
 <body>
 
 	<!-- 메뉴바는 어느 페이지든 포함하고 있을 테니 여기서 contextPath 변수 값 만들어주자 -->
-	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
+	<c:set var="contextPath"
+		value="${ pageContext.servletContext.contextPath }"
+		scope="application" />
 
 
 	<header class="ebHeader">
@@ -286,6 +284,7 @@ span:after, span:before {
 									<li><a href="mypost.me">내가 쓴 글</a></li>
 								</ul>
 							</div></li>
+						<li><img src="../push_bell/img/bell.png" alt=""></li>
 					</ul>
 				</div>
 			</div>
@@ -318,7 +317,6 @@ span:after, span:before {
 			</ul>
 		</div>
 	</div>
-
 
 
 
@@ -400,7 +398,7 @@ span:after, span:before {
 	<script src="resources/js/jquery.stellar.min.js"></script>
 	<!-- Main -->
 	<script src="resources/js/main.js"></script>
-	
+
 	<script src="resources/js/mypage.js"></script>
 </body>
 </html>

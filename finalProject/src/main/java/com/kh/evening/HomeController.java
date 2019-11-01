@@ -32,8 +32,9 @@ public class HomeController {
 //		String formattedDate = dateFormat.format(date);
 //		
 //		model.addAttribute("serverTime", formattedDate );
-		 //hansol
+
 		return "home";
+		//1234
 	}
 	
 }
