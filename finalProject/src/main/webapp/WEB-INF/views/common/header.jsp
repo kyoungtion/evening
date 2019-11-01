@@ -275,6 +275,7 @@ span:after, span:before {
 						<li><a href="">로그인</a></li>
 						<li><a href="">회원가입</a></li>
 						<!-- 로그인시 -->
+						
 						<li class="nav_sub"><a>마이페이지</a>
 							<div style="position: fixed;">
 								<ul id="test">
