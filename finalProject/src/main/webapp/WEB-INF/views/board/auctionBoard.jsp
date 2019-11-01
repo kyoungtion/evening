@@ -19,6 +19,8 @@
 				<div class="row">
 					<div class="col-md-10 col-md-push-2">
 						<div class="row row-pb-lg">
+						<!-- 상품 리스트 -->
+						
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
 									<div class="product-img" style="background-image: url(resources/images/item-5.jpg);">
@@ -38,6 +40,8 @@
 									</div>
 								</div>
 							</div>
+							
+							<!-- 삭제예정
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
 									<div class="product-img" style="background-image: url(resources/images/item-6.jpg);">
@@ -57,6 +61,7 @@
 									</div>
 								</div>
 							</div>
+							
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
 									<div class="product-img" style="background-image: url(resources/images/item-7.jpg);">
@@ -76,6 +81,7 @@
 									</div>
 								</div>
 							</div>
+							
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
 									<div class="product-img" style="background-image: url(resources/images/item-8.jpg);">
@@ -94,6 +100,7 @@
 									</div>
 								</div>
 							</div>
+							
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
 									<div class="product-img" style="background-image: url(resources/images/item-9.jpg);">
@@ -244,9 +251,13 @@
 										<p class="price"><span>$300.00</span></p>
 									</div>
 								</div>
-							</div>
+							</div> -->
+							
+							
+							
 						</div>
-						<div class="row">
+						
+						<div class="row"> <!-- 페이지 이동 바 -->
 							<div class="col-md-12">
 								<ul class="pagination">
 									<li class="disabled"><a href="#">&laquo;</a></li>
@@ -258,7 +269,9 @@
 								</ul>
 							</div>
 						</div>
+						
 					</div>
+					
 					<div class="col-md-2 col-md-pull-10">
 						<div class="sidebar"> <!-- 사이드바 -->
 							<div class="side"> <!-- side 하나당 사이이드바 칸 한개씩 추가됨 -->

@@ -302,7 +302,7 @@ span:after, span:before {
 						<li>중고</li>
 					</ul></li>
 					<c:url var="auction" value="auctionList.bo"/>
-				<li class="catalog-tap"><a style="font-size: 21px;" href="auctionList.bo">경매</a>
+				<li class="catalog-tap" onclick="location.href='auctionList.bo'"><a style="font-size: 21px;">경매</a>
 					<!-- <ul class="catalogTag">
 						<li>경매</li>
 						<li>경매</li>
