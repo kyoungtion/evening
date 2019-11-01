@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Created by https://www.gitignore.io/api/java,maven,eclipse
 # Edit at https://www.gitignore.io/?templates=java,maven,eclipse
 
@@ -109,3 +110,7 @@ buildNumber.properties
 .flattened-pom.xml
 
 # End of https://www.gitignore.io/api/java,maven,eclipse
+=======
+/.metadata/
+Servers/
+>>>>>>> d314a95cd64ce906b6b2bb412edb65271b645978
