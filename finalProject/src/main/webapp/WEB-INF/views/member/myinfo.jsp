@@ -55,16 +55,16 @@
 									</div>
 								</div>
 								<div class="row form-group">
-									<div class="col-md-3">
-										<label for="phone">연락처</label> <input type="tel" name="phone"
-											class="form-control" value="01011112222">
+									<div class="col-md-2">
+										<label for="phone">연락처</label> <input type="tel" name="phone1"
+											class="form-control" value="010">
 									</div>
-									<div class="col-md-3">
-										<label for="phone" class="no-drag">&nbsp;</label><input type="tel" name="phone"
-											class="form-control" value="01011112222"></div>
-									<div class="col-md-3">
-										<label for="phone" class="no-drag">&nbsp;</label><input type="tel" name="phone"
-											class="form-control" value="01011112222"></div>
+									<div class="col-md-2">
+										<label for="phone" class="no-drag">&nbsp;</label><input type="tel" name="phone2"
+											class="form-control" value="1111"></div>
+									<div class="col-md-2">
+										<label for="phone" class="no-drag">&nbsp;</label><input type="tel" name="phone3"
+											class="form-control" value="2222"></div>
 								</div>
 								<div class="row form-group">
 									<div class="col-md-12">
