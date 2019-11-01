@@ -46,8 +46,8 @@
 								<div class="row form-group">
 									<div class="col-md-6 padding-bottom">
 										<label for="user_id">유저아이디</label> <input type="text"
-											name="user_id" class="form-control" value="유저아이디"
-											style="background: lightgray !important" disabled>
+											name="user_id" class="form-control no-drag" value="유저아이디"
+											style="background: lightgray !important" readonly>
 									</div>
 									<div class="col-md-6">
 										<label for="nickname">별명</label> <input type="text"
@@ -55,10 +55,16 @@
 									</div>
 								</div>
 								<div class="row form-group">
-									<div class="col-md-12">
+									<div class="col-md-3">
 										<label for="phone">연락처</label> <input type="tel" name="phone"
 											class="form-control" value="01011112222">
 									</div>
+									<div class="col-md-3">
+										<label for="phone" class="no-drag">&nbsp;</label><input type="tel" name="phone"
+											class="form-control" value="01011112222"></div>
+									<div class="col-md-3">
+										<label for="phone" class="no-drag">&nbsp;</label><input type="tel" name="phone"
+											class="form-control" value="01011112222"></div>
 								</div>
 								<div class="row form-group">
 									<div class="col-md-12">
@@ -68,12 +74,40 @@
 								</div>
 
 								<div class="row form-group">
+									<div class="col-md-6" style="display:inline;">
+										<!-- <label for="address">주소</label> <input type="text"
+											name="address" class="form-control" value="서울시 강남구 역삼동"> -->
+										<label for="post">우편번호</label>
+										<input type="text" name="post" class="postcodify_postcode5 form-control" value="" size="6">
+									</div>
+									
+									<div class="col-md-6">
+										<label>&nbsp;&nbsp;검색하기</label><br>
+										<button type="button" id="postcodify_search_button" class="btn btn-default" style="margin-top:5px;">검색</button>
+									</div>
 									<div class="col-md-12">
-										<label for="address">주소</label> <input type="text"
-											name="address" class="form-control" value="서울시 강남구 역삼동">
+										<!-- <label for="address">주소</label> <input type="text"
+											name="address" class="form-control" value="서울시 강남구 역삼동"> -->
+										<label for="post">도로명 주소</label>
+										<input type="text" name="address1" class="postcodify_address form-control" value="">
+									</div>
+									<div class="col-md-12">
+										<!-- <label for="address">주소</label> <input type="text"
+											name="address" class="form-control" value="서울시 강남구 역삼동"> -->
+										<label for="post">상세 주소</label>
+										<input type="text" name="address2" class="postcodify_extra_info form-control" value="">
 									</div>
 								</div>
 
+								<!-- jQuery와 Postcodify를 로딩한다. -->
+								<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+								<script>
+									// 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
+									$(function(){
+										$("#postcodify_search_button").postcodifyPopUp();
+									});
+								</script>
+								
 								<div class="form-group text-center">
 									<input type="submit" value="수정완료" class="btn btn-primary">
 									<input type="button" value="비밀번호변경" class="btn btn-info">
