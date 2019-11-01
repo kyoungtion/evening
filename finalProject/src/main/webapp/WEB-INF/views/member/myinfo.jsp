@@ -13,6 +13,9 @@
 	font-size : 10px;}
 }
 </style>
+<!-- jQuery -->
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
@@ -80,7 +83,79 @@
 							</form>
 						</div>
 					</div>
-					<div id="tab-2" class="tab-content">판매자 전환 내용</div>
+					
+					<!-- 판매자 인증 화면 -->
+					<div id="tab-2" class="tab-content">
+						<div class="content-wrap" style="height:100%">
+							<form action="#">
+								<div class="row form-group">
+									<div class="col-md-12 padding-bottom">
+										<label for="user_id">유저아이디</label> <input type="text"
+											name="user_id" class="form-control" value="유저아이디"
+											style="background: lightgray !important" disabled>
+									</div>
+								</div>
+								<div class="row form-group">
+									<div class="col-md-12">
+										<label for="phone">실명 인증</label>
+										<input type="text" id="name"></input>
+										<button type="button" id="certi">휴대폰 인증</button>
+									</div>
+								</div>
+								<div class="row form-group">
+									<div class="col-md-12">
+										<label for="email">계좌 인증</label>
+										<button type="button" id="account">계좌 인증</button>
+									</div>
+								</div>
+								<script>
+									$(function(){
+										$('#account').click(function(){
+											var obj = new Object();
+											obj.bank_code_std = '098';
+											obj.account_num = '0001230000678';
+											obj.account_holder_info = '8801012';
+											obj.tran_dtime = '20160310101921';
+											
+											var jsonData = JSON.stringify(obj);
+											
+											console.log(jsonData);
+										$.ajax({
+											crossOrigin: true,
+											url:"https://openapi.open-platform.or.kr/inquiry/real_name",
+											type:"POST",
+											dataType:"json",
+											header: {
+												"Authorization": "Bearer 5a965cd7-0ec3-4312-a7aa-dc8da4838e18",
+												"Access-Control-Allow-Origin":"*"
+												
+											}, 
+											data:{
+												/* "bank_code_std": "098",
+												"account_num": "0001230000678",
+												"account_holder_info": "8801012",
+												"tran_dtime": "20160310101921" */
+												json : jsonData
+											},
+											success: function(data){
+												alert(data.bank_name);
+											}/* , error: function(data){
+												alert('no');
+											} */
+										});
+										});
+									});
+								</script>
+
+
+								<div class="form-group text-center">
+									<input type="submit" value="판매자 전환신청" class="btn btn-primary">
+									<input type="reset" value="취소" class="btn btn-info">
+								</div>
+							</form>
+						</div>
+					
+					</div>
 
 				</div>
 
