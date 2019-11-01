@@ -81,20 +81,29 @@
 										<td>d</td>
 										<td>d</td>
 										<td>d</td>
-										<td><button class="btn btn-info">입찰수정</button></td>
+										<td><button onclick="updateAuc();" class="btn btn-primary">입찰수정</button></td>
 									</tr>
 									<tr>
 										<td>d</td>
 										<td>d</td>
 										<td>d</td>
 										<td>d</td>
-										<td><button class="btn btn-info">입찰수정</button></td>
+										<td><button onclick="updateAuc();" class="btn btn-primary">입찰수정</button></td>
 									</tr>
 								</tbody>
 							</table>
-
 						</div>
 					</div>
+					<script>
+						function updateAuc(){
+							var url="updateAucView.me";
+							var name="입찰내역 수정";
+							
+							var option="width=620px, height=450px, top=100, left=200, resizable=0, location=0, scrollbars=0, tollbars=0, status=0";
+							window.open(url, name, option);
+						}
+					
+					</script>
 					<div id="tab-2" class="tab-content">
 						<div class="deal-container">
 							<table class="deal-table">

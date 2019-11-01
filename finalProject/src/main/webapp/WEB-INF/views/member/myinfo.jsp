@@ -112,9 +112,9 @@
 									$(function(){
 										$('#account').click(function(){
 											var obj = new Object();
-											obj.bank_code_std = '098';
-											obj.account_num = '0001230000678';
-											obj.account_holder_info = '8801012';
+											obj.bank_code_std = '011';
+											obj.account_num = '3124553932141';
+											obj.account_holder_info = '9410062';
 											obj.tran_dtime = '20160310101921';
 											
 											var jsonData = JSON.stringify(obj);
@@ -126,9 +126,7 @@
 											type:"POST",
 											dataType:"json",
 											header: {
-												"Authorization": "Bearer 5a965cd7-0ec3-4312-a7aa-dc8da4838e18",
-												"Access-Control-Allow-Origin":"*"
-												
+												"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAwNzAyOTkzIiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE1ODAzNzMxNjcsImp0aSI6ImViNjAwZmY2LTJlNDQtNDM5Zi05NzNkLTJlMzc0MjgxYjE2OSJ9.9YKMsdLa2eHlDSuEu8d5n0IpMl3iHBkUXk7c3_-ONpE"
 											}, 
 											data:{
 												/* "bank_code_std": "098",
@@ -137,7 +135,7 @@
 												"tran_dtime": "20160310101921" */
 												json : jsonData
 											},
-											success: function(data){
+											then: function(data){
 												alert(data.bank_name);
 											}/* , error: function(data){
 												alert('no');
