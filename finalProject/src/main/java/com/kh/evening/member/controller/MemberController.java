@@ -42,4 +42,16 @@ public class MemberController {
 	public String updateAucView() {
 		return "updateAuc";
 	}
+	
+	@RequestMapping("login.me")
+	public String login() {
+		return "login";
+	}
+	
+	@RequestMapping("searchidpwd.me")
+	public String searchidpwd() {
+		return "searchidpwd";
+	}
+	
+	
 }
