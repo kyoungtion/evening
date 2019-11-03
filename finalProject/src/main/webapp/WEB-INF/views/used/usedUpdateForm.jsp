@@ -113,9 +113,7 @@
 				</div>
 			</div>
 			<div style="display: inline-block;width: 90%;">
-				<div style="height: 30px; background: lemonchiffon;margin-top: -30px;">글쓰기 보조툴
-
-				</div>
+				<c:import url="/WEB-INF/views/common/toolbar.jsp"/>
 
 
 				<div id="text" contenteditable="true"
