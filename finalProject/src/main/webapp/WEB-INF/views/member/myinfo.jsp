@@ -55,24 +55,15 @@
 									</div>
 								</div>
 								<div class="row form-group">
-									<div class="col-md-2">
+									<div class="col-md-6">
 										<label for="phone">연락처</label> <input type="tel" name="phone1"
 											class="form-control" value="010">
 									</div>
-									<div class="col-md-2">
-										<label for="phone" class="no-drag">&nbsp;</label><input type="tel" name="phone2"
-											class="form-control" value="1111"></div>
-									<div class="col-md-2">
-										<label for="phone" class="no-drag">&nbsp;</label><input type="tel" name="phone3"
-											class="form-control" value="2222"></div>
-								</div>
-								<div class="row form-group">
-									<div class="col-md-12">
+									<div class="col-md-6">
 										<label for="email">이메일</label> <input type="email"
 											name="email" class="form-control" value="user@gmail.com">
 									</div>
 								</div>
-
 								<div class="row form-group">
 									<div class="col-md-6" style="display:inline;">
 										<!-- <label for="address">주소</label> <input type="text"
