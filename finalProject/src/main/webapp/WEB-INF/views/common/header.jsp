@@ -71,7 +71,7 @@
 						<li><a href="">회원가입</a></li>
 						<!-- 로그인시 -->
 						<li class="nav_sub"><a>마이페이지</a>
-							<div style="position: fixed;">
+						<div style="position: fixed;">
 								<ul id="test">
 									<li><a href="myinfo.me">내정보보기</a></li>
 									<li><a href="favorites.me">관심 목록</a></li>
@@ -95,13 +95,14 @@
 						<li>중고</li>
 						<li>중고</li>
 					</ul></li>
-				<li class="catalog-tap"><a style="font-size: 21px;">경매</a>
-					<ul class="catalogTag">
+					<c:url var="auction" value="auctionList.bo"/>
+				<li class="catalog-tap" onclick="location.href='auctionList.bo'"><a style="font-size: 21px;">경매</a>
+					<!-- <ul class="catalogTag">
 						<li>경매</li>
 						<li>경매</li>
 						<li>경매</li>
 						<li>경매</li>
-					</ul></li>
+					</ul> --></li>
 				<li class="catalog-tap"><a style="font-size: 21px;">게시판</a>
 					<ul class="catalogTag">
 						<li>게시판</li>
