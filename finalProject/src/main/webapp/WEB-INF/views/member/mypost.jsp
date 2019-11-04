@@ -43,6 +43,12 @@
 	text-align: left !important;
 }
 
+tbody tr:hover {
+	background-color: whitesmoke;
+	font-weight: bold;
+	cursor:pointer;
+}
+
 </style>
 </head>
 <body>
@@ -66,10 +72,10 @@
 							<li class="tab-link current" data-tab="tab-1">글 목록</li>
 						</ul>
 						<div id="tab-1" class="tab-content current">
-							<select>
-								<option>커뮤니티</option>
-								<option>삽니다</option>
-								<option>문의게시판</option>
+							<select id="boardSelect" onchange="changeBoardSelect();">
+								<option value="communityBoard">커뮤니티</option>
+								<option value="sellingBoard">삽니다</option>
+								<option value="qnaBoard">문의게시판</option>
 							</select><br>
 							<br>
 							<div class="post-container">
@@ -121,6 +127,18 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		$('tbody tr').on('click', function(){
+			location.href="#";
+		});
+		
+		function changeBoardSelect() {
+			var boardSelect = document.getElementById('boardSelect');
+			var selectValue = boardSelect.options[boardSelect.selectedIndex].value;
+			
+			//location.href=selectValue+".me";
+		}
+	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>

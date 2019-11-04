@@ -212,8 +212,10 @@
 			<artifactId>gson</artifactId>
 			<version>2.8.5</version>
 		</dependency>
+		
 		<!-- HikariCP 커넥션풀 -->        
 		<dependency>
+<<<<<<< HEAD
         <groupId>com.zaxxer</groupId>
         <artifactId>HikariCP</artifactId>
         <version>3.4.1</version>
@@ -227,6 +229,12 @@
 		</dependency>
     	
     	
+=======
+	        <groupId>com.zaxxer</groupId>
+	        <artifactId>HikariCP</artifactId>
+	        <version>3.4.1</version>    
+	    </dependency>
+>>>>>>> origin/Lasan
 	</dependencies>
     <build>
         <plugins>
