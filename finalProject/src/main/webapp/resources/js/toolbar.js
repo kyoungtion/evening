@@ -54,6 +54,10 @@
 				if (!$(e.target).is('.int-sort-bar, .is_btn,.is_img')) {
 					$('.intSort').removeClass('on');
 				}
+				if (!$(e.target).is('#ivideo ,.int-video-bar, #urlInput,.inVideo *' )) {
+					$('.inVideo').removeClass('on');
+				}
+				
 			});
 
 			$('.fs_btn').on("click", function () {
@@ -76,7 +80,6 @@
 			$('.insertVideo').on("click", function () {
 				$('.inVideo').toggleClass('on');
 			});
-
 
 			$('#rgbValue').bind("DOMSubtreeModified", function () {
 				$('.selectC').css('background-color', $('#rgbValue').text());
@@ -115,6 +118,21 @@
 					window.getSelection().focusNode.parentElement.closest('ol').style.listStyleType = $(this).attr('value');
 					$("#insertField").focus();
 				});
+				
+				$('.fontM4').click(function () {
+					$("#insertField").focus();
+					let regex = /(http|https):\/\/www.youtube.com/
+					var vURL = ($('#urlInput').val().replace('watch?v=','embed/'))+'?&wmode=opaque';
+					if(regex.test(vURL)){
+						document.execCommand('insertHTML',false,
+								"<iframe width='640' height='360' src='"+vURL+"' frameborder='0' allowfullscreen='' class='fr-draggable'></iframe>");
+						$("#insertField").focus();
+					}else{
+						alert('정확하지 않은 url입니다.');
+						
+					}
+					
+				});
 
 				$('.ftc-btn').click(function () {
 					textOptionBtn2('foreColor', false, $('#rgbValue').text());
@@ -125,16 +143,12 @@
 				$('.insertImg').click(function () {
 					$('#trImgFile').click();
 				});
+				
 
 				function trInputChange(value) {
 					console.log(value);
 
 				};
-				
-				
-			
-				
-				
-
 
 			});
+			
