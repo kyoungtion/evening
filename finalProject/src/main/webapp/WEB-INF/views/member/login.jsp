@@ -8,24 +8,47 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport"
     content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
+
+  <!-- 카카오 로그인 관련  -->
   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+  
+  <!--구글 로그인 관련  -->
   <script src="https://ajax.googleleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="colors.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <meta name="google-signin-client_id"
     content="771961646010-vn99g36mbkraddshtf6brr57s94n7ivg.apps.googleusercontent.com">
 
+ <!-- 도로명 주소 관련   -->	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script language="javascript">
 
+	  <script>
+	    function onSignIn(googleUser) {
+	      var profile = googleUser.getBasicProfile();
+	      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	      console.log('Name: ' + profile.getName());
+	      console.log('Image URL: ' + profile.getImageUrl());
+	      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	    }
+	    
+	    
+  	function goPopup(){
+  	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+  	    var pop = window.open("/popup/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+  	    
+  		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+  	    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+  	}
+  	
+  	/** API 서비스 제공항목 확대 (2017.02) **/
+  	function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn
+  							, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
+  		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+  		document.form.user_address.value = roadFullAddr;
+  		document.form.zipNo.value = zipNo;
+  	}
 
-
-  <script>
-    function onSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log('Name: ' + profile.getName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-    }
   </script>
   <style rel="stylesheet">
     @charset "UTF-8";
@@ -381,7 +404,10 @@
 
  <c:import url="/WEB-INF/views/common/header.jsp" />
 
+	
   <section class="container">
+    
+    <form action="login.me" method="POST" id="loginForm">
     <!-- 일반회원 로그인 및 회원 가입 틀.  -->
     <article class="half">
       <h1>Evening</h1>
@@ -408,11 +434,17 @@
             </div>
           </form>
         </div>
+        </form>
+        
+        <form action="ebinsert.me" method="POST" id="ebinsert.me">
         <div class="signup-cont cont">
           <form action="#" method="post" enctype="multipart/form-data">
 
             <input type="ID" name="user_id" id="ID" class="inpt" required="required" placeholder="Your id">
             <label for="ID">Your id</label>
+            <span class="guide ok"> 이 아이디는 사용 가능합니다.</span>
+            <span class="guide error">이 아이디는 사용할 수 없습니다.</span>
+            <input type="hidden" name="idDuplicateCheck" id="idDuplicateCheck" value="0">
 
             <input type="name" name="user_name" id="name" class="inpt" required="required" placeholder="Your name">
             <label for="name">Your name</label>
@@ -435,8 +467,14 @@
               placeholder="Resident registration number">
             <label for="registration">Resident registration number</label>
 
-            <input type="Address" name="user_address" id="Address" class="inpt" required="required" placeholder="Address">
+            <input type="Address" name="user_address" id="Address" class="inpt" required="required" placeholder="Address" onclick="goPopup();">
             <label for="Address">Address</label>
+            
+            <!-- 도로명 주소입력 (우편번호,상세주소1,2 구분 없이 user_address 에 한번에 입력  -->
+            <!-- user_address 라벨 클릭시 도로명 주소 검색창 나오기. -->
+            
+            
+            
 
             <input type="Phone" name="user_phone" id="Phone" class="inpt" required="required" placeholder="Phone">
             <label for="Phone">Phone</label>
@@ -444,14 +482,15 @@
 
 
 
-            <div class="submit-wrap">
-              <input type="submit" value="Sign up" class="submit">
-              <a href="#" class="more">Evening</a>
-            </div>
+            	<div class="submit-wrap">
+             	   <input type="submit" value="Sign up" class="submit">
+             	   <a href="#" class="more">Evening</a>
+            	</div>
           </form>
         </div>
       </div>
     </article>
+    </form>
 
     <!-- 우측 카카오 로그인 및 구글 로그인 화면 만들기 -->
     <div class="half bg">

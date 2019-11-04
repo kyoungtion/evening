@@ -5,12 +5,12 @@ import java.sql.Date;
 public class Member {
 	
 	private String user_id;
-	private String user_name;
 	private String rank_code;
 	private String user_pwd;
 	private String nickName;
-	private String user_residentNumber;
+	private String user_name;
 	private String phone;
+	private String user_residentNumber;
 	private String address;
 	private Date enroll_date;
 	private Date update_date;
