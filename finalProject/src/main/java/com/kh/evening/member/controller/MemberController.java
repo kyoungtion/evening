@@ -37,4 +37,9 @@ public class MemberController {
 	public String mypost() {
 		return "mypost";
 	}
+	
+	@RequestMapping("updateAucView.me")
+	public String updateAucView() {
+		return "updateAuc";
+	}
 }
