@@ -6,4 +6,5 @@
 <fullyQualifiedTypeName name="com.kh.evening.board.model.exception.BoardException"/>
 <fullyQualifiedTypeName name="lombok.Getter"/>
 <fullyQualifiedTypeName name="lombok.Setter"/>
+<fullyQualifiedTypeName name="com.kh.evening.common.Pageination"/>
 </qualifiedTypeNameHistroy>
