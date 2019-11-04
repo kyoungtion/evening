@@ -3,14 +3,22 @@
 <mapper namespace="memberMapper">
 
 	<!-- 암호화 후 로그인  -->
-
+	<select id="selectOne" parameterType="Member" resultType="Member"
+		resultMap="memberResultSet">
+		
+		select *
+		 from member
+		 where id=#{id}
+		 	and m_status='Y'
+	</select>
+	
 	<resultMap type="Member" id="memberResultSet">
 		<id property="user_id" column="USER_ID"/>
 		<result property="rank_code" column="RANK_CODE"/>
 		<result property="user_pwd" column="USER_PWD"/>
 		<result property="nickName" column="NICKNAME"/>
 		<result property="user_name" column="USER_NAME"/>
-		<result property="user_email" coloumn="USER_EMAIL"/>
+		<result property="user_email" column="USER_EMAIL"/>
 		<result property="phone" column="PHONE"/>
 		<result property="user_residentNumber" column="USER_RESIDENTNUMBER"/>
 		<result property="address" column="ADDRESS"/>
@@ -29,7 +37,6 @@
 		values(#{user_id}, default,#{user_pwd}, #{user_nickName},#{user_email}, #{user_name},
 			   #{user_phone},#{user_residentNumber),#{address},
 			   	 sysdate,sysdate,default,default,default,sysdate,default		  
-			     	
 	</insert>
 
 

@@ -408,7 +408,7 @@
   <section class="container">
     
     <form action="login.me" method="POST" id="loginForm">
-    <!-- 일반회원 로그인 및 회원 가입 틀.  -->
+    <!-- 일반회원 로그인-->
     <article class="half">
       <h1>Evening</h1>
       <div class="tabs">
@@ -436,6 +436,7 @@
         </div>
         </form>
         
+        <!-- 회원가입용   -->
         <form action="ebinsert.me" method="POST" id="ebinsert.me">
         <div class="signup-cont cont">
           <form action="#" method="post" enctype="multipart/form-data">
