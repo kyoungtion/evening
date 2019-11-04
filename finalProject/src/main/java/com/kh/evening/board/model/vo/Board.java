@@ -26,7 +26,8 @@ public class Board {
   private String SG_CHECK;      // 거래완료 여부
   private Date SG_ENROLL_DATE;  // 가입일
   private Date SG_UPDATE_DATE;  // 수정일
-  private String SG_STATUS;            // 삭제여부
+  private String SG_STATUS;     // 삭제여부
+  private Date SG_END_DATE;     // 경매 종료일
   
   
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.kh.evening.board.model.dao.BoardDAO;
 import com.kh.evening.board.model.vo.Board;
+import com.kh.evening.board.model.vo.PageInfo;
 
 @Service("bService")
 public class BoardService {
@@ -16,8 +17,12 @@ public class BoardService {
   @Autowired
   private BoardDAO bDAO;
 
-  public ArrayList<Board> boardList() {
-    return bDAO.boardList(sqlSession);
+  public ArrayList<Board> boardList(PageInfo pi) {
+    return bDAO.boardList(sqlSession,pi);
+  }
+
+  public int getAuctionListCount() {
+    return bDAO.getAuctionListCount(sqlSession);
   }
 
 }

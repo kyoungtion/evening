@@ -4,8 +4,12 @@
 
 	<select id="boardList" resultType="Board">
 		select * from second_goods
-		where SG_STATUS='N' AND SG_CHECK='N'
+		where SG_STATUS='N'
 		order by SG_ID desc
+	</select>
+	
+	<select id="getAuctionListCount" resultType="_int">
+		select count(*) from second_goods where sg_status='N'
 	</select>
 
 
