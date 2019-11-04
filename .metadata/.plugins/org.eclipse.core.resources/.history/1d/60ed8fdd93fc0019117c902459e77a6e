@@ -1,0 +1,12 @@
+package com.kh.evening.board.model.vo;
+
+public class PageInfo {
+    
+  private int listCount;    // 총 게시글 갯수
+  private int pageLimit;    // 페이지 제한 ( 보여줄 페이지 수 )
+  private int maxPage;      // 최대 몇페이지까지 있는지
+  private int startPage;    // 시작 페이지
+  private int endPage;      // 끝 페이지
+  private int boardLimit;   // 한페이지에 몇개의 게시글을 보여주는지
+
+}

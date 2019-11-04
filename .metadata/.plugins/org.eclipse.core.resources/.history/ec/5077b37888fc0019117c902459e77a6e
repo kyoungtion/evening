@@ -1,0 +1,5 @@
+package com.kh.evening.board.model.exception;
+
+public class BoardException {
+
+}

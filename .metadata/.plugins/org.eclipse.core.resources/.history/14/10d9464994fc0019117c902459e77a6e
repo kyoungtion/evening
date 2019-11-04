@@ -1,0 +1,17 @@
+package com.kh.evening.common;
+
+import com.kh.evening.board.model.vo.PageInfo;
+
+public class Pageination {
+  
+  public static PageInfo getPageInfo(int currentPage, int listCount) {
+     PageInfo pi = null;
+     
+     int pageLimit=5;
+     int maxPage;
+     int startPage;
+     int endPage;
+     int boardLimit=6;
+  }
+
+}

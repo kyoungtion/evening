@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -21,25 +23,52 @@
 						<div class="row row-pb-lg">
 						<!-- 상품 리스트 -->
 						
-							<div class="col-md-4 text-center">
-								<div class="product-entry">
-									<div class="product-img" style="background-image: url(resources/images/item-5.jpg);">
-										<p class="tag"><span class="new">New</span></p>
-										<div class="cart">
-											<p>
-												<span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span> 
-												<span><a href="product-detail.html"><i class="icon-eye"></i></a></span> 
-												<span><a href="#"><i class="icon-heart3"></i></a></span>
-												<span><a href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span>
-											</p>
+						<c:if test="${ fn:length(alist) > 0 }">
+						<c:set var="imageCount" value="1"/>
+							<c:forEach var="i" items="${ alist }" begin="0" end="${ fn:length(alist) }">
+								<div class="col-md-4 text-center">
+									<div class="product-entry">
+										<div class="product-img" style="background-image: url(resources/images/item-${imageCount}.jpg);">
+										
+										<c:set var="imageCount" value="${imageCount + 1}"/>
+										<c:if test="${ imageCount > 15 }">
+											<c:set var="imageCount" value="1"/>
+										</c:if> <!-- 테스트용  -->
+											<jsp:useBean id="now" class="java.util.Date"/>
+											<fmt:parseDate var="enroll" value="${ i.SG_ENROLL_DATE }" pattern="yyyy-MM-dd"/>
+											
+											<fmt:parseNumber value="${ now.time / (1000*60*60*24) }" integerOnly="true" var="nowDays"/>
+											<fmt:parseNumber value="${ enroll.time / (1000*60*60*24) }" integerOnly="true" var="enrollDays"/>
+											
+											<c:if test="${ ( nowDays - enrollDays ) < 8 }">
+												<p class="tag"><span class="new">New</span></p>
+											</c:if>
+										
+											<div class="cart">
+												<p>
+													<span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span> 
+													<span><a href="product-detail.html"><i class="icon-eye"></i></a></span> 
+													<span><a href="#"><i class="icon-heart3"></i></a></span>
+													<span><a href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span>
+												</p>
+											</div>
+										</div>
+										<div class="desc">
+											<h3><a href="product-detail.html">${ i.SG_BNAME }</a></h3>
+											<p class="price">급매가<span> <br> <fmt:formatNumber value="${i.SG_PRICE }" type="currency"/></span></p>
+											<p class="price">경매시작가<span> <br> <fmt:formatNumber value="${i.SG_SPRICE }" type="currency"/></span></p>
+											
+											테스트 : 7일까지는 'New' <br>
+											현재 : ${ now } , ${ nowDays } <br>
+											등록일 : ${ enroll }, ${ enrollDays }
+											<br>
+											차이 : ${ nowDays - enrollDays } 일
+											
 										</div>
 									</div>
-									<div class="desc">
-										<h3><a href="product-detail.html">Floral Dress</a></h3>
-										<p class="price"><span>$300.00</span></p>
-									</div>
 								</div>
-							</div>
+							</c:forEach>
+						</c:if>
 							
 							<!-- 삭제예정
 							<div class="col-md-4 text-center">
