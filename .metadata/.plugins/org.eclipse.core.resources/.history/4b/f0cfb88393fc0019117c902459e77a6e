@@ -1,7 +1,0 @@
-package com.kh.evening.board.model.vo;
-
-public class PageInfo {
-  
-  public static PageInfo getPageInfo(int currentPage, int listCount)
-
-}
