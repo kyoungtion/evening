@@ -45,6 +45,11 @@
 <link rel="stylesheet" href="resources/css/header.css">
 <!-- Modernizr JS -->
 <script src="resources/js/modernizr-2.6.2.min.js"></script>
+<!-- fontAwesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/v4-shims.css">
+<script defer src="https://use.fontawesome.com/releases/v5.11.2/js/all.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.11.2/js/v4-shims.js"></script>
 <style>
 	* {font-family: 'Noto Sans KR', sans-serif !important;}
 </style>

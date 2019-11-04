@@ -53,6 +53,7 @@ tbody tr:hover {
 	border: 1px white solid !important;
 }
 
+.displaynone {display:none;}
 </style>
 </head>
 <body>
@@ -69,39 +70,40 @@ tbody tr:hover {
 								<div class="post-container">
 									<table class="mypost">
 										<colgroup>
-											<col style="width: 100px;">
+											<col style="width: 50px;">
 											<col style="width: 100px;" class="displaynone">
-											<col style="width: 350px;">
-											<col style="width: 150px;">
-											<col style="width: 150px;" class="">
+											<col style="width: 400px;">
+											<col style="width: 100px;">
+											<col style="width: 100px;" class="">
 											<col style="width: 55px;" class="displaynone">
 										</colgroup>
 										<thead>
 											<tr>
-												<th style="width: 30px;">No.</th>
-												<th style="width: 450px;">제목</th>
-												<th style="width: 80px;">작성일</th>
-												<th style="width: 80px;">조회수</th>
+												<th scope="col">&nbsp;번호</th>
+												<th scope="col" class="displaynone">&nbsp;카테고리</th>
+												<th scope="col">&nbsp;제목</th>
+												<th scope="col">&nbsp;작성자</th>
+												<th scope="col" class="">&nbsp;작성일</th>
+												<th scope="col" class="displaynone">&nbsp;조회</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
-												<td>3</td>
-												<td class="post-title">안녕하세요</td>
-												<td>2019/10/24</td>
-												<td>100</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td class="post-title">안녕하세요</td>
-												<td>2019/10/23</td>
-												<td>89</td>
-											</tr>
-											<tr>
 												<td>1</td>
-												<td class="post-title">안녕하세요</td>
-												<td>2019/10/22</td>
-												<td>33</td>
+												<td class="displaynone"></td>
+												<td>
+												<!-- 잠금아이콘 --> <img
+													src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_lock.gif"
+													alt="비밀글" class="ec-common-rwd-image"> <!-- 파일제목 -->
+													<a href="/board/free/read.html?no=2582213&amp;board_no=57"
+													style="color: #333333;">[개선해주세요]</a> <!-- 파일첨부 아이콘 --> <img
+													src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
+													alt="파일첨부" class="ec-common-rwd-image"> <span
+													class="comment">[1]</span>
+												</td>
+												<td class="post-title">작성자</td>
+												<td>작성일</td>
+												<td class="displaynone"></td>
 											</tr>
 										</tbody>
 									</table>
