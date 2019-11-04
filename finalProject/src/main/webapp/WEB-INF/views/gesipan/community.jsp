@@ -47,6 +47,12 @@ tbody tr:hover {
 	font-weight: bold;
 	cursor:pointer;
 }
+
+
+#tab-1{
+	border: 1px white solid !important;
+}
+
 </style>
 </head>
 <body>
@@ -56,11 +62,20 @@ tbody tr:hover {
 			<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 100%;">
 				<div class="contact-wrap" style="height: 900px;">
 					<form style="height: 100%;">
+					<h4>커뮤니티 게시판</h4>
 						<div class="container">
 							
 							<div id="tab-1" class="tab-content current">
 								<div class="post-container">
 									<table class="mypost">
+										<colgroup>
+											<col style="width: 100px;">
+											<col style="width: 100px;" class="displaynone">
+											<col style="width: 350px;">
+											<col style="width: 150px;">
+											<col style="width: 150px;" class="">
+											<col style="width: 55px;" class="displaynone">
+										</colgroup>
 										<thead>
 											<tr>
 												<th style="width: 30px;">No.</th>

@@ -38,14 +38,14 @@ select {
 	border: whitesmoke;
 }
 
-::-webkit-scrollbar {
+ ::-webkit-scrollbar table{
 	display: none;
 }
 </style>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
-	<div class="my-panel" style="width: 80%; height: 1000px; margin: auto;">
+	<div class="my-panel" style="width: 100%; height: 1000px; margin: auto;">
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 100%;">
 			<div class="contact-wrap" style="height: 950px;">
 				<form style="height: 100%;">
@@ -116,7 +116,7 @@ select {
 						</div>
 						<br>
 						<div class="boardList crema-hide"
-							style="height: 400px; background: white; overflow: scroll; -ms-overflow-style: none;">
+							style="height: 400px; background: white;">
 							<table border="1" summary="">
 								<colgroup
 									class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 ">

@@ -45,7 +45,9 @@
 <link rel="stylesheet" href="resources/css/header.css">
 <!-- Modernizr JS -->
 <script src="resources/js/modernizr-2.6.2.min.js"></script>
-
+<style>
+	* {font-family: 'Noto Sans KR', sans-serif !important;}
+</style>
 </head>
 <body>
 

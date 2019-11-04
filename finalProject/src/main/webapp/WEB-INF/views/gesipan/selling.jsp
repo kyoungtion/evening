@@ -57,7 +57,7 @@ tbody tr:hover {
 				<div class="contact-wrap" style="height: 900px;">
 					<form style="height: 100%;">
 						<div class="container">
-							
+							<h4>삽니다 게시판</h4>
 							<div id="tab-1" class="tab-content current">
 								<div class="post-container">
 									<table class="mypost">
