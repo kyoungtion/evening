@@ -24,13 +24,6 @@ public class UsedController {
 	@Autowired
 	private UsedService uService;
 	
-	@RequestMapping("insertImg.ud")
-	public void textInsertImg(@RequestParam("trImgFile") MultipartFile uploadFile,
-								HttpServletRequest request,HttpServletResponse response) throws IOException {
-		String imgrename= saveImg(uploadFile,request,response);
-		System.out.println("test");
-	}
-	
 	@RequestMapping("usedListAll.ud")
 	public String selectListAll() {
 		
@@ -58,36 +51,5 @@ public class UsedController {
 	
 	
 	
-	
-	public String saveImg(MultipartFile file,HttpServletRequest request,HttpServletResponse response) throws IOException {
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root+"\\usedTextImgs";
-		
-		File folder = new File(savePath);
-		if(!folder.exists()) {
-			folder.mkdirs();
-		}
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
-		String oringinFileName = file.getOriginalFilename();
-		String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis()))
-								+ (int)(Math.random()*1000)+1 +"."
-								+ oringinFileName.substring(oringinFileName.lastIndexOf(".")+1);
-		String renamePath = folder+"\\"+renameFileName;
-		
-		JSONObject result = new JSONObject();
-		result.put("imgName", renameFileName);
-		
-		response.setContentType("application/json");
-		response.getWriter().print(result.toJSONString());
-		
-		try {
-			file.transferTo(new File(renamePath));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return renameFileName;
-	}
 	
 }
