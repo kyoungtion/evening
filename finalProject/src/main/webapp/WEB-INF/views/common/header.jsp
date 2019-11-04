@@ -79,7 +79,9 @@
 									<li><a href="mypost.me">내가 쓴 글</a></li>
 								</ul>
 							</div></li>
-						<li><img src="../push_bell/img/bell.png" alt=""></li>
+						<li><a href="javascript:void(0);"
+							onclick="window.open('pushMain.pu', '알림창', 'top=10, left=10, width=920, height=510, status=no, menubar=no, toolbar=no, resizable=no');"><img
+								src="https://i.imgur.com/CNXbr6P.png"></a></li>
 					</ul>
 				</div>
 			</div>
