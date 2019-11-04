@@ -46,7 +46,7 @@
       position: relative;
       overflow: hidden;
       width: 700px;
-      height: 750px;
+      height: 800px;
       margin: 80px auto 0;
       background-color: #ffffff;
       -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
@@ -392,11 +392,13 @@
       <div class="content">
         <div class="signin-cont cont">
           <form action="#" method="post" enctype="multipart/form-data">
-            <input type="ID" name="ID" id="ID" class="inpt" required="required" placeholder="Your id">
+            <input type="ID" name="user_id" id="ID" class="inpt" required="required" placeholder="Your id">
             <label for="ID">Your id</label>
-            <input type="password" name="password" id="password" class="inpt" required="required"
+            
+            <input type="password" name="user_pwd" id="password" class="inpt" required="required"
               placeholder="Your password">
             <label for="password">Your Password</label>
+            
             <input type="checkbox" id="remember" class="checkbox" checked>
             <label for="remember">Remember me</label>
 
@@ -409,16 +411,19 @@
         <div class="signup-cont cont">
           <form action="#" method="post" enctype="multipart/form-data">
 
-            <input type="ID" name="ID" id="ID" class="inpt" required="required" placeholder="Your id">
+            <input type="ID" name="user_id" id="ID" class="inpt" required="required" placeholder="Your id">
             <label for="ID">Your id</label>
 
-            <input type="email" name="email" id="name" class="inpt" required="required" placeholder="Your name">
+            <input type="name" name="user_name" id="name" class="inpt" required="required" placeholder="Your name">
             <label for="name">Your name</label>
 
-            <input type="email" name="email" id="email" class="inpt" required="required" placeholder="Your email">
+			<input type="nickname" name="nickname" id="nickname" class="inpt" required="required" placeholder="Your nickname">
+            <label for="nickname">Your nickname</label>
+            
+            <input type="email" name="user_email" id="email" class="inpt" required="required" placeholder="Your email">
             <label for="email">Your email</label>
 
-            <input type="password" name="password" id="password" class="inpt" required="required"
+            <input type="password" name="user_pwd" id="password" class="inpt" required="required"
               placeholder="Your password">
             <label for="password">Your password</label>
 
@@ -426,14 +431,14 @@
               required="Confirm Password" placeholder="Confirm Password">
             <label for="Confirm Password">Confirm password</label>
 
-            <input type="registration" name="registration" id="registration" class="inpt" required="registration"
+            <input type="registration" name="user_residentNumber" id="registration" class="inpt" required="registration"
               placeholder="Resident registration number">
             <label for="registration">Resident registration number</label>
 
-            <input type="Address" name="Address" id="Address" class="inpt" required="required" placeholder="Address">
+            <input type="Address" name="user_address" id="Address" class="inpt" required="required" placeholder="Address">
             <label for="Address">Address</label>
 
-            <input type="Phone" name="Phone" id="Phone" class="inpt" required="required" placeholder="Phone">
+            <input type="Phone" name="user_phone" id="Phone" class="inpt" required="required" placeholder="Phone">
             <label for="Phone">Phone</label>
             <!-- <input type="Confirm Phone" name="Confirm Phone" id="Confirm Phone" class="inpt3" required="required" placeholder="Confirm"> -->
 
