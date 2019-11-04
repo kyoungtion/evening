@@ -34,7 +34,7 @@ public class HomeController {
 //		model.addAttribute("serverTime", formattedDate );
 
 		return "home";
-		//1234
+		//20191101오후4
 	}
 	
 }
