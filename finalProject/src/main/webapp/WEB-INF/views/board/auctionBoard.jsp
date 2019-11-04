@@ -144,8 +144,10 @@
 								<div class="fancy-collapse-panel">
 			                  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			                     
+			                     <%-- <c:url var="recentList"></c:url> --%>
 			                     <div><a href="">최근 등록순</a></div>
 			                     <div><a href="">마감 시간순</a></div>
+			                     
 			                     <br>
 			                     <div style="font: bolder; font-size: 15px;">총 상품 수 : ${ pi.listCount }</div>
 			                     
@@ -155,8 +157,7 @@
 
 							<div class="side">
 								<h2>최근에 본 물건</h2>
-								<div>test D</div>
-								<div>test S</div>
+								<div>test</div>
 							</div>
 							 
 						</div>
