@@ -125,7 +125,6 @@
 		<a href="#" class="js-gotop"><i class="icon-arrow-up2"></i></a>
 	</div>
 
-
 	<!-- jQuery -->
 	<script src="resources/js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
