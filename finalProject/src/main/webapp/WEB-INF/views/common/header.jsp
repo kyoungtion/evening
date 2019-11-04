@@ -48,7 +48,7 @@
 
 <style>
 * {
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif !important;
 	/* font-family: 'Gothic A1', sans-serif; */
 }
 
@@ -270,7 +270,7 @@ span:after, span:before {
 					<ul id="hNav">
 						<li><a href="">경매</a></li>
 						<li><a href="usedListAll.ud">중고거래</a></li>
-						<li><a href="">게시판</a></li>
+						<li><a href="community.bo">게시판</a></li>
 						<!-- 비회원시 -->
 						<li><a href="">로그인</a></li>
 						<li><a href="">회원가입</a></li>
@@ -309,11 +309,11 @@ span:after, span:before {
 					</ul></li>
 				<li class="catalog-tap"><a style="font-size: 21px;">게시판</a>
 					<ul class="catalogTag">
-						<li>게시판</li>
-						<li>게시판</li>
-						<li>게시판</li>
-						<li>게시판</li>
-					</ul></li>
+						<li><a href="community.ge">커뮤니티</a></li>
+						<li><a href="selling.ge">삽니다</a></li>
+						<li><a href="qna.ge">문의글</a></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</div>
