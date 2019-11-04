@@ -49,7 +49,6 @@
 		<url-pattern>*.me</url-pattern>
 	</servlet-mapping>
 	
-<<<<<<< HEAD
 	<!-- boardServlet -->
 	<servlet>
 		<servlet-name>boardServlet</servlet-name>
@@ -57,7 +56,14 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/appServlet/board-context.xml</param-value>
-=======
+		</init-param>
+	</servlet>	
+	
+	<servlet-mapping>
+		<servlet-name>boardServlet</servlet-name>
+		<url-pattern>*.bo</url-pattern>
+	</servlet-mapping>
+		
 	<!-- memberServlet -->
 	<servlet>
 		<servlet-name>usedServlet</servlet-name>
@@ -65,19 +71,13 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/appServlet/used-context.xml</param-value>
->>>>>>> origin/Lasan
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+	
 	<servlet-mapping>
-<<<<<<< HEAD
-		<servlet-name>boardServlet</servlet-name>
-		<url-pattern>*.bo</url-pattern>
-=======
 		<servlet-name>usedServlet</servlet-name>
 		<url-pattern>*.ud</url-pattern>
->>>>>>> origin/Lasan
 	</servlet-mapping>
 	
 	

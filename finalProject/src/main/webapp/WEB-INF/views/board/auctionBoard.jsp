@@ -24,7 +24,18 @@
 						
 						<!-- 상품 리스트 -->
 						<c:if test="${ fn:length(alist) > 0 }">
-						<c:set var="imageCount" value="1"/>
+						
+							<!-- 더미 게시판 이미지 설정하기 -->
+							<c:if test="${ pi.currentPage == 1 }">
+								<c:set var="imageCount" value="1"/>
+							</c:if>
+							<c:if test="${ pi.currentPage == 2 }">
+								<c:set var="imageCount" value="7"/>
+							</c:if>
+							<c:if test="${ pi.currentPage == 3 }">
+								<c:set var="imageCount" value="13"/>
+							</c:if>
+						
 							<c:forEach var="i" items="${ alist }" begin="0" end="${ fn:length(alist) }">
 								<div class="col-md-4 text-center">
 									<div class="product-entry">
@@ -80,9 +91,6 @@
 							</c:forEach>
 						</c:if>
 							
-							
-							
-							
 						</div>
 						
 						<div class="row"> <!-- 페이지 이동 바(페이징 처리) -->
@@ -90,7 +98,7 @@
 								<ul class="pagination">
 									<!-- 이전 페이지 -->
 									<c:if test="${ pi.currentPage <= 1 }">
-										<li class="disabled"><a href="#">&laquo;</a></li>
+										<li class="disabled"><a>&laquo;</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage > 1 }">
 										<c:url var="before" value="auctionList.bo">	
@@ -102,7 +110,7 @@
 									<!-- 페이지 -->
 									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 										<c:if test="${ p eq pi.currentPage }">
-											<li class="active"><a href="#">${ p }</a></li>
+											<li class="active"><a>${ p }</a></li>
 										</c:if>
 										
 										<c:if test="${ p ne pi.currentPage }">

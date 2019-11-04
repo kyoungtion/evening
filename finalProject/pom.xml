@@ -215,7 +215,6 @@
 		
 		<!-- HikariCP 커넥션풀 -->        
 		<dependency>
-<<<<<<< HEAD
         <groupId>com.zaxxer</groupId>
         <artifactId>HikariCP</artifactId>
         <version>3.4.1</version>
@@ -227,15 +226,9 @@
 		    <artifactId>lombok</artifactId>
 		    <version>1.18.10</version>
 		</dependency>
-    	
-    	
-=======
-	        <groupId>com.zaxxer</groupId>
-	        <artifactId>HikariCP</artifactId>
-	        <version>3.4.1</version>    
-	    </dependency>
->>>>>>> origin/Lasan
+		
 	</dependencies>
+	
     <build>
         <plugins>
             <plugin>
