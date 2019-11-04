@@ -269,7 +269,7 @@ span:after, span:before {
 				<div id="navTag">
 					<ul id="hNav">
 						<li><a href="">경매</a></li>
-						<li><a href="">중고거래</a></li>
+						<li><a href="usedListAll.ud">중고거래</a></li>
 						<li><a href="">게시판</a></li>
 						<!-- 비회원시 -->
 						<li><a href="">로그인</a></li>
