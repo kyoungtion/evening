@@ -277,3 +277,16 @@
 0:0:0:0:0:0:0:1 - - [04/Nov/2019:19:44:10 +0900] "GET /push_bell/img/bell.png HTTP/1.1" 404 1104
 0:0:0:0:0:0:0:1 - - [04/Nov/2019:19:44:11 +0900] "GET /evening/auctionList.bo?page=1 HTTP/1.1" 200 20532
 0:0:0:0:0:0:0:1 - - [04/Nov/2019:19:44:11 +0900] "GET /push_bell/img/bell.png HTTP/1.1" 404 1104
+127.0.0.1 - - [04/Nov/2019:19:52:42 +0900] "GET / HTTP/1.1" 404 1074
+0:0:0:0:0:0:0:1 - - [04/Nov/2019:19:52:45 +0900] "GET /push_bell/img/bell.png HTTP/1.1" 404 1104
+0:0:0:0:0:0:0:1 - - [04/Nov/2019:19:52:45 +0900] "GET /evening/ HTTP/1.1" 200 19155
+0:0:0:0:0:0:0:1 - - [04/Nov/2019:19:52:46 +0900] "GET /evening/images/item-6.jpg HTTP/1.1" 404 1047
+0:0:0:0:0:0:0:1 - - [04/Nov/2019:19:52:46 +0900] "GET /evening/images/item-7.jpg HTTP/1.1" 404 1047
+0:0:0:0:0:0:0:1 - - [04/Nov/2019:19:52:46 +0900] "GET /evening/images/item-5.jpg HTTP/1.1" 404 1047
+0:0:0:0:0:0:0:1 - - [04/Nov/2019:19:52:46 +0900] "GET /evening/images/item-8.jpg HTTP/1.1" 404 1047
+0:0:0:0:0:0:0:1 - - [04/Nov/2019:19:52:52 +0900] "GET /evening/auctionList.bo HTTP/1.1" 200 20532
+0:0:0:0:0:0:0:1 - - [04/Nov/2019:19:52:52 +0900] "GET /push_bell/img/bell.png HTTP/1.1" 404 1104
+0:0:0:0:0:0:0:1 - - [04/Nov/2019:19:52:59 +0900] "GET /evening/auctionList.bo HTTP/1.1" 200 20532
+0:0:0:0:0:0:0:1 - - [04/Nov/2019:19:52:59 +0900] "GET /push_bell/img/bell.png HTTP/1.1" 404 1104
+0:0:0:0:0:0:0:1 - - [04/Nov/2019:19:54:26 +0900] "GET /evening/auctionList.bo HTTP/1.1" 200 20536
+0:0:0:0:0:0:0:1 - - [04/Nov/2019:19:54:26 +0900] "GET /push_bell/img/bell.png HTTP/1.1" 404 1104
