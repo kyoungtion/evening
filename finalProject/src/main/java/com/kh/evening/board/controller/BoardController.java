@@ -44,6 +44,7 @@ public class BoardController {
     if (alist != null) {
       mv.addObject("alist", alist);
       mv.addObject("pi",pi);
+      mv.addObject("modeSet",modeSet);
       mv.setViewName("auctionBoard");
     } else {
       throw new BoardException("경매 게시판 조회 실패.");
