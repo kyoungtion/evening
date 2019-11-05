@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import com.kh.evening.board.model.vo.Attachment;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.PageInfo;
 
@@ -28,6 +29,11 @@ public class BoardDAO {
     RowBounds rowBounds= new RowBounds(offset, pi.getBoardLimit());
     
     return (ArrayList)sqlSession.selectList("boardMapper.boardEndTimeList",null, rowBounds);
+  }
+
+  public ArrayList<Attachment> auctionFileList(SqlSession sqlSession) {
+    // TODO Auto-generated method stub
+    return (ArrayList)sqlSession.selectList("boardMapper.auctionFileList");
   }
 
   

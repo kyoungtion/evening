@@ -18,6 +18,11 @@
 		WHERE SG_STATUS='N' AND B_CATEGORY='A'
 		ORDER BY FLOOR(SG_END_DATE-SYSDATE)
 	</select>
+	
+	<select id="auctionFileList" resultType="Attachment">
+		SELECT * FROM ADD_FILE
+		WHERE FILE_STATUS='N'
+	</select>
 
 
 </mapper>

@@ -8,6 +8,7 @@
 	
 	<typeAliases>
 		<typeAlias type="com.kh.evening.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.evening.board.model.vo.Attachment" alias="Attachment"/>
 	</typeAliases>
 	
 	<mappers>

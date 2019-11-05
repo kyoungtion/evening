@@ -27,34 +27,25 @@
 						<!-- 상품 리스트 -->
 						<c:if test="${ fn:length(alist) > 0 }">
 						
-							<!-- 더미 게시판 이미지 설정하기 -->
-							<c:if test="${ pi.currentPage == 1 }">
-								<c:set var="imageCount" value="1"/>
-							</c:if>
-							<c:if test="${ pi.currentPage == 2 }">
-								<c:set var="imageCount" value="7"/>
-							</c:if>
-							<c:if test="${ pi.currentPage == 3 }">
-								<c:set var="imageCount" value="13"/>
-							</c:if>
-							<!-- 더미 게시판 이미지 설정 종료 -->
-						
 							<c:forEach var="i" items="${ alist }" begin="0" end="${ fn:length(alist) }">
 								<div class="col-md-4 text-center">
 									<div class="product-entry">
 									
-										<!-- 더미 이미지 삽입 : 디테일, 인설트 등 구현화시  주석처리 된것으로 변경하기 -->
-										<div class="product-img" style="background-image: url(resources/images/item-${imageCount}.jpg);">
-										<%-- <div class="product-img" style="backgorund-image: url(resources/images/${ 첨부파일 값 });"></div> --%>
+										<!-- 이미지 삽입 : 이미지 파일이 여러개일시 첫번째 이름을 등록 -->
+										<c:forEach var="j" items="${ af }" begin="0" end="${ fn:length(af) }">
+											<c:if test="${ j.SG_ID eq i.SG_ID }">
+												<c:forTokens items="${ j.RENAMEFILENAME }" delims="," varStatus="jStatus">
+													<c:if test="${ jStatus.first }">
+														<c:set var="k" value="${ jStatus.current }" />
+													</c:if>
+												</c:forTokens>
+											</c:if>
+										</c:forEach>
+										<div class="product-img" style="background-image: url(resources/images/${ k })">
 										
+										<!-- 사진이 없을시 나타날 공백표시 -->
+										<c:remove var="k"/>
 										
-										<!-- 상품 이미지 임의 설정(더미) -->
-										<c:if test="${ i.SG_ID <= 18 }">
-											<c:set var="imageCount" value="${imageCount + 1}"/>
-											<c:if test="${ imageCount > 15 }">
-												<c:set var="imageCount" value="1"/>
-											</c:if> 
-										</c:if>
 										<!-- 테스트용 ( 날짜 계산 )  -->
 											<jsp:useBean id="now" class="java.util.Date"/>
 											<fmt:parseDate var="enroll" value="${ i.SG_ENROLL_DATE }" pattern="yyyy-MM-dd"/>

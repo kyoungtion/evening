@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.kh.evening.board.model.dao.BoardDAO;
+import com.kh.evening.board.model.vo.Attachment;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.PageInfo;
 
@@ -27,6 +28,10 @@ public class BoardService {
 
   public ArrayList<Board> boardEndTimeList(PageInfo pi) {
     return bDAO.boardEndTimeList(sqlSession, pi);
+  }
+
+  public ArrayList<Attachment> auctionFileList() {
+    return bDAO.auctionFileList(sqlSession);
   }
 
 }
