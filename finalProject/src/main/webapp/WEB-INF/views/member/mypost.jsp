@@ -33,10 +33,10 @@
 							<li class="tab-link current" data-tab="tab-1">글 목록</li>
 						</ul>
 						<div id="tab-1" class="tab-content current">
-							<select id="boardSelect" onchange="changeBoardSelect();">
-								<option value="communityBoard">커뮤니티</option>
-								<option value="sellingBoard">삽니다</option>
-								<option value="qnaBoard">문의게시판</option>
+							<select id="boardSelect">
+								<option value="Community">커뮤니티</option>
+								<option value="Selling">삽니다</option>
+								<option value="QNA">문의게시판</option>
 							</select><br> <br>
 							<div class="container">
 								<div class="row content" style="height:600px;">
@@ -80,7 +80,7 @@
 												<td>324</td>
 												<td class="displaynone"></td>
 												<td class="subject">
-													<!-- 잠금아이콘 --> <img
+													<!-- 잠금아이콘 --><img
 													src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_lock.gif"
 													alt="비밀글" class="ec-common-rwd-image"> 
 													<!-- 파일제목 -->
@@ -138,12 +138,15 @@
 			location.href = "#";
 		});
 
-		function changeBoardSelect() {
-			var boardSelect = document.getElementById('boardSelect');
-			var selectValue = boardSelect.options[boardSelect.selectedIndex].value;
+		
+		$('#boardSelect').change(function(){
 
-			//location.href=selectValue+".me";
-		}
+			selectValue = $('#boardSelect option:selected').val();
+			
+			<%-- user_id = "<%= session.getAttribute("user_id")%>"; --%>
+			
+
+		});
 		
 		
 	</script>

@@ -20,13 +20,14 @@
 				<form style="height: 100%;">
 					<div class="container">
 						<div class="row content" style="background:whitesmoke;">
-							<span id="titlespan" style="font-weight:bold">게시글작성</span>
+							<span id="titlespan" style="font-weight:bold">게시글작성</span>&nbsp;
+							<span id="titlespan" class="locked" style="visibility:hidden; font-size:12px;">비밀글</span><input class="locked" type="checkbox" name="locked" style="visibility:hidden"/>
 							<div class="category" style="float:right;">
 								<label for="cate">카테고리설정</label>
 								<select id="cate">
-									<option>커뮤니티</option>
-									<option>삽니다</option>
-									<option>문의사항</option>
+									<option value="Community">커뮤니티</option>
+									<option value="Selling">삽니다</option>
+									<option value="QNA">문의사항</option>
 								</select><br>
 							</div>
 							<br><br>
@@ -53,9 +54,6 @@
 							<div class="form-group text-center">
 								<input type="submit" value="게시글 작성하기" class="btn btn-primary">
 							</div>
-
-
-
 						</div>
 					</div>
 				</form>
@@ -70,6 +68,23 @@
 
 
 	</div>
+	<script>
+		$(function(){
+			var cateVal = '${category}';
+			$('#cate').val(cateVal).prop("selected", true);
+			
+			$('#cate').change(function(){
+				
+				if($('#cate').val() == 'QNA'){
+					$('.locked').css('visibility','visible');
+				} else {
+					$('.locked').css('visibility','hidden');
+				}
+			});
+		});
+		
+	
+	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 </body>

@@ -2,7 +2,9 @@ package com.kh.evening.gesipan.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.evening.gesipan.model.service.GesipanService;
 
@@ -28,7 +30,8 @@ public class GesipanController {
 	}
 	
 	@RequestMapping("gesipanInsertView.ge")
-	public String qnaInsertView() {
+	public String qnaInsertView(@RequestParam("g_category") String category, Model model) {
+		model.addAttribute("category", category);
 		return "gesipanInsertView";
 	}
 }

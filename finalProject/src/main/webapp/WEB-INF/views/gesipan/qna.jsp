@@ -15,6 +15,7 @@
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
+	<c:set var="cate" value="QNA"/>
 	<div class="my-panel">
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 100%;">
 			<div class="contact-wrap">
@@ -77,7 +78,7 @@
 							<div class="col-md-12">
 								<span id="titlespan">문의사항</span>&nbsp; 궁금하거나 건의할 사항이 있으면 글을 남겨주세요. 최대한 빠르게 답변드리겠습니다.
 								<div style="float: right; padding: 10px; display: block;">
-									<button class="btn btn-default" type="button" style="font-size: 10px;" onclick="location.href='gesipanInsertView.ge'">글쓰기</button>
+									<button class="btn btn-default" type="button" style="font-size: 10px;" onclick="location.href='gesipanInsertView.ge?g_category=${cate}'">글쓰기</button>
 								</div>
 							</div>
 						</div>
