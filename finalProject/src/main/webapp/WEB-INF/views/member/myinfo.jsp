@@ -39,7 +39,6 @@
 		</div>
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 80%;">
 			<div class="contact-wrap" style="height: 900px;">
-				<h3 style="font-size: 15px">내 정보 보기</h3>
 				<div class="container">
 					<ul class="tabs no-drag">
 						<li class="tab-link current" data-tab="tab-1">내 정보 수정</li>

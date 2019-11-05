@@ -60,8 +60,7 @@
 										<td class="displaynone"></td>
 										<td class="subject">
 											<!-- 파일제목 --> 
-											<a href="/board/free/read.html?no=2582213&amp;board_no=57"
-											style="color: #333333;">제목</a> 
+											<span class="title">안녕하세요</span>
 											<!-- 파일첨부 아이콘 -->
 											<img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
 											alt="파일첨부" class="ec-common-rwd-image">
@@ -78,12 +77,13 @@
 										<td class="subject">
 											<!-- 잠금아이콘 --> <img
 											src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_lock.gif"
-											alt="비밀글" class="ec-common-rwd-image"> <!-- 파일제목 --> <a
-											href="/board/free/read.html?no=2582213&amp;board_no=57"
-											style="color: #333333;">[개선해주세요]</a> <!-- 파일첨부 아이콘 --> <img
+											alt="비밀글" class="ec-common-rwd-image"> 
+											<!-- 파일제목 -->
+											<span class="title">반갑습니당</span>
+											<!-- 파일첨부 아이콘 --> <img
 											src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
-											alt="파일첨부" class="ec-common-rwd-image"> <span
-											class="comment">[1]</span>
+											alt="파일첨부" class="ec-common-rwd-image"> 
+											<span class="comment">[1]</span>
 										</td>
 										<td>작성자이름</td>
 										<td class="txtLess ">작성날짜</td>
