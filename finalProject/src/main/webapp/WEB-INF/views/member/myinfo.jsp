@@ -12,6 +12,11 @@
 	button {
 	font-size : 10px;}
 }
+
+.tab-content, .tab-content.current, .tab-content.contact-wrap, .tab-content.current .contact-wrap {background:white !important;}
+.tab-content.current input[type=text], .tab-content.current input[type=email], .tab-content.current input[type=tel]
+{background: whitesmoke !important;}
+.buttons input {font-size:12px;}
 </style>
 <!-- jQuery -->
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -41,13 +46,14 @@
 						<li class="tab-link" data-tab="tab-2">판매자 전환</li>
 					</ul>
 					<div id="tab-1" class="tab-content current">
-						<div class="contact-wrap" style="height: 100%;">
+						<div class="clear-fix" style="width:100%; height:30px;"></div>
+						<div class="contact-wrap" style="height: auto;">
 							<form action="#">
 								<div class="row form-group">
 									<div class="col-md-6 padding-bottom">
 										<label for="user_id">유저아이디</label> <input type="text"
 											name="user_id" class="form-control no-drag" value="유저아이디"
-											style="background: lightgray !important" readonly>
+											readonly>
 									</div>
 									<div class="col-md-6">
 										<label for="nickname">별명</label> <input type="text"
@@ -98,12 +104,11 @@
 										$("#postcodify_search_button").postcodifyPopUp();
 									});
 								</script>
-								
-								<div class="form-group text-center">
+								<div class="clear-fix" style="width:100%; height:80px;"></div>
+								<div class="form-group text-center buttons">
 									<input type="submit" value="수정완료" class="btn btn-primary">
 									<input type="button" value="비밀번호변경" class="btn btn-info">
-									<input type="submit" value="회원탈퇴" class="btn btn-danger"
-										style="float: right;">
+									<input type="submit" value="회원탈퇴" class="btn btn-danger">
 								</div>
 							</form>
 						</div>
@@ -133,42 +138,6 @@
 										<button type="button" id="account">계좌 인증</button>
 									</div>
 								</div>
-								<script>
-									$(function(){
-										$('#account').click(function(){
-											var obj = new Object();
-											obj.bank_code_std = '011';
-											obj.account_num = '3124553932141';
-											obj.account_holder_info = '9410062';
-											obj.tran_dtime = '20160310101921';
-											
-											var jsonData = JSON.stringify(obj);
-											
-											console.log(jsonData);
-										$.ajax({
-											crossOrigin: true,
-											url:"https://openapi.open-platform.or.kr/inquiry/real_name",
-											type:"POST",
-											dataType:"json",
-											header: {
-												"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAwNzAyOTkzIiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE1ODAzNzMxNjcsImp0aSI6ImViNjAwZmY2LTJlNDQtNDM5Zi05NzNkLTJlMzc0MjgxYjE2OSJ9.9YKMsdLa2eHlDSuEu8d5n0IpMl3iHBkUXk7c3_-ONpE"
-											}, 
-											data:{
-												/* "bank_code_std": "098",
-												"account_num": "0001230000678",
-												"account_holder_info": "8801012",
-												"tran_dtime": "20160310101921" */
-												json : jsonData
-											},
-											then: function(data){
-												alert(data.bank_name);
-											}/* , error: function(data){
-												alert('no');
-											} */
-										});
-										});
-									});
-								</script>
 
 
 								<div class="form-group text-center">

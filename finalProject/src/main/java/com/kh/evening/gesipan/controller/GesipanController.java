@@ -27,8 +27,8 @@ public class GesipanController {
 		return "qna";
 	}
 	
-	@RequestMapping("qnaInsertView.ge")
+	@RequestMapping("gesipanInsertView.ge")
 	public String qnaInsertView() {
-		return "qnaInsertView";
+		return "gesipanInsertView";
 	}
 }

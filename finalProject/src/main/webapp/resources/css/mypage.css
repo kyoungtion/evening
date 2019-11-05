@@ -99,3 +99,31 @@ ul.my-tabs a:hover, a:active, a:focus {
 		font-size: 10px;
 	}
 }
+
+.displaynone {display:none;}
+.content-table {width:100%; border:0;}
+.content-table td, .content-table th {border:0;}
+.content-table tbody td {border-bottom:1px solid whitesmoke; height:40px;}
+.row.content {padding:10px; height: 850px; background:white;}
+tbody tr td {
+	font-size: 12px !important;
+}
+.contact-wrap {/* height: 1200px; */}
+.my-panel {background:whitesmoke; width:100%; height:1300px; margin:auto;}
+.panel-title a {
+	color: black !important;
+	font-size: 13px !important;
+}
+#qnaBody td {
+	padding: 5px;
+	border-bottom: 1px solid whitesmoke;
+}
+.pagination li a {
+	padding: 10px 10px !important;
+}
+select {
+	border: whitesmoke;
+}
+
+#searchText {border:0; height:22px;}
+#titlespan{font-size:20px;}
