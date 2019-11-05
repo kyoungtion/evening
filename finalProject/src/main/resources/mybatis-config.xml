@@ -8,10 +8,12 @@
 	
 	<typeAliases>
 		<typeAlias type="com.kh.evening.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.evening.payment.model.vo.Payment" alias="Payment"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mapper/board-mapper.xml"/>
+		<mapper resource="mapper/pay-mapper.xml"/>
 	</mappers>
 
 </configuration>

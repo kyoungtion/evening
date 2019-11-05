@@ -61,13 +61,15 @@
 		<div class="ebHeader-bar no-drag">
 			<div style="height: 100%; overflow: hidden;">
 				<div id="hLogo">
-					<img src="resources/images/eve-logo.png">
+					<img src="resources/images/eve-logo.png" onclick="location.href='index.jsp'">
 				</div>
 				<div id="navTag">
 					<ul id="hNav">
-						<li><a href="">경매</a></li>
+						<li><a href="auctionList.bo">경매</a></li>
 						<li><a href="usedListAll.ud">중고거래</a></li>
 						<li><a href="community.bo">게시판</a></li>
+						<li><a href="community.bo">게시판</a></li>
+						<li><a href="shipInfo.py">결제</a></li>
 						<!-- 비회원시 -->
 						<li><a href="">로그인</a></li>
 						<li><a href="">회원가입</a></li>
