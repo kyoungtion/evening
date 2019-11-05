@@ -37,11 +37,16 @@
 							<c:if test="${ pi.currentPage == 3 }">
 								<c:set var="imageCount" value="13"/>
 							</c:if>
+							<!-- 더미 게시판 이미지 설정 종료 -->
 						
 							<c:forEach var="i" items="${ alist }" begin="0" end="${ fn:length(alist) }">
 								<div class="col-md-4 text-center">
 									<div class="product-entry">
+									
+										<!-- 더미 이미지 삽입 : 디테일, 인설트 등 구현화시  주석처리 된것으로 변경하기 -->
 										<div class="product-img" style="background-image: url(resources/images/item-${imageCount}.jpg);">
+										<%-- <div class="product-img" style="backgorund-image: url(resources/images/${ 첨부파일 값 });"></div> --%>
+										
 										
 										<!-- 상품 이미지 임의 설정(더미) -->
 										<c:if test="${ i.SG_ID <= 18 }">
