@@ -3,13 +3,7 @@
 		
 			var imgNum = 0;
 			var imgCount = 1;
-			$('input[name="dealType"]').change(function () {
-				if ($(this).val() == 2) {
-					$('input[name="dealType2"]').removeAttr("disabled");
-				} else {
-					$('input[name="dealType2"]').attr("disabled", "true");
-				}
-			});
+
 			 function TintsetImg(value) {
 				
 				var imgname = "";

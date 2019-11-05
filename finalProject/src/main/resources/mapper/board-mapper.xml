@@ -11,6 +11,13 @@
 	<select id="getAuctionListCount" resultType="_int">
 		select count(*) from second_goods where sg_status='N'
 	</select>
-
+	
+	<insert id="insertBoard" parameterType="Board">
+	
+	</insert>
+	
+	<insert id="attachmentInsert" parameterType="Attachment">
+	
+	</insert>
 
 </mapper>
