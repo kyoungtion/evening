@@ -49,7 +49,22 @@
 		<url-pattern>*.me</url-pattern>
 	</servlet-mapping>
 	
-	<!-- usedServlet -->
+	<!-- boardServlet -->
+	<servlet>
+		<servlet-name>boardServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/board-context.xml</param-value>
+		</init-param>
+	</servlet>	
+	
+	<servlet-mapping>
+		<servlet-name>boardServlet</servlet-name>
+		<url-pattern>*.bo</url-pattern>
+	</servlet-mapping>
+		
+	<!-- memberServlet -->
 	<servlet>
 		<servlet-name>usedServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -59,26 +74,10 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+	
 	<servlet-mapping>
 		<servlet-name>usedServlet</servlet-name>
 		<url-pattern>*.ud</url-pattern>
-	</servlet-mapping>
-
-	<!-- gesiServlet(일반게시판) -->
-	<servlet>
-		<servlet-name>gesipanServlet</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/gesipan-context.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-		
-	<servlet-mapping>
-		<servlet-name>gesipanServlet</servlet-name>
-		<url-pattern>*.ge</url-pattern>
 	</servlet-mapping>
 	
 	

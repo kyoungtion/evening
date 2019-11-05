@@ -20,7 +20,7 @@
 				   			<div class="col-md-6 col-md-offset-3 col-md-pull-2 col-sm-12 col-xs-12 slider-text">
 				   				<div class="slider-text-inner">
 				   					<div class="desc">
-					   					<h2 class="head-1">실시간 인기 상품을</h1>
+					   					<h2 class="head-1">실시간 인기 상품을</h2>
 					   					<h2 class="head-2">아래에서</h2>
 					   					<h2 class="head-3">만나보세요</h2>
 					   					<p class="category"><span>중고거래 &amp; 중고제품 경매를 한 곳에서</span></p>
