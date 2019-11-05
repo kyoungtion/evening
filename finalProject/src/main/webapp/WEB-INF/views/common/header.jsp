@@ -70,7 +70,7 @@
 				</div>
 				<div id="navTag">
 					<ul id="hNav">
-						<li><a href="">경매</a></li>
+						<li><a href="auctionList.bo">경매</a></li>
 						<li><a href="usedListAll.ud">중고거래</a></li>
 						<li><a href="community.bo">게시판</a></li>
 						<!-- 비회원시 -->
@@ -95,13 +95,13 @@
 	<div class="catalog no-drag">
 		<div style="text-align: center; display: inline-block;">
 			<ul class="catalog-ul">
-				<li class="catalog-tap"><a style="font-size: 21px;">중고</a>
-					<ul class="catalogTag">
+				<li class="catalog-tap" onclick="location.href='secondgoodList.bo'" ><a style="font-size: 21px;">중고</a>
+					<!-- <ul class="catalogTag">
 						<li>중고</li>
 						<li>중고</li>
 						<li>중고</li>
 						<li>중고</li>
-					</ul></li>
+					</ul> --></li>
 					<c:url var="auction" value="auctionList.bo"/>
 				<li class="catalog-tap" onclick="location.href='auctionList.bo'"><a style="font-size: 21px;">경매</a>
 					<!-- <ul class="catalogTag">

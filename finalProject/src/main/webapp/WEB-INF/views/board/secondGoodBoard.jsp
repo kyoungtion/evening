@@ -22,7 +22,7 @@
 					<div class="col-md-10 col-md-push-2">
 						<div class="row row-pb-lg">
 						
-						<h2><span style="font-size: 50px;">경매 거래 게시판</span></h2>
+						<h2><span style="font-size: 50px;">중고 거래 게시판</span></h2>
 						
 						<!-- 상품 리스트 -->
 						<c:if test="${ fn:length(alist) > 0 }">
@@ -59,12 +59,6 @@
 													<c:if test="${ ( nowDays - enrollDays ) <= 7 }">
 														<span class="new">New</span>
 													</c:if>
-													<c:if test="${ (endDays - nowDays) >= 0 }">
-														<span class="sale">D - ${ endDays - nowDays }</span>
-													</c:if>
-													<c:if test="${ (endDays - nowDays) < 0 }">
-														<span class="sale">경매 종료</span>
-													</c:if>
 												</p>
 
 												<div class="cart">
@@ -80,8 +74,7 @@
 										
 										<div class="desc">
 											<h3><a href="product-detail.html">${ i.SG_BNAME }</a></h3>
-											<p class="price">급매가<span> <br> <fmt:formatNumber value="${i.SG_PRICE }" type="currency"/></span></p>
-											<p class="price">경매시작가<span> <br> <fmt:formatNumber value="${i.SG_SPRICE }" type="currency"/></span></p>
+											<p class="price">가격<span> <br> <fmt:formatNumber value="${i.SG_PRICE }" type="currency"/></span></p>
 										</div>
 										
 									</div>
@@ -99,7 +92,7 @@
 										<li class="disabled"><a>&laquo;</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage > 1 }">
-										<c:url var="before" value="auctionList.bo">	
+										<c:url var="before" value="secondgoodList.bo">	
 											<c:param name="page" value="${ pi.currentPage - 1 }"/>
 										</c:url>
 										<li><a href="${ before }">&laquo;</a></li>
@@ -112,7 +105,7 @@
 										</c:if>
 										
 										<c:if test="${ p ne pi.currentPage }">
-											<c:url var="pagination" value="auctionList.bo">
+											<c:url var="pagination" value="secondgoodList.bo">
 												<c:param name="page" value="${ p }"/>
 											</c:url>
 											<li><a href="${ pagination }">${ p }</a></li>
@@ -124,7 +117,7 @@
 										<li class="disabled"><a href="#">&raquo;</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage < pi.maxPage }">
-										<c:url var="after" value="auctionList.bo">
+										<c:url var="after" value="secondgoodList.bo">
 											<c:param name="page" value="${ pi.currentPage + 1 }"/>
 										</c:url>
 										<li><a href="${ after }">&raquo;</a></li>
@@ -142,28 +135,7 @@
 								<div class="fancy-collapse-panel">
 			                  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			                     
-			                     <c:url var="recentList" value="auctionList.bo">
-			                     	<c:param name="page" value="${ pi.currentPage }"/>
-			                     	<c:param name="mode" value="recent"/>
-			                     </c:url>
-			                     
-			                     <c:if test="${ modeSet eq 'recent' }">
-				                     <div style="background-color: orange; padding-left: 10px;"><a href="${ recentList }" style="color: white;">최근 등록순</a></div>
-			                     </c:if>
-			                     <c:if test="${ modeSet ne 'recent' }">
-				                     <div><a href="${ recentList }">최근 등록순</a></div>
-			                     </c:if>
-			                     
-			                     <c:url var="endTimeList" value="auctionList.bo">
-			                     	<c:param name="page" value="${ pi.currentPage }" />
-			                     	<c:param name="mode" value="endTime"/>
-			                     </c:url>
-			                     <c:if test="${ modeSet eq 'endTime' }">
-				                     <div style="background-color: orange; padding-left: 10px;"><a href="${ endTimeList }" style="color: white;">마감 시간순</a></div>
-			                     </c:if>
-			                     <c:if test="${ modeSet ne 'endTime' }">
-				                     <div><a href="${ endTimeList }">마감 시간순</a></div>
-			                     </c:if>
+			                     <div style="background-color: orange; padding-left: 10px;"><a href="#" style="color: white;">최근 등록순</a></div>
 			                     
 			                     <br>
 			                     <div style="font: bolder; font-size: 15px;">총 상품 수 : ${ pi.listCount }</div>

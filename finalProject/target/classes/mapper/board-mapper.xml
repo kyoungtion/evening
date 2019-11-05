@@ -19,10 +19,20 @@
 		ORDER BY FLOOR(SG_END_DATE-SYSDATE)
 	</select>
 	
-	<select id="auctionFileList" resultType="Attachment">
+	<select id="boardFileList" resultType="Attachment">
 		SELECT * FROM ADD_FILE
 		WHERE FILE_STATUS='N'
 	</select>
+	
+	<select id="getSecondGoodListCount" resultType="_int">
+		SELECT COUNT(*) FROM SECOND_GOODS
+		WHERE SG_STATUS='N' AND B_CATEGORY='SG'
+	</select>
 
+	<select id="secondGoodBoardList" resultType="Board">
+		SELECT * FROM SECOND_GOODS
+		WHERE SG_STATUS='N' AND B_CATEGORY='SG'
+		ORDER BY SG_ID DESC
+	</select>
 
 </mapper>

@@ -41,7 +41,7 @@ public class BoardController {
       alist = bService.boardEndTimeList(pi);
     }
     
-    ArrayList<Attachment> af = bService.auctionFileList();
+    ArrayList<Attachment> af = bService.boardFileList();
     
     if (alist != null) {
       mv.addObject("alist", alist);
@@ -53,6 +53,31 @@ public class BoardController {
       throw new BoardException("경매 게시판 조회 실패.");
     }
 
+    return mv;
+  }
+  
+  @RequestMapping("secondgoodList.bo")
+  public ModelAndView secondGoodList(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+    int currentPage = 1;
+    if (page != null) {
+      currentPage = page;
+    }
+    
+    int listCount = bService.getSecondGoodListCount();
+    PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
+
+    ArrayList<Board> alist = bService.secondGoodBoardList(pi);
+    ArrayList<Attachment> af = bService.boardFileList();
+    
+    if (alist != null) {
+      mv.addObject("alist", alist);
+      mv.addObject("pi",pi);
+      mv.addObject("af", af);
+      mv.setViewName("secondGoodBoard");
+    } else {
+      throw new BoardException("중고 게시판 조회 실패.");
+    }
+    
     return mv;
   }
 

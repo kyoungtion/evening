@@ -30,8 +30,17 @@ public class BoardService {
     return bDAO.boardEndTimeList(sqlSession, pi);
   }
 
-  public ArrayList<Attachment> auctionFileList() {
-    return bDAO.auctionFileList(sqlSession);
+  public ArrayList<Attachment> boardFileList() {
+    return bDAO.boardFileList(sqlSession);
   }
+
+  public int getSecondGoodListCount() {
+    return bDAO.getSecondGoodListCount(sqlSession);
+  }
+
+  public ArrayList<Board> secondGoodBoardList(PageInfo pi) {
+    return bDAO.secondGoodBoardList(sqlSession,pi);
+  }
+
 
 }

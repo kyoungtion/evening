@@ -31,10 +31,23 @@ public class BoardDAO {
     return (ArrayList)sqlSession.selectList("boardMapper.boardEndTimeList",null, rowBounds);
   }
 
-  public ArrayList<Attachment> auctionFileList(SqlSession sqlSession) {
-    // TODO Auto-generated method stub
-    return (ArrayList)sqlSession.selectList("boardMapper.auctionFileList");
+  public ArrayList<Attachment> boardFileList(SqlSession sqlSession) {
+    return (ArrayList)sqlSession.selectList("boardMapper.boardFileList");
   }
+
+  public int getSecondGoodListCount(SqlSession sqlSession) {
+    return sqlSession.selectOne("boardMapper.getSecondGoodListCount");
+  }
+
+  public ArrayList<Board> secondGoodBoardList(SqlSession sqlSession, PageInfo pi) {
+    
+    int offset = (pi.getCurrentPage() - 1 ) * pi.getBoardLimit();
+    RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+    
+    return (ArrayList)sqlSession.selectList("boardMapper.secondGoodBoardList", null, rowBounds);
+  }
+
+
 
   
 }
