@@ -521,7 +521,6 @@
 				<div id="insertField" contenteditable="true"
 					style="width:100%; min-height:400px;border: 1px solid whitesmoke; ">
 					<div>텍스트 편집기</div>
-					<iframe width="640" height="360" src="https://www.youtube.com/embed/7QiONOBcU7I" frameborder="0" allowfullscreen=""></iframe>
 				</div>
 				<br>
 				<button type="button" class="btn btn-primary" style="float: right;"> 글쓰기 </button>
