@@ -22,5 +22,13 @@ public class BoardDAO {
     return sqlSession.selectOne("boardMapper.getAuctionListCount");
   }
 
+  public ArrayList<Board> boardEndTimeList(SqlSession sqlSession, PageInfo pi) {
+    
+    int offset = ( pi.getCurrentPage() - 1) * pi.getBoardLimit();
+    RowBounds rowBounds= new RowBounds(offset, pi.getBoardLimit());
+    
+    return (ArrayList)sqlSession.selectList("boardMapper.boardEndTimeList",null, rowBounds);
+  }
+
   
 }

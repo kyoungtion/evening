@@ -11,6 +11,13 @@
 	<select id="getAuctionListCount" resultType="_int">
 		select count(*) from second_goods where sg_status='N'
 	</select>
+	
+	<select id="boardEndTimeList" resultType="Board">
+		select SG.*,FLOOR(SG_END_DATE-SYSDATE) AS "ENDTIME" 
+		from second_goods SG
+		WHERE SG_STATUS='N'
+		ORDER BY FLOOR(SG_END_DATE-SYSDATE)
+	</select>
 
 
 </mapper>

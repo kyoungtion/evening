@@ -144,9 +144,18 @@
 								<div class="fancy-collapse-panel">
 			                  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			                     
-			                     <%-- <c:url var="recentList"></c:url> --%>
-			                     <div><a href="">최근 등록순</a></div>
-			                     <div><a href="">마감 시간순</a></div>
+			                     <c:url var="recentList" value="auctionList.bo">
+			                     	<c:param name="page" value="${ pi.currentPage }"/>
+			                     	<c:param name="mode" value="recent"/>
+			                     </c:url>
+			                     <div style="background-color: orange;"><a href="${ recentList }" style="color: white;">최근 등록순</a></div>
+			                     <div><a href="${ recentList }">최근 등록순</a></div>
+			                     
+			                     <c:url var="endTimeList" value="auctionList.bo">
+			                     	<c:param name="page" value="${ pi.currentPage }" />
+			                     	<c:param name="mode" value="endTime"/>
+			                     </c:url>
+			                     <div><a href="${ endTimeList }">마감 시간순</a></div>
 			                     
 			                     <br>
 			                     <div style="font: bolder; font-size: 15px;">총 상품 수 : ${ pi.listCount }</div>

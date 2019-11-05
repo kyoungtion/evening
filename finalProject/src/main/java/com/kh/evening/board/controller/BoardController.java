@@ -20,17 +20,27 @@ public class BoardController {
   private BoardService bService;
 
   @RequestMapping("auctionList.bo")
-  public ModelAndView auctionList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv) {
+  public ModelAndView auctionList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv, @RequestParam(value="mode", required=false) String mode) {
     int currentPage = 1;
     if (page != null) {
       currentPage = page;
     }
     
+    String modeSet = "recent";
+    if (mode != null) {
+      modeSet = mode;
+    }
+    
     int listCount = bService.getAuctionListCount();
     PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
 
-    ArrayList<Board> alist = bService.boardList(pi);
-
+    ArrayList<Board> alist = null;
+    if( modeSet.equals("recent")) {
+      alist = bService.boardList(pi);
+    } else if ( modeSet.equals("endTime")) {
+      alist = bService.boardEndTimeList(pi);
+    }
+    
     if (alist != null) {
       mv.addObject("alist", alist);
       mv.addObject("pi",pi);

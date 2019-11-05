@@ -25,4 +25,8 @@ public class BoardService {
     return bDAO.getAuctionListCount(sqlSession);
   }
 
+  public ArrayList<Board> boardEndTimeList(PageInfo pi) {
+    return bDAO.boardEndTimeList(sqlSession, pi);
+  }
+
 }
