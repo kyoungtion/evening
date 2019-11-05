@@ -22,6 +22,8 @@
 					<div class="col-md-10 col-md-push-2">
 						<div class="row row-pb-lg">
 						
+						<h2><span style="font-size: 50px;">경매 게시판</span></h2>
+						
 						<!-- 상품 리스트 -->
 						<c:if test="${ fn:length(alist) > 0 }">
 						

@@ -9,13 +9,13 @@
 	</select>
 	
 	<select id="getAuctionListCount" resultType="_int">
-		select count(*) from second_goods where sg_status='N'
+		select count(*) from second_goods where sg_status='N' and B_CATEGORY='A'
 	</select>
 	
 	<select id="boardEndTimeList" resultType="Board">
 		select SG.*,FLOOR(SG_END_DATE-SYSDATE) AS "ENDTIME" 
 		from second_goods SG
-		WHERE SG_STATUS='N'
+		WHERE SG_STATUS='N' AND B_CATEGORY='A'
 		ORDER BY FLOOR(SG_END_DATE-SYSDATE)
 	</select>
 
