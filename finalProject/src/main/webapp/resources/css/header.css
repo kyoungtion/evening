@@ -2,7 +2,7 @@
 
 
 * {
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif !important;
 	/* font-family: 'Gothic A1', sans-serif; */
 }
 

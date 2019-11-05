@@ -45,7 +45,14 @@
 <link rel="stylesheet" href="resources/css/header.css">
 <!-- Modernizr JS -->
 <script src="resources/js/modernizr-2.6.2.min.js"></script>
-
+<!-- fontAwesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/v4-shims.css">
+<script defer src="https://use.fontawesome.com/releases/v5.11.2/js/all.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.11.2/js/v4-shims.js"></script>
+<style>
+	* {font-family: 'Noto Sans KR', sans-serif !important;}
+</style>
 </head>
 <body>
 
@@ -65,7 +72,7 @@
 					<ul id="hNav">
 						<li><a href="">경매</a></li>
 						<li><a href="usedListAll.ud">중고거래</a></li>
-						<li><a href="">게시판</a></li>
+						<li><a href="community.bo">게시판</a></li>
 						<!-- 비회원시 -->
 						<li><a href="">로그인</a></li>
 						<li><a href="">회원가입</a></li>
@@ -105,11 +112,11 @@
 					</ul> --></li>
 				<li class="catalog-tap"><a style="font-size: 21px;">게시판</a>
 					<ul class="catalogTag">
-						<li>게시판</li>
-						<li>게시판</li>
-						<li>게시판</li>
-						<li>게시판</li>
-					</ul></li>
+						<li><a href="community.ge">커뮤니티</a></li>
+						<li><a href="selling.ge">삽니다</a></li>
+						<li><a href="qna.ge">문의글</a></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</div>
