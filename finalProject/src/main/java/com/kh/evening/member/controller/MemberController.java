@@ -42,4 +42,61 @@ public class MemberController {
 	public String updateAucView() {
 		return "updateAuc";
 	}
+	
+	// 로그인용 컨트롤러
+	@RequestMapping("login.me")
+	public String login() {
+		return "login";
+	}
+	
+	// 아이디 비밀번호 찾기 컨트롤러
+	@RequestMapping("searchidpwd.me")
+	public String searchidpwd() {
+		return "searchidpwd";
+	}
+	
+	// 회원가입용 컨트롤러
+	
+	
+	@RequsetMapping("ebinsert.me")
+	public String ebinsert(@ModelAttribute Member m) {
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
