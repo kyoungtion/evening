@@ -90,7 +90,7 @@
 			$('#contentInput').val(document.getElementById('insertField').innerHTML);
 			console.log($('#contentInput').val());
 			console.log($('#locked').val());
-			//$('#insertForm').submit();
+			$('#insertForm').submit();
 		}
 	
 	</script>
