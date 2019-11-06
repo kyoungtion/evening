@@ -272,8 +272,7 @@ span:after, span:before {
 						<li><a href="">중고거래</a></li>
 						<li><a href="">게시판</a></li>
 						<!-- 비회원시 -->
-						<li><a href="">로그인</a></li>
-						<li><a href="">회원가입</a></li>
+						<li><a href="login.me">로그인/회원가입</a></li>
 						<!-- 로그인시 -->
 						
 						<li class="nav_sub"><a>마이페이지</a>

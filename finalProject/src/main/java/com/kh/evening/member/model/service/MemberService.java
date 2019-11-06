@@ -6,4 +6,8 @@ public interface MemberService {
 
 	int insertMember(Member m);
 
+
+	int checkIdDup(String user_id);
+
+
 }

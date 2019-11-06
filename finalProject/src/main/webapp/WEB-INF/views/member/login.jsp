@@ -8,22 +8,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport"
     content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
-
+    
+    <!-- 다음 주소 api -->
+	<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
   <!-- 카카오 로그인 관련  -->
   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
   
-  <!--구글 로그인 관련  -->
+   <!--구글 로그인 관련  -->
   <script src="https://ajax.googleleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="colors.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <meta name="google-signin-client_id"
     content="771961646010-vn99g36mbkraddshtf6brr57s94n7ivg.apps.googleusercontent.com">
 
- <!-- 도로명 주소 관련   -->	
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<script language="javascript">
 
-	  <script>
+	 
 	    function onSignIn(googleUser) {
 	      var profile = googleUser.getBasicProfile();
 	      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -31,25 +32,13 @@
 	      console.log('Image URL: ' + profile.getImageUrl());
 	      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 	    }
-	    
-	    
-  	function goPopup(){
-  	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-  	    var pop = window.open("/popup/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
-  	    
-  		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
-  	    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
-  	}
-  	
-  	/** API 서비스 제공항목 확대 (2017.02) **/
-  	function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn
-  							, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
-  		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
-  		document.form.user_address.value = roadFullAddr;
-  		document.form.zipNo.value = zipNo;
-  	}
-
   </script>
+	    
+
+  	
+  		
+</script>
+ 
   <style rel="stylesheet">
     @charset "UTF-8";
     @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
@@ -68,8 +57,8 @@
     body .container {
       position: relative;
       overflow: hidden;
-      width: 700px;
-      height: 800px;
+      width: 900px;
+      height: 1000px;
       margin: 80px auto 0;
       background-color: #ffffff;
       -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
@@ -197,8 +186,12 @@
       -webkit-border-radius: 2px;
       border-radius: 2px;
     }
+    
+  
+    
+    #postalCode{float: left;}
 
-    /* body .container .content input.inpt2 {
+     body .container .content input.inpt2 {
       font-size: 14px;
       display: block;
       width: 70%;
@@ -214,19 +207,20 @@
     }
 
     body .container .content input.inpt3 {
-      font-size: 14px;
+      font-size: 18px;
       display: block;
       width: 30%;
       height: 42px;
       margin-bottom: 12px;
-      padding: 16px 13px;
+      padding: 16px ;
       color: #999999;
       border: 1px solid #d9d9d9;
-      background: transparent;
+      background: white;
       -moz-border-radius: 2px;
       -webkit-border-radius: 2px;
       border-radius: 2px;
-    } */
+      
+    } 
 
     body .container .content input.inpt::-webkit-input-placeholder {
       font-size: 14px;
@@ -397,6 +391,16 @@
       font-weight: 700;
       text-decoration: none;
     }
+  	
+  	  span.guide{display:none; font-size:12px; top:12px; right:10px;}
+      span.ok{color:green;}
+      span.error{color:red;}
+    
+    
+    
+    
+    
+    
   </style>
 </head>
 
@@ -407,7 +411,7 @@
 	
   <section class="container">
     
-    <form action="login.me" method="POST" id="loginForm">
+    <form action="login.me" method="POST">
     <!-- 일반회원 로그인-->
     <article class="half">
       <h1>Evening</h1>
@@ -418,7 +422,7 @@
       <div class="content">
         <div class="signin-cont cont">
           <form action="#" method="post" enctype="multipart/form-data">
-            <input type="ID" name="user_id" id="ID" class="inpt" required="required" placeholder="Your id">
+            <input type="ID" name="user_id" id="user_id" class="inpt" required="required" placeholder="Your id">
             <label for="ID">Your id</label>
             
             <input type="password" name="user_pwd" id="password" class="inpt" required="required"
@@ -436,21 +440,22 @@
         </div>
         </form>
         
+        
         <!-- 회원가입용   -->
-        <form action="ebinsert.me" method="POST" id="ebinsert.me">
+        <form action="ebinsert" method="POST" id="ebinsert" id="insertForm">
         <div class="signup-cont cont">
-          <form action="#" method="post" enctype="multipart/form-data">
-
-            <input type="ID" name="user_id" id="ID" class="inpt" required="required" placeholder="Your id">
+          <form action="ebinsert.me" method="post" enctype="multipart/form-data">
+            <input type="text" name="user_id" id="ID" class="inpt" required="required" placeholder="Your id">
             <label for="ID">Your id</label>
             <span class="guide ok"> 이 아이디는 사용 가능합니다.</span>
             <span class="guide error">이 아이디는 사용할 수 없습니다.</span>
             <input type="hidden" name="idDuplicateCheck" id="idDuplicateCheck" value="0">
-
-            <input type="name" name="user_name" id="name" class="inpt" required="required" placeholder="Your name">
+			
+			
+            <input type="text" name="user_name" id="name" class="inpt" required="required" placeholder="Your name">
             <label for="name">Your name</label>
-
-			<input type="nickname" name="nickname" id="nickname" class="inpt" required="required" placeholder="Your nickname">
+		    
+			<input type="text" name="nickname" id="nickname" class="inpt" required="required" placeholder="Your nickname">
             <label for="nickname">Your nickname</label>
             
             <input type="email" name="user_email" id="email" class="inpt" required="required" placeholder="Your email">
@@ -459,36 +464,84 @@
             <input type="password" name="user_pwd" id="password" class="inpt" required="required"
               placeholder="Your password">
             <label for="password">Your password</label>
-
-            <input type="Confirm Password" name="Confirm Password" id="Confirm Password" class="inpt"
+			
+            <input type="Password" name="Confirm Password" id="Confirm Password" class="inpt"
               required="Confirm Password" placeholder="Confirm Password">
             <label for="Confirm Password">Confirm password</label>
-
-            <input type="registration" name="user_residentNumber" id="registration" class="inpt" required="registration"
-              placeholder="Resident registration number">
+			
+			
+			<!-- 주민등록 번호 ( - ) 포함할껀지 말껀지? ( - ) 포함할꺼면 자동으로 - 입력하게 만들기  -->
+            <input type="text" maxlength="14" name="user_residentNumber" id="registration" class="inpt" required="registration"
+              placeholder="Resident registration number(-포함)" pattern = "\d{6}\-\d{7}" 
+                              title = "123456-1234567 형식으로 입력해주세요" >
             <label for="registration">Resident registration number</label>
-
-            <input type="Address" name="user_address" id="Address" class="inpt" required="required" placeholder="Address" onclick="goPopup();">
-            <label for="Address">Address</label>
+			
+			<!-- 다음 도로명주소 사용해보기  -->
+			<input type="text" name="zipcode1"  class="postcodify_postcode5 inpt2" value="" placeholder="Postal Code" id="postalCode">
+			<input type="button"  id="address" class="inpt3"  onclick="mapsearch();" value="Search" placeholder="Search">
+            <input type="text" name="addr"  class="postcodify_address inpt" required="required" placeholder="Address" >
             
-            <!-- 도로명 주소입력 (우편번호,상세주소1,2 구분 없이 user_address 에 한번에 입력  -->
-            <!-- user_address 라벨 클릭시 도로명 주소 검색창 나오기. -->
+            <input type="text" name="addrDtl"  class="postcodify_extra_info inpt" required="required" placeholder="Address1" >
+            <label for="addr">Address</label>
+		
             
             
             
-
+            
             <input type="Phone" name="user_phone" id="Phone" class="inpt" required="required" placeholder="Phone">
             <label for="Phone">Phone</label>
             <!-- <input type="Confirm Phone" name="Confirm Phone" id="Confirm Phone" class="inpt3" required="required" placeholder="Confirm"> -->
 
-
-
             	<div class="submit-wrap">
              	   <input type="submit" value="Sign up" class="submit">
-             	   <a href="#" class="more">Evening</a>
+             	   <a href="home.do" class="more">Evening</a>
             	</div>
           </form>
         </div>
+        
+        <script>
+        <!-- 회원가입시 유효성 검사  -->
+        $("#user_id").on("keyup",function(){
+        	var user_id = $(this).val().trim();
+        	
+        	if(user_id.length < 0){
+        		$(".guide").hide();
+        		$("#idDuplicatecheck").val(0);
+        		
+        		return;
+        	}
+        	
+        	$.ajax({
+        		url : "dupid.me",
+        		data : {id: user_id},
+        		success : function(data){
+        			if(data == "true"){
+        				$(".guide.error").hide();
+        				$(".guide.ok").show();
+        				$("#idDuplicatecheck").val(1);
+        			}else{
+        				$(".guide.ok").hide();
+        				$(".guide.error").show();
+        				$("#idDuplicatecheck").val(0);
+        				
+        			}
+        		}
+        	});
+        });
+        
+        function validate(){
+        	if($("#idDiplicateCheck").val() == 0){
+        		alert("사용가능한 아이디를 입력해주세요.");
+        		$("#user_id").focus();
+        	}else{
+        		$("#insertForm").submit();
+        	}
+        }
+        </script>
+        
+        
+        
+        
       </div>
     </article>
     </form>
@@ -557,6 +610,17 @@
       var amountMovedY = (e.pageY * -1 / 9);
       $(this).css('background-position', amountMovedX + 'px ' + amountMovedY + 'px');
     });
+    
+
+    function mapsearch() {
+            new daum.Postcode({
+              oncomplete: function(data) {
+                $('[name=zipcode1]').val(data.zonecode); // 우편번호 (5자리)
+                $('[name=addr]').val(data.address);
+                $('[name=addrDtl]').val(data.buildingName);
+              }
+            }).open();
+          }
   </script>
 
 <c:import url="/WEB-INF/views/common/footer.jsp" />
