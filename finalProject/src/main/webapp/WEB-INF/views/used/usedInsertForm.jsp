@@ -183,7 +183,11 @@
 						<div style="height: 30px;"></div>
 						<div onclick="shumnailImg();" style="width: 200px;height: 200px;background: white;display: inline-block; cursor: pointer;">
 						<img id="smImgTag" style="width: 100%; height: 100%;"></div>
+						<div style="display:none;">
 						<input type='file' name='smImg' style="display:none;" id='smImg' accept="image/*" onchange="shumnailImgChange(this);" />
+						<input type="text" name="imgNames" id="imgNames">
+						<input type="text" name="deletImg" id="deletImg">
+						</div>
 						<p>썸네일 이미지</p>
 					</div>
 					<div class="col-md-7" style="float: left;width: 500px;">
@@ -298,10 +302,17 @@
 		}
 	});
 	function saveBtn() {
-		
+		var deletImgArr = new Array();
+		var imgArray = $('#insertField img');
 		$('#textForm').val(document.getElementById('insertField').innerHTML);			
-		console.log($('#textForm').val());
-	 $('#insertForm').submit();
+		
+		for (var i = 0; i < imgArray.length; i++) {
+			deletImgArr[i] = imgArray.eq(i).attr('name');
+		}
+		$('#imgNames').val(imgNamesArr);
+		$('#deletImg').val(deletImgArr);		
+	 	$('#insertForm').submit(); 
+	 
 	};
 	
 	function shumnailImg() {

@@ -14,7 +14,7 @@ public class UsedDao {
 	}
 
 	public int insertAttachment(SqlSessionTemplate sqlSession, Attachment atm) {
-		return sqlSession.insert("bpardMapper.attachmentInsert",atm);
+		return sqlSession.insert("boardMapper.attachmentInsert",atm);
 	}
 
 }

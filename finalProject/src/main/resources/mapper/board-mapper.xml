@@ -13,11 +13,14 @@
 	</select>
 	
 	<insert id="insertBoard" parameterType="Board">
-	
+		
+INSERT INTO SECOND_GOODS VALUES
+(SEQ_SG.NEXTVAL,'admin','SG',#{SG_BNAME},'운영자','TEST태그1',#{SG_PRICE},default,#{SG_INFO},DEFAULT,SYSDATE,SYSDATE,DEFAULT,SYSDATE)
 	</insert>
 	
 	<insert id="attachmentInsert" parameterType="Attachment">
 	
+INSERT INTO ADD_FILE VALUES(SEQ_FILE.NEXTVAL, (SELECT MAX(SG_ID) FROM SECOND_GOODS) , #{ORIGINALFILENAME},  #{RENAMEFILENAME}, sysdate,sysdate,default)
 	</insert>
 
 </mapper>

@@ -28,7 +28,7 @@ public class BoardController {
     
     int listCount = bService.getAuctionListCount();
     PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
-
+    
     ArrayList<Board> alist = bService.boardList(pi);
 
     if (alist != null) {

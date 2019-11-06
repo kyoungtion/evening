@@ -3,6 +3,7 @@ package com.kh.evening.used.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import com.kh.evening.board.model.exception.BoardException;
 import com.kh.evening.board.model.vo.Attachment;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.used.model.service.UsedService;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 @Controller
 public class UsedController {
@@ -27,10 +29,10 @@ public class UsedController {
 	private UsedService uService;
 
 	@RequestMapping("uInsert.ud")
-	public String usedInsert(@ModelAttribute Board b, @RequestParam("uploadFile") MultipartFile uploadFile,
+	public String usedInsert(@ModelAttribute Board b, @RequestParam("smImg") MultipartFile uploadFile,
 			HttpServletRequest request, HttpServletResponse response) {
 		Attachment atm = new Attachment();
-
+//		b.setSG_PRICE(Integer.parseInt(b.getSG_PRICE()));
 		if (uploadFile != null && !uploadFile.isEmpty()) {
 
 			String renameFileName;
@@ -43,22 +45,52 @@ public class UsedController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
-
 		}
-
-		int result1 = uService.insertAttachment(atm);
+		request.getParameter("imgNames");
+		
+		String[] allName=request.getParameter("imgNames").split(",");
+		String[] saveName=request.getParameter("deletImg").split(",");
+		String root = request.getSession().getServletContext().getRealPath("resources")
+				+"\\textImgs/";
+		File file;
+		for(int i=0;i<saveName.length;i++) {
+			for(int j=0; j<allName.length; j++) {
+				if(saveName[i].equals(allName[j])) {
+					allName[j]="N";
+				}
+			}	
+		}
+		for(int i=0; i < allName.length;i++) {
+			if(!allName[i].equals("N")) {
+				file = new File(root+allName[i]);
+				System.out.println("파일 삭제 확인 : " + file.delete());
+			}
+		}
+		
+		int result1 =uService.insertBoard(b);
 
 		if (result1 > 0) {
-			int result = uService.insertBoard(b);
+			int result =  uService.insertAttachment(atm);
 
 			if (result > 0) {
-				return "redirect:blist.bo";
+				return "redirect:home.do";
 			} else {
-				throw new BoardException("게시글 등록을 실패하였습니다.");
+				for(int i=0;i<allName.length;i++) {
+					if(!allName[i].equals("N")) {
+						file = new File(root+allName[i]);
+						System.out.println("파일 삭제 확인 : " + file.delete());
+					}
+				}
+				throw new BoardException("썸네일 이미지 등록을 실패하였습니다.");
 			}
 		} else {
-			throw new BoardException("썸네일 이미지 등록을 실패하였습니다.");
+			for(int i=0;i<allName.length;i++) {
+				if(!allName[i].equals("N")) {
+					file = new File(root+allName[i]);
+					System.out.println("파일 삭제 확인 : " + file.delete());
+				}
+			}
+			throw new BoardException("게시물 등록을 실패하였습니다.");
 		}
 
 	}
@@ -85,7 +117,7 @@ public class UsedController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		return renameFileName;
 	}
 
