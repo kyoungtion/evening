@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,17 +56,37 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr style="background-color: #FFFFFF; color: #333333;"
+									<c:forEach var="g" items="${list}">
+										<tr style="background-color:#FFFFFF; color: #333333;">
+											<td>${ g.g_id }</td>
+											<td class="displaynone"></td>
+											<td class="subject">
+												<span class="title">${ g.g_title }</span>
+												<c:if test="${fn:contains(g.g_title, '<img>')}">
+													<img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
+													alt="파일첨부" class="ec-common-rwd-image">
+												</c:if>
+												<%-- rCount 추가 나중에 
+												<c:if test="">
+													
+												</c:if> --%>
+											</td>
+											<td>${ g.nickname }</td>
+											<td>${ g.g_enroll_date }</td>
+											<td class="displaynone"></td>
+										</tr>
+									</c:forEach>
+									<!-- <tr style="background-color: #FFFFFF; color: #333333;"
 										class="xans-record-">
 										<td>324</td>
 										<td class="displaynone"></td>
 										<td class="subject">
-											<!-- 파일제목 --> 
+											파일제목 
 											<span class="title">안녕하세요</span>
-											<!-- 파일첨부 아이콘 -->
+											파일첨부 아이콘
 											<img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
 											alt="파일첨부" class="ec-common-rwd-image">
-											<!-- 댓글 -->
+											댓글
 											<span class="comment">[1]</span>
 										</td>
 										<td>작성자이름</td>
@@ -76,12 +97,12 @@
 										<td>324</td>
 										<td class="displaynone"></td>
 										<td class="subject">
-											<!-- 잠금아이콘 --> <img
+											잠금아이콘 <img
 											src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_lock.gif"
 											alt="비밀글" class="ec-common-rwd-image"> 
-											<!-- 파일제목 -->
+											파일제목
 											<span class="title">반갑습니당</span>
-											<!-- 파일첨부 아이콘 --> <img
+											파일첨부 아이콘 <img
 											src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
 											alt="파일첨부" class="ec-common-rwd-image"> 
 											<span class="comment">[1]</span>
@@ -89,7 +110,7 @@
 										<td>작성자이름</td>
 										<td class="txtLess ">작성날짜</td>
 										<td class="displaynone">작성날짜</td>
-									</tr>
+									</tr> -->
 								</tbody>
 							</table>
 						</div>
@@ -107,12 +128,38 @@
 								</button>
 							<!-- </div> -->
 								<ul class="pagination">
-									<li class="disabled"><a href="#">«</a></li>
-									<li class="active"><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">»</a></li>
+									<!-- 이전 -->
+									<c:if test="${ pi.currentPage <= 1} ">
+										<li class="disabled">«</li>
+									</c:if>
+									<c:if test="${ pi.currentPage > 1 }">
+										<c:url var="before" value="community.ge">
+											<c:param name="page" value="${ pi.currentPage - 1 } "/>
+										</c:url>
+										<li><a href="${ before }">«</a></li>
+									</c:if>
+									<!-- 페이지 -->
+									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+										<c:if test="${ p eq pi.currentPage }">
+											<li>${ p }</li>									
+										</c:if>
+										<c:if test="${ p ne pi.currentPage }">
+											<c:url var="pagination" value="community.ge">
+												<c:param name="page" value="${ p }"/>
+											</c:url>
+											<li class="active"><a href="${ pagination }">${ p }</a></li>
+										</c:if>
+									</c:forEach>
+									<!-- 다음 -->
+									<c:if test="${ pi.currentPage >= pi.maxPage }">
+										<li class="disabled">»</li>
+									</c:if>
+									<c:if test="${ pi.currentPage < pi.maxPage }">
+										<c:url var="after" value="community.ge">
+											<c:param name="page" value="${ pi.currentPage + 1 }"/>
+										</c:url>
+										<li><a href="${ after }">»</a></li>
+									</c:if>
 								</ul>
 							</div>
 						</div>
