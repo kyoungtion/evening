@@ -35,8 +35,8 @@
 	<insert id="insertMember" parameterType="Member">
 		insert into member
 		values(#{user_id}, default,#{user_pwd}, #{user_nickName},#{user_email}, #{user_name},
-			   #{user_phone},#{user_residentNumber),#{address},
-			   	 sysdate,sysdate,default,default,default,sysdate,default		  
+			   #{user_phone},#{user_residentNumber},#{address},
+			   	 sysdate,sysdate,default,default,default,sysdate,default)
 	</insert>
 
 

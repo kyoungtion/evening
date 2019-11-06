@@ -58,12 +58,11 @@ public class MemberController {
 	// 회원가입용 컨트롤러
 	
 	
-	@RequsetMapping("ebinsert.me")
+/*	@RequsetMapping("ebinsert.me")
 	public String ebinsert(@ModelAttribute Member m) {
 		
 		
-	}
-	
+	}*/
 	
 	
 	

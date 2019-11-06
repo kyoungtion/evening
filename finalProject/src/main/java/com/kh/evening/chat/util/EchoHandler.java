@@ -17,7 +17,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 
 public class EchoHandler extends TextWebSocketHandler{
-    
+
     //세션을 모두 저장한다.
     //방법 1 :  1:1 채팅
 	//private Map<String, WebSocketSession> sessions = new HashMap<String, WebSocketSession>();
@@ -32,7 +32,9 @@ public class EchoHandler extends TextWebSocketHandler{
      */
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        //맵을 쓸때 방법
+    	System.out.println("=================afterConnectionEstablished===============");
+    	
+    	//맵을 쓸때 방법
     	//sessions.put(session.getId(), session);
         //List쓸때 방법
         sessionList.add(session);
