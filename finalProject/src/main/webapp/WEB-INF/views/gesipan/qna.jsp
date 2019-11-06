@@ -7,107 +7,25 @@
 <meta charset="UTF-8">
 <title>커뮤니티</title>
 <style>
-.btn.btn-info {
-	font-size: 9px;
-}
-
-.displaynone {
-	display: none;
-}
-
-.panel-title a {
-	color: black !important;
-	font-size: 13px !important;
-}
-
-.pagination li a {
-	padding: 10px 10px !important;
-}
-
-select {
-	border: whitesmoke;
-}
-
-.searchBox input {
-	width: 200px;
-	height: 22px !important;
-	border: whitesmoke;
-}
-
-::-webkit-scrollbar table {
-	display: none;
-}
-
-.tab-content {
-	height: 500px !important;
-}
-
-.col-md-12.col-xs-12 {
-	background: white;
-	width: 100%;
-	height: 500px;
-	padding: 20px;
-}
-
-.content-tab {
-	border: 0;
-	width: 100%;
-}
-
-.content-tab tr td {
+#qnaBody td {
+	padding: 5px;
 	border-bottom: 1px solid whitesmoke;
-	height: 30px;
-}
-
-.searchBox {
-	float: none !important;
-	text-align: center;
-	height:30px;
-	width:100%;
-}
-
-.my-panel {
-	width: 100%;
-	height: 1000px;
-	margin: auto;
-}
-
-.col-md-10 col-md-offset-1 {
-	
-}
-
-.contact-wrap {
-	width: 100%;
-	height: 1050px;
-}
-
-.container {
-	width: 100%;
-}
-
-.col-md-12.table {
-	height: 400px;
-}
-
-.page-container {
-	text-align: center;
-	float: none !important;
 }
 </style>
-
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
-
+	<c:set var="cate" value="QNA"/>
 	<div class="my-panel">
-		<div class="col-md-10 col-md-offset-1"
-			style="margin: 0; width: 100% !important;">
+		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 100%;">
 			<div class="contact-wrap">
-				<form style="width: 100%;">
+				<form style="height: 100%;">
 					<div class="container">
+
+						<!-- 자주 묻는 질문 -->
 						<div class="faqContainer">
 							<div class="panel-group" id="accordion">
-								<h4>자주 묻는 질문</h4>
+								<span id="titlespan">자주 묻는 질문</span>
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h4 class="panel-title">
@@ -154,93 +72,101 @@ select {
 								</div>
 							</div>
 						</div>
-						<div class="clear-fix" style="width: 100%; height: 80px;"></div>
-						<div>
-							<div class="row">
-								<div class="col-md-12">
-									<h4>문의 사항</h4>
+						<hr>
+						<div class="clear-fix" style="width: 100%; height: 50px;"></div>
+						<div class="row">
+							<div class="col-md-12">
+								<span id="titlespan">문의사항</span>&nbsp; 궁금하거나 건의할 사항이 있으면 글을 남겨주세요. 최대한 빠르게 답변드리겠습니다.
+								<div style="float: right; padding: 10px; display: block;">
+									<button class="btn btn-default" type="button" style="font-size: 10px;" onclick="location.href='gesipanInsertView.ge?g_category=${cate}'">글쓰기</button>
 								</div>
 							</div>
-							<br>
-							<div class="row">
-								<div class="col-md-12 col-xs-12" style="background: white;">
-									<div class="col-md-12 table">
-										<table class="content-tab">
-											<colgroup>
-												<col style="width: 50px;">
-												<col style="width: 100px;" class="displaynone">
-												<col style="width: 400px;">
-												<col style="width: 100px;">
-												<col style="width: 100px;" class="">
-												<col style="width: 55px;" class="displaynone">
-											</colgroup>
-											<thead>
-												<tr>
-													<th scope="col">번호</th>
-													<th scope="col" class="displaynone">카테고리</th>
-													<th scope="col">제목</th>
-													<th scope="col">작성자</th>
-													<th scope="col" class="">작성일</th>
-													<th scope="col" class="displaynone">조회</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>1</td>
-													<td class="displaynone"></td>
-													<td>
-														<!-- 잠금아이콘 --> <img
-														src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_lock.gif"
-														alt="비밀글" class="ec-common-rwd-image"> <!-- 파일제목 -->
-														<a href="/board/free/read.html?no=2582213&amp;board_no=57"
-														style="color: #333333;">[개선해주세요]</a> <!-- 파일첨부 아이콘 --> <img
-														src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
-														alt="파일첨부" class="ec-common-rwd-image"> <span
-														class="comment">[1]</span>
-													</td>
-													<td class="post-title">작성자</td>
-													<td>작성일</td>
-													<td class="displaynone"></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-
-								</div>
-								</div>
-								<div class="clear-fix" style="width:100%; height:30px;"></div>
-								<div class="row" style="display:flex;">
-									<div class="searchBox">
-										<select>
-											<option value="title">제목</option>
-											<option value="writer">작성자</option>
-										</select> <input type="text" />
-										<button style="background: none; border: 0;">
-											<i class="fas fa-search"></i>
-										</button>
-									</div>
-									<div style="float: right; padding: 10px; display: block;">
-										<button class="btn btn-default" type="button"
-											style="font-size: 10px;"
-											onclick="location.href='qnaInsertView.ge'">글쓰기</button>
-									</div>
-								</div>
-								<div class="page-container">
-									<ul class="pagination">
-										<li class="disabled"><a href="#">«</a></li>
-										<li class="active"><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">»</a></li>
-									</ul>
-								</div>
-							
+						</div>
+						<div class="row content" style="height: 600px;">
+							<table border="1" summary="" class="content-table">
+								<colgroup
+									class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 ">
+									<col style="width: 50px;">
+									<col style="width: 50px;" class="displaynone">
+									<col style="width: 450px;">
+									<col style="width: 100px;">
+									<col style="width: 100px;" class="">
+									<col style="width: 55px;" class="displaynone">
+								</colgroup>
+								<thead>
+									<tr style="">
+										<th scope="col">번호</th>
+										<th scope="col" class="displaynone">카테고리</th>
+										<th scope="col">제목</th>
+										<th scope="col">작성자</th>
+										<th scope="col" class="">작성일</th>
+										<th scope="col" class="displaynone">조회</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr style="background-color: #FFFFFF; color: #333333;"
+										class="xans-record-">
+										<td>324</td>
+										<td class="displaynone"></td>
+										<td class="subject">
+											<!-- 파일제목 -->
+											<span class="title">[개선해주세요]</span>
+											<!-- 파일첨부 아이콘 --> 
+											<img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
+											alt="파일첨부" class="ec-common-rwd-image">
+											<!-- 댓글 --> 
+											<span class="comment">[1]</span>
+										</td>
+										<td>작성자이름</td>
+										<td class="txtLess ">작성날짜</td>
+										<td class="displaynone">작성날짜</td>
+									</tr>
+									<tr style="background-color: #FFFFFF; color: #333333;">
+										<td>324</td>
+										<td class="displaynone"></td>
+										<td class="subject">
+											<!-- 잠금아이콘 --> <img
+											src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_lock.gif"
+											alt="비밀글" class="ec-common-rwd-image">
+											 <!-- 파일제목 -->
+											<span class="title">문의사항</span>
+											<!-- 파일첨부 아이콘 --> 
+											<img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
+											alt="파일첨부" class="ec-common-rwd-image"> 
+											<span class="comment">[1]</span>
+										</td>
+										<td>작성자이름</td>
+										<td class="txtLess ">작성날짜</td>
+										<td class="displaynone">작성날짜</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 
-						
 						<br>
+						<div class="row" >
+							<div class="col-md-5" style="text-align: center; left:35%; width: 350px;">
+							<!-- <div class="col-md-5" id="searchbox"> -->
+								<select>
+									<option value="title">제목</option>
+									<option value="writer">작성자</option>
+								</select>
+								<input id="searchText" type="text"/>
+								<button style="background:none; border:0;"><i class="fas fa-search"></i>
+								</button>
+							<!-- </div> -->
+								<ul class="pagination">
+									<li class="disabled"><a href="#">«</a></li>
+									<li class="active"><a href="#">1</a></li>
+									<li><a href="#">2</a></li>
+									<li><a href="#">3</a></li>
+									<li><a href="#">4</a></li>
+									<li><a href="#">»</a></li>
+								</ul>
+							</div>
+						</div>
 					</div>
+
 				</form>
 			</div>
 		</div>

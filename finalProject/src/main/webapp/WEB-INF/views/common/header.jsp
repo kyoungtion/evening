@@ -38,7 +38,12 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Gothic+A1|Noto+Sans+KR&display=swap"
 	rel="stylesheet">
-
+<!-- font-awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/v4-shims.css">
+<script defer src="https://use.fontawesome.com/releases/v5.11.2/js/all.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.11.2/js/v4-shims.js"></script>
+  
 <!-- Mypage style (경희) -->
 <link rel="stylesheet" href="resources/css/mypage.css">
 <!-- header css -->
@@ -53,6 +58,7 @@
 <style>
 	* {font-family: 'Noto Sans KR', sans-serif !important;}
 </style>
+
 </head>
 <body>
 
