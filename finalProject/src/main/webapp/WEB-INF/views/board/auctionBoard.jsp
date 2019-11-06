@@ -180,12 +180,24 @@
 			                     	<c:param name="page" value="${ pi.currentPage }"/>
 			                     	<c:param name="mode" value="priceDesc"/>
 			                     </c:url>
-			                      <c:if test="${ modeSet eq 'priceDesc' }">
+			                     <c:if test="${ modeSet eq 'priceDesc' }">
 				                     <div style="background-color: orange; padding-left: 10px;"><a href="${ priceDescList }" style="color: white;">가격 내림차 순</a></div>
 			                     </c:if>
 			                     <c:if test="${ modeSet ne 'priceDesc' }">
 			                     	<div><a href="${ priceDescList }">가격 내림차 순</a></div>
 			                     </c:if>
+			                     
+			                     <c:url var="CountList" value="auctionList.bo">
+			                     	<c:param name="page" value="${ pi.currentPage }"/>
+			                     	<c:param name="mode" value="CountList" />
+			                     </c:url>
+			                     <c:if test="${ modeSet eq 'CountList' }">
+				                     <div style="background-color: orange; padding-left: 10px;"><a href="${ CountList }" style="color: white;">조회순</a></div>
+			                     </c:if>
+			                     <c:if test="${ modeSet ne 'CountList' }">
+			                     	<div><a href="${ CountList }">조회순</a></div>
+			                     </c:if>
+			                     
 			                     
 			                     
 			                     <br>

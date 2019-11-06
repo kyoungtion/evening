@@ -58,5 +58,17 @@
 		WHERE SG_STATUS='N' AND B_CATEGORY='SG'
 		ORDER BY SG_PRICE DESC
 	</select>
+	
+	<select id="auctionCountList" resultType="Board">
+		SELECT * FROM SECOND_GOODS
+		WHERE SG_STATUS='N' AND B_CATEGORY='A'
+		ORDER BY SG_COUNT DESC
+	</select>
+	
+	<select id="secondGoodCountList" resultType="Board">
+		SELECT * FROM SECOND_GOODS
+		WHERE SG_STATUS='N' AND B_CATEGORY='SG'
+		ORDER BY SG_COUNT DESC
+	</select>
 
 </mapper>

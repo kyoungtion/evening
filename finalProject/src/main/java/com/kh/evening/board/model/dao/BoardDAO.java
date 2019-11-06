@@ -79,6 +79,22 @@ public class BoardDAO {
     return (ArrayList)sqlSession.selectList("boardMapper.secondGoodPriceDescList",null, rowBounds);
   }
 
+  public ArrayList<Board> auctionCountList(SqlSession sqlSession, PageInfo pi) {
+    
+    int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+    RowBounds rowBounds = new RowBounds ( offset, pi.getBoardLimit());
+    
+    return (ArrayList)sqlSession.selectList("boardMapper.auctionCountList", null, rowBounds);
+  }
+
+  public ArrayList<Board> secondGoodCountList(SqlSession sqlSession, PageInfo pi) {
+    
+    int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+    RowBounds rowBounds= new RowBounds(offset, pi.getBoardLimit());
+    
+    return (ArrayList) sqlSession.selectList("boardMapper.secondGoodCountList",null, rowBounds);
+  }
+
 
 
   

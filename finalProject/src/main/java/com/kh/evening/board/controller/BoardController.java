@@ -43,6 +43,8 @@ public class BoardController {
       alist = bService.auctionPriceAscList(pi);
     } else if ( modeSet.equals("priceDesc")) {
       alist = bService.auctionPriceDescList(pi);
+    } else if ( modeSet.equals("CountList")) {
+      alist = bService.auctionCountList(pi);
     }
     
     ArrayList<Attachment> af = bService.boardFileList();
@@ -82,6 +84,8 @@ public class BoardController {
       alist = bService.secondGoodPriceAscList(pi);
     } else if ( modeSet.equals("priceDesc")) {
       alist = bService.secondGoodPriceDescList(pi);
+    } else if ( modeSet.equals("CountList")) {
+      alist = bService.secondGoodCountList(pi);
     }
     
     ArrayList<Attachment> af = bService.boardFileList();

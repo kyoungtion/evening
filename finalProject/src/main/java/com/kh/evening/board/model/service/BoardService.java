@@ -58,5 +58,13 @@ public class BoardService {
     return bDAO.secondGoodPriceDescList(sqlSession, pi);
   }
 
+  public ArrayList<Board> auctionCountList(PageInfo pi) {
+    return bDAO.auctionCountList(sqlSession, pi);
+  }
+
+  public ArrayList<Board> secondGoodCountList(PageInfo pi) {
+    return bDAO.secondGoodCountList(sqlSession, pi);
+  }
+
 
 }
