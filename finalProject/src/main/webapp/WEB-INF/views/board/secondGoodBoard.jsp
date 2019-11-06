@@ -135,7 +135,39 @@
 								<div class="fancy-collapse-panel">
 			                  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			                     
-			                     <div style="background-color: orange; padding-left: 10px;"><a href="#" style="color: white;">최근 등록순</a></div>
+			                     
+			                     <c:url var="recentList" value="secondgoodList.bo">
+			                     	<c:param name="page" value="${ pi.currentPage }"/>
+			                     	<c:param name="mode" value="recent"/>
+			                     </c:url>
+			                     <c:if test="${ modeSet eq 'recent' }">
+				                     <div style="background-color: orange; padding-left: 10px;"><a href="${ recentList }" style="color: white;">최근 등록순</a></div>
+			                     </c:if>
+			                     <c:if test="${ modeSet ne 'recent' }">
+				                     <div><a href="${ recentList }">최근 등록순</a></div>
+			                     </c:if>
+			                     
+			                     <c:url var="priceAscList" value="secondgoodList.bo">
+			                     	<c:param name="page" value="${ pi.currentPage }"/>
+			                     	<c:param name="mode" value="priceAsc" />
+			                     </c:url>
+			                      <c:if test="${ modeSet eq 'priceAsc' }">
+				                     <div style="background-color: orange; padding-left: 10px;"><a href="${ priceAscList }" style="color: white;">가격 오름차 순</a></div>
+			                     </c:if>
+			                     <c:if test="${ modeSet ne 'priceAsc' }">
+			                     	<div><a href="${ priceAscList }">가격 오름차 순</a></div>
+			                     </c:if>
+			                     
+			                     <c:url var="priceDescList" value="secondgoodList.bo">
+			                     	<c:param name="page" value="${ pi.currentPage }"/>
+			                     	<c:param name="mode" value="priceDesc"/>
+			                     </c:url>
+			                      <c:if test="${ modeSet eq 'priceDesc' }">
+				                     <div style="background-color: orange; padding-left: 10px;"><a href="${ priceDescList }" style="color: white;">가격 내림차 순</a></div>
+			                     </c:if>
+			                     <c:if test="${ modeSet ne 'priceDesc' }">
+			                     	<div><a href="${ priceDescList }">가격 내림차 순</a></div>
+			                     </c:if>
 			                     
 			                     <br>
 			                     <div style="font: bolder; font-size: 15px;">총 상품 수 : ${ pi.listCount }</div>

@@ -18,16 +18,16 @@ public class BoardService {
   @Autowired
   private BoardDAO bDAO;
 
-  public ArrayList<Board> boardList(PageInfo pi) {
-    return bDAO.boardList(sqlSession,pi);
+  public ArrayList<Board> auctionList(PageInfo pi) {
+    return bDAO.auctionList(sqlSession,pi);
   }
 
   public int getAuctionListCount() {
     return bDAO.getAuctionListCount(sqlSession);
   }
 
-  public ArrayList<Board> boardEndTimeList(PageInfo pi) {
-    return bDAO.boardEndTimeList(sqlSession, pi);
+  public ArrayList<Board> auctionEndTimeList(PageInfo pi) {
+    return bDAO.auctionEndTimeList(sqlSession, pi);
   }
 
   public ArrayList<Attachment> boardFileList() {
@@ -40,6 +40,22 @@ public class BoardService {
 
   public ArrayList<Board> secondGoodBoardList(PageInfo pi) {
     return bDAO.secondGoodBoardList(sqlSession,pi);
+  }
+
+  public ArrayList<Board> auctionPriceAscList(PageInfo pi) {
+    return bDAO.auctionPriceAscList(sqlSession, pi);
+  }
+
+  public ArrayList<Board> auctionPriceDescList(PageInfo pi) {
+    return bDAO.auctionPriceDescList(sqlSession, pi);
+  }
+
+  public ArrayList<Board> secondGoodPriceAscList(PageInfo pi) {
+    return bDAO.secondGoodPriceAscList(sqlSession, pi);
+  }
+
+  public ArrayList<Board> secondGoodPriceDescList(PageInfo pi) {
+    return bDAO.secondGoodPriceDescList(sqlSession, pi);
   }
 
 

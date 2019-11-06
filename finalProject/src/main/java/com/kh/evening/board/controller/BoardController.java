@@ -36,9 +36,13 @@ public class BoardController {
 
     ArrayList<Board> alist = null;
     if( modeSet.equals("recent")) {
-      alist = bService.boardList(pi);
+      alist = bService.auctionList(pi);
     } else if ( modeSet.equals("endTime")) {
-      alist = bService.boardEndTimeList(pi);
+      alist = bService.auctionEndTimeList(pi);
+    } else if ( modeSet.equals("priceAsc")) {
+      alist = bService.auctionPriceAscList(pi);
+    } else if ( modeSet.equals("priceDesc")) {
+      alist = bService.auctionPriceDescList(pi);
     }
     
     ArrayList<Attachment> af = bService.boardFileList();
@@ -57,22 +61,36 @@ public class BoardController {
   }
   
   @RequestMapping("secondgoodList.bo")
-  public ModelAndView secondGoodList(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+  public ModelAndView secondGoodList(@RequestParam(value="page", required=false) Integer page, ModelAndView mv, @RequestParam(value="mode", required=false) String mode) {
     int currentPage = 1;
     if (page != null) {
       currentPage = page;
     }
     
+    String modeSet = "recent";
+    if (mode != null) {
+      modeSet = mode;
+    }
+    
     int listCount = bService.getSecondGoodListCount();
     PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
 
-    ArrayList<Board> alist = bService.secondGoodBoardList(pi);
+    ArrayList<Board> alist = null;
+    if( modeSet.equals("recent")) {
+      alist = bService.secondGoodBoardList(pi);
+    } else if ( modeSet.equals("priceAsc")) {
+      alist = bService.secondGoodPriceAscList(pi);
+    } else if ( modeSet.equals("priceDesc")) {
+      alist = bService.secondGoodPriceDescList(pi);
+    }
+    
     ArrayList<Attachment> af = bService.boardFileList();
     
     if (alist != null) {
       mv.addObject("alist", alist);
       mv.addObject("pi",pi);
       mv.addObject("af", af);
+      mv.addObject("modeSet", modeSet);
       mv.setViewName("secondGoodBoard");
     } else {
       throw new BoardException("중고 게시판 조회 실패.");

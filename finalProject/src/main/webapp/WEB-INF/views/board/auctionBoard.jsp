@@ -165,6 +165,29 @@
 				                     <div><a href="${ endTimeList }">마감 시간순</a></div>
 			                     </c:if>
 			                     
+			                     <c:url var="priceAscList" value="auctionList.bo">
+			                     	<c:param name="page" value="${ pi.currentPage }"/>
+			                     	<c:param name="mode" value="priceAsc" />
+			                     </c:url>
+			                      <c:if test="${ modeSet eq 'priceAsc' }">
+				                     <div style="background-color: orange; padding-left: 10px;"><a href="${ priceAscList }" style="color: white;">가격 오름차 순</a></div>
+			                     </c:if>
+			                     <c:if test="${ modeSet ne 'priceAsc' }">
+			                     	<div><a href="${ priceAscList }">가격 오름차 순</a></div>
+			                     </c:if>
+			                     
+			                     <c:url var="priceDescList" value="auctionList.bo">
+			                     	<c:param name="page" value="${ pi.currentPage }"/>
+			                     	<c:param name="mode" value="priceDesc"/>
+			                     </c:url>
+			                      <c:if test="${ modeSet eq 'priceDesc' }">
+				                     <div style="background-color: orange; padding-left: 10px;"><a href="${ priceDescList }" style="color: white;">가격 내림차 순</a></div>
+			                     </c:if>
+			                     <c:if test="${ modeSet ne 'priceDesc' }">
+			                     	<div><a href="${ priceDescList }">가격 내림차 순</a></div>
+			                     </c:if>
+			                     
+			                     
 			                     <br>
 			                     <div style="font: bolder; font-size: 15px;">총 상품 수 : ${ pi.listCount }</div>
 			                     

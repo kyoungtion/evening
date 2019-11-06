@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
 
-	<select id="boardList" resultType="Board">
+	<select id="auctionList" resultType="Board">
 		select * from second_goods
 		where SG_STATUS='N' AND B_CATEGORY='A'
 		order by SG_ID desc
@@ -12,7 +12,7 @@
 		select count(*) from second_goods where sg_status='N' and B_CATEGORY='A'
 	</select>
 	
-	<select id="boardEndTimeList" resultType="Board">
+	<select id="auctionEndTimeList" resultType="Board">
 		select SG.*,FLOOR(SG_END_DATE-SYSDATE) AS "ENDTIME" 
 		from second_goods SG
 		WHERE SG_STATUS='N' AND B_CATEGORY='A'
@@ -33,6 +33,30 @@
 		SELECT * FROM SECOND_GOODS
 		WHERE SG_STATUS='N' AND B_CATEGORY='SG'
 		ORDER BY SG_ID DESC
+	</select>
+	
+	<select id="auctionPriceAscList" resultType="Board">
+		SELECT * FROM SECOND_GOODS
+		WHERE SG_STATUS='N' AND B_CATEGORY='A'
+		ORDER BY SG_SPRICE, SG_PRICE
+	</select>
+	
+	<select id="auctionPriceDescList" resultType="Board">
+		SELECT * FROM SECOND_GOODS
+		WHERE SG_STATUS='N' AND B_CATEGORY='A'
+		ORDER BY SG_SPRICE DESC, SG_PRICE DESC
+	</select>
+	
+	<select id="secondGoodPriceAscList" resultType="Board">
+		SELECT * FROM SECOND_GOODS
+		WHERE SG_STATUS='N' AND B_CATEGORY='SG'
+		ORDER BY SG_PRICE
+	</select>
+	
+	<select id="secondGoodPriceDescList" resultType="Board">
+		SELECT * FROM SECOND_GOODS
+		WHERE SG_STATUS='N' AND B_CATEGORY='SG'
+		ORDER BY SG_PRICE DESC
 	</select>
 
 </mapper>

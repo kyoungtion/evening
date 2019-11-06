@@ -11,24 +11,24 @@ import com.kh.evening.board.model.vo.PageInfo;
 @Repository("bDAO")
 public class BoardDAO {
 
-  public ArrayList<Board> boardList(SqlSession sqlSession, PageInfo pi) {
+  public ArrayList<Board> auctionList(SqlSession sqlSession, PageInfo pi) {
     
     int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit(); // 건너띄기
     RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit()); // 건너띄고, ~만큼 읽기
     
-    return (ArrayList)sqlSession.selectList("boardMapper.boardList",null, rowBounds);
+    return (ArrayList)sqlSession.selectList("boardMapper.auctionList",null, rowBounds);
   }
 
   public int getAuctionListCount(SqlSession sqlSession) {
     return sqlSession.selectOne("boardMapper.getAuctionListCount");
   }
 
-  public ArrayList<Board> boardEndTimeList(SqlSession sqlSession, PageInfo pi) {
+  public ArrayList<Board> auctionEndTimeList(SqlSession sqlSession, PageInfo pi) {
     
     int offset = ( pi.getCurrentPage() - 1) * pi.getBoardLimit();
     RowBounds rowBounds= new RowBounds(offset, pi.getBoardLimit());
     
-    return (ArrayList)sqlSession.selectList("boardMapper.boardEndTimeList",null, rowBounds);
+    return (ArrayList)sqlSession.selectList("boardMapper.auctionEndTimeList",null, rowBounds);
   }
 
   public ArrayList<Attachment> boardFileList(SqlSession sqlSession) {
@@ -45,6 +45,38 @@ public class BoardDAO {
     RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
     
     return (ArrayList)sqlSession.selectList("boardMapper.secondGoodBoardList", null, rowBounds);
+  }
+
+  public ArrayList<Board> auctionPriceAscList(SqlSession sqlSession, PageInfo pi) {
+    
+    int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
+    RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+    
+    return (ArrayList)sqlSession.selectList("boardMapper.auctionPriceAscList", null, rowBounds);
+  }
+
+  public ArrayList<Board> auctionPriceDescList(SqlSession sqlSession, PageInfo pi) {
+    
+    int offset = (pi.getCurrentPage() - 1 ) * pi.getBoardLimit();
+    RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+    
+    return (ArrayList)sqlSession.selectList("boardMapper.auctionPriceDescList",null, rowBounds);
+  }
+
+  public ArrayList<Board> secondGoodPriceAscList(SqlSession sqlSession, PageInfo pi) {
+    
+    int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
+    RowBounds rowBounds= new RowBounds ( offset, pi.getBoardLimit());
+    
+    return (ArrayList)sqlSession.selectList("boardMapper.secondGoodPriceAscList",null, rowBounds);
+  }
+
+  public ArrayList<Board> secondGoodPriceDescList(SqlSession sqlSession, PageInfo pi) {
+    
+    int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+    RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+    
+    return (ArrayList)sqlSession.selectList("boardMapper.secondGoodPriceDescList",null, rowBounds);
   }
 
 
