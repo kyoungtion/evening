@@ -421,7 +421,7 @@
       </div>
       <div class="content">
         <div class="signin-cont cont">
-          <form action="#" method="post" enctype="multipart/form-data">
+          <form action="login.me" method="post" enctype="multipart/form-data">
             <input type="ID" name="user_id" id="user_id" class="inpt" required="required" placeholder="Your id">
             <label for="ID">Your id</label>
             
@@ -434,7 +434,7 @@
 
             <div class="submit-wrap">
               <input type="submit" value="Sign in" class="submit">
-              <a href="#" class="more">Forgot your id & password?</a>
+              <a href="SeaechIdPwd.jsp" class="more">Forgot your id & password?</a>
             </div>
           </form>
         </div>
@@ -442,7 +442,7 @@
         
         
         <!-- 회원가입용   -->
-        <form action="ebinsert" method="POST" id="ebinsert" id="insertForm">
+        <form action="index.jsp" method="POST" id="index.jsp" id="insertForm">
         <div class="signup-cont cont">
           <form action="ebinsert.me" method="post" enctype="multipart/form-data">
             <input type="text" name="user_id" id="ID" class="inpt" required="required" placeholder="Your id">
@@ -484,17 +484,15 @@
             <input type="text" name="addrDtl"  class="postcodify_extra_info inpt" required="required" placeholder="Address1" >
             <label for="addr">Address</label>
 		
-            
-            
-            
-            
             <input type="Phone" name="user_phone" id="Phone" class="inpt" required="required" placeholder="Phone">
             <label for="Phone">Phone</label>
             <!-- <input type="Confirm Phone" name="Confirm Phone" id="Confirm Phone" class="inpt3" required="required" placeholder="Confirm"> -->
 
             	<div class="submit-wrap">
              	   <input type="submit" value="Sign up" class="submit">
-             	   <a href="home.do" class="more">Evening</a>
+             	  
+             	   <!-- 메인페이지로 돌아가기   -->
+             	   <a href="index.jsp" class="more">Evening</a>
             	</div>
           </form>
         </div>

@@ -2,4 +2,21 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 
+
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>	
+	
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="com.kh.evening.member.vo.Member" alias="Member"/>
+	</typeAliases>
+
+	<!--mapper 등록  -->
+	<mappers>
+		<mapper resource="mappers/memberMapper.xml"/>
+	
+	</mappers>
+
+
 </configuration>

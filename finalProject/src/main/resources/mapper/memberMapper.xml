@@ -18,9 +18,9 @@
 		<result property="user_pwd" column="USER_PWD"/>
 		<result property="nickName" column="NICKNAME"/>
 		<result property="user_name" column="USER_NAME"/>
-		<result property="user_email" column="USER_EMAIL"/>
 		<result property="phone" column="PHONE"/>
 		<result property="user_residentNumber" column="USER_RESIDENTNUMBER"/>
+		<result property="user_email" column="USER_EMAIL"/>
 		<result property="address" column="ADDRESS"/>
 		<result property="enroll_date" column="ENROLL_DATE"/>
 		<result property="update_date" column="UPDATE_DATE"/>
@@ -34,8 +34,8 @@
 
 	<insert id="insertMember" parameterType="Member">
 		insert into member
-		values(#{user_id}, default,#{user_pwd}, #{user_nickName},#{user_email}, #{user_name},
-			   #{user_phone},#{user_residentNumber),#{address},
+		values(#{user_id}, default,#{user_pwd}, #{user_nickName},#{user_name},
+			   #{user_phone},#{user_residentNumber),#{user_email}, #{address},
 			   	 sysdate,sysdate,default,default,default,sysdate,default		  
 	</insert>
 
