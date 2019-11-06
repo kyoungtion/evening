@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
-
-	<settings>
+	<settings>	
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	
 	<typeAliases>
 		<typeAlias type="com.kh.evening.board.model.vo.Board" alias="Board"/>
-		<typeAlias type="com.kh.evening.board.model.vo.Attachment" alias="Attachment"/>
+     	<typeAlias type="com.kh.evening.board.model.vo.Attachment" alias="Attachment"/>
+		<typeAlias type="com.kh.evening.gesipan.model.vo.Gesipan" alias="Gesipan"/>
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="mapper/board-mapper.xml"/>
+      	<mapper resource="mapper/board-mapper.xml"/>
+		<mapper resource="mapper/gesipan-mapper.xml"/>
 	</mappers>
-
 </configuration>

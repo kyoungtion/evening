@@ -17,11 +17,11 @@
 	<div class="my-panel" style="height:1000px;">
 		<div class="col-md-10 col-md-offset-1"  style="margin: 0; width: 100%;">
 			<div class="contact-wrap" style="height:100%;">
-				<form style="height: 100%;" action="#" id="insertForm" method="post" enctype="multipart/form-data">
+				<form style="height: 100%;" action="gInsert.ge" id="insertForm" method="post" enctype="multipart/form-data">
 					<div class="container">
 						<div class="row content" style="background:whitesmoke;">
 							<span id="titlespan" style="font-weight:bold">게시글작성</span>&nbsp;
-							<span id="titlespan" class="locked" style="visibility:hidden; font-size:12px;">문의사항 게시글은 비밀글 설정이 가능합니다  [비밀글 설정]</span><input class="locked" type="checkbox" name="locked" style="visibility:hidden"/>
+							<span id="titlespan" class="locked" style="visibility:hidden; font-size:12px;">문의사항 게시글은 비밀글 설정이 가능합니다  [비밀글 설정]</span><input class="locked" id="lockedCheck" type="checkbox" style="visibility:hidden">
 							<script>
 							</script>
 							<div class="category" style="float:right;">
@@ -42,7 +42,7 @@
 								<div class="col-md-6 padding-bottom">
 									<label for="fname">작성자</label> 
 									<input type="text" id="fname"
-										class="form-control" name="g_writer" <%-- value="${session.user_id}"  --%> readonly>
+										class="form-control" name="g_writer" value="test_writer"  readonly>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -55,9 +55,11 @@
 								</div>
 							</div>
 							<div class="form-group text-center">
-								<input type="button" value="게시글 작성하기" onclick="submit();" class="btn btn-primary">
+								<input type="button" value="게시글 작성하기" onclick="submitGesipan();" class="btn btn-primary">
 							</div>
 							<input type="hidden" id="contentInput" name="g_content">
+							<input type="hidden" id="g_category" name="g_category">
+							<input type="hidden" id="locked" name="locked" value="N">
 						</div>
 					</div>
 				</form>
@@ -76,6 +78,9 @@
 			var cateVal = '${category}';
 			$('#category').val(cateVal).prop("selected", true);
 			
+			/* input g_category값 넣기 */
+			$('#g_category').val(cateVal);
+			
 			$('#category').change(function(){
 				
 				if($('#category').val() == 'QNA'){
@@ -83,16 +88,50 @@
 				} else {
 					$('.locked').css('visibility','hidden');
 				}
+				
+				$('#g_category').val($('#category').val());
+				console.log($('#g_category').val());
 			});
+			
+			
+			
+			
+		
+			
+			
 		});
 		
-		function submit() {
-			$('#contentInput').val(document.getElementById('insertField').innerHTML);
+		function submitGesipan() {
+			$('#contentInput').val(document.getElementById("insertField").innerHTML);
 			console.log($('#contentInput').val());
 			console.log($('#locked').val());
 			$('#insertForm').submit();
 		}
 	
+/* 		
+		$('#locked').val('N');
+		console.log($("input:checkbox[id='lockedCheck']").is(":checked"));
+		$('#lockedCheck').change(function(){
+			if($("input:checkbox[id='lockedCheck']").is(':checked')){
+				$('#locked').val('Y');
+			} else {
+				$('#locked').val('N');
+			}
+		});
+		console.log($('#locked').val()); */
+
+		$(document).ready(function(){
+			$('#lockedCheck').change(function(){
+				if($("input:checkbox[id='lockedCheck']").is(":checked")){
+					//alert("체크박스 체크");
+					$('#locked').val('Y');
+				} else {
+					//alert("체크박스 해제!");
+					$('#locked').val('N');
+				}
+			})
+		});
+		
 	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
