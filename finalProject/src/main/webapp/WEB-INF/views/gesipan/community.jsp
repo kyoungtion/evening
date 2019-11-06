@@ -62,9 +62,10 @@
 											<td class="displaynone"></td>
 											<td class="subject">
 												<span class="title">${ g.g_title }</span>
-												<c:if test="${fn:contains(g.g_title, '<img>')}">
-													<img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
-													alt="파일첨부" class="ec-common-rwd-image">
+												<c:if test="${fn:contains(g.g_content, '<img src')}">
+													<!-- <img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_img.gif"
+													alt="파일첨부" class="ec-common-rwd-image"> -->
+													<i class="fas fa-image"></i>
 												</c:if>
 												<%-- rCount 추가 나중에 
 												<c:if test="">
@@ -119,18 +120,20 @@
 						<div class="row" >
 							<div class="col-md-5" style="text-align: center; left:35%; width: 350px;">
 							<!-- <div class="col-md-5" id="searchbox"> -->
+							<form action="gesipanSearch.ge">
 								<select>
 									<option value="title">제목</option>
 									<option value="writer">작성자</option>
 								</select>
 								<input id="searchText" type="text"/>
-								<button style="background:none; border:0;"><i class="fas fa-search"></i>
+								<button onclick="searchBtn();" id="searchBtn" style="background:none; border:0;"><i class="fas fa-search"></i>
 								</button>
+							</form>
 							<!-- </div> -->
 								<ul class="pagination">
 									<!-- 이전 -->
 									<c:if test="${ pi.currentPage <= 1} ">
-										<li class="disabled">«</li>
+										<li class="disabled"><a href="#">«</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage > 1 }">
 										<c:url var="before" value="community.ge">
@@ -141,18 +144,18 @@
 									<!-- 페이지 -->
 									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 										<c:if test="${ p eq pi.currentPage }">
-											<li>${ p }</li>									
+											<li class="active"><a>${ p }</a></li>									
 										</c:if>
 										<c:if test="${ p ne pi.currentPage }">
 											<c:url var="pagination" value="community.ge">
 												<c:param name="page" value="${ p }"/>
 											</c:url>
-											<li class="active"><a href="${ pagination }">${ p }</a></li>
+											<li><a href="${ pagination }">${ p }</a></li>
 										</c:if>
 									</c:forEach>
 									<!-- 다음 -->
 									<c:if test="${ pi.currentPage >= pi.maxPage }">
-										<li class="disabled">»</li>
+										<li class="disabled"><a href="#">»</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage < pi.maxPage }">
 										<c:url var="after" value="community.ge">

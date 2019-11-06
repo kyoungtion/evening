@@ -9,8 +9,16 @@ public interface GesipanService {
 
 	int insertGesipan(Gesipan g);
 
-	int getListCount();
-
 	ArrayList<Gesipan> selectCommunityList(PageInfo pi);
+
+	int getCListCount();
+
+	int getSListCount();
+
+	int getQListCount();
+
+	ArrayList<Gesipan> selectSellingList(PageInfo pi);
+
+	ArrayList<Gesipan> selectQnaList(PageInfo pi);
 
 }

@@ -7,10 +7,22 @@
 		values(seq_gesipan.nextval, #{g_category}, #{g_title}, #{g_content}, #{g_writer}, #{g_count}, default, default, null, default, #{locked})
 	</insert>
 	
-	<select id="selectListCount" resultType="_int">
+	<select id="selectCListCount" resultType="_int">
 		select count(*)
 		from gesipan
-		where g_status='Y'
+		where g_status='N' and g_category='Community'
+	</select>
+	
+	<select id="selectSListCount" resultType="_int">
+		select count(*)
+		from gesipan
+		where g_status='N' and g_category='Selling'
+	</select>
+	
+	<select id="selectQListCount" resultType="_int">
+		select count(*)
+		from gesipan
+		where g_status='N' and g_category='QNA'
 	</select>
 	
 	<select id="selectCommunityList" resultType="Gesipan">
@@ -18,6 +30,22 @@
 		from gesipan g
 		join member m on (g.g_writer = m.user_id)
 		where g_status='N' and g_category = 'Community'
+		order by g_id desc
+	</select>
+	
+	<select id="selectSellingList" resultType="Gesipan">
+		select g.*, m.nickname
+		from gesipan g
+		join member m on (g.g_writer = m.user_id)
+		where g_status='N' and g_category = 'Selling'
+		order by g_id desc
+	</select>
+	
+	<select id="selectQnaList" resultType="Gesipan">
+		select g.*, m.nickname
+		from gesipan g
+		join member m on (g.g_writer = m.user_id)
+		where g_status='N' and g_category = 'QNA'
 		order by g_id desc
 	</select>
 </mapper>

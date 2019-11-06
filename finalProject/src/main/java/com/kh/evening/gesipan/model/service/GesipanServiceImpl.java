@@ -25,13 +25,34 @@ public class GesipanServiceImpl implements GesipanService{
 	}
 
 	@Override
-	public int getListCount() {
-		return gDAO.getListCount(sqlSession);
+	public int getCListCount() {
+		return gDAO.getCListCount(sqlSession);
 	}
 
+	@Override
+	public int getSListCount() {
+		return gDAO.getSListCount(sqlSession);
+	}
+
+	@Override
+	public int getQListCount() {
+		return gDAO.getQListCount(sqlSession);
+	}
+	
 	@Override
 	public ArrayList<Gesipan> selectCommunityList(PageInfo pi) {
 		return gDAO.selectCommunityList(sqlSession, pi);
 	}
+
+	@Override
+	public ArrayList<Gesipan> selectSellingList(PageInfo pi) {
+		return gDAO.selectSellingList(sqlSession, pi);
+	}
+
+	@Override
+	public ArrayList<Gesipan> selectQnaList(PageInfo pi) {
+		return gDAO.selectQnaList(sqlSession, pi);
+	}
+
 
 }

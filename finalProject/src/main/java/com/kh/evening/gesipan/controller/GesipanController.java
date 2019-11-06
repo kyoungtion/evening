@@ -2,6 +2,8 @@ package com.kh.evening.gesipan.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,8 +31,9 @@ public class GesipanController {
 			currentPage = page;
 		}
 		
-		int listCount = gService.getListCount();
+		int listCount = gService.getCListCount();
 		PageInfo pi = Pageination.getGesipanPageInfo(currentPage, listCount);
+		System.out.println(pi);
 		
 		ArrayList<Gesipan> list = gService.selectCommunityList(pi);
 		
@@ -46,13 +49,51 @@ public class GesipanController {
 	}
 	
 	@RequestMapping("selling.ge")
-	public String sellingBoard() {
-		return "selling";
+	public ModelAndView sellingBoard(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = gService.getSListCount();
+		PageInfo pi = Pageination.getGesipanPageInfo(currentPage, listCount);
+		System.out.println(pi);
+		
+		ArrayList<Gesipan> list = gService.selectSellingList(pi);
+		
+		if(list != null) {
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			mv.setViewName("selling");
+		} else {
+			throw new GesipanException("게시글 전체 조회에 실패하였습니다.");
+		}
+		
+		return mv;
 	}
 	
 	@RequestMapping("qna.ge")
-	public String qnaBoard() {
-		return "qna";
+	public ModelAndView qnaBoard(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = gService.getQListCount();
+		PageInfo pi = Pageination.getQnaPageInfo(currentPage, listCount);
+		System.out.println(pi);
+		
+		ArrayList<Gesipan> list = gService.selectQnaList(pi);
+		
+		if(list != null) {
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			mv.setViewName("qna");
+		} else {
+			throw new GesipanException("게시글 전체 조회에 실패하였습니다.");
+		}
+		
+		return mv;
 	}
 	
 	@RequestMapping("gesipanInsertView.ge")
@@ -62,12 +103,19 @@ public class GesipanController {
 	}
 	
 	@RequestMapping("gInsert.ge")
-	public String gInsert(@ModelAttribute Gesipan g) {
+	public String gInsert(@ModelAttribute Gesipan g, HttpServletRequest request) {
+		String url = "redirect:";
+		if(g.getG_category().equals("Community")) {
+			url += "community.ge";
+		} else if(g.getG_category().equals("Selling")) {
+			url += "selling.ge";
+		} else if(g.getG_category().equals("QNA")) {
+			url += "qna.ge";
+		}
 		
 		int result = gService.insertGesipan(g);
-		
 		if(result > 0) {
-			return "redirect:home.do";
+			return url;
 		} else {
 			throw new GesipanException("게시글 등록에 실패하였습니다.");
 		}
