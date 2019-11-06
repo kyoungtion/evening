@@ -6,10 +6,13 @@
 	</settings>
 	
 	<typeAliases>
+		<typeAlias type="com.kh.evening.board.model.vo.Board" alias="Board"/>
+     	<typeAlias type="com.kh.evening.board.model.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.evening.gesipan.model.vo.Gesipan" alias="Gesipan"/>
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="mappers/gesipan-mapper.xml"/>
+      	<mapper resource="mapper/board-mapper.xml"/>
+		<mapper resource="mapper/gesipan-mapper.xml"/>
 	</mappers>
 </configuration>
