@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="boardMapper">
-
-
+<mapper namespace="payMapper">
+	<insert id="insertPay" parameterType="Payment">
+	insert into payment
+	values(#{P_NO},#{P_ID},#{P_NICKNAME},#{P_ADDRESS},#{P_EMAIL},#{PAYDAY},#{P_UPDATE_DATE},#{P_STATUS},#{MONEY})
+	</insert>
 </mapper>

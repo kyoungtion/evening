@@ -19,7 +19,7 @@
 
 		<div class="row">
 			<div class="col-md-7" style="margin-left: 230px">
-				<form method="post" class="colorlib-form" style="margin-top:30px; margin-left:auto; width: 650px; height:700px;">
+				<form action="pinsert.py" method="post" class="colorlib-form" style="margin-top:30px; margin-left:auto; width: 650px; height:700px;">
 					<h2>배송지 정보 입력</h2>
 						<div class="row">
 					 		<div class="col-md-12">
@@ -76,6 +76,7 @@
 				</div>
 			</div>
 		</div>
+	</form>
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
 		
 	<script>
@@ -150,7 +151,7 @@ var msg = '결제에 실패하였습니다.';
 msg += '에러내용 : ' + rsp.error_msg;
 }
 alert(msg);
-document.location.href="about copy.html";
+document.location.href="index.jsp";
 });
 });
 	</script>
