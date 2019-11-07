@@ -28,4 +28,15 @@ public class MemberServiceImpl implements MemberService{
 	public int checkIdDup(String user_id) {
 		return mDAO.checkIdDup(sqlSession, user_id);
 	}
+
+	@Override
+	public Member memberLogin(Member m) {
+		return mDAO.memberLogin(sqlSession, m);
+	}
+
+	@Override
+	public Member enrollView(Member m) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
