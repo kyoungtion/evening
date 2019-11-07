@@ -35,10 +35,10 @@ tbody td {
 		<c:param name="category" value="${ cate }" />
 		<c:param name="page" value="${ page }" />
 	</c:url>
-	<div class="my-panel">
+	<div class="my-panel" style="height:100%;">
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 100%;">
 			<div class="contact-wrap">
-				<form style="height: 100%;">
+				<!-- <form style="height: 100%;"> -->
 					<div class="container">
 						<div class="row">
 							<div class="col-md-12 title">
@@ -53,7 +53,7 @@ tbody td {
 								</div> --%>
 							</div>
 						</div>
-						<div class="row content">
+						<div class="row content" style="height:auto;">
 							<div class="row table">
 								<table border="1" summary="" class="content-table">
 									<colgroup>
@@ -69,7 +69,7 @@ tbody td {
 									<thead>
 										<tr style="border-bottom: 1px solid whitesmoke;">
 											<th scope="col">글번호:${ g.g_id }</th>
-											<th scope="col"><font size="5">${ g.g_title }</font></th>
+											<th scope="col"><font size="4">${ g.g_title }</font></th>
 											<th scope="col">|</th>
 											<th scope="col">${ g_cate }</th>
 											<th scope="col" class="displaynone"></th>
@@ -114,22 +114,81 @@ tbody td {
 							</div>
 						</div>
 					</div>
-				</form>
+				<!-- </form> -->
 			</div>
 		</div>
 	</div>
 	<script>
 		$(function(){
 			getReplyList();
+			
 			setInterval(function(){
 				getReplyList();
-			}, 10000);
+			}, 10000); 
+		});
+	
+		$('#rSubmit').on('click', function(){
+			var reply_content = $('#rContent').val();
+			var g_ref = ${ g.g_id };
+			if(reply_content == ""){
+				alert('댓글을 입력해주세요.');				
+			} else {
+				$.ajax({
+					url: "addReply.ge",
+					data: {reply_content:reply_content, g_ref:g_ref},
+					type: "post",
+					success: function(data) {
+						if(data == "success") {
+							getReplyList();
+							$('#rContent').val("");
+						}
+					}
+				});
+			}
 		});
 		
-		$('#rSubmit').on("click", function(){
-			
-		});
-		
+		function getReplyList() {
+			var g_ref = ${ g.g_id };
+			$.ajax({
+				url: "rList.ge",
+				data: {g_ref:g_ref},
+				dataType: "json",
+				success: function(data) {
+					$tableBody = $("#rtb tbody");
+	                $tableBody.html("");
+	                
+	                var $tr;
+	                var $rWriter;
+	                var $rContent;
+	                var $rCreateDate;
+				
+	                $("#rCount").text("댓글 (" + data.length + ")");
+	                
+	                if(data.length > 0){
+	                    for(var i in data){
+	                       $tr = $("<tr>");
+	                       $rWriter = $("<td width = '100'>").text(decodeURIComponent(data[i].nickname.replace(/\+/g , " ")));
+	                       $rContent = $("<td>").text(decodeURIComponent(data[i].reply_content.replace(/\+/g , " ")));
+	                       $rCreateDate = $("<td width = '100'>").text(data[i].reply_enroll_date);
+	                       
+	                       $tr.append($rWriter);
+	                       $tr.append($rContent);
+	                       $tr.append($rCreateDate);
+	                       $tableBody.append($tr);
+	                       
+	                    }
+	                    
+	                 }
+	                 else{
+	                    $tr = $("<tr>");
+	                    $rContent = $("<td colspan = '3'>").text("등록된 댓글이 없습니다.");
+	                    
+	                    $tr.append($rContent);
+	                    $tableBody.append($tr);
+	                 }
+				}
+			});
+		}
 	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />

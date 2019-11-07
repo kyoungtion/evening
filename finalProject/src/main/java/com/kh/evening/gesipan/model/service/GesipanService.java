@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.gesipan.model.vo.Gesipan;
+import com.kh.evening.gesipan.model.vo.GesipanReply;
 
 public interface GesipanService {
 
@@ -19,6 +20,12 @@ public interface GesipanService {
 	ArrayList<Gesipan> selectSearchList(PageInfo pi, Map<String, String> parameters);
 
 	Gesipan selectGesipan(int g_id);
+
+	ArrayList<GesipanReply> selectReplyList(int g_ref);
+
+	int insertReply(GesipanReply r);
+
+	
 	
 	/*ArrayList<Gesipan> selectCommunityList(PageInfo pi);
 

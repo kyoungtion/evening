@@ -182,11 +182,11 @@
 	<script>
 		// 게시글 상세정보 조회
 		$(function(){
-			$('.gTitle').click(function(){
-				var g_id = $('#gId').text();
+			$('.subject').click(function(){
+				var g_id = $(this).prev().prev().text();
 				location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
 			})
-		})
+		});
 	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.gesipan.model.vo.Gesipan;
+import com.kh.evening.gesipan.model.vo.GesipanReply;
 
 @Repository("gDAO")
 public class GesipanDAO {
@@ -41,7 +42,19 @@ public class GesipanDAO {
 	public Gesipan selectGesipan(SqlSessionTemplate sqlSession, int g_id) {
 		return sqlSession.selectOne("gMapper.selectGesipan", g_id);
 	}
+
+	public int addReadCount(SqlSessionTemplate sqlSession, int g_id) {
+		return sqlSession.update("gMapper.addReadCount", g_id);
+	}
 	
+	public ArrayList<GesipanReply> selectReplyList(SqlSessionTemplate sqlSession, int g_ref) {
+		return (ArrayList)sqlSession.selectList("gMapper.selectReplyList", g_ref);
+	}
+
+	public int insertReply(SqlSessionTemplate sqlSession, GesipanReply r) {
+		return sqlSession.insert("gMapper.insertReply", r);
+	}
+
 
 
 	/*public int getCListCount(SqlSessionTemplate sqlSession) {

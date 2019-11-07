@@ -59,6 +59,25 @@
 		join member m on(g.g_writer = m.user_id)
 		where g_status='N' and g_id = #{g_id}
 	</select>
+	
+	<update id="addReadCount" parameterType="_int">
+		update gesipan
+		set g_count = g_count + 1
+		where g_id = #{ g_id }
+	</update>
+	
+	<select id="selectReplyList" resultType="gReply" parameterType="_int">
+		select * 
+		from g_reply r
+		join gesipan g on(g.g_id = r.g_ref)
+		where r.g_ref = #{ g_ref }
+		order by g_reply_id desc
+	</select>
+	
+	<insert id="insertReply" parameterType="gReply">
+		insert into g_reply
+		values(seq_g_reply.nextval, #{user_id}, #{nickname}, #{g_ref}, #{reply_content}, null, default, default, default)
+	</insert>
 	<!-- <select id="selectCListCount" resultType="_int">
 		select count(*)
 		from gesipan

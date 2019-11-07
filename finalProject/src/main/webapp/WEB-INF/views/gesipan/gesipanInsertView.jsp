@@ -22,6 +22,7 @@
 						<div class="row content" style="background:whitesmoke;">
 							<span id="titlespan" style="font-weight:bold">게시글작성</span>&nbsp;
 							<span id="titlespan" class="locked" style="visibility:hidden; font-size:12px;">문의사항 게시글은 비밀글 설정이 가능합니다  [비밀글 설정]</span><input class="locked" id="lockedCheck" type="checkbox" style="visibility:hidden">
+							<input type="text" id="g_pwd" name="g_pwd" style="visibility:hidden;">
 							<script>
 							</script>
 							<div class="category" style="float:right;">

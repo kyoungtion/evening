@@ -107,7 +107,7 @@
 								<tbody>
 								<c:forEach var="g" items="${list}">
 										<tr style="background-color:#FFFFFF; color: #333333;">
-											<td id="gId">${ g.g_id }</td>
+											<td class="gId">${ g.g_id }</td>
 											<td class="displaynone"></td>
 											<td class="subject">
 												<c:if test="${ g.locked eq 'Y' }">

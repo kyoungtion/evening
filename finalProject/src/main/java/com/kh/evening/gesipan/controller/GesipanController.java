@@ -1,12 +1,15 @@
 package com.kh.evening.gesipan.controller;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,13 +17,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.common.Pageination;
 import com.kh.evening.gesipan.exception.GesipanException;
 import com.kh.evening.gesipan.model.service.GesipanService;
 import com.kh.evening.gesipan.model.vo.Gesipan;
+import com.kh.evening.gesipan.model.vo.GesipanReply;
 
 @Controller
 public class GesipanController {
@@ -160,6 +168,36 @@ public class GesipanController {
 			throw new GesipanException("게시글 상세정보 조회에 실패하였습니다.");
 		}
 		return mv;
+	}
+	
+	@RequestMapping("rList.ge")
+	public void getReplyList(HttpServletResponse response, Integer g_ref) throws JsonIOException, IOException {
+		if(g_ref != null) {
+			ArrayList<GesipanReply> list = gService.selectReplyList(g_ref);
+			
+			for(GesipanReply r : list) {
+				r.setNickname(URLEncoder.encode(r.getNickname(),"UTF-8"));
+				r.setReply_content(URLEncoder.encode(r.getReply_content(),"UTF-8"));
+			}
+			
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			gson.toJson(list, response.getWriter());
+		}
+	}
+	
+	@RequestMapping("addReply.ge")
+	@ResponseBody
+	public String insertReply(GesipanReply r /*, HttpSession session*/) {
+		r.setUser_id("user_id");
+		r.setNickname("유저1");
+		
+		int result = gService.insertReply(r);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			throw new GesipanException("댓글 등록에 실패하였습니다.");
+		}
 	}
 	
 	/*@RequestMapping("community.ge")

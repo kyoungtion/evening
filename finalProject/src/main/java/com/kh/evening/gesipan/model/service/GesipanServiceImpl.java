@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.gesipan.model.dao.GesipanDAO;
 import com.kh.evening.gesipan.model.vo.Gesipan;
+import com.kh.evening.gesipan.model.vo.GesipanReply;
 
 
 @Service("gService")
@@ -47,8 +48,25 @@ public class GesipanServiceImpl implements GesipanService{
 
 	@Override
 	public Gesipan selectGesipan(int g_id) {
-		return gDAO.selectGesipan(sqlSession,g_id);
+		Gesipan g = null;
+		int result = gDAO.addReadCount(sqlSession, g_id);
+		if(result > 0) {
+			g = gDAO.selectGesipan(sqlSession,g_id);
+		}
+		return g;
 	}
+
+	@Override
+	public ArrayList<GesipanReply> selectReplyList(int g_ref) {
+		return gDAO.selectReplyList(sqlSession, g_ref);
+	}
+
+	@Override
+	public int insertReply(GesipanReply r) {
+		return gDAO.insertReply(sqlSession, r);
+	}
+
+	
 
 	/*@Override
 	public int getCListCount() {
