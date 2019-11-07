@@ -45,6 +45,11 @@ public class GesipanServiceImpl implements GesipanService{
 		return gDAO.selectSearchList(sqlSession, pi, parameters);
 	}
 
+	@Override
+	public Gesipan selectGesipan(int g_id) {
+		return gDAO.selectGesipan(sqlSession,g_id);
+	}
+
 	/*@Override
 	public int getCListCount() {
 		return gDAO.getCListCount(sqlSession);

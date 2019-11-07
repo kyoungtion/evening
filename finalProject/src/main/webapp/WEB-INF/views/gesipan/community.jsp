@@ -61,10 +61,10 @@
 								<tbody>
 									<c:forEach var="g" items="${list}">
 										<tr style="background-color:#FFFFFF; color: #333333;">
-											<td>${ g.g_id }</td>
+											<td id="gId">${ g.g_id }</td>
 											<td class="displaynone"></td>
 											<td class="subject">
-												<span class="title">${ g.g_title }</span>
+												<span class="gTitle">${ g.g_title }</span>
 												<c:if test="${fn:contains(g.g_content, '<img src')}">
 													<!-- <img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_img.gif"
 													alt="파일첨부" class="ec-common-rwd-image"> -->
@@ -86,7 +86,7 @@
 										<td class="displaynone"></td>
 										<td class="subject">
 											파일제목 
-											<span class="title">안녕하세요</span>
+											<span class="gTitle">안녕하세요</span>
 											파일첨부 아이콘
 											<img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
 											alt="파일첨부" class="ec-common-rwd-image">
@@ -105,7 +105,7 @@
 											src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_lock.gif"
 											alt="비밀글" class="ec-common-rwd-image"> 
 											파일제목
-											<span class="title">반갑습니당</span>
+											<span class="gTitle">반갑습니당</span>
 											파일첨부 아이콘 <img
 											src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
 											alt="파일첨부" class="ec-common-rwd-image"> 
@@ -179,6 +179,15 @@
 		</div>
 
 	</div>
+	<script>
+		// 게시글 상세정보 조회
+		$(function(){
+			$('.gTitle').click(function(){
+				var g_id = $('#gId').text();
+				location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
+			})
+		})
+	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>

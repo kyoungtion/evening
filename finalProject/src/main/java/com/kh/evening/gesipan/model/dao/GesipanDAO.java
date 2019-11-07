@@ -37,6 +37,10 @@ public class GesipanDAO {
 		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("gMapper.selectSearchList", parameters, rb);
 	}
+
+	public Gesipan selectGesipan(SqlSessionTemplate sqlSession, int g_id) {
+		return sqlSession.selectOne("gMapper.selectGesipan", g_id);
+	}
 	
 
 

@@ -148,6 +148,20 @@ public class GesipanController {
 		return mv;
 	}
 	
+	@RequestMapping("gDetail.ge")
+	public ModelAndView gesipanDetail(ModelAndView mv,
+									@RequestParam("g_id") int g_id,
+									@RequestParam("page") int page) {
+		Gesipan g = gService.selectGesipan(g_id);
+		
+		if(g != null) {
+			mv.addObject("g", g).addObject("page", page).setViewName("gesipanDetail");
+		} else {
+			throw new GesipanException("게시글 상세정보 조회에 실패하였습니다.");
+		}
+		return mv;
+	}
+	
 	/*@RequestMapping("community.ge")
 	public ModelAndView communityBoard(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
 		int currentPage = 1;

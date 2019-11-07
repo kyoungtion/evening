@@ -17,6 +17,8 @@ public interface GesipanService {
 	int getSearchListCount(String category, Map<String, String> parameters);
 
 	ArrayList<Gesipan> selectSearchList(PageInfo pi, Map<String, String> parameters);
+
+	Gesipan selectGesipan(int g_id);
 	
 	/*ArrayList<Gesipan> selectCommunityList(PageInfo pi);
 

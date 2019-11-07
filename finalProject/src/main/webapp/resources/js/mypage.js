@@ -15,7 +15,7 @@ $(document).ready(function(){
     });
 });
 
-
+// 게시글 검색
 $(function(){
 		
 	$('#searchBtn').click(function(){
@@ -33,9 +33,11 @@ $(function(){
 	});
 });
 
+// 게시판 조회
 $(function(){
 	$('#titlespan').click(function(){
 		var category = $('#category').val();
 		location.href="gList.ge?category="+category;
 	})
 })
+
