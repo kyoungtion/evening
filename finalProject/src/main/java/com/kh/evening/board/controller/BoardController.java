@@ -31,22 +31,12 @@ public class BoardController {
       modeSet = mode;
     }
     
-    int listCount = bService.getAuctionListCount();
+    String boardCategory = "A";
+    
+    int listCount = bService.getBoardListCount(boardCategory);
     PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
 
-    ArrayList<Board> alist = null;
-    if( modeSet.equals("recent")) {
-      alist = bService.auctionList(pi);
-    } else if ( modeSet.equals("endTime")) {
-      alist = bService.auctionEndTimeList(pi);
-    } else if ( modeSet.equals("priceAsc")) {
-      alist = bService.auctionPriceAscList(pi);
-    } else if ( modeSet.equals("priceDesc")) {
-      alist = bService.auctionPriceDescList(pi);
-    } else if ( modeSet.equals("CountList")) {
-      alist = bService.auctionCountList(pi);
-    }
-    
+    ArrayList<Board> alist = bService.auctionList(pi,modeSet);
     ArrayList<Attachment> af = bService.boardFileList();
     
     if (alist != null) {
@@ -74,20 +64,12 @@ public class BoardController {
       modeSet = mode;
     }
     
-    int listCount = bService.getSecondGoodListCount();
+    String boardCategory = "SG";
+    
+    int listCount = bService.getBoardListCount(boardCategory);
     PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
 
-    ArrayList<Board> alist = null;
-    if( modeSet.equals("recent")) {
-      alist = bService.secondGoodBoardList(pi);
-    } else if ( modeSet.equals("priceAsc")) {
-      alist = bService.secondGoodPriceAscList(pi);
-    } else if ( modeSet.equals("priceDesc")) {
-      alist = bService.secondGoodPriceDescList(pi);
-    } else if ( modeSet.equals("CountList")) {
-      alist = bService.secondGoodCountList(pi);
-    }
-    
+    ArrayList<Board> alist = bService.secondGoodBoardList(pi,modeSet);
     ArrayList<Attachment> af = bService.boardFileList();
     
     if (alist != null) {
