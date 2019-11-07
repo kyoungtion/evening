@@ -90,11 +90,13 @@
 									<li><a href="favorites.me">관심 목록</a></li>
 									<li><a href="dealDetail.me">거래 내역</a></li>
 									<li><a href="mypost.me">내가 쓴 글</a></li>
+									
 								</ul>
 							</div></li>
 						<li><a href="javascript:void(0);"
 							onclick="window.open('pushMain.pu', '알림창', 'top=10, left=10, width=920, height=510, status=no, menubar=no, toolbar=no, resizable=no');"><img
 								src="https://i.imgur.com/CNXbr6P.png"></a></li>
+								<li><a href="chat.ch">채팅샘플</a></li>
 					</ul>
 				</div>
 			</div>
