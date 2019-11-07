@@ -42,7 +42,7 @@
 								<div class="col-md-6 padding-bottom">
 									<label for="fname">작성자</label> 
 									<input type="text" id="fname"
-										class="form-control" name="g_writer" value="test_writer"  readonly>
+										class="form-control" name="g_writer" value="user01"  readonly>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -81,6 +81,12 @@
 			/* input g_category값 넣기 */
 			$('#g_category').val(cateVal);
 			
+			if($('#category').val() == 'QNA'){
+				$('.locked').css('visibility','visible');
+			} else {
+				$('.locked').css('visibility','hidden');
+			}
+			
 			$('#category').change(function(){
 				
 				if($('#category').val() == 'QNA'){
@@ -103,8 +109,6 @@
 		
 		function submitGesipan() {
 			$('#contentInput').val(document.getElementById("insertField").innerHTML);
-			console.log($('#contentInput').val());
-			console.log($('#locked').val());
 			$('#insertForm').submit();
 		}
 	

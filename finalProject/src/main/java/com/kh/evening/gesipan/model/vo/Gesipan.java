@@ -14,6 +14,7 @@ public class Gesipan {
 	private String g_title;
 	private String g_content;
 	private String g_writer;
+	private String nickname;
 	private int g_count;
 	private Date g_enroll_date;
 	private Date g_update_date;
@@ -23,14 +24,15 @@ public class Gesipan {
 	
 	public Gesipan() {}
 
-	public Gesipan(int g_id, String g_category, String g_title, String g_content, String g_writer, int g_count,
-			Date g_enroll_date, Date g_update_date, int g_ref, String g_status, String locked) {
+	public Gesipan(int g_id, String g_category, String g_title, String g_content, String g_writer, String nickname,
+			int g_count, Date g_enroll_date, Date g_update_date, int g_ref, String g_status, String locked) {
 		super();
 		this.g_id = g_id;
 		this.g_category = g_category;
 		this.g_title = g_title;
 		this.g_content = g_content;
 		this.g_writer = g_writer;
+		this.nickname = nickname;
 		this.g_count = g_count;
 		this.g_enroll_date = g_enroll_date;
 		this.g_update_date = g_update_date;
@@ -77,6 +79,14 @@ public class Gesipan {
 
 	public void setG_writer(String g_writer) {
 		this.g_writer = g_writer;
+	}
+
+	public String getnickname() {
+		return nickname;
+	}
+
+	public void setnickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public int getG_count() {
@@ -130,10 +140,9 @@ public class Gesipan {
 	@Override
 	public String toString() {
 		return "Gesipan [g_id=" + g_id + ", g_category=" + g_category + ", g_title=" + g_title + ", g_content="
-				+ g_content + ", g_writer=" + g_writer + ", g_count=" + g_count + ", g_enroll_date=" + g_enroll_date
-				+ ", g_update_date=" + g_update_date + ", g_ref=" + g_ref + ", g_status=" + g_status + ", locked="
-				+ locked + "]";
+				+ g_content + ", g_writer=" + g_writer + ", nickname=" + nickname + ", g_count=" + g_count
+				+ ", g_enroll_date=" + g_enroll_date + ", g_update_date=" + g_update_date + ", g_ref=" + g_ref
+				+ ", g_status=" + g_status + ", locked=" + locked + "]";
 	}
-	
 	
 }
