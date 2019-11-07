@@ -3,10 +3,16 @@ package com.kh.evening.member.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kh.evening.member.model.exception.MemberException;
 import com.kh.evening.member.model.service.MemberService;
+import com.kh.evening.member.model.vo.Member;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -58,9 +64,48 @@ public class MemberController {
 	// 회원가입용 컨트롤러
 	
 	
-/*	@RequsetMapping("ebinsert.me")
-	public String ebinsert(@ModelAttribute Member m) {
+
+	@RequestMapping("ebinsert.me")
+	public String insertMember(@ModelAttribute Member m,
+						   @RequestParam("zipcode1") String zipcode1,
+						   @RequestParam("addr") String addr,
+						   @RequestParam("addrDtl")String addrDtl) {
+
 		
+	m.setAddress(  zipcode1 + "/" + addr + "/" +addrDtl);
+	
+	// 비밀번호 암호화
+	
+	String encPwd = bcryptPasswordEncoder.encode(m.getUser_pwd());
+	m.setUser_pwd(encPwd);
+	
+	System.out.println(m);
+	
+	int result = mService.insertMember(m);
+	
+	if(result > 0) {
+		return "index.jsp";
+	}else {
+		throw new MemberException("회원가입에 실패하였습니다.");
+	}
+		
+		
+		
+	}
+	
+	// 암호화 후 로그인
+	@RequestMapping(value="login.me", method=RequestMethod.POST)
+	public String memberLogin(Member m ,Model model) {
+		
+		Member loginUser = mService.memberLogin(m);
+		
+		if(bcryptPasswordEncoder.matches(m.getUser_pwd(), loginUser.getUser_pwd())) {
+			model.addAttribute("loginUser",loginUser);
+			
+		}else {
+			throw new MemberException("로그인에 실패하였습니다.");
+		}
+		return "index.jsp";
 		
 	}*/
 	
