@@ -20,10 +20,20 @@ public class ChatController {
 		System.out.println("=================ModelAndView===============");
 		System.out.println("=================ModelAndView===============");
 		
-		mv.setViewName("chat/chattingview");
+		
 		
 		//사용자 정보 출력(세션)//
 		Member user = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(user.equals(null)||user.equals("null")||user==null) {
+			System.out.println("=================Error===============");
+			System.out.println("=================Error===============");
+			System.out.println("=================Error===============");
+			System.out.println("=================Error===============");
+			System.out.println("=================Error===============");
+			System.out.println("=================Error===============");
+			System.out.println("=================Error===============");
+		}
+		user.setUser_name("asdf");
 		System.out.println("user name :" + user.getUser_name());
 				
 		System.out.println("normal chat page");
