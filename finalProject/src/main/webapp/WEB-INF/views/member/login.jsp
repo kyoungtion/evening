@@ -411,7 +411,6 @@
 	
   <section class="container">
     
-    <form action="index.jsp" method="POST">
     <!-- 일반회원 로그인-->
     <article class="half">
       <h1>Evening</h1>
@@ -438,11 +437,9 @@
             </div>
           </form>
         </div>
-        </form>
         
         
         <!-- 회원가입용   -->
-        <form action="index.jsp" method="POST" id="index.jsp" id="insertForm">
         <div class="signup-cont cont">
           <form action="ebinsert.me" method="post" enctype="multipart/form-data">
             <input type="text" name="user_id" id="ID" class="inpt" required="required" placeholder="Your id">
@@ -455,7 +452,7 @@
             <input type="text" name="user_name" id="name" class="inpt" required="required" placeholder="Your name">
             <label for="name">Your name</label>
 		    
-			<input type="text" name="nickname" id="nickname" class="inpt" required="required" placeholder="Your nickname">
+			<input type="text" name="nickName" id="nickname" class="inpt" required="required" placeholder="Your nickname">
             <label for="nickname">Your nickname</label>
              
             <input type="email" name="user_email" id="email" class="inpt" required="required" placeholder="Your email">
@@ -484,7 +481,7 @@
             <input type="text" name="addrDtl"  class="postcodify_extra_info inpt" required="required" placeholder="Address1" >
             <label for="addr">Address</label>
 		
-            <input type="Phone" name="user_phone" id="Phone" class="inpt" required="required" placeholder="Phone">
+            <input type="text" name="phone" id="Phone" class="inpt" required="required" placeholder="Phone">
             <label for="Phone">Phone</label>
             <!-- <input type="Confirm Phone" name="Confirm Phone" id="Confirm Phone" class="inpt3" required="required" placeholder="Confirm"> -->
 
@@ -537,12 +534,9 @@
         }
         </script>
         
+      </article>  
         
         
-        
-      </div>
-    </article>
-    </form>
 
     <!-- 우측 카카오 로그인 및 구글 로그인 화면 만들기 -->
     <div class="half bg">

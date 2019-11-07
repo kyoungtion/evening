@@ -56,6 +56,7 @@
 
 
 	<header class="ebHeader">
+	 <c:if test="${empty sessionScope.loginUser }">
 		<div class="ebHeader-bar no-drag">
 			<div style="height: 100%; overflow: hidden;">
 				<div id="hLogo">
@@ -68,10 +69,13 @@
 						<li><a href="">게시판</a></li>
 						<!-- 비회원시 -->
 
-						<li><a href="">로그인</a></li>
+						<li><a href="login.me">로그인</a></li>
 						<li><a href="">채팅</a></li>
 						<li><a href="">회원가입</a></li>
-
+		</c:if>
+							
+		<c:if test="${ !empty sessionScope.loginUser }">
+							
 						<!-- 로그인시 -->
 						
 						<li class="nav_sub"><a>마이페이지</a>
@@ -90,6 +94,7 @@
 				</div>
 			</div>
 		</div>
+		</c:if>
 	</header>
 	<div class="catalog no-drag">
 		<div style="text-align: center; display: inline-block;">

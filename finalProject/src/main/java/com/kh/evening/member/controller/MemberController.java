@@ -1,5 +1,9 @@
 package com.kh.evening.member.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -82,7 +86,7 @@ public class MemberController {
 	int result = mService.insertMember(m);
 	
 	if(result > 0) {
-		return "index.jsp";
+		return "index";
 	}else {
 		throw new MemberException("회원가입에 실패하였습니다.");
 	}
@@ -91,11 +95,12 @@ public class MemberController {
 		
 	}
 	
+	
 	// 암호화 후 로그인
 	@RequestMapping(value="login.me", method=RequestMethod.POST)
-	public String memberLogin(Member m ,Model model) {
-		
+	public String memberLogin(@ModelAttribute Member m ,Model model) {
 		Member loginUser = mService.memberLogin(m);
+	
 		
 		if(bcryptPasswordEncoder.matches(m.getUser_pwd(), loginUser.getUser_pwd())) {
 			model.addAttribute("loginUser",loginUser);
@@ -103,10 +108,16 @@ public class MemberController {
 		}else {
 			throw new MemberException("로그인에 실패하였습니다.");
 		}
-		return "index.jsp";
+		return "index";
 		
 	}
 	
+	@RequestMapping("dupid.me")
+	public void idDuplicataCheck(HttpServletResponse response, String user_id) throws IOException {
+	boolean isUsable = mService.checkIdDup(user_id) == 0 ? true : false;
+	
+	response.getWriter().print(isUsable);
+	}
 	
 	
 	

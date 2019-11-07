@@ -9,7 +9,7 @@
       select *
        from member
        where user_id=#{user_id}
-          and status='Y'
+         
    </select>
    
    <resultMap type="Member" id="memberResultSet">
@@ -34,8 +34,8 @@
 
    <insert id="insertMember" parameterType="Member">
       insert into member
-      values(#{user_id}, default,#{user_pwd}, #{user_nickName},#{user_name},
-            #{user_phone},#{user_residentNumber},#{user_email}, #{address},
+      values(#{user_id}, default,#{user_pwd}, #{nickName},#{user_name},
+            #{phone},#{user_residentNumber},#{user_email}, #{address},
                 sysdate,sysdate,default,default,default,sysdate,default)
    </insert>
 
