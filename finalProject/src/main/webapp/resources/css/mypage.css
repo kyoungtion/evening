@@ -127,6 +127,7 @@ select {
 
 #searchText {border:0; height:22px;}
 #titlespan{font-size:20px;}
+#titlespan:hover{font-weight:bold; cursor:pointer;}
 
 .subject:hover {
 	cursor:pointer;

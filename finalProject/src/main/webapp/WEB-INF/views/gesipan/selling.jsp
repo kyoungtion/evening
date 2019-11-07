@@ -56,7 +56,7 @@
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach var="g" items="${list}">
+									<c:forEach var="g" items="${list}">
 										<tr style="background-color:#FFFFFF; color: #333333;">
 											<td>${ g.g_id }</td>
 											<td class="displaynone"></td>
@@ -120,22 +120,65 @@
 						<div class="row" >
 							<div class="col-md-5" style="text-align: center; left:35%; width: 350px;">
 							<!-- <div class="col-md-5" id="searchbox"> -->
-								<select>
+								<select id="searchfor" name="searchfor">
 									<option value="title">제목</option>
 									<option value="writer">작성자</option>
 								</select>
-								<input id="searchText" type="text"/>
-								<button style="background:none; border:0;"><i class="fas fa-search"></i>
+								<input id="searchText" name="searchText" type="search"/>
+								<input type="hidden" id="category" value="${ cate }">
+								<button type="button" id="searchBtn" style="background:none; border:0;"><i class="fas fa-search"></i>
 								</button>
-							<!-- </div> -->
+							
+								<!-- </div> -->
+								<%-- <ul class="pagination">
+									<!-- 이전 페이지 -->
+									<c:if test="${ pi.currentPage <= 1 }">
+										<li class="disabled"><a>&laquo;</a></li>
+									</c:if>
+									<c:if test="${ pi.currentPage > 1 }">
+										<c:url var="before" value="gList.ge">	
+											<c:param name="page" value="${ pi.currentPage - 1 }"/>
+											<c:param name="category" value="${ cate }"/>
+										</c:url>
+										<li><a href="${ before }">&laquo;</a></li>
+									</c:if>
+									
+									<!-- 페이지 -->
+									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+										<c:if test="${ p eq pi.currentPage }">
+											<li class="active"><a>${ p }</a></li>
+										</c:if>
+										
+										<c:if test="${ p ne pi.currentPage }">
+											<c:url var="pagination" value="gList.ge">	
+												<c:param name="page" value="${ pi.currentPage - 1 }"/>
+												<c:param name="category" value="${ cate }"/>
+											</c:url>
+											<li><a href="${ pagination }">${ p }</a></li>
+										</c:if>
+									</c:forEach>
+									
+									<!-- 다음 페이지 -->
+									<c:if test="${ pi.currentPage >= pi.maxPage }">
+										<li class="disabled"><a href="#">&raquo;</a></li>
+									</c:if>
+									<c:if test="${ pi.currentPage < pi.maxPage }">
+										<c:url var="after" value="gList.ge">	
+											<c:param name="page" value="${ pi.currentPage - 1 }"/>
+											<c:param name="category" value="${ cate }"/>
+										</c:url>
+										<li><a href="${ after }">&raquo;</a></li>
+									</c:if>
+								</ul> --%>
 								<ul class="pagination">
 									<!-- 이전 -->
 									<c:if test="${ pi.currentPage <= 1} ">
 										<li class="disabled"><a href="#">«</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage > 1 }">
-										<c:url var="before" value="selling.ge">
+										<c:url var="before" value="gList.ge">
 											<c:param name="page" value="${ pi.currentPage - 1 } "/>
+											<c:param name="category" value="${ cate }"/>
 										</c:url>
 										<li><a href="${ before }">«</a></li>
 									</c:if>
@@ -145,8 +188,9 @@
 											<li class="active"><a>${ p }</a></li>									
 										</c:if>
 										<c:if test="${ p ne pi.currentPage }">
-											<c:url var="pagination" value="selling.ge">
-												<c:param name="page" value="${ p }"/>
+											<c:url var="pagination" value="gList.ge">
+												<c:param name="page" value="${ p } "/>
+												<c:param name="category" value="${ cate }"/>
 											</c:url>
 											<li><a href="${ pagination }">${ p }</a></li>
 										</c:if>
@@ -156,8 +200,9 @@
 										<li class="disabled"><a href="#">»</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage < pi.maxPage }">
-										<c:url var="after" value="selling.ge">
-											<c:param name="page" value="${ pi.currentPage + 1 }"/>
+										<c:url var="after" value="gList.ge">
+											<c:param name="page" value="${ pi.currentPage + 1 } "/>
+											<c:param name="category" value="${ cate }"/>
 										</c:url>
 										<li><a href="${ after }">»</a></li>
 									</c:if>

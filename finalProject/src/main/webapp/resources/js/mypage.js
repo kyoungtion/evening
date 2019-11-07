@@ -15,3 +15,27 @@ $(document).ready(function(){
     });
 });
 
+
+$(function(){
+		
+	$('#searchBtn').click(function(){
+		var keyword = encodeURIComponent($('#searchText').val());
+		var category = encodeURIComponent($('#category').val());
+		var searchfor = encodeURIComponent($('#searchfor').val());
+		if(keyword == ""){
+			alert('검색어를 입력해주세요.');
+		} else {
+			var uri = "gesipanSearch.ge?searchfor="+searchfor+"&keyword="+keyword+"&category="+category;
+			var enc = encodeURI(uri);
+			//location.href="gesipanSearch.ge?searchfor="+searchfor+"&keyword="+keyword+"&category="+category;
+			location.href=enc;
+		}
+	});
+});
+
+$(function(){
+	$('#titlespan').click(function(){
+		var category = $('#category').val();
+		location.href="gList.ge?category="+category;
+	})
+})

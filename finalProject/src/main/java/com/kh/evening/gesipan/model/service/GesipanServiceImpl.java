@@ -1,6 +1,7 @@
 package com.kh.evening.gesipan.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,26 @@ public class GesipanServiceImpl implements GesipanService{
 	}
 
 	@Override
+	public int getListCount(String category) {
+		return gDAO.selectListCount(sqlSession, category);
+	}
+
+	@Override
+	public ArrayList<Gesipan> selectGesipanList(PageInfo pi, String category) {
+		return gDAO.selectGesipanList(sqlSession, pi, category);
+	}
+	
+	@Override
+	public int getSearchListCount(String category, Map<String, String> parameters) {
+		return gDAO.selectSearchListCount(sqlSession, parameters);
+	}
+
+	@Override
+	public ArrayList<Gesipan> selectSearchList(PageInfo pi, Map<String, String> parameters) {
+		return gDAO.selectSearchList(sqlSession, pi, parameters);
+	}
+
+	/*@Override
 	public int getCListCount() {
 		return gDAO.getCListCount(sqlSession);
 	}
@@ -52,7 +73,10 @@ public class GesipanServiceImpl implements GesipanService{
 	@Override
 	public ArrayList<Gesipan> selectQnaList(PageInfo pi) {
 		return gDAO.selectQnaList(sqlSession, pi);
-	}
+	}*/
+
+	
+	
 
 
 }

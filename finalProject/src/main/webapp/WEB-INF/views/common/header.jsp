@@ -88,7 +88,7 @@
 					<ul id="hNav">
 						<li><a href="auctionList.bo">경매</a></li>
 						<li><a href="usedListAll.ud">중고거래</a></li>
-						<li><a href="community.bo">게시판</a></li>
+						<li><a href="gList.ge?category=Community">게시판</a></li>
 						<!-- 비회원시 -->
 						<li><a href="">로그인</a></li>
 						<li><a href="">회원가입</a></li>
@@ -133,9 +133,9 @@
                </ul> --></li>
 				<li class="catalog-tap"><a style="font-size: 21px;">게시판</a>
 					<ul class="catalogTag">
-						<li><a href="community.ge">커뮤니티</a></li>
-						<li><a href="selling.ge">삽니다</a></li>
-						<li><a href="qna.ge">문의글</a></li>
+						<li><a href="gList.ge?category=Community">커뮤니티</a></li>
+						<li><a href="gList.ge?category=Selling">삽니다</a></li>
+						<li><a href="gList.ge?category=QNA">문의글</a></li>
 					</ul></li>
 			</ul>
 		</div>
