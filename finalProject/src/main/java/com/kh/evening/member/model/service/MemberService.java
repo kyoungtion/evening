@@ -10,4 +10,10 @@ public interface MemberService {
 	int checkIdDup(String user_id);
 
 
+
+
+	Member memberLogin(Member m);
+	
+	Member enrollView(Member m);
+
 }

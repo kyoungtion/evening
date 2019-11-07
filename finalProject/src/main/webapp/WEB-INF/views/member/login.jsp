@@ -411,7 +411,7 @@
 	
   <section class="container">
     
-    <form action="login.me" method="POST">
+    <form action="index.jsp" method="POST">
     <!-- 일반회원 로그인-->
     <article class="half">
       <h1>Evening</h1>
@@ -457,7 +457,7 @@
 		    
 			<input type="text" name="nickname" id="nickname" class="inpt" required="required" placeholder="Your nickname">
             <label for="nickname">Your nickname</label>
-            
+             
             <input type="email" name="user_email" id="email" class="inpt" required="required" placeholder="Your email">
             <label for="email">Your email</label>
 
