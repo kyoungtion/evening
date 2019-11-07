@@ -432,7 +432,7 @@
             <label for="remember">Remember me</label>
 
             <div class="submit-wrap">
-              <input type="submit" value="Sign in" class="submit">
+              <input type="submit" value="Sign in" class="submit" >
               <a href="SeaechIdPwd.jsp" class="more">Forgot your id & password?</a>
             </div>
           </form>

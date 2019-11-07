@@ -56,7 +56,7 @@
 
 
 	<header class="ebHeader">
-	 <c:if test="${empty sessionScope.loginUser }">
+	
 		<div class="ebHeader-bar no-drag">
 			<div style="height: 100%; overflow: hidden;">
 				<div id="hLogo">
@@ -68,11 +68,12 @@
 						<li><a href="usedListAll.ud">중고거래</a></li>
 						<li><a href="">게시판</a></li>
 						<!-- 비회원시 -->
-
-						<li><a href="login.me">로그인</a></li>
-						<li><a href="">채팅</a></li>
-						<li><a href="">회원가입</a></li>
-		</c:if>
+						<c:if test="${ empty sessionScope.loginUser }">
+						<li><a href="login.me">로그인 / 회원가입</a></li>
+						</c:if>
+						
+					
+	
 							
 		<c:if test="${ !empty sessionScope.loginUser }">
 							
@@ -81,6 +82,10 @@
 						<li class="nav_sub"><a>마이페이지</a>
 							<div style="position: fixed;">
 								<ul id="test">
+								
+									<li><a href="">경매</a></li>
+									<li><a href="usedListAll.ud">중고거래</a></li>
+									<li><a href="">게시판</a></li>
 									<li><a href="myinfo.me">내정보보기</a></li>
 									<li><a href="favorites.me">관심 목록</a></li>
 									<li><a href="dealDetail.me">거래 내역</a></li>

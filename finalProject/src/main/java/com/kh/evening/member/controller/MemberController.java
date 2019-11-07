@@ -53,11 +53,6 @@ public class MemberController {
 		return "updateAuc";
 	}
 	
-	// 로그인용 컨트롤러
-	@RequestMapping("login.me")
-	public String login() {
-		return "login";
-	}
 	
 	// 아이디 비밀번호 찾기 컨트롤러
 	@RequestMapping("searchidpwd.me")
@@ -86,7 +81,7 @@ public class MemberController {
 	int result = mService.insertMember(m);
 	
 	if(result > 0) {
-		return "index";
+		return "redirect:home.do";
 	}else {
 		throw new MemberException("회원가입에 실패하였습니다.");
 	}
@@ -95,6 +90,11 @@ public class MemberController {
 		
 	}
 	
+	// 로그인용 컨트롤러
+	@RequestMapping("login.me")
+	public String login() {
+		return "login";
+	}
 	
 	// 암호화 후 로그인
 	@RequestMapping(value="login.me", method=RequestMethod.POST)
@@ -108,7 +108,7 @@ public class MemberController {
 		}else {
 			throw new MemberException("로그인에 실패하였습니다.");
 		}
-		return "index";
+		return "redirect:home.do";
 		
 	}
 	
