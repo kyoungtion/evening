@@ -64,11 +64,13 @@ public class MemberController {
 	// 회원가입용 컨트롤러
 	
 	
+
 	@RequestMapping("ebinsert.me")
 	public String insertMember(@ModelAttribute Member m,
 						   @RequestParam("zipcode1") String zipcode1,
 						   @RequestParam("addr") String addr,
 						   @RequestParam("addrDtl")String addrDtl) {
+
 		
 	m.setAddress(  zipcode1 + "/" + addr + "/" +addrDtl);
 	
@@ -105,8 +107,7 @@ public class MemberController {
 		}
 		return "index.jsp";
 		
-	}
-	
+	}*/
 	
 	
 	

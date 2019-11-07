@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
 
+
    <!-- 암호화 후 로그인  -->
    <select id="selectOne" parameterType="Member" resultType="Member"
       resultMap="memberResultSet">
@@ -31,6 +32,7 @@
       <result property="penalty_stack" column="PENALTY_STACK"/>
       
    </resultMap>
+
 
    <insert id="insertMember" parameterType="Member">
       insert into member
