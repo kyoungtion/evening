@@ -104,7 +104,7 @@
 						<span>&nbsp;내 입찰가</span>
 					</div>
 					<div class="one-eight text-center">
-						<span>&nbsp;입찰취소</span>
+						<span id="cancelAuc">&nbsp;입찰취소</span>
 					</div>
 				</div>
 				<div class="product-cart content">
@@ -142,6 +142,15 @@
 		</div>
 
 	</div>
+	
+	<script>
+		$(function(){
+			$('#cancelAuc').on('click', function(){
+				if(confirm("취소하시면 등급에 영향을 미칠 수 있습니다. 취소하시겠습니까?"))
+			})
+			
+		});
+	</script>
 
 	<!-- jQuery -->
 	<script src="resources/js/jquery.min.js"></script>
