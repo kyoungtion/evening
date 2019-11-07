@@ -19,14 +19,14 @@
 
 		<div class="row">
 			<div class="col-md-7" style="margin-left: 230px">
-				<form action="pinsert.py" method="post" class="colorlib-form" style="margin-top:30px; margin-left:auto; width: 650px; height:700px;">
+				<form action="pinsert.py" id="pinsert" method="post" class="colorlib-form" style="margin-top:30px; margin-left:auto; width: 650px; height:700px;">
 					<h2>배송지 정보 입력</h2>
 						<div class="row">
 					 		<div class="col-md-12">
 								<div class="form-group">
 									<div class="col-md-6">
 										<label for="fname">이름</label>
-										<input type="text" id="fname" class="form-control" placeholder="Your name">
+										<input type="text" id="fname" class="form-control" placeholder="Your name" name="P_NAME">
 								</div>
 							</div>
 			<div class="form-group">
@@ -51,16 +51,20 @@
 			<div class="form-group">
 				<div class="col-md-6">
 					<label for="email">이메일</label>
-					<input type="text" id="email" class="form-control" placeholder="">
+					<input type="text" id="email" class="form-control" name="P_EMAIL" placeholder="">
 				</div>
 					<div class="col-md-6">
 						<label for="Phone">전화 번호</label>
-						<input type="text" id="zippostalcode" class="form-control" placeholder="">
+						<input type="text" id="phone" name="P_PHONE" class="form-control" placeholder="">
 					</div>
 						<div class="form-group">
 					<div class="col-md-12">
 					<label for="memo">배송시 메모</label>
-					<input type="text" id="memo" class="form-control" placeholder="">
+					<input type="text" id="memo" class="form-control" name="memo" placeholder="">
+					</div>
+						<div class="col-md-12">
+					<label for="money">금액</label>
+					<input type="text" id="money" name="MONEY" class="form-control" placeholder="">
 					</div>
 				</div>
 			</div>
@@ -77,6 +81,7 @@
 			</div>
 		</div>
 	</form>
+	
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
 		
 	<script>
@@ -89,6 +94,8 @@
           }
         }).open();
       }
+		
+// 결제 function		
 // 금액 부분은 필수로 기입 해줄 것
 $("#check_module").click(function () {
 var IMP = window.IMP; // 생략가능
@@ -126,12 +133,12 @@ https://docs.iamport.kr/implementation/payment
 */
 name: '결제',
 //결제창에서 보여질 이름
-amount: 1000,
+amount: $('#money').val(),
 //가격
-buyer_email: 'dmdk7979@naver.com',//$('#spid').val(),
-buyer_name: '이한솔',//$('#spname').val(),
-buyer_tel: '010-2208-6707',//$('#spphone').val(),
-buyer_addr: '서울 강남',//$('#spaddress').val(),
+buyer_email: $('#email').val(),//$('#spid').val(),
+buyer_name: $('#fname').val(),
+buyer_tel: $('#phone').val(),
+buyer_addr: $('#addr').val(),
 m_redirect_url: 'https://www.yourdomain.com/payments/complete'
 /*
 모바일 결제시,
@@ -146,6 +153,7 @@ msg += '고유ID : ' + rsp.imp_uid;
 msg += '상점 거래ID : ' + rsp.merchant_uid;
 msg += '결제 금액 : ' + rsp.paid_amount;
 msg += '카드 승인번호 : ' + rsp.apply_num;
+$("#pinsert").submit();
 } else {
 var msg = '결제에 실패하였습니다.';
 msg += '에러내용 : ' + rsp.error_msg;
