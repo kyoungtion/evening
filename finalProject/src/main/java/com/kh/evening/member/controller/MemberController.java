@@ -1,4 +1,9 @@
+
 package com.kh.evening.member.controller;
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -49,11 +54,6 @@ public class MemberController {
 		return "updateAuc";
 	}
 	
-	// 로그인용 컨트롤러
-	@RequestMapping("login.me")
-	public String login() {
-		return "login";
-	}
 	
 	// 아이디 비밀번호 찾기 컨트롤러
 	@RequestMapping("searchidpwd.me")
@@ -64,13 +64,11 @@ public class MemberController {
 	// 회원가입용 컨트롤러
 	
 	
-
 	@RequestMapping("ebinsert.me")
 	public String insertMember(@ModelAttribute Member m,
 						   @RequestParam("zipcode1") String zipcode1,
 						   @RequestParam("addr") String addr,
 						   @RequestParam("addrDtl")String addrDtl) {
-
 		
 	m.setAddress(  zipcode1 + "/" + addr + "/" +addrDtl);
 	
@@ -84,7 +82,7 @@ public class MemberController {
 	int result = mService.insertMember(m);
 	
 	if(result > 0) {
-		return "index.jsp";
+		return "redirect:home.do";
 	}else {
 		throw new MemberException("회원가입에 실패하였습니다.");
 	}
@@ -93,11 +91,17 @@ public class MemberController {
 		
 	}
 	
+	// 로그인용 컨트롤러
+	@RequestMapping("login.me")
+	public String login() {
+		return "login";
+	}
+	
 	// 암호화 후 로그인
 	@RequestMapping(value="login.me", method=RequestMethod.POST)
-	public String memberLogin(Member m ,Model model) {
-		
+	public String memberLogin(@ModelAttribute Member m ,Model model) {
 		Member loginUser = mService.memberLogin(m);
+	
 		
 		if(bcryptPasswordEncoder.matches(m.getUser_pwd(), loginUser.getUser_pwd())) {
 			model.addAttribute("loginUser",loginUser);
@@ -105,9 +109,16 @@ public class MemberController {
 		}else {
 			throw new MemberException("로그인에 실패하였습니다.");
 		}
-		return "index.jsp";
+		return "redirect:home.do";
 		
-	} 
+	}
+	
+	@RequestMapping("dupid.me")
+	public void idDuplicataCheck(HttpServletResponse response, String user_id) throws IOException {
+	boolean isUsable = mService.checkIdDup(user_id) == 0 ? true : false;
+	
+	response.getWriter().print(isUsable);
+	}
 	
 	
 	
