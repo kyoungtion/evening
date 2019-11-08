@@ -16,15 +16,16 @@ public class Pageination {
     maxPage = (int) ((double) listCount / boardLimit + 0.9);
 
     startPage = (((int) ((double) currentPage / pageLimit + 0.9)) - 1) * pageLimit + 1;
-    
-    endPage = startPage + pageLimit -1;
-    
-    if(maxPage < endPage)
+
+    endPage = startPage + pageLimit - 1;
+
+    if (maxPage < endPage)
       endPage = maxPage;
-    
-    pi = new PageInfo(currentPage,listCount,pageLimit,maxPage,startPage,endPage,boardLimit);
-    
+
+    pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
+
     return pi;
   }
+
 
 }

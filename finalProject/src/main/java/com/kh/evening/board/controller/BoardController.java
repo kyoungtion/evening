@@ -10,6 +10,7 @@ import com.kh.evening.board.model.exception.BoardException;
 import com.kh.evening.board.model.service.BoardService;
 import com.kh.evening.board.model.vo.Attachment;
 import com.kh.evening.board.model.vo.Board;
+import com.kh.evening.board.model.vo.BoardMode;
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.common.Pageination;
 
@@ -32,11 +33,12 @@ public class BoardController {
     }
     
     String boardCategory = "A";
-    
     int listCount = bService.getBoardListCount(boardCategory);
     PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
 
-    ArrayList<Board> alist = bService.auctionList(pi,modeSet);
+    BoardMode bMode = new BoardMode(modeSet, boardCategory);
+    
+    ArrayList<Board> alist = bService.boardList(pi,bMode);
     ArrayList<Attachment> af = bService.boardFileList();
     
     if (alist != null) {
@@ -65,11 +67,12 @@ public class BoardController {
     }
     
     String boardCategory = "SG";
-    
     int listCount = bService.getBoardListCount(boardCategory);
     PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
+    
+    BoardMode bMode = new BoardMode(modeSet, boardCategory);
 
-    ArrayList<Board> alist = bService.secondGoodBoardList(pi,modeSet);
+    ArrayList<Board> alist = bService.boardList(pi,bMode);
     ArrayList<Attachment> af = bService.boardFileList();
     
     if (alist != null) {

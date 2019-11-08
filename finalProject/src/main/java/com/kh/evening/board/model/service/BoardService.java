@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.kh.evening.board.model.dao.BoardDAO;
 import com.kh.evening.board.model.vo.Attachment;
 import com.kh.evening.board.model.vo.Board;
+import com.kh.evening.board.model.vo.BoardMode;
 import com.kh.evening.board.model.vo.PageInfo;
 
 @Service("bService")
@@ -18,8 +19,8 @@ public class BoardService {
   @Autowired
   private BoardDAO bDAO;
 
-  public ArrayList<Board> auctionList(PageInfo pi, String modeSet) {
-    return bDAO.auctionList(sqlSession, pi, modeSet);
+  public ArrayList<Board> boardList(PageInfo pi, BoardMode bMode) {
+    return bDAO.boardList(sqlSession, pi, bMode);
   }
 
   public int getBoardListCount(String boardCategory) {
@@ -29,11 +30,5 @@ public class BoardService {
   public ArrayList<Attachment> boardFileList() {
     return bDAO.boardFileList(sqlSession);
   }
-
-  public ArrayList<Board> secondGoodBoardList(PageInfo pi, String modeSet) {
-    return bDAO.secondGoodBoardList(sqlSession, pi,modeSet);
-  }
-
-
 
 }

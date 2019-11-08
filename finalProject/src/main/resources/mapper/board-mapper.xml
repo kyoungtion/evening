@@ -2,9 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
 
-	<select id="auctionList" resultType="Board">
+	<select id="boardList" resultType="Board" parameterType="BoardMode">
 		select * from second_goods
-		where SG_STATUS='N' AND B_CATEGORY='A'
+		where SG_STATUS='N' 
+		
+		<choose>
+			<when test="B_category == 'A'">
+				AND B_CATEGORY='A'
+			</when>
+			<when test="B_category == 'SG'">
+				AND B_CATEGORY='SG'
+			</when>
+		</choose>
 		
 		<choose>
 			<when test="modeSet == 'recent'">
@@ -43,27 +52,6 @@
 	<select id="boardFileList" resultType="Attachment">
 		SELECT * FROM ADD_FILE
 		WHERE FILE_STATUS='N'
-	</select>
-
-	<select id="secondGoodBoardList" resultType="Board">
-		SELECT * FROM SECOND_GOODS
-		WHERE SG_STATUS='N' AND B_CATEGORY='SG'
-		
-		<choose>
-			<when test="modeSet == 'recent'">
-				order by SG_ID DESC
-			</when>
-			<when test="modeSet == 'priceAsc'">
-				ORDER BY SG_SPRICE, SG_PRICE
-			</when>
-			<when test="modeSet == 'priceDesc'">
-				ORDER BY SG_SPRICE DESC, SG_PRICE DESC
-			</when>
-			<when test="modeSet == 'CountList'">
-				ORDER BY SG_COUNT DESC
-			</when>
-		</choose>
-		
 	</select>
 
 </mapper>
