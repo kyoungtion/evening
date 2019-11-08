@@ -55,8 +55,8 @@ public class GesipanDAO {
 		return sqlSession.insert("gMapper.insertReply", r);
 	}
 
-	public Integer getReplyCount(SqlSessionTemplate sqlSession, Integer r) {
-		return sqlSession.selectOne("gMapper.getReplyCount", r);
+	public Integer getReplyCount(SqlSessionTemplate sqlSession, Integer g_ref) {
+		return sqlSession.selectOne("gMapper.getReplyCount", g_ref);
 	}
 
 

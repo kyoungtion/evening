@@ -210,96 +210,15 @@ public class GesipanController {
 				}
 			}
 			
-			/*// 반환할 리스트(결과값)
-			ArrayList<Integer> result = new ArrayList<>();
-			for(Integer r : list) {
-				result.add(gService.getReplyCount(r));
-			}*/
-			
 			Map<Integer, Integer> result = new HashMap<>();
-			for(Integer r : list) {
-				result.put(list.get(r), gService.getReplyCount(r));
+			for(int i = 0; i < list.size(); i++) {
+				result.put(list.get(i), gService.getReplyCount(list.get(i)));
 			}
 			
 			Gson gson = new GsonBuilder().create();
 			gson.toJson(result, response.getWriter());
 		}
 	}
-	
-	/*@RequestMapping("community.ge")
-	public ModelAndView communityBoard(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
-		int currentPage = 1;
-		if(page != null) {
-			currentPage = page;
-		}
-		
-		int listCount = gService.getCListCount();
-		PageInfo pi = Pageination.getGesipanPageInfo(currentPage, listCount);
-		System.out.println(pi);
-		
-		ArrayList<Gesipan> list = gService.selectCommunityList(pi);
-		
-		if(list != null) {
-			mv.addObject("list", list);
-			mv.addObject("pi", pi);
-			mv.setViewName("community");
-		} else {
-			throw new GesipanException("게시글 전체 조회에 실패하였습니다.");
-		}
-		
-		return mv;
-	}
-	
-	@RequestMapping("selling.ge")
-	public ModelAndView sellingBoard(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
-		int currentPage = 1;
-		if(page != null) {
-			currentPage = page;
-		}
-		
-		int listCount = gService.getSListCount();
-		PageInfo pi = Pageination.getGesipanPageInfo(currentPage, listCount);
-		System.out.println(pi);
-		
-		ArrayList<Gesipan> list = gService.selectSellingList(pi);
-		
-		if(list != null) {
-			mv.addObject("list", list);
-			mv.addObject("pi", pi);
-			mv.setViewName("selling");
-		} else {
-			throw new GesipanException("게시글 전체 조회에 실패하였습니다.");
-		}
-		
-		return mv;
-	}
-	
-	@RequestMapping("qna.ge")
-	public ModelAndView qnaBoard(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
-		int currentPage = 1;
-		if(page != null) {
-			currentPage = page;
-		}
-		
-		int listCount = gService.getQListCount();
-		PageInfo pi = Pageination.getQnaPageInfo(currentPage, listCount);
-		System.out.println(pi);
-		
-		ArrayList<Gesipan> list = gService.selectQnaList(pi);
-		
-		if(list != null) {
-			mv.addObject("list", list);
-			mv.addObject("pi", pi);
-			mv.setViewName("qna");
-		} else {
-			throw new GesipanException("게시글 전체 조회에 실패하였습니다.");
-		}
-		
-		return mv;
-	}*/
-	
-	
-	
-	
+
 	
 }

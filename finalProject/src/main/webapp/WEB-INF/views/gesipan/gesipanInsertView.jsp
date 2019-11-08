@@ -21,8 +21,8 @@
 					<div class="container">
 						<div class="row content" style="background:whitesmoke;">
 							<span id="titlespan" style="font-weight:bold">게시글작성</span>&nbsp;
-							<span id="titlespan" class="locked" style="visibility:hidden; font-size:12px;">문의사항 게시글은 비밀글 설정이 가능합니다  [비밀글 설정]</span><input class="locked" id="lockedCheck" type="checkbox" style="visibility:hidden">
-							<input type="text" id="g_pwd" name="g_pwd" style="visibility:hidden;">
+							<span id="titlespan" class="locked" style="visibility:hidden; font-size:12px;">문의사항 게시글은 비밀글 설정이 가능합니다  [비밀글 설정]</span><input class="locked" id="lockedCheck" type="checkbox" style="visibility:hidden;">
+							<input type="number" id="g_pwd" name="g_pwd" style="visibility:hidden; height:18px;" placeholder="숫자만 입력해주세요.">
 							<script>
 							</script>
 							<div class="category" style="float:right;">
@@ -135,7 +135,17 @@
 					$('#locked').val('N');
 				}
 			})
+			$('#lockedCheck').click(function(){
+				if($('#lockedCheck').prop('checked')){
+					$('#g_pwd').css("visibility", "visible");
+				} else {
+					$('#g_pwd').css("visibility", "hidden");
+					$('#g_pwd').val("");
+				}
+				
+			});
 		});
+		
 		
 	</script>
 

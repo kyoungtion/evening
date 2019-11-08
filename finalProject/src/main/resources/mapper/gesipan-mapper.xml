@@ -4,7 +4,7 @@
 
 	<insert id="insertGesipan" parameterType="Gesipan">
 		insert into Gesipan
-		values(seq_gesipan.nextval, #{g_category}, #{g_title}, #{g_content}, #{g_writer}, #{g_count}, default, default, null, default, #{locked})
+		values(seq_gesipan.nextval, #{g_category}, #{g_title}, #{g_content}, #{g_writer}, #{g_count}, default, default, null, default, #{locked}, #{g_pwd})
 	</insert>
 	
 	<select id="selectListCount" resultType="_int" parameterType="String">

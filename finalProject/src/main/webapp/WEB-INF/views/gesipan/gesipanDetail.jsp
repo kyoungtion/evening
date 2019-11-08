@@ -35,7 +35,7 @@ tbody td {
 		<c:param name="category" value="${ cate }" />
 		<c:param name="page" value="${ page }" />
 	</c:url>
-	<div class="my-panel" style="height:100%;">
+	<div class="my-panel" style="height:1000px;;">
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 100%;">
 			<div class="contact-wrap">
 				<!-- <form style="height: 100%;"> -->
@@ -47,6 +47,9 @@ tbody td {
 								</c:if>
 								<c:if test="${ g.g_category == 'Selling' }">
 									<c:set var="g_cate" value="삽니다" />
+								</c:if>
+								<c:if test="${ g.g_category == 'QNA' }">
+									<c:set var="g_cate" value="문의사항"/>
 								</c:if>
 								<%-- <div style="float: right; padding: 10px; display: block;">
 									<button class="btn btn-default" type="button" style="font-size: 10px;" onclick="location.href='gesipanInsertView.ge?g_category=${cate}'">글쓰기</button>
@@ -91,27 +94,58 @@ tbody td {
 							</div>
 							<div class="row reply">
 							<!-- 댓글수 -->
-							<h6 id="rCountH6">댓글 수[]</h6>
-								<table class = "replyTable">
+								<b id="rCount"></b>
+								<b class="data_count"><em id="messagebyte">0</em>/300자</b>
+								<table class="replyTable" style="width:100%; height:100px;">
+									<colgroup>
+										<col style="width: 100%;">
+										<col style="width: 20%;">
+									</colgroup>
 							      <tr>
 							         <td>
-							            <textarea rows = "5" cols = "50" id ="rContent"></textarea>
+							            <textarea id ="rContent" name="rContent" style="width: 100% !important;height: 100%; resize:none;"></textarea>
 							         </td>
 							         <td>
-							            <button id = "rSubmit" style="width:100%; height:100%;">등록하기</button>            
+							            <button class="btn btn-default" id = "rSubmit" style=" height:100%; border-color: rgb(169, 169, 169); border-radius:0;">등록하기</button>            
 							         </td>
 							      </tr>
 							   </table>
-							   
-							   <table class = "replyTable" id = "rtb">
+							   <table class = "replyTable" id = "rtb" style="width:100%;">
+							  		<colgroup>
+										<col style="width: 50px;">
+										<col style="width: 500px;">
+										<col style="width: 100px;">
+										<col style="width: 100px;">
+									</colgroup>
 							      <thead>
 							         <tr>
-							            <td colspan = "2"><b id = "rCount"></b></td>
+							            <th></th>
+							            <th></th>
+							            <th></th>
+							            <th></th>
 							         </tr>
 							      </thead>
 							      <tbody></tbody>
 							   </table>
 							</div>
+						</div>
+						<div style="float:left; margin-top:10px; display:inline-block;" >
+							<c:url var="glist" value="gList.ge">
+								<c:param name="page" value="${ page }"/>
+								<c:param name="category" value="${ cate }"/>
+							</c:url>
+							<button class="btn btn-default" onclick="location.href='${ glist }'" style="font-size:12px;">목록으로 돌아가기</button>
+						</div>
+						<div style="float:right; margin-top:10px; display:inline-block;">
+							<c:url var="gUpdateView" value="gUpdateView.ge">
+								<c:param name="g_id" value="${ g.g_id }"/>
+								<c:param name="page" value="${ page }"/>
+							</c:url>
+							<c:url var="gDelete" value="gDelete.ge">
+								<c:param name="g_id" value="${ g.g_id }"/>
+							</c:url>
+							<button class="btn btn-primary" style="font-size:12px;" onclick="location.href='${ gUpdateView }'">수정하기</button>
+							<button class="btn btn-danger" style="font-size:12px;" onclick="checkDelete();">삭제하기</button>
 						</div>
 					</div>
 				<!-- </form> -->
@@ -167,9 +201,9 @@ tbody td {
 	                if(data.length > 0){
 	                    for(var i in data){
 	                       $tr = $("<tr>");
-	                       $rWriter = $("<td width = '100'>").text(decodeURIComponent(data[i].nickname.replace(/\+/g , " ")));
+	                       $rWriter = $("<td>").text(decodeURIComponent(data[i].nickname.replace(/\+/g , " ")));
 	                       $rContent = $("<td>").text(decodeURIComponent(data[i].reply_content.replace(/\+/g , " ")));
-	                       $rCreateDate = $("<td width = '100'>").text(data[i].reply_enroll_date);
+	                       $rCreateDate = $("<td>").text(data[i].reply_enroll_date);
 	                       
 	                       $tr.append($rWriter);
 	                       $tr.append($rContent);
@@ -188,6 +222,25 @@ tbody td {
 	                 }
 				}
 			});
+		}
+		
+		$(function(){
+			$('#rContent').on('keyup',function(){
+				if($(this).val().length > 300){
+					alert('300자까지만 입력가능합니다.');
+					$(this).val($(this).val().substring(0,300));
+				}
+				
+				$('#messagebyte').text($(this).val().length);
+			});
+		});
+		
+		function checkDelete(){
+			if(confirm("정말 삭제하시겠습니까?") == true){
+				location.href="gDelete.ge?g_id"+${g.g_id};
+			} else {
+				return;
+			}
 		}
 	</script>
 

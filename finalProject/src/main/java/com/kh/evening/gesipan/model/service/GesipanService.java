@@ -25,7 +25,9 @@ public interface GesipanService {
 
 	int insertReply(GesipanReply r);
 
-	Integer getReplyCount(Integer r);
+	Integer getReplyCount(Integer g_ref);
+
+	/*Integer getReplyCount(Integer r);*/
 
 	
 	
