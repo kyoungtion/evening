@@ -35,7 +35,16 @@
             </bean>
         </constructor-arg>
     </bean> -->
-
+	
+	<!-- <bean id="realdataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSource"/>
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE"/>
+				<property name="sqlPrefix" value="[SQL]"/>
+			</bean>
+		</property>
+	</bean> -->
 
 	 
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
