@@ -107,13 +107,13 @@
 								<tbody>
 								<c:forEach var="g" items="${list}">
 										<tr style="background-color:#FFFFFF; color: #333333;">
-											<td>${ g.g_id }</td>
+											<td class="gId">${ g.g_id }</td>
 											<td class="displaynone"></td>
 											<td class="subject">
 												<c:if test="${ g.locked eq 'Y' }">
 													<i class="fas fa-lock"></i>
 												</c:if>
-												<span class="title">${ g.g_title }</span>
+												<span class="gTitle">${ g.g_title }</span>
 												<c:if test="${fn:contains(g.g_content, '<img src')}">
 													<!-- <img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_img.gif"
 													alt="파일첨부" class="ec-common-rwd-image"> -->
@@ -135,7 +135,7 @@
 										<td class="displaynone"></td>
 										<td class="subject">
 											파일제목
-											<span class="title">[개선해주세요]</span>
+											<span class="gTitle">[개선해주세요]</span>
 											파일첨부 아이콘 
 											<img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
 											alt="파일첨부" class="ec-common-rwd-image">
@@ -154,7 +154,7 @@
 											src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_lock.gif"
 											alt="비밀글" class="ec-common-rwd-image">
 											 파일제목
-											<span class="title">문의사항</span>
+											<span class="gTitle">문의사항</span>
 											파일첨부 아이콘 
 											<img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
 											alt="파일첨부" class="ec-common-rwd-image"> 
@@ -172,13 +172,16 @@
 						<div class="row" >
 							<div class="col-md-5" style="text-align: center; left:35%; width: 350px;">
 							<!-- <div class="col-md-5" id="searchbox"> -->
-								<select>
+								<select id="searchfor" name="searchfor">
 									<option value="title">제목</option>
 									<option value="writer">작성자</option>
 								</select>
-								<input id="searchText" type="text"/>
-								<button style="background:none; border:0;"><i class="fas fa-search"></i>
+								<input id="searchText" name="searchText" type="search"/>
+								<input type="hidden" id="category" value="${ cate }">
+								<button type="button" id="searchBtn" style="background:none; border:0;"><i class="fas fa-search"></i>
 								</button>
+								
+								
 							<!-- </div> -->
 								<ul class="pagination">
 									<!-- 이전 -->
@@ -186,8 +189,9 @@
 										<li class="disabled"><a href="#">«</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage > 1 }">
-										<c:url var="before" value="qna.ge">
+										<c:url var="before" value="gList.ge">
 											<c:param name="page" value="${ pi.currentPage - 1 } "/>
+											<c:param name="category" value="${ cate }"/>
 										</c:url>
 										<li><a href="${ before }">«</a></li>
 									</c:if>
@@ -197,8 +201,9 @@
 											<li class="active"><a>${ p }</a></li>									
 										</c:if>
 										<c:if test="${ p ne pi.currentPage }">
-											<c:url var="pagination" value="qna.ge">
-												<c:param name="page" value="${ p }"/>
+											<c:url var="pagination" value="gList.ge">
+												<c:param name="page" value="${ p } "/>
+												<c:param name="category" value="${ cate }"/>
 											</c:url>
 											<li><a href="${ pagination }">${ p }</a></li>
 										</c:if>
@@ -208,8 +213,9 @@
 										<li class="disabled"><a href="#">»</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage < pi.maxPage }">
-										<c:url var="after" value="qna.ge">
-											<c:param name="page" value="${ pi.currentPage + 1 }"/>
+										<c:url var="after" value="gList.ge">
+											<c:param name="page" value="${ pi.currentPage + 1 } "/>
+											<c:param name="category" value="${ cate }"/>
 										</c:url>
 										<li><a href="${ after }">»</a></li>
 									</c:if>

@@ -1,13 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="gesipanMapper">
+<mapper namespace="gMapper">
 
 	<insert id="insertGesipan" parameterType="Gesipan">
 		insert into Gesipan
 		values(seq_gesipan.nextval, #{g_category}, #{g_title}, #{g_content}, #{g_writer}, #{g_count}, default, default, null, default, #{locked})
 	</insert>
 	
-	<select id="selectCListCount" resultType="_int">
+	<select id="selectListCount" resultType="_int" parameterType="String">
+		select count(*)
+		from gesipan
+		where g_status='N' and g_category=#{category}
+	</select>
+
+	<select id="selectGesipanList" resultType="Gesipan" parameterType="String">
+		select g.*, m.nickname
+		from gesipan g
+		join member m on(g.g_writer = m.user_id)
+		where g_status='N' and g_category = #{category}
+		order by g_id desc
+	</select>
+
+	<select id="selectSearchListCount" resultType="_int" parameterType="map">
+		select count(*)
+		from gesipan g
+		join member m on(g.g_writer = m.user_id)
+		where g_status='N' and g_category= #{category}
+		<choose>
+			<when test="searchfor.equals('title')">
+				and g_title like '%' || #{keyword} || '%'
+			</when>
+			<when test="searchfor.equals('writer')">
+				and nickname like '%' || #{keyword} || '%'
+			</when>
+		</choose>
+		order by g_id desc
+	</select>
+	
+	<select id="selectSearchList" resultType="Gesipan" parameterType="map">
+		select g.*, m.nickname
+		from gesipan g
+		join member m on(g.g_writer = m.user_id)
+		where g_status='N' and g_category=#{category}
+		<choose>
+			<when test="searchfor.equals('title')">
+				and g_title like '%' || #{keyword} || '%'
+			</when>
+			<when test="searchfor.equals('writer')">
+				and nickname like '%' || #{keyword} || '%'
+			</when>
+		</choose>
+		order by g_id desc
+	</select>
+	
+	<select id="selectGesipan" resultType="Gesipan" parameterType="_int">
+		select g.*, m.nickname 
+		from gesipan g
+		join member m on(g.g_writer = m.user_id)
+		where g_status='N' and g_id = #{g_id}
+	</select>
+	
+	<update id="addReadCount" parameterType="_int">
+		update gesipan
+		set g_count = g_count + 1
+		where g_id = #{ g_id }
+	</update>
+	
+	<select id="selectReplyList" resultType="gReply" parameterType="_int">
+		select * 
+		from g_reply r
+		join gesipan g on(g.g_id = r.g_ref)
+		where r.g_ref = #{ g_ref }
+		order by g_reply_id desc
+	</select>
+	
+	<insert id="insertReply" parameterType="gReply">
+		insert into g_reply
+		values(seq_g_reply.nextval, #{user_id}, #{nickname}, #{g_ref}, #{reply_content}, null, default, default, default)
+	</insert>
+	
+	<select id="getReplyCount" parameterType="integer" resultType="_int">
+		select count(*)
+		from g_reply
+		where g_ref = #{ g_ref } and reply_status = 'N'
+		order by g_reply_id desc
+	</select>
+	<!-- <select id="selectCListCount" resultType="_int">
 		select count(*)
 		from gesipan
 		where g_status='N' and g_category='Community'
@@ -23,9 +101,10 @@
 		select count(*)
 		from gesipan
 		where g_status='N' and g_category='QNA'
-	</select>
+	</select> -->
 	
-	<select id="selectCommunityList" resultType="Gesipan">
+	
+	<!-- <select id="selectCommunityList" resultType="Gesipan">
 		select g.*, m.nickname
 		from gesipan g
 		join member m on (g.g_writer = m.user_id)
@@ -47,5 +126,5 @@
 		join member m on (g.g_writer = m.user_id)
 		where g_status='N' and g_category = 'QNA'
 		order by g_id desc
-	</select>
+	</select> -->
 </mapper>

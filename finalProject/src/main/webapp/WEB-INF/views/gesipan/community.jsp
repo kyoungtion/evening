@@ -15,12 +15,19 @@
 	border: whitesmoke;
 }
 
+.rWrap {
+	visibility:hidden;
+}
+
 
 </style>
 </head>
-<body>
+<body onload="getReplyList();">
 	<c:import url="/WEB-INF/views/common/header.jsp" />
 	<c:set var="cate" value="Community"/>
+	<c:url var="gList" value="gList.ge">
+		<c:param name="category" value="${ cate }"/>
+	</c:url>
 	<div class="my-panel">
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 100%;">
 			<div class="contact-wrap">
@@ -58,60 +65,25 @@
 								<tbody>
 									<c:forEach var="g" items="${list}">
 										<tr style="background-color:#FFFFFF; color: #333333;">
-											<td>${ g.g_id }</td>
+											<td id="g_id" name="gId">${ g.g_id }</td>
 											<td class="displaynone"></td>
 											<td class="subject">
-												<span class="title">${ g.g_title }</span>
+												<span class="gTitle">${ g.g_title }</span>
 												<c:if test="${fn:contains(g.g_content, '<img src')}">
 													<!-- <img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_img.gif"
 													alt="파일첨부" class="ec-common-rwd-image"> -->
 													<i class="fas fa-image"></i>
 												</c:if>
-												<%-- rCount 추가 나중에 
-												<c:if test="">
-													
-												</c:if> --%>
+												<%-- rCount 추가 나중에 --%>
+												<span class="rWrap Before"> [ </span>
+												<span><font id="rCount"></font></span>
+												<span class="rWrap After"> ] </span>
 											</td>
 											<td>${ g.nickname }</td>
 											<td>${ g.g_enroll_date }</td>
 											<td class="displaynone"></td>
 										</tr>
 									</c:forEach>
-									<!-- <tr style="background-color: #FFFFFF; color: #333333;"
-										class="xans-record-">
-										<td>324</td>
-										<td class="displaynone"></td>
-										<td class="subject">
-											파일제목 
-											<span class="title">안녕하세요</span>
-											파일첨부 아이콘
-											<img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
-											alt="파일첨부" class="ec-common-rwd-image">
-											댓글
-											<span class="comment">[1]</span>
-										</td>
-										<td>작성자이름</td>
-										<td class="txtLess ">작성날짜</td>
-										<td class="displaynone">작성날짜</td>
-									</tr>
-									<tr style="background-color: #FFFFFF; color: #333333;">
-										<td>324</td>
-										<td class="displaynone"></td>
-										<td class="subject">
-											잠금아이콘 <img
-											src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_lock.gif"
-											alt="비밀글" class="ec-common-rwd-image"> 
-											파일제목
-											<span class="title">반갑습니당</span>
-											파일첨부 아이콘 <img
-											src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
-											alt="파일첨부" class="ec-common-rwd-image"> 
-											<span class="comment">[1]</span>
-										</td>
-										<td>작성자이름</td>
-										<td class="txtLess ">작성날짜</td>
-										<td class="displaynone">작성날짜</td>
-									</tr> -->
 								</tbody>
 							</table>
 						</div>
@@ -120,15 +92,16 @@
 						<div class="row" >
 							<div class="col-md-5" style="text-align: center; left:35%; width: 350px;">
 							<!-- <div class="col-md-5" id="searchbox"> -->
-							<form action="gesipanSearch.ge">
-								<select>
+								<select id="searchfor" name="searchfor">
 									<option value="title">제목</option>
 									<option value="writer">작성자</option>
 								</select>
-								<input id="searchText" type="text"/>
-								<button onclick="searchBtn();" id="searchBtn" style="background:none; border:0;"><i class="fas fa-search"></i>
+								<input id="searchText" name="searchText" type="search"/>
+								<input type="hidden" id="category" value="${ cate }">
+								<button type="button" id="searchBtn" style="background:none; border:0;"><i class="fas fa-search"></i>
 								</button>
-							</form>
+								
+								
 							<!-- </div> -->
 								<ul class="pagination">
 									<!-- 이전 -->
@@ -136,8 +109,9 @@
 										<li class="disabled"><a href="#">«</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage > 1 }">
-										<c:url var="before" value="community.ge">
+										<c:url var="before" value="gList.ge">
 											<c:param name="page" value="${ pi.currentPage - 1 } "/>
+											<c:param name="category" value="${ cate }"/>
 										</c:url>
 										<li><a href="${ before }">«</a></li>
 									</c:if>
@@ -147,8 +121,9 @@
 											<li class="active"><a>${ p }</a></li>									
 										</c:if>
 										<c:if test="${ p ne pi.currentPage }">
-											<c:url var="pagination" value="community.ge">
-												<c:param name="page" value="${ p }"/>
+											<c:url var="pagination" value="gList.ge">
+												<c:param name="page" value="${ p } "/>
+												<c:param name="category" value="${ cate }"/>
 											</c:url>
 											<li><a href="${ pagination }">${ p }</a></li>
 										</c:if>
@@ -158,8 +133,9 @@
 										<li class="disabled"><a href="#">»</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage < pi.maxPage }">
-										<c:url var="after" value="community.ge">
-											<c:param name="page" value="${ pi.currentPage + 1 }"/>
+										<c:url var="after" value="gList.ge">
+											<c:param name="page" value="${ pi.currentPage + 1 } "/>
+											<c:param name="category" value="${ cate }"/>
 										</c:url>
 										<li><a href="${ after }">»</a></li>
 									</c:if>
@@ -172,6 +148,58 @@
 		</div>
 
 	</div>
+	<script>
+		// 게시글 상세정보 조회
+		$(function(){
+			$('.subject').click(function(){
+				var g_id = $(this).prev().prev().text();
+				location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
+			})
+		});
+		
+		/* $(function(){
+			
+			getReplyList();
+		}); */
+		
+		function getReplyList(){
+			var g_ref = document.getElementsByName("gId");
+			var array = new Array();
+			for(var i in g_ref){
+				array.push(Number(g_ref[i].innerText));
+			}
+			console.log(g_ref);
+			/* var g_ref = $('.subject').prev().prev().text(); */
+			console.log(g_ref);
+			/* var g_ref = ${ g.g_id }; */
+			
+			jQuery.ajaxSettings.traditional = true;
+			$.ajax({
+				url: "rCount.ge",
+				data: {g_ref:array},
+				dataType: "json",
+				success: function(data) {
+	                $('.rWrap').css("visibility", "visible");
+					$td = $('.subject').prev().prev().text();
+					$rWrap = $('.rWrap.Before');
+	                $span = $('#rc');
+	                if(data.length > 0){
+	                	console.log(data)
+	                    for(var i in data){
+	                    	if(data[i] == $td){
+								$("#rCount").text(data[i]);
+	                    		
+	                    	}
+	                    	
+	                    }
+	                 }
+				}, error: function(){
+					console.log('안됨');
+				}
+			});
+			
+		}
+	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>

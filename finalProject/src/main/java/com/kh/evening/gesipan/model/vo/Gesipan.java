@@ -21,11 +21,13 @@ public class Gesipan {
 	private int g_ref;
 	private String g_status;
 	private String locked;
+	private String g_pwd;
 	
 	public Gesipan() {}
 
 	public Gesipan(int g_id, String g_category, String g_title, String g_content, String g_writer, String nickname,
-			int g_count, Date g_enroll_date, Date g_update_date, int g_ref, String g_status, String locked) {
+			int g_count, Date g_enroll_date, Date g_update_date, int g_ref, String g_status, String locked,
+			String g_pwd) {
 		super();
 		this.g_id = g_id;
 		this.g_category = g_category;
@@ -39,6 +41,15 @@ public class Gesipan {
 		this.g_ref = g_ref;
 		this.g_status = g_status;
 		this.locked = locked;
+		this.g_pwd = g_pwd;
+	}
+
+	@Override
+	public String toString() {
+		return "Gesipan [g_id=" + g_id + ", g_category=" + g_category + ", g_title=" + g_title + ", g_content="
+				+ g_content + ", g_writer=" + g_writer + ", nickname=" + nickname + ", g_count=" + g_count
+				+ ", g_enroll_date=" + g_enroll_date + ", g_update_date=" + g_update_date + ", g_ref=" + g_ref
+				+ ", g_status=" + g_status + ", locked=" + locked + ", g_pwd=" + g_pwd + "]";
 	}
 
 	public int getG_id() {
@@ -81,11 +92,11 @@ public class Gesipan {
 		this.g_writer = g_writer;
 	}
 
-	public String getnickname() {
+	public String getNickname() {
 		return nickname;
 	}
 
-	public void setnickname(String nickname) {
+	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
 
@@ -137,12 +148,13 @@ public class Gesipan {
 		this.locked = locked;
 	}
 
-	@Override
-	public String toString() {
-		return "Gesipan [g_id=" + g_id + ", g_category=" + g_category + ", g_title=" + g_title + ", g_content="
-				+ g_content + ", g_writer=" + g_writer + ", nickname=" + nickname + ", g_count=" + g_count
-				+ ", g_enroll_date=" + g_enroll_date + ", g_update_date=" + g_update_date + ", g_ref=" + g_ref
-				+ ", g_status=" + g_status + ", locked=" + locked + "]";
+	public String getG_pwd() {
+		return g_pwd;
 	}
+
+	public void setG_pwd(String g_pwd) {
+		this.g_pwd = g_pwd;
+	}
+
 	
 }
