@@ -11,6 +11,16 @@
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
+	
+	<!-- 리스트 불러오기 (ajax 대용) -->
+	<c:if test="${ empty alist }">
+						<script>
+              $(function() {
+                location.href = "home.do";
+              });
+            </script>
+					</c:if>
+	
 	<div class="page">
 		<aside id="colorlib-hero">
 			<div class="flexslider">
@@ -206,14 +216,6 @@
 					</div>
 				</div>
 				<div class="row">
-
-					<c:if test="${ empty alist }">
-						<script>
-              $(function() {
-                location.href = "home.do";
-              });
-            </script>
-					</c:if>
 
 					<c:if test="${ fn:length(alist) > 0 }">
 						<c:forEach var="i" items="${ alist }" begin="0"
