@@ -204,6 +204,19 @@
 		<version>1.3.3</version>
 	</dependency>
 		
+ 
+		<dependency>
+	        <groupId>com.zaxxer</groupId>
+	        <artifactId>HikariCP</artifactId>
+	        <version>3.4.1</version>    
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.projectlombok</groupId>
+	    	<artifactId>lombok</artifactId>
+	    	<version>1.18.10</version>
+	    </dependency>
+
 	<dependency>
 		<groupId>commons-io</groupId>
 		<artifactId>commons-io</artifactId>
@@ -238,11 +251,7 @@
 		<artifactId>aspectjweaver</artifactId>
 		<version>${org.aspectj-version}</version>
     </dependency>
-	
-	
-	
-	
-		       
+
 	</dependencies>
     <build>
         <plugins>

@@ -7,7 +7,10 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
+
+		<config>src/main/webapp/WEB-INF/spring/appServlet/gesipan-context.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/chatting-context.xml</config>
+
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/member-context.xml</config>
@@ -15,7 +18,9 @@
 		<config>src/main/webapp/WEB-INF/spring/appServlet/used-context.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/spring-security.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
+
 		<config>src/main/webapp/WEB-INF/spring/appServlet/push-context.xml</config>
+
 	</autoconfigs>
 	<configSets>
 	</configSets>
