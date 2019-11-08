@@ -66,6 +66,11 @@ public class GesipanServiceImpl implements GesipanService{
 		return gDAO.insertReply(sqlSession, r);
 	}
 
+	@Override
+	public Integer getReplyCount(Integer r) {
+		return gDAO.getReplyCount(sqlSession, r);
+	}
+
 	
 
 	/*@Override

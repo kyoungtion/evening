@@ -78,6 +78,13 @@
 		insert into g_reply
 		values(seq_g_reply.nextval, #{user_id}, #{nickname}, #{g_ref}, #{reply_content}, null, default, default, default)
 	</insert>
+	
+	<select id="getReplyCount" parameterType="integer" resultType="_int">
+		select count(*)
+		from g_reply
+		where g_ref = #{ g_ref } and reply_status = 'N'
+		order by g_reply_id desc
+	</select>
 	<!-- <select id="selectCListCount" resultType="_int">
 		select count(*)
 		from gesipan

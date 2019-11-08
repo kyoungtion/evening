@@ -25,6 +25,8 @@ public interface GesipanService {
 
 	int insertReply(GesipanReply r);
 
+	Integer getReplyCount(Integer r);
+
 	
 	
 	/*ArrayList<Gesipan> selectCommunityList(PageInfo pi);

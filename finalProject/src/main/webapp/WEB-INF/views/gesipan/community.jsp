@@ -15,10 +15,14 @@
 	border: whitesmoke;
 }
 
+.rWrap {
+	visibility:hidden;
+}
+
 
 </style>
 </head>
-<body>
+<body onload="getReplyList();">
 	<c:import url="/WEB-INF/views/common/header.jsp" />
 	<c:set var="cate" value="Community"/>
 	<c:url var="gList" value="gList.ge">
@@ -61,7 +65,7 @@
 								<tbody>
 									<c:forEach var="g" items="${list}">
 										<tr style="background-color:#FFFFFF; color: #333333;">
-											<td id="gId">${ g.g_id }</td>
+											<td id="g_id" name="gId">${ g.g_id }</td>
 											<td class="displaynone"></td>
 											<td class="subject">
 												<span class="gTitle">${ g.g_title }</span>
@@ -70,51 +74,16 @@
 													alt="파일첨부" class="ec-common-rwd-image"> -->
 													<i class="fas fa-image"></i>
 												</c:if>
-												<%-- rCount 추가 나중에 
-												<c:if test="">
-													
-												</c:if> --%>
+												<%-- rCount 추가 나중에 --%>
+												<span class="rWrap Before"> [ </span>
+												<span><font id="rCount"></font></span>
+												<span class="rWrap After"> ] </span>
 											</td>
 											<td>${ g.nickname }</td>
 											<td>${ g.g_enroll_date }</td>
 											<td class="displaynone"></td>
 										</tr>
 									</c:forEach>
-									<!-- <tr style="background-color: #FFFFFF; color: #333333;"
-										class="xans-record-">
-										<td>324</td>
-										<td class="displaynone"></td>
-										<td class="subject">
-											파일제목 
-											<span class="gTitle">안녕하세요</span>
-											파일첨부 아이콘
-											<img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
-											alt="파일첨부" class="ec-common-rwd-image">
-											댓글
-											<span class="comment">[1]</span>
-										</td>
-										<td>작성자이름</td>
-										<td class="txtLess ">작성날짜</td>
-										<td class="displaynone">작성날짜</td>
-									</tr>
-									<tr style="background-color: #FFFFFF; color: #333333;">
-										<td>324</td>
-										<td class="displaynone"></td>
-										<td class="subject">
-											잠금아이콘 <img
-											src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_lock.gif"
-											alt="비밀글" class="ec-common-rwd-image"> 
-											파일제목
-											<span class="gTitle">반갑습니당</span>
-											파일첨부 아이콘 <img
-											src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_file.gif"
-											alt="파일첨부" class="ec-common-rwd-image"> 
-											<span class="comment">[1]</span>
-										</td>
-										<td>작성자이름</td>
-										<td class="txtLess ">작성날짜</td>
-										<td class="displaynone">작성날짜</td>
-									</tr> -->
 								</tbody>
 							</table>
 						</div>
@@ -187,6 +156,49 @@
 				location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
 			})
 		});
+		
+		/* $(function(){
+			
+			getReplyList();
+		}); */
+		
+		function getReplyList(){
+			var g_ref = document.getElementsByName("gId");
+			var array = new Array();
+			for(var i in g_ref){
+				array.push(Number(g_ref[i].innerText));
+			}
+			console.log(g_ref);
+			/* var g_ref = $('.subject').prev().prev().text(); */
+			console.log(g_ref);
+			/* var g_ref = ${ g.g_id }; */
+			
+			jQuery.ajaxSettings.traditional = true;
+			$.ajax({
+				url: "rCount.ge",
+				data: {g_ref:array},
+				dataType: "json",
+				success: function(data) {
+	                $('.rWrap').css("visibility", "visible");
+					$td = $('.subject').prev().prev().text();
+					$rWrap = $('.rWrap.Before');
+	                $span = $('#rc');
+	                if(data.length > 0){
+	                	console.log(data)
+	                    for(var i in data){
+	                    	if(data[i] == $td){
+								$("#rCount").text(data[i]);
+	                    		
+	                    	}
+	                    	
+	                    }
+	                 }
+				}, error: function(){
+					console.log('안됨');
+				}
+			});
+			
+		}
 	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />

@@ -65,7 +65,6 @@ public class GesipanController {
 	public ModelAndView gList(@RequestParam(value="page", required=false) Integer page, 
 								@RequestParam("category") String category,
 								ModelAndView mv) {
-		System.out.println("page : " + page);
 		int currentPage = 1;
 		if(page != null) {
 			currentPage = page;
@@ -77,9 +76,6 @@ public class GesipanController {
 		} else if(category.equals("QNA")) {
 			pi = Pageination.getQnaPageInfo(currentPage, listCount);
 		}
-		
-		System.out.println(pi);
-		System.out.println(pi.getStartPage());
 		
 		ArrayList<Gesipan> list = gService.selectGesipanList(pi, category);
 		String cate = "";
@@ -122,7 +118,6 @@ public class GesipanController {
 			
 			int listCount = gService.getSearchListCount(category, parameters);
 			PageInfo pi = Pageination.getGesipanPageInfo(currentPage, listCount);
-			System.out.println(pi);
 			
 			ArrayList<Gesipan> list = gService.selectSearchList(pi, parameters);
 			if(list != null) {
@@ -140,7 +135,6 @@ public class GesipanController {
 			
 			int listCount = gService.getSearchListCount(category, parameters);
 			PageInfo pi = Pageination.getQnaPageInfo(currentPage, listCount);
-			System.out.println(pi);
 			
 			ArrayList<Gesipan> list = gService.selectSearchList(pi, parameters);
 			
@@ -197,6 +191,38 @@ public class GesipanController {
 			return "success";
 		} else {
 			throw new GesipanException("댓글 등록에 실패하였습니다.");
+		}
+	}
+	
+	@RequestMapping("rCount.ge")
+	public void getReplyCount(@RequestParam(value="g_ref", required=false) ArrayList g_ref, HttpServletResponse response) throws JsonIOException, IOException {
+		if(g_ref != null) {
+				
+			// 받아온 리스트(인트변환)
+			ArrayList<Integer> list = new ArrayList<>();
+			for(int i = 0; i < g_ref.size(); i++) {
+				
+				String temp = ((String)g_ref.get(i));
+				/*Integer intTemp = Integer.parseInt(temp);*/
+				if(!g_ref.get(i).equals("NaN")) {
+					list.add(Integer.parseInt(temp));
+
+				}
+			}
+			
+			/*// 반환할 리스트(결과값)
+			ArrayList<Integer> result = new ArrayList<>();
+			for(Integer r : list) {
+				result.add(gService.getReplyCount(r));
+			}*/
+			
+			Map<Integer, Integer> result = new HashMap<>();
+			for(Integer r : list) {
+				result.put(list.get(r), gService.getReplyCount(r));
+			}
+			
+			Gson gson = new GsonBuilder().create();
+			gson.toJson(result, response.getWriter());
 		}
 	}
 	
