@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -38,15 +39,6 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Gothic+A1|Noto+Sans+KR&display=swap"
 	rel="stylesheet">
-<!-- font-awesome -->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.11.2/css/v4-shims.css">
-<script defer
-	src="https://use.fontawesome.com/releases/v5.11.2/js/all.js"></script>
-<script defer
-	src="https://use.fontawesome.com/releases/v5.11.2/js/v4-shims.js"></script>
 
 <!-- Mypage style (경희) -->
 <link rel="stylesheet" href="resources/css/mypage.css">
@@ -54,20 +46,6 @@
 <link rel="stylesheet" href="resources/css/header.css">
 <!-- Modernizr JS -->
 <script src="resources/js/modernizr-2.6.2.min.js"></script>
-<!-- fontAwesome -->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.11.2/css/v4-shims.css">
-<script defer
-	src="https://use.fontawesome.com/releases/v5.11.2/js/all.js"></script>
-<script defer
-	src="https://use.fontawesome.com/releases/v5.11.2/js/v4-shims.js"></script>
-<style>
-* {
-	font-family: 'Noto Sans KR', sans-serif !important;
-}
-</style>
 
 </head>
 <body>
@@ -79,6 +57,7 @@
 
 
 	<header class="ebHeader">
+	
 		<div class="ebHeader-bar no-drag">
 			<div style="height: 100%; overflow: hidden;">
 				<div id="hLogo">
@@ -86,56 +65,68 @@
 				</div>
 				<div id="navTag">
 					<ul id="hNav">
-						<li><a href="auctionList.bo">경매</a></li>
+						<li><a href="">경매</a></li>
 						<li><a href="usedListAll.ud">중고거래</a></li>
-						<li><a href="gList.ge?category=Community">게시판</a></li>
+						<li><a href="">게시판</a></li>
 						<!-- 비회원시 -->
-						<li><a href="">로그인</a></li>
-						<li><a href="">회원가입</a></li>
+						<c:if test="${ empty sessionScope.loginUser }">
+						<li><a href="login.me">로그인 / 회원가입</a></li>
+						</c:if>
+						
+					
+	
+							
+		<c:if test="${ !empty sessionScope.loginUser }">
+							
 						<!-- 로그인시 -->
+						
 						<li class="nav_sub"><a>마이페이지</a>
 							<div style="position: fixed;">
 								<ul id="test">
+								
+									<li><a href="">경매</a></li>
+									<li><a href="usedListAll.ud">중고거래</a></li>
+									<li><a href="">게시판</a></li>
 									<li><a href="myinfo.me">내정보보기</a></li>
 									<li><a href="favorites.me">관심 목록</a></li>
 									<li><a href="dealDetail.me">거래 내역</a></li>
 									<li><a href="mypost.me">내가 쓴 글</a></li>
+									
 								</ul>
 							</div></li>
-						<li><img src="../push_bell/img/bell.png" alt=""></li>
+						<li><a href="javascript:void(0);"
+							onclick="window.open('pushMain.pu', '알림창', 'top=10, left=10, width=920, height=510, status=no, menubar=no, toolbar=no, resizable=no');"><img
+								src="https://i.imgur.com/CNXbr6P.png"></a></li>
+								<li><a href="chat.ch">채팅샘플</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
+		</c:if>
 	</header>
-	<script>
-		$('#hLogo img').click(function(){
-			location.href="home.do";
-		});
-   </script>
 	<div class="catalog no-drag">
 		<div style="text-align: center; display: inline-block;">
 			<ul class="catalog-ul">
-				<li class="catalog-tap" onclick="location.href='secondgoodList.bo'"><a
-					style="font-size: 21px;">중고</a> <!-- <ul class="catalogTag">
-                  <li>중고</li>
-                  <li>중고</li>
-                  <li>중고</li>
-                  <li>중고</li>
-               </ul> --></li>
-				<c:url var="auction" value="auctionList.bo" />
-				<li class="catalog-tap" onclick="location.href='auctionList.bo'"><a
-					style="font-size: 21px;">경매</a> <!-- <ul class="catalogTag">
-                  <li>경매</li>
-                  <li>경매</li>
-                  <li>경매</li>
-                  <li>경매</li>
-               </ul> --></li>
+				<li class="catalog-tap"><a style="font-size: 21px;">중고</a>
+					<ul class="catalogTag">
+						<li>중고</li>
+						<li>중고</li>
+						<li>중고</li>
+						<li>중고</li>
+					</ul></li>
+				<li class="catalog-tap"><a style="font-size: 21px;">경매</a>
+					<ul class="catalogTag">
+						<li>경매</li>
+						<li>경매</li>
+						<li>경매</li>
+						<li>경매</li>
+					</ul></li>
 				<li class="catalog-tap"><a style="font-size: 21px;">게시판</a>
 					<ul class="catalogTag">
-						<li><a href="gList.ge?category=Community">커뮤니티</a></li>
-						<li><a href="gList.ge?category=Selling">삽니다</a></li>
-						<li><a href="gList.ge?category=QNA">문의글</a></li>
+						<li>게시판</li>
+						<li>게시판</li>
+						<li>게시판</li>
+						<li>게시판</li>
 					</ul></li>
 			</ul>
 		</div>
@@ -179,4 +170,5 @@
 
 	<script src="resources/js/mypage.js"></script>
 </body>
+
 </html>
