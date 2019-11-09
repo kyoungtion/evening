@@ -85,46 +85,36 @@
 		where g_ref = #{ g_ref } and reply_status = 'N'
 		order by g_reply_id desc
 	</select>
-	<!-- <select id="selectCListCount" resultType="_int">
-		select count(*)
-		from gesipan
-		where g_status='N' and g_category='Community'
-	</select>
 	
-	<select id="selectSListCount" resultType="_int">
-		select count(*)
-		from gesipan
-		where g_status='N' and g_category='Selling'
-	</select>
+	<update id="updateReply" parameterType="map">
+		update g_reply
+		set reply_content = #{r_content}
+		where g_reply_id = #{r_id}
+	</update>
 	
-	<select id="selectQListCount" resultType="_int">
-		select count(*)
-		from gesipan
-		where g_status='N' and g_category='QNA'
-	</select> -->
+	<update id="deleteReply" parameterType="integer">
+		update g_reply
+		set reply_status='Y', g_ref=null
+		where g_reply_id = #{r_id}
+	</update>
 	
+	<update id="updateGesipan" parameterType="Gesipan">
+		update gesipan
+		<set>
+			<if test="!locked.equals('N')">
+				locked='Y', g_pwd=#{g_pwd},g_title = #{g_title}, g_category = #{g_category},g_content=#{g_content}
+			</if>
+			<if test="locked.equals('N')">
+				g_title = #{g_title}, g_category = #{g_category},g_content=#{g_content}
+			</if>
+		</set>
+		where g_id=#{g_id}
+	</update>
 	
-	<!-- <select id="selectCommunityList" resultType="Gesipan">
-		select g.*, m.nickname
-		from gesipan g
-		join member m on (g.g_writer = m.user_id)
-		where g_status='N' and g_category = 'Community'
-		order by g_id desc
-	</select>
-	
-	<select id="selectSellingList" resultType="Gesipan">
-		select g.*, m.nickname
-		from gesipan g
-		join member m on (g.g_writer = m.user_id)
-		where g_status='N' and g_category = 'Selling'
-		order by g_id desc
-	</select>
-	
-	<select id="selectQnaList" resultType="Gesipan">
-		select g.*, m.nickname
-		from gesipan g
-		join member m on (g.g_writer = m.user_id)
-		where g_status='N' and g_category = 'QNA'
-		order by g_id desc
-	</select> -->
+	<update id="deleteGesipan" parameterType="_int">
+		update gesipan
+		set g_status='Y'
+		where g_id = #{g_id}
+	</update>
+
 </mapper>

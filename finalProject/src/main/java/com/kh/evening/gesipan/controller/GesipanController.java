@@ -61,6 +61,7 @@ public class GesipanController {
 		}
 	}
 	
+	
 	@RequestMapping("gList.ge")
 	public ModelAndView gList(@RequestParam(value="page", required=false) Integer page, 
 								@RequestParam("category") String category,
@@ -220,5 +221,83 @@ public class GesipanController {
 		}
 	}
 
+	
+	@RequestMapping("rUpdate.ge")
+	@ResponseBody
+	public String rUpdate(@RequestParam("g_reply_id") Integer r_id,
+						@RequestParam("r_content") String r_content) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("r_id", r_id);
+		map.put("r_content", r_content);
+		
+		int result = gService.updateReply(map);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			throw new GesipanException("댓글 수정에 실패하였습니다.");
+		}
+	}
+	
+	@RequestMapping("rDelete.ge")
+	@ResponseBody
+	public String rDelete(@RequestParam("g_reply_id")Integer r_id) {
+		int result = gService.deleteReply(r_id);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			throw new GesipanException("댓글 삭제에 실패하였습니다.");
+		}
+		
+	}
+	
+	@RequestMapping("gUpdateView.ge")
+	public ModelAndView gUpdateView(@RequestParam("g_id") int g_id,
+									@RequestParam("page") int page,
+									ModelAndView mv) {
+		Gesipan g = gService.selectGesipan(g_id);
+		
+		if(g != null) {
+			mv.addObject("g", g).addObject("page", page).addObject("g_id", g_id).setViewName("gesipanUpdateForm");
+		} else {
+			throw new GesipanException("수정화면 접근에 실패했습니다.");
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping("gUpdate.ge")
+	public ModelAndView gesipanUpdate(@ModelAttribute Gesipan g, @RequestParam("page") int page, @RequestParam("g_id") int g_id,
+								ModelAndView mv) {	
+		
+		System.out.println(g.getG_content());
+		System.out.println(g.getG_title());
+		System.out.println(g.getLocked());
+		g.setG_id(g_id);
+		int result = gService.updateGesipan(g);
+		g = gService.selectGesipan(g_id);
+		
+		if(result > 0) {
+			mv.addObject("g_id", g_id).addObject("page", page).setViewName("redirect:gDetail.ge");
+		} else {
+			throw new GesipanException("게시글 수정에 실패하였습니다.");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("gDelete.ge")
+	public ModelAndView gesipanDelete(@RequestParam("category") String category, @RequestParam("g_id") int g_id, ModelAndView mv) {
+		
+		int result = gService.deleteGesipan(g_id);
+		
+		if(result > 0) {
+			mv.addObject("category", category).setViewName("redirect:gList.ge");
+		} else {
+			throw new GesipanException("게시판 삭제에 실패했습니다.");
+		}
+		
+		return mv;
+	}
 	
 }

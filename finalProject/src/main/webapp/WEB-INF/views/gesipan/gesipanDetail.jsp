@@ -25,6 +25,17 @@ tbody td {
 #gContent {
 	font-size: 15px !important;
 }
+
+.rUpdate, .rDelete, .rUpOk, .rUpNo {
+	font-size: 10px;
+	border: 1px solid whitesmoke;
+	background: white;
+}
+
+#rUpText{
+	height:20px;
+}
+
 </style>
 </head>
 <body>
@@ -146,6 +157,7 @@ tbody td {
 							</c:url>
 							<button class="btn btn-primary" style="font-size:12px;" onclick="location.href='${ gUpdateView }'">수정하기</button>
 							<button class="btn btn-danger" style="font-size:12px;" onclick="checkDelete();">삭제하기</button>
+							<input id="g_id" type="hidden" value="${ g.g_id }">
 						</div>
 					</div>
 				<!-- </form> -->
@@ -153,12 +165,15 @@ tbody td {
 		</div>
 	</div>
 	<script>
+		function callback(){
+			getReplyList();
+		}
 		$(function(){
 			getReplyList();
 			
-			setInterval(function(){
+			/* setInterval(function(){
 				getReplyList();
-			}, 10000); 
+			}, 10000);  */
 		});
 	
 		$('#rSubmit').on('click', function(){
@@ -202,14 +217,24 @@ tbody td {
 	                    for(var i in data){
 	                       $tr = $("<tr>");
 	                       $rWriter = $("<td>").text(decodeURIComponent(data[i].nickname.replace(/\+/g , " ")));
-	                       $rContent = $("<td>").text(decodeURIComponent(data[i].reply_content.replace(/\+/g , " ")));
+	                       $rContent = $("<td class='rContent'>").text(decodeURIComponent(data[i].reply_content.replace(/\+/g , " ")));
 	                       $rCreateDate = $("<td>").text(data[i].reply_enroll_date);
+	                       $r_id = $("<td class='displaynone'>").text(data[i].g_reply_id);
+	                       
+	                       $rButtons = $("<td>");
+	                       $rUpButton = $("<button class='rUpdate'>").text("수정");
+	                       $rUpOk = $("<button class='rUpOk' style='display:none'>").text("완료");
+	                       $rUpNo = $("<button class='rUpNo' style='display:none'>").text("취소");
+	                       $rDeButton = $("<button class='rDelete'>").text("삭제");
+	                       
 	                       
 	                       $tr.append($rWriter);
 	                       $tr.append($rContent);
 	                       $tr.append($rCreateDate);
+	                       $tr.append($r_id);
+	                       $rButtons.append($rUpButton).append($rUpOk).append($rUpNo).append($rDeButton);
+	                       $tr.append($rButtons);
 	                       $tableBody.append($tr);
-	                       
 	                    }
 	                    
 	                 }
@@ -220,8 +245,63 @@ tbody td {
 	                    $tr.append($rContent);
 	                    $tableBody.append($tr);
 	                 }
+				
+	                $('.rUpdate').on('click', function(){
+	                	var r_id = $(this).parent().prev().text();
+	                	
+	                	// <td id='rContent'>
+	    				var r_content = $(this).parent().siblings('.rContent');
+	    				var r_content_val = r_content.text();
+	    				console.log(r_content);
+	    				r_content.html("<input type='text' id='rUpText' value='"+r_content_val+"'>");
+	    				$(this).attr("style","display:none");
+	    				$(this).siblings('.rUpOk').attr("style","display:inline-block;");
+	    				$(this).siblings('.rUpNo').attr("style","display:inline-block;");
+	    				
+	    				$('.rUpOk').on('click', function(){
+	    					
+	    					$.ajax({
+	    						url:"rUpdate.ge",
+	    						data:{g_reply_id:r_id,
+	    								r_content:$('#rUpText').val()},
+	    						success: function(data){
+	    							if(data == "success") {
+	    								getReplyList();
+	    							}
+	    						}
+	    					});
+	    					/* alert(r_id + $('#rUpText').val());
+	    					location.href="rUpdate.ge?g_reply_id="+r_id+"&r_content="+$('#rUpText').val();
+	    					getReplyList(); */
+	    				});
+	    				
+	    				
+	    				$('.rUpNo').on('click', function(){
+	    					r_content.html("");
+	    					r_content.text(r_content_val);
+	    					$(this).siblings('.rUpdate').attr("style","display:inline-block");
+	    					$(this).siblings('.rUpOk').attr("style","display:none");
+	    					$(this).attr("style","display:none");
+	    				});
+	                });
+	                
+	                $('.rDelete').on('click', function(){
+	                	var r_id = $(this).parent().prev().text();
+	                	$.ajax({
+    						url:"rDelete.ge",
+    						data:{g_reply_id:r_id},
+    						success: function(data){
+    							if(data == "success") {
+    								$(this).parent().parent().attr("style","display:none");
+    								callback();
+    							}
+    						}
+    					});
+	                });
 				}
 			});
+			
+			
 		}
 		
 		$(function(){
@@ -237,11 +317,14 @@ tbody td {
 		
 		function checkDelete(){
 			if(confirm("정말 삭제하시겠습니까?") == true){
-				location.href="gDelete.ge?g_id"+${g.g_id};
+				console.log("???")
+				location.href="gDelete.ge?g_id="+$('#g_id').val()+"&category="+'${cate}';
 			} else {
 				return;
 			}
 		}
+		
+		
 	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
