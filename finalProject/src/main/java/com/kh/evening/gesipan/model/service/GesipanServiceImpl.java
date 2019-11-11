@@ -71,6 +71,26 @@ public class GesipanServiceImpl implements GesipanService{
 		return gDAO.getReplyCount(sqlSession, g_ref);
 	}
 
+	@Override
+	public int updateReply(Map<String, Object> map) {
+		return gDAO.updateReply(sqlSession, map);
+	}
+
+	@Override
+	public int deleteReply(Integer r_id) {
+		return gDAO.deleteReply(sqlSession, r_id);
+	}
+
+	@Override
+	public int updateGesipan(Gesipan g) {
+		return gDAO.updateGesipan(sqlSession, g);
+	}
+
+	@Override
+	public int deleteGesipan(int g_id) {
+		return gDAO.deleteGesipan(sqlSession, g_id);
+	}
+
 	
 
 	/*@Override

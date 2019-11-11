@@ -59,6 +59,22 @@ public class GesipanDAO {
 		return sqlSession.selectOne("gMapper.getReplyCount", g_ref);
 	}
 
+	public int updateReply(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("gMapper.updateReply", map);
+	}
+
+	public int deleteReply(SqlSessionTemplate sqlSession, Integer r_id) {
+		return sqlSession.update("gMapper.deleteReply", r_id);
+	}
+
+	public int updateGesipan(SqlSessionTemplate sqlSession, Gesipan g) {
+		return sqlSession.update("gMapper.updateGesipan", g);
+	}
+
+	public int deleteGesipan(SqlSessionTemplate sqlSession, int g_id) {
+		return sqlSession.update("gMapper.deleteGesipan", g_id);
+	}
+
 
 
 	/*public int getCListCount(SqlSessionTemplate sqlSession) {

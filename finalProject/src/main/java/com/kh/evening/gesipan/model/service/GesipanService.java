@@ -27,6 +27,14 @@ public interface GesipanService {
 
 	Integer getReplyCount(Integer g_ref);
 
+	int updateReply(Map<String, Object> map);
+
+	int deleteReply(Integer r_id);
+
+	int updateGesipan(Gesipan g);
+
+	int deleteGesipan(int g_id);
+
 	/*Integer getReplyCount(Integer r);*/
 
 	
