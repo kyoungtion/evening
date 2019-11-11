@@ -7,7 +7,7 @@
 }
 
 a:hover, a:active, a:focus {
-	color: #D98396;
+	color: #d5758a;
 	outline: none;
 	text-decoration: none;
 }
@@ -131,7 +131,7 @@ body {
 .catalog-tap {
 	float: left;
 	width: 200px;
-	height: 30px;
+	height: 35px;
 	/* border: .1px solid black; */
 	margin: 15px 2px 0 0;
 }
@@ -141,6 +141,7 @@ body {
 	width: 200px;
 	height: 30px;
 	margin: 4px 0 0 0;
+	margin:1px;
 }
 
 .catalogTag {
@@ -149,19 +150,46 @@ body {
 	overflow: hidden;
 	width: 100%;
 	height: 0px;
-	transition: .5s;
-	background: #F2D7C6;
+	transition: .3s;
+	background: white;
+	border-radius:10px;
+	padding:10px;
+}
+
+.catalogTag {
+	list-style:none;
+	display:flex;
+	justify-content:space-between;
+}
+.catalogTag li {
+	margin:1px !important;
+	display:inline !important;
+	height:90px !important;
+	font-size:10px;
+}
+.catalogTag li:hover {
+	cursor:pointer;
 }
 
 .catalog-tap:hover {
-	background: #F2D7C6;
+	/* background: #F2D7C6; */
+	cursor:pointer;
+	border-bottom: 2px solid whitesmoke;
+}
+
+.catalog-tap a:hover {
+	color:black !important;
+	font-weight:bold;
+	transition:.5s;
 }
 
 .catalog-tap.on .catalogTag {
 	transition: .5s;
 	/* border: .1px solid black; */
 	border-top: 5px;
-	height: 135px;
+	padding:10px;
+	width:200px;
+	height: 50px;
 }
 
 @media ( max-width : 980px) {
@@ -177,22 +205,23 @@ body {
 	overflow: hidden;
 	width: 75px;
 	background: white;
-	transition: .5s;
+	transition: 1s;
 }
 
 .nav_sub.on {
-	transition: .5s;
+	transition: 1s;
 	background: white;
 	border-top-right-radius: 5px;
 	border-top-left-radius: 5px;
 }
 
 .nav_sub.on>div {
-	height: 100px;
+	height: auto;
 }
 
 #test {
 	padding: 0;
+	border: 0.5px solid whitesmoke;
 }
 
 #test a {

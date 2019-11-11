@@ -148,12 +148,14 @@
 									</tr>
 								</thead>
 								<tbody>
-								
-								<c:forEach var="g" items="${list}" varStatus="st">
+									<c:forEach var="g" items="${list}" varStatus="st">
 										<tr style="background-color: #FFFFFF; color: #333333;">
 											<td id="g_id${st.index }" class="g_id" name="gId">${ g.g_id }</td>
 											<td class="displaynone" id="g_pwd">${ g.g_pwd }</td>
-											<td class="subject" id="subject">
+											<td class="subject" id="subject${st.index }">
+												<c:if test="${ g.g_order eq 1 }">
+													<i class="fas fa-angle-right"></i>
+												</c:if>
 												<c:if test="${ g.locked eq 'Y' }">
 													<i class="fas fa-lock"></i>
 												</c:if>
@@ -163,15 +165,14 @@
 													alt="파일첨부" class="ec-common-rwd-image"> -->
 													<i class="fas fa-image"></i>
 												</c:if> <%-- rCount 추가 나중에 --%> <span
-												class="rWrap Before ${st.index}"> [ </span> <span><font
-													id="rCount${st.index}"></font></span> <span
-												class="rWrap After ${st.index}"> ] </span></td>
+												class="rWrap Before ${st.index}">[</span><span><font
+													id="rCount${st.index}"></font></span><span
+												class="rWrap After ${st.index}">]</span></td>
 											<td>${ g.nickname }</td>
 											<td>${ g.g_enroll_date }</td>
 											<td>${ g.g_count }</td>
 										</tr>
 									</c:forEach>
-									
 								</tbody>
 							</table>
 						</div>
@@ -251,27 +252,35 @@
 	<script>
 		// 게시글 상세정보 조회
 		$(function(){
-			$('.subject').click(function(){
-				var g_pwd = $('.subject').prev().text();
-				var g_id = $(this).prev().prev().text();
-				if(g_pwd == null){
-					location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
-				} else {
-					$('#modal').attr("style","display:block");
-					$('#modal_input_btn').click(function(){
-						var pwd = $('#g_pwdInput').val();
-						if(g_pwd == pwd){
-							location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
-						} else {
-							$('.modal_text1').text("");
-							$('.modal_text2').text("");
-							$('.modal_text1').text("틀린 비밀번호입니다.");
-							$('.modal_text2').text("다시 입력해주세요.");
-						}
-					});
-				$('#g_pwdInput').val("");
-				}
-			});
+			var index = ${fn:length(list)};
+			
+			for(var i = 0; i < index; i++){
+				
+				$('#subject'+i).click(function(){
+					var g_pwd = $(this).prev().text();
+					
+					var g_id = $(this).prev().prev().text();
+					
+					if(g_pwd == ""){
+						location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
+					} else {
+						$('#modal').attr("style","display:block");
+						$('#modal_input_btn').click(function(){
+							var pwd = $('#g_pwdInput').val();
+							console.log(pwd);
+							if(g_pwd == pwd){
+								location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
+							} else {
+								$('.modal_text1').text("");
+								$('.modal_text2').text("");
+								$('.modal_text1').text("틀린 비밀번호입니다.");
+								$('.modal_text2').text("다시 입력해주세요.");
+							}
+						});
+					$('#g_pwdInput').val("");
+					}
+				});
+			}
 			
 			$('#modal_close_btn').click(function(){
 				$('#g_pwdInput').val("");

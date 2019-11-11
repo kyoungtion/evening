@@ -88,7 +88,15 @@
 					<ul id="hNav">
 						<li><a href="auctionList.bo">경매</a></li>
 						<li><a href="usedListAll.ud">중고거래</a></li>
-						<li><a href="gList.ge?category=Community">게시판</a></li>
+						<li class="nav_sub"><a href="gList.ge?category=Community">게시판</a>
+							<div style="position: fixed;">
+								<ul id="test" style="height:75px !important;">
+									<li><a href="gList.ge?category=Community">커뮤니티</a></li>
+									<li><a href="gList.ge?category=Selling">삽니다</a></li>
+									<li><a href="gList.ge?category=QNA">문의사항</a></li>
+								</ul>
+							</div>
+						</li>
 						<!-- 비회원시 -->
 						<li><a href="">로그인</a></li>
 						<li><a href="">회원가입</a></li>
@@ -117,25 +125,18 @@
 		<div style="text-align: center; display: inline-block;">
 			<ul class="catalog-ul">
 				<li class="catalog-tap" onclick="location.href='secondgoodList.bo'"><a
-					style="font-size: 21px;">중고</a> <!-- <ul class="catalogTag">
-                  <li>중고</li>
-                  <li>중고</li>
-                  <li>중고</li>
-                  <li>중고</li>
-               </ul> --></li>
+					style="font-size: 21px;">중고</a></li>
 				<c:url var="auction" value="auctionList.bo" />
 				<li class="catalog-tap" onclick="location.href='auctionList.bo'"><a
-					style="font-size: 21px;">경매</a> <!-- <ul class="catalogTag">
-                  <li>경매</li>
-                  <li>경매</li>
-                  <li>경매</li>
-                  <li>경매</li>
-               </ul> --></li>
+					style="font-size: 21px;">경매</a></li>
 				<li class="catalog-tap"><a style="font-size: 21px;">게시판</a>
 					<ul class="catalogTag">
-						<li><a href="gList.ge?category=Community">커뮤니티</a></li>
-						<li><a href="gList.ge?category=Selling">삽니다</a></li>
-						<li><a href="gList.ge?category=QNA">문의글</a></li>
+						<li onclick="location.href='gList.ge?category=Community'">
+							<i class="fas fa-comments fa-2x"></i><br>커뮤니티</li>
+						<li onclick="location.href='gList.ge?category=Selling'">
+							<i class="fas fa-shopping-basket fa-2x"></i><br>삽니다</li>
+						<li onclick="location.href='gList.ge?category=QNA'">
+							<i class="fas fa-question-circle fa-2x"></i><br>문의글</li>
 					</ul></li>
 			</ul>
 		</div>

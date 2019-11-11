@@ -73,8 +73,8 @@
 													alt="파일첨부" class="ec-common-rwd-image"> -->
 													<i class="fas fa-image"></i>
 												</c:if> <%-- rCount 추가 나중에 --%> <span
-												class="rWrap Before ${st.index}"> [ </span> <span><font
-													id="rCount${st.index}"></font></span> <span
+												class="rWrap Before ${st.index}"> [ </span><span><font
+													id="rCount${st.index}"></font></span><span
 												class="rWrap After ${st.index}"> ] </span></td>
 											<td>${ g.nickname }</td>
 											<td>${ g.g_enroll_date }</td>

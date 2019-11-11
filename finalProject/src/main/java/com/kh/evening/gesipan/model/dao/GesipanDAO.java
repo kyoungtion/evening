@@ -75,6 +75,10 @@ public class GesipanDAO {
 		return sqlSession.update("gMapper.deleteGesipan", g_id);
 	}
 
+	public int reGesipan(SqlSessionTemplate sqlSession, Gesipan g) {
+		return sqlSession.insert("gMapper.reInsert", g);
+	}
+
 
 
 	/*public int getCListCount(SqlSessionTemplate sqlSession) {

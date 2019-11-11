@@ -91,6 +91,11 @@ public class GesipanServiceImpl implements GesipanService{
 		return gDAO.deleteGesipan(sqlSession, g_id);
 	}
 
+	@Override
+	public int reGesipan(Gesipan g) {
+		return gDAO.reGesipan(sqlSession, g);
+	}
+
 	
 
 	/*@Override

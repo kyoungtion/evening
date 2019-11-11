@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,9 +38,18 @@ public class GesipanController {
 	private GesipanService gService;
 	
 	@RequestMapping("gesipanInsertView.ge")
-	public String qnaInsertView(@RequestParam("g_category") String category, Model model) {
-		model.addAttribute("category", category);
-		return "gesipanInsertView";
+	public ModelAndView InsertView(@RequestParam("g_category") String category, ModelAndView mv) {
+		mv.addObject("category", category);
+		mv.setViewName("gesipanInsertView");
+		return mv;
+	}
+	
+	@RequestMapping("gesipanReInsertView.ge")
+	public ModelAndView reInsertView(@RequestParam("g_category") String category, @RequestParam("g_id") int g_id, ModelAndView mv) {
+		mv.addObject("category", category);
+		mv.addObject("g", gService.selectGesipan(g_id));
+		mv.setViewName("gesipanReInsertView");
+		return mv;
 	}
 	
 	@RequestMapping("gInsert.ge")
@@ -59,6 +69,27 @@ public class GesipanController {
 		} else {
 			throw new GesipanException("게시글 등록에 실패하였습니다.");
 		}
+	}
+	
+	@RequestMapping("reInsert.ge")
+	public String reInsert(@ModelAttribute Gesipan g) {
+		System.out.println(g.getG_ref());
+		String url = "redirect:gList.ge?category=";
+		if(g.getG_category().equals("Community")) {
+			url += "Community";
+		} else if(g.getG_category().equals("Selling")) {
+			url += "Selling";
+		} else if(g.getG_category().equals("QNA")) {
+			url += "QNA";
+		}
+		
+		int result = gService.reGesipan(g);
+		if(result > 0) {
+			return url;
+		} else {
+			throw new GesipanException("답글 등록에 실패했습니다.");
+		}
+		
 	}
 	
 	
@@ -275,6 +306,8 @@ public class GesipanController {
 		System.out.println(g.getG_title());
 		System.out.println(g.getLocked());
 		g.setG_id(g_id);
+		
+		System.out.println("잠금???" + g.getLocked());
 		int result = gService.updateGesipan(g);
 		g = gService.selectGesipan(g_id);
 		

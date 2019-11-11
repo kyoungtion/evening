@@ -35,6 +35,8 @@ public interface GesipanService {
 
 	int deleteGesipan(int g_id);
 
+	int reGesipan(Gesipan g);
+
 	/*Integer getReplyCount(Integer r);*/
 
 	

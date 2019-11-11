@@ -4,7 +4,12 @@
 
 	<insert id="insertGesipan" parameterType="Gesipan">
 		insert into Gesipan
-		values(seq_gesipan.nextval, #{g_category}, #{g_title}, #{g_content}, #{g_writer}, #{g_count}, default, default, null, default, #{locked}, #{g_pwd})
+		values(seq_gesipan.nextval, #{g_category}, #{g_title}, #{g_content}, #{g_writer}, #{g_count}, default, default, seq_gesipan.nextval, default, #{locked}, #{g_pwd}, default, default)
+	</insert>
+	
+	<insert id="reInsert" parameterType="Gesipan">
+		insert into Gesipan
+		values(seq_gesipan.nextval, #{g_category}, #{g_title}, #{g_content}, #{g_writer}, #{g_count}, default, default, #{g_ref}, default, #{locked}, #{g_pwd}, 1, default)
 	</insert>
 	
 	<select id="selectListCount" resultType="_int" parameterType="String">
@@ -18,7 +23,7 @@
 		from gesipan g
 		join member m on(g.g_writer = m.user_id)
 		where g_status='N' and g_category = #{category}
-		order by g_id desc
+		order by g_type desc, g_ref desc, g_order asc
 	</select>
 
 	<select id="selectSearchListCount" resultType="_int" parameterType="map">
@@ -50,7 +55,7 @@
 				and nickname like '%' || #{keyword} || '%'
 			</when>
 		</choose>
-		order by g_id desc
+		order by g_type desc, g_ref desc, g_order asc
 	</select>
 	
 	<select id="selectGesipan" resultType="Gesipan" parameterType="_int">
@@ -100,14 +105,14 @@
 	
 	<update id="updateGesipan" parameterType="Gesipan">
 		update gesipan
-		<set>
-			<if test="!locked.equals('N')">
-				locked='Y', g_pwd=#{g_pwd},g_title = #{g_title}, g_category = #{g_category},g_content=#{g_content}
-			</if>
-			<if test="locked.equals('N')">
-				g_title = #{g_title}, g_category = #{g_category},g_content=#{g_content}
-			</if>
-		</set>
+		<choose>
+			<when test="!locked.equals('N')">
+				set locked=#{locked}, g_pwd=#{g_pwd}, g_title = #{g_title}, g_category = #{g_category},g_content=#{g_content}
+			</when>
+			<when test="locked.equals('N')">
+				set locked=#{locked}, g_pwd=null, g_title = #{g_title}, g_category = #{g_category},g_content=#{g_content}
+			</when>
+		</choose>
 		where g_id=#{g_id}
 	</update>
 	

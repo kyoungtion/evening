@@ -36,6 +36,10 @@ tbody td {
 	height:20px;
 }
 
+#reGesipan {
+	font-size: 12px;
+}
+
 </style>
 </head>
 <body>
@@ -140,12 +144,18 @@ tbody td {
 							   </table>
 							</div>
 						</div>
+						
 						<div style="float:left; margin-top:10px; display:inline-block;" >
 							<c:url var="glist" value="gList.ge">
 								<c:param name="page" value="${ page }"/>
 								<c:param name="category" value="${ cate }"/>
 							</c:url>
-							<button class="btn btn-default" onclick="location.href='${ glist }'" style="font-size:12px;">목록으로 돌아가기</button>
+							<c:url var="reInsert" value="gesipanReInsertView.ge">
+								<c:param name="g_id" value="${ g.g_id }"/>
+								<c:param name="g_category" value="${ g.g_category }"/>
+							</c:url>
+							<button class="btn btn-default" onclick="location.href='${ glist }'" style="font-size:12px; display:inline-block;">목록으로 돌아가기</button>
+							<button class="btn btn-default" id="reGesipan" style="display:none;" onclick="location.href='${reInsert}'">답글<i class="fas fa-pencil-alt"></i></button>
 						</div>
 						<div style="float:right; margin-top:10px; display:inline-block;">
 							<c:url var="gUpdateView" value="gUpdateView.ge">
@@ -323,6 +333,17 @@ tbody td {
 				return;
 			}
 		}
+		
+		$(function(){
+			/* 관리자 조건넣기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+			if('${cate}' =='QNA' ){
+				$('#reGesipan').attr("style", "display:inline-block;");
+			}
+			
+			if('${g.g_order}' != 0){
+				$('#reGesipan').attr("style", "display:none");
+			}
+		});
 		
 		
 	</script>

@@ -65,7 +65,15 @@
 							</div>
 							<input type="hidden" id="contentInput" name="g_content">
 							<input type="hidden" id="g_category" name="g_category">
-							<input type="hidden" id="locked" name="locked" value="N">
+							<c:if test="${g.locked eq 'Y' }">
+								<input type="hidden" id="locked" name="locked" value="Y">
+							</c:if>
+							<c:if test="${g.locked eq 'N' }">
+								<input type="hidden" id="locked" name="locked" value="N">
+							</c:if>
+							<c:if test="${!empty g.g_pwd }">
+								<input type="hidden" id="g_pwd_value" value="${ g.g_pwd }">
+							</c:if>
 						</div>
 					</div>
 				</form>
@@ -105,15 +113,11 @@
 				console.log($('#g_category').val());
 			});
 			
-			
-			
-			
-		
-			
-			
 		});
 		
 		function updateGesipan() {
+			$('#g_pwd').val($('#g_pwd_value').val());
+			
 			$('#contentInput').val(document.getElementById("insertField").innerHTML);
 			$('#insertForm').submit();
 		}
@@ -145,7 +149,7 @@
 					$('#g_pwd').css("visibility", "visible");
 				} else {
 					$('#g_pwd').css("visibility", "hidden");
-					$('#g_pwd').val("");
+					/* $('#g_pwd').val(""); */
 				}
 				
 			});
