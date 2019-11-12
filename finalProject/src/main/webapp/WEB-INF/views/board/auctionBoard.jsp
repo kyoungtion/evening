@@ -80,6 +80,7 @@
 														<span><a href="selectOne.ud"><i class="icon-eye"></i></a></span>
 														 
 														<span><a href="#"><i class="icon-heart3"></i></a></span>
+														
 														<!-- <span><a href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span> --> <!-- 필요없을꺼같아서 대기중 (삭제대기중) -->
 													</p>
 												</div>
@@ -87,7 +88,7 @@
 										</div>
 										
 										<div class="desc">
-											<h3><a href="product-detail.html">${ i.SG_BNAME }</a></h3>
+											<h3><a href="#">${ i.SG_BNAME }</a></h3>
 											<p class="price">급매가<span> <br> <fmt:formatNumber value="${i.SG_PRICE }" type="currency"/></span></p>
 											<p class="price">경매시작가<span> <br> <fmt:formatNumber value="${i.SG_SPRICE }" type="currency"/></span></p>
 										</div>
@@ -218,6 +219,19 @@
 							<div class="side">
 								<h2>최근에 본 물건</h2>
 								<div>test</div>
+								<% 
+								Cookie coo = new Cookie("testCo","test Cookie");
+								coo.setMaxAge(60*60*24);
+								response.addCookie(coo);
+								
+								Cookie[] result = request.getCookies();
+								
+								%>
+								${ cookie.testCo.name }
+								<br>
+								${ cookie.testCo.value }
+								<br>
+								
 							</div>
 							 
 						</div>
