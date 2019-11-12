@@ -19,7 +19,7 @@
 							success : function(data) {
 								console.log(data.imgName);
 								$("#insertField").focus();
-								document.execCommand('insertHTML',false,"<img src='/evening/resources/textImgs/"+data.imgName+"' name="+data.imgName+" id='textImgs'>");
+								document.execCommand('insertHTML',false,"<img style='max-width: 600px;' src='/evening/resources/textImgs/"+data.imgName+"' name="+data.imgName+" id='textImgs'>");
 								$("#insertField").focus();
 								imgNamesArr[imgNum] = data.imgName;
 								imgNum++;
