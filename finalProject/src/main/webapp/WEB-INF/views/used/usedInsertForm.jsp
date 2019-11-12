@@ -287,7 +287,7 @@
 				<li><input type='file' name='trImgFile' id='trImgFile' accept="image/*" onchange="TintsetImg(this);" />
 				</li>
 			</ul>
-		</form>
+		</form>  
 		
 	<script>
 	$('input[name="dealType"]').change(function () {
