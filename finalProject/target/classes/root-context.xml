@@ -17,26 +17,6 @@
 		<property name="defaultAutoCommit" value="false"/>
 	</bean>
 	
-	  <!-- <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-        <constructor-arg>
-            <bean class="com.zaxxer.hikari.HikariConfig">
-                <constructor-arg>
-                    <props>
-                        <prop key="jdbcUrl">jdbc:oracle:thin:@localhost:1521:XE</prop>
-                        <prop key="username">EVENING</prop>
-                        <prop key="password">EVENING</prop>
-                    </props>
-                </constructor-arg>
-                <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
-                <property name="minimumIdle" value="5" />
-                <property name="maximumPoolSize" value="10" />
-                <property name="connectionTestQuery" value="select 1 from sys.dual" />
-                <property name="connectionTimeout"  value="310000" />
-            </bean>
-        </constructor-arg>
-    </bean> -->
-
-
 	 
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis-config.xml"/>

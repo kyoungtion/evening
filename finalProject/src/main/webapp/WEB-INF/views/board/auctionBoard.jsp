@@ -21,7 +21,10 @@
 				<div class="row">
 					<div class="col-md-10 col-md-push-2">
 						<div class="row row-pb-lg">
-						
+
+						<button class="btn btn-primary btn-outline"style="float: right; margin: 0px 50px 0 0px;"
+							onclick="location.href='insertForm.ud';">글쓰기</button>
+								
 						<h2><span style="font-size: 50px;">경매 거래 게시판</span></h2>
 						
 						<!-- 상품 리스트 -->
@@ -70,9 +73,14 @@
 												<div class="cart">
 													<p>
 														<span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span> 
-														<span><a href="product-detail.html"><i class="icon-eye"></i></a></span> 
+														
+														<c:url var="boardDetail" value="selectOne.ud">
+															<c:param name="SG_ID" value="${ i.SG_ID }"/>
+														</c:url>
+														<span><a href="selectOne.ud"><i class="icon-eye"></i></a></span>
+														 
 														<span><a href="#"><i class="icon-heart3"></i></a></span>
-														<!-- <span><a href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span> -->
+														<!-- <span><a href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span> --> <!-- 필요없을꺼같아서 대기중 (삭제대기중) -->
 													</p>
 												</div>
 												

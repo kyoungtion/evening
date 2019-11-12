@@ -16,7 +16,7 @@ public class Board {
   
   private int SG_ID;            // 게시판번호
   private String USER_ID;       // 유저 아이디
-  private String B_CATEGORY;    // 게시판 종류
+  private String b_Category;    // 게시판 종류
   private String SG_BNAME;      // 게시판 이름
   private String SG_NAME;       // 닉네임
   private String TAG_NAME;      // 태그
