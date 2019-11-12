@@ -2,22 +2,63 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
 
-	<select id="boardList" resultType="Board">
+	<select id="boardList" resultType="Board" parameterType="BoardMode">
 		select * from second_goods
-		where SG_STATUS='N' AND B_CATEGORY='A'
-		order by SG_ID desc
+		where SG_STATUS='N' 
+		
+		<choose>
+			<when test='B_category == "A" '>
+				AND B_CATEGORY='A'
+			</when>
+			<when test="B_category == 'SG'">
+				AND B_CATEGORY='SG'
+			</when>
+		</choose>
+		
+		<choose>
+			<when test="modeSet == 'recent'">
+				order by SG_ID DESC
+			</when>
+			<when test="modeSet == 'endTime'">
+				ORDER BY FLOOR(SG_END_DATE-SYSDATE)
+			</when>
+			<when test="modeSet == 'priceAsc'">
+				ORDER BY SG_SPRICE, SG_PRICE
+			</when>
+			<when test="modeSet == 'priceDesc'">
+				ORDER BY SG_SPRICE DESC, SG_PRICE DESC
+			</when>
+			<when test="modeSet == 'CountList'">
+				ORDER BY SG_COUNT DESC
+			</when>
+		</choose>
+		
 	</select>
 	
 	<select id="getAuctionListCount" resultType="_int">
-		select count(*) from second_goods where sg_status='N'
+		select count(*) from second_goods where sg_status='N' 
+		
+		<choose>
+			<when test='boardCategory == "A" '>
+				and B_CATEGORY='A'
+			</when>
+			<when test="boardCategory == 'SG'">
+				AND B_CATEGORY='SG'
+			</when>
+		</choose>
+		
 	</select>
 	
-	<select id="boardEndTimeList" resultType="Board">
-		select SG.*,FLOOR(SG_END_DATE-SYSDATE) AS "ENDTIME" 
-		from second_goods SG
-		WHERE SG_STATUS='N'
-		ORDER BY FLOOR(SG_END_DATE-SYSDATE)
+	<select id="boardFileList" resultType="Attachment">
+		SELECT * FROM ADD_FILE
+		WHERE FILE_STATUS='N'
 	</select>
-
+	
+	<insert id="insertBoard" parameterType="Board">
+   </insert>
+   
+   <insert id="attachmentInsert" parameterType="Attachment">
+   </insert>
+	
 
 </mapper>

@@ -6,7 +6,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-	<title>Store Template</title>
+	<title>경매 거래 게시판</title>
 	</head>
 	<body>
 	
@@ -21,33 +21,34 @@
 				<div class="row">
 					<div class="col-md-10 col-md-push-2">
 						<div class="row row-pb-lg">
+
+						<button class="btn btn-primary btn-outline"style="float: right; margin: 0px 50px 0 0px;"
+							onclick="location.href='insertForm.ud';">글쓰기</button>
+								
+						<h2><span style="font-size: 50px;">경매 거래 게시판</span></h2>
 						
 						<!-- 상품 리스트 -->
 						<c:if test="${ fn:length(alist) > 0 }">
 						
-							<!-- 더미 게시판 이미지 설정하기 -->
-							<c:if test="${ pi.currentPage == 1 }">
-								<c:set var="imageCount" value="1"/>
-							</c:if>
-							<c:if test="${ pi.currentPage == 2 }">
-								<c:set var="imageCount" value="7"/>
-							</c:if>
-							<c:if test="${ pi.currentPage == 3 }">
-								<c:set var="imageCount" value="13"/>
-							</c:if>
-						
 							<c:forEach var="i" items="${ alist }" begin="0" end="${ fn:length(alist) }">
 								<div class="col-md-4 text-center">
 									<div class="product-entry">
-										<div class="product-img" style="background-image: url(resources/images/item-${imageCount}.jpg);">
+									
+										<!-- 이미지 삽입 : 이미지 파일이 여러개일시 첫번째 이름을 등록 -->
+										<c:forEach var="j" items="${ af }" begin="0" end="${ fn:length(af) }">
+											<c:if test="${ j.SG_ID eq i.SG_ID }">
+												<c:forTokens items="${ j.RENAMEFILENAME }" delims="," varStatus="jStatus">
+													<c:if test="${ jStatus.first }">
+														<c:set var="k" value="${ jStatus.current }" />
+													</c:if>
+												</c:forTokens>
+											</c:if>
+										</c:forEach>
+										<div class="product-img" style="background-image: url(resources/images/${ k })">
 										
-										<!-- 상품 이미지 임의 설정(더미) -->
-										<c:if test="${ i.SG_ID <= 18 }">
-											<c:set var="imageCount" value="${imageCount + 1}"/>
-											<c:if test="${ imageCount > 15 }">
-												<c:set var="imageCount" value="1"/>
-											</c:if> 
-										</c:if>
+										<!-- 사진이 없을시 나타날 공백표시 -->
+										<c:remove var="k"/>
+										
 										<!-- 테스트용 ( 날짜 계산 )  -->
 											<jsp:useBean id="now" class="java.util.Date"/>
 											<fmt:parseDate var="enroll" value="${ i.SG_ENROLL_DATE }" pattern="yyyy-MM-dd"/>
@@ -72,9 +73,14 @@
 												<div class="cart">
 													<p>
 														<span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span> 
-														<span><a href="product-detail.html"><i class="icon-eye"></i></a></span> 
+														
+														<c:url var="boardDetail" value="selectOne.ud">
+															<c:param name="SG_ID" value="${ i.SG_ID }"/>
+														</c:url>
+														<span><a href="selectOne.ud"><i class="icon-eye"></i></a></span>
+														 
 														<span><a href="#"><i class="icon-heart3"></i></a></span>
-														<!-- <span><a href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span> -->
+														<!-- <span><a href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span> --> <!-- 필요없을꺼같아서 대기중 (삭제대기중) -->
 													</p>
 												</div>
 												
@@ -148,14 +154,59 @@
 			                     	<c:param name="page" value="${ pi.currentPage }"/>
 			                     	<c:param name="mode" value="recent"/>
 			                     </c:url>
-			                     <div style="background-color: orange;"><a href="${ recentList }" style="color: white;">최근 등록순</a></div>
-			                     <div><a href="${ recentList }">최근 등록순</a></div>
+			                     
+			                     <c:if test="${ modeSet eq 'recent' }">
+				                     <div style="background-color: orange; padding-left: 10px;"><a href="${ recentList }" style="color: white;">최근 등록순</a></div>
+			                     </c:if>
+			                     <c:if test="${ modeSet ne 'recent' }">
+				                     <div><a href="${ recentList }">최근 등록순</a></div>
+			                     </c:if>
 			                     
 			                     <c:url var="endTimeList" value="auctionList.bo">
 			                     	<c:param name="page" value="${ pi.currentPage }" />
 			                     	<c:param name="mode" value="endTime"/>
 			                     </c:url>
-			                     <div><a href="${ endTimeList }">마감 시간순</a></div>
+			                     <c:if test="${ modeSet eq 'endTime' }">
+				                     <div style="background-color: orange; padding-left: 10px;"><a href="${ endTimeList }" style="color: white;">마감 시간순</a></div>
+			                     </c:if>
+			                     <c:if test="${ modeSet ne 'endTime' }">
+				                     <div><a href="${ endTimeList }">마감 시간순</a></div>
+			                     </c:if>
+			                     
+			                     <c:url var="priceAscList" value="auctionList.bo">
+			                     	<c:param name="page" value="${ pi.currentPage }"/>
+			                     	<c:param name="mode" value="priceAsc" />
+			                     </c:url>
+			                      <c:if test="${ modeSet eq 'priceAsc' }">
+				                     <div style="background-color: orange; padding-left: 10px;"><a href="${ priceAscList }" style="color: white;">가격 오름차 순</a></div>
+			                     </c:if>
+			                     <c:if test="${ modeSet ne 'priceAsc' }">
+			                     	<div><a href="${ priceAscList }">가격 오름차 순</a></div>
+			                     </c:if>
+			                     
+			                     <c:url var="priceDescList" value="auctionList.bo">
+			                     	<c:param name="page" value="${ pi.currentPage }"/>
+			                     	<c:param name="mode" value="priceDesc"/>
+			                     </c:url>
+			                     <c:if test="${ modeSet eq 'priceDesc' }">
+				                     <div style="background-color: orange; padding-left: 10px;"><a href="${ priceDescList }" style="color: white;">가격 내림차 순</a></div>
+			                     </c:if>
+			                     <c:if test="${ modeSet ne 'priceDesc' }">
+			                     	<div><a href="${ priceDescList }">가격 내림차 순</a></div>
+			                     </c:if>
+			                     
+			                     <c:url var="CountList" value="auctionList.bo">
+			                     	<c:param name="page" value="${ pi.currentPage }"/>
+			                     	<c:param name="mode" value="CountList" />
+			                     </c:url>
+			                     <c:if test="${ modeSet eq 'CountList' }">
+				                     <div style="background-color: orange; padding-left: 10px;"><a href="${ CountList }" style="color: white;">조회순</a></div>
+			                     </c:if>
+			                     <c:if test="${ modeSet ne 'CountList' }">
+			                     	<div><a href="${ CountList }">조회순</a></div>
+			                     </c:if>
+			                     
+			                     
 			                     
 			                     <br>
 			                     <div style="font: bolder; font-size: 15px;">총 상품 수 : ${ pi.listCount }</div>

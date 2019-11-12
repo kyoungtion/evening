@@ -38,6 +38,15 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Gothic+A1|Noto+Sans+KR&display=swap"
 	rel="stylesheet">
+<!-- font-awesome -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.11.2/css/v4-shims.css">
+<script defer
+	src="https://use.fontawesome.com/releases/v5.11.2/js/all.js"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.11.2/js/v4-shims.js"></script>
 
 <!-- Mypage style (경희) -->
 <link rel="stylesheet" href="resources/css/mypage.css">
@@ -45,9 +54,21 @@
 <link rel="stylesheet" href="resources/css/header.css">
 <!-- Modernizr JS -->
 <script src="resources/js/modernizr-2.6.2.min.js"></script>
+<!-- fontAwesome -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.11.2/css/v4-shims.css">
+<script defer
+	src="https://use.fontawesome.com/releases/v5.11.2/js/all.js"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.11.2/js/v4-shims.js"></script>
 <style>
-	* {font-family: 'Noto Sans KR', sans-serif !important;}
+* {
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
 </style>
+
 </head>
 <body>
 
@@ -61,21 +82,28 @@
 		<div class="ebHeader-bar no-drag">
 			<div style="height: 100%; overflow: hidden;">
 				<div id="hLogo">
-					<img src="resources/images/eve-logo.png" onclick="location.href='index.jsp'">
+					<img src="resources/images/eve-logo.png">
 				</div>
+				<!-- 로그인 전 -->
+				<c:if test="${ empty sessionScope.loginUser }">
 				<div id="navTag">
 					<ul id="hNav">
 						<li><a href="auctionList.bo">경매</a></li>
 						<li><a href="usedListAll.ud">중고거래</a></li>
-						<li><a href="community.bo">게시판</a></li>
-						<li><a href="community.bo">게시판</a></li>
-						<li><a href="shipInfo.py">결제</a></li>
+						<li class="nav_sub"><a href="gList.ge?category=Community">게시판</a>
+							<div style="position: fixed;">
+								<ul id="test" style="height:75px !important;">
+									<li><a href="gList.ge?category=Community">커뮤니티</a></li>
+									<li><a href="gList.ge?category=Selling">삽니다</a></li>
+									<li><a href="gList.ge?category=QNA">문의사항</a></li>
+								</ul>
+							</div>
+						</li>
 						<!-- 비회원시 -->
-						<li><a href="">로그인</a></li>
-						<li><a href="">회원가입</a></li>
+						<li><a href="loginView.me">로그인/회원가입</a></li>
 						<!-- 로그인시 -->
 						<li class="nav_sub"><a>마이페이지</a>
-						<div style="position: fixed;">
+							<div style="position: fixed;">
 								<ul id="test">
 									<li><a href="myinfo.me">내정보보기</a></li>
 									<li><a href="favorites.me">관심 목록</a></li>
@@ -86,34 +114,62 @@
 						<li><img src="../push_bell/img/bell.png" alt=""></li>
 					</ul>
 				</div>
+				</c:if>
+				<!-- 로그인 후 -->
+				<c:if test="${ !empty sessionScope.loginUser }">
+					<div id="navTag">
+					<ul id="hNav">
+						<li><a href="auctionList.bo">경매</a></li>
+						<li><a href="usedListAll.ud">중고거래</a></li>
+						<li class="nav_sub"><a href="gList.ge?category=Community">게시판</a>
+							<div style="position: fixed;">
+								<ul id="test" style="height:75px !important;">
+									<li><a href="gList.ge?category=Community">커뮤니티</a></li>
+									<li><a href="gList.ge?category=Selling">삽니다</a></li>
+									<li><a href="gList.ge?category=QNA">문의사항</a></li>
+								</ul>
+							</div>
+						</li>
+						<!-- 로그인시 -->
+						<li class="nav_sub"><a>마이페이지</a>
+							<div style="position: fixed;">
+								<ul id="test">
+									<li><a href="myinfo.me">내정보보기</a></li>
+									<li><a href="favorites.me">관심 목록</a></li>
+									<li><a href="dealDetail.me">거래 내역</a></li>
+									<li><a href="mypost.me">내가 쓴 글</a></li>
+								</ul>
+							</div></li>
+						<li><img src="../push_bell/img/bell.png" alt=""></li>
+						<li><a href="logout.me" title="로그아웃"><i class="fas fa-sign-out-alt fa-1x"></i></a></li>
+					</ul>
+				</div>
+				</c:if>
 			</div>
 		</div>
 	</header>
+	<script>
+		$('#hLogo img').click(function(){
+			location.href="home.do";
+		});
+   </script>
 	<div class="catalog no-drag">
 		<div style="text-align: center; display: inline-block;">
 			<ul class="catalog-ul">
-				<li class="catalog-tap"><a style="font-size: 21px;">중고</a>
-					<ul class="catalogTag">
-						<li>중고</li>
-						<li>중고</li>
-						<li>중고</li>
-						<li>중고</li>
-					</ul></li>
-					<c:url var="auction" value="auctionList.bo"/>
-				<li class="catalog-tap" onclick="location.href='auctionList.bo'"><a style="font-size: 21px;">경매</a>
-					<!-- <ul class="catalogTag">
-						<li>경매</li>
-						<li>경매</li>
-						<li>경매</li>
-						<li>경매</li>
-					</ul> --></li>
+				<li class="catalog-tap" onclick="location.href='secondgoodList.bo'"><a
+					style="font-size: 21px;">중고</a></li>
+				<c:url var="auction" value="auctionList.bo" />
+				<li class="catalog-tap" onclick="location.href='auctionList.bo'"><a
+					style="font-size: 21px;">경매</a></li>
 				<li class="catalog-tap"><a style="font-size: 21px;">게시판</a>
 					<ul class="catalogTag">
-						<li><a href="community.ge">커뮤니티</a></li>
-						<li><a href="selling.ge">삽니다</a></li>
-						<li><a href="qna.ge">문의글</a></li>
-					</ul>
-				</li>
+						<li onclick="location.href='gList.ge?category=Community'">
+							<i class="fas fa-comments fa-2x"></i><br>커뮤니티</li>
+						<li onclick="location.href='gList.ge?category=Selling'">
+							<i class="fas fa-shopping-basket fa-2x"></i><br>삽니다</li>
+						<li onclick="location.href='gList.ge?category=QNA'">
+							<i class="fas fa-question-circle fa-2x"></i><br>문의글</li>
+					</ul></li>
 			</ul>
 		</div>
 	</div>

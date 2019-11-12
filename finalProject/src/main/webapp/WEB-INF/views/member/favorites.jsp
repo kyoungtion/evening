@@ -32,7 +32,6 @@
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 80%;">
 			<div class="contact-wrap" style="height: 900px;">
 				<form style="height: 100%;">
-					<h3 style="font-size: 15px">관심상품목록</h3>
 					<div class="container">
 						<ul class="tabs no-drag">
 							<li class="tab-link current " data-tab="tab-1">상품목록</li>

@@ -11,7 +11,7 @@
 
 </head>
 <body>
-	<div style="height: 30px; background: lemonchiffon;">
+	<div style="height: 30px; background: lemonchiffon; text-align:center;">
 
 					<ul class="Ttoolbal" style="height: 100%;">
 						<li><button type="button" id="bold" class="fontM" value="bold" title="굵기"
@@ -162,10 +162,10 @@
 						</li>
 
 						<li><button type="button" id="removeFormat" class="fontM" title="서식 제거" value="removeFormat">
-								<img src="resources/img/11.PNG" style="width: 20px;"></button></li>
+								<img src="resources/img/11.png" style="width: 20px;"></button></li>
 
 						<li class="font-C "><button type="button" id="fontColor" class="ftC" title="글자 색" value="black">
-								<img class="tcimg" src="img/33.PNG" style="width: 20px;"></button>
+								<img class="tcimg" src="resources/img/33.png" style="width: 20px;"></button>
 							<div class="fontC">
 								<div id="rgbPicker" class="rgbClick"
 									style="position: absolute; margin: 0; display: block;"></div>
@@ -181,22 +181,22 @@
 
 
 						<li class="textSort"><button type="button" class="ts_btn" title="정렬"> <img class="ts_img"
-									src="img/center.PNG" style="width: 20px;">
+									src="resources/img/center.png" style="width: 20px;">
 
 							</button>
 							<div class="text-sort-bar">
 								<ul class="uls" style="text-align: center;">
 									<li><button type="button" id="justifyCenter" class="fontM" value="justifyCenter"
 											title="가운데 정렬">
-											<img src="img/center.PNG" style="width: 20px;">
+											<img src="resources/img/center.png" style="width: 20px;">
 										</button></li>
 									<li><button type="button" id="justifyLeft" class="fontM" value="justifyLeft"
 											title="왼쪽 정렬">
-											<img src="img/left.PNG" style="width: 20px;">
+											<img src="resources/img/left.png" style="width: 20px;">
 										</button></li>
 									<li><button type="button" id="justifyRight" class="fontM" value="justifyRight"
 											title="오른쪽 정렬">
-											<img src="img/right.PNG" style="width: 20px;">
+											<img src="resources/img/right.png" style="width: 20px;">
 										</button></li>
 
 								</ul>
@@ -205,7 +205,7 @@
 						</li>
 
 						<li class="intSort"><button type="button" class="is_btn" title="숫자 리스트"> <img class="is_img"
-									src="img/intSort.PNG" style="width: 20px;">
+									src="resources/img/intSort.png" style="width: 20px;">
 
 							</button>
 
@@ -242,25 +242,25 @@
 						</li>
 						<li><button type="button" id="insertUnorderedList" class="fontM2" value="insertUnorderedList"
 								title="점 리스트">
-								<img src="img/dotList.PNG" style="width: 15px;"></button></li>
+								<img src="resources/img/dotList.png" style="width: 15px;"></button></li>
 
 						<li><button type="button" id="insertHTML" class="fontM2" value="<hr>" title="가로선 삽입">
-								<img src="resources/img/hr.PNG" style="width: 15px;"></button></li>
+								<img src="resources/img/hr.png" style="width: 15px;"></button></li>
 						<li>
 							<div style="height: 100%;width: 1px; background: #666;"></div>
 						</li>
 						<li><button type="button" id="iimg" class="insertImg" value="insertImage" title="이미지 삽입">
-								<img src="img/img.PNG" style="width: 20px;"></button></li>
+								<img src="resources/img/img.png" style="width: 20px;"></button></li>
 
 						<li class="inVideo"><button type="button" id="ivideo" class="insertVideo" value="insertHTML"
 								title="동영상 삽입">
-								<img src="img/video.PNG" style="width: 20px;"></button>
+								<img src="resources/img/video.png" style="width: 20px;"></button>
 							<div class="int-video-bar">
 
-								<input type="text" style="width: 100%; height: 30px;">
-								<button type="button" id="insertorderedList" class="fontM3" value="default"
+								<input type="text" id="urlInput" style="width: 100%; height: 30px;" placeholder="동영상 url을 입력해주세요.">
+								<button type="button" id="insertURL" class="fontM4" value="default"
 									style="float: right;">
-									<a style="font-family: Verdana,Geneva,sans-serif;" title="기본">기본</a>
+									<a style="font-family: Verdana,Geneva,sans-serif;" title="입력">입력</a>
 								</button>
 							</div>
 						</li>

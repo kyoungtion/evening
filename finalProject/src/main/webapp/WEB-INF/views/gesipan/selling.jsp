@@ -1,115 +1,202 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>커뮤니티</title>
+<title>EVENING : 커뮤니티</title>
 <style>
-.btn.btn-info {
-	font-size: 9px;
+#searchText {
+	width: 200px;
+	height: 25px;
+	border: whitesmoke;
 }
 
-.post-container {
-	width: 100%;
-	height: 85%;
+#title {
+	font-size: 20px;
 }
 
-.mypost {
-	border: 1px solid #8b8787;
-	width: 100%;
-}
-
-.mypost th {
-	font-size: 11px;
-	color: #8b8787;
-	height: 35px;
-	border-bottom: 1px solid #8b8787;
-	text-align: center;
-}
-
-.mypost td {
-	height: 20px;
-	color: black;
-	font-size: 13px;
-	padding: 10px;
-	border-bottom: 1px dotted #8b8787;
-	text-align: center;
-}
-
-.post-title {
-	text-align: left !important;
-}
-
-tbody tr:hover {
-	background-color: whitesmoke;
-	font-weight: bold;
-	cursor:pointer;
+.rWrap {
+	visibility: hidden;
 }
 </style>
 </head>
-<body>
+<body onload="getReplyList();">
 	<c:import url="/WEB-INF/views/common/header.jsp" />
-	<div class="my-panel"
-		style="width: 100%; height: 1000px; display: flex;">
-			<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 100%;">
-				<div class="contact-wrap" style="height: 900px;">
-					<form style="height: 100%;">
-						<div class="container">
-							<h4>삽니다 게시판</h4>
-							<div id="tab-1" class="tab-content current">
-								<div class="post-container">
-									<table class="mypost">
-										<thead>
-											<tr>
-												<th style="width: 30px;">No.</th>
-												<th style="width: 450px;">제목</th>
-												<th style="width: 80px;">작성일</th>
-												<th style="width: 80px;">조회수</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>3</td>
-												<td class="post-title">안녕하세요</td>
-												<td>2019/10/24</td>
-												<td>100</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td class="post-title">안녕하세요</td>
-												<td>2019/10/23</td>
-												<td>89</td>
-											</tr>
-											<tr>
-												<td>1</td>
-												<td class="post-title">안녕하세요</td>
-												<td>2019/10/22</td>
-												<td>33</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-
-								<div class="page-container">
-									<ul class="pagination">
-										<li class="disabled"><a href="#">«</a></li>
-										<li class="active"><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">»</a></li>
-									</ul>
+	<c:set var="cate" value="Selling" />
+	<div class="my-panel">
+		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 100%;">
+			<div class="contact-wrap">
+				<form style="height: 100%;">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12 title">
+								<span id="titlespan">삽니다</span>&nbsp; 구입하고 싶은 물건이 있으면 글을 등록해주세요.
+								자유롭게 거래가 가능한 게시판입니다.
+								<div style="float: right; padding: 10px; display: block;">
+									<button class="btn btn-default" type="button"
+										style="font-size: 10px;"
+										onclick="location.href='gesipanInsertView.ge?g_category=${cate}'">글쓰기</button>
 								</div>
 							</div>
 						</div>
-					</form>
-				</div>
-			</div>
-		
-	</div>
+						<div class="row content">
+							<table border="1" summary="" class="content-table">
+								<colgroup
+									class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 ">
+									<col style="width: 50px;">
+									<col style="width: 50px;" class="displaynone">
+									<col style="width: 450px;">
+									<col style="width: 100px;">
+									<col style="width: 100px;" class="">
+									<col style="width: 55px;">
+								</colgroup>
+								<thead>
+									<tr style="">
+										<th scope="col">번호</th>
+										<th scope="col" class="displaynone">카테고리</th>
+										<th scope="col">제목</th>
+										<th scope="col">작성자</th>
+										<th scope="col" class="">작성일</th>
+										<th scope="col">조회수</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="g" items="${list}" varStatus="st">
+										<tr style="background-color: #FFFFFF; color: #333333;">
+											<td id="g_id${st.index }" class="g_id" name="gId">${ g.g_id }</td>
+											<td class="displaynone"></td>
+											<td class="subject" id="subject"><span class="gTitle">${ g.g_title }</span>
+												<c:if test="${fn:contains(g.g_content, '<img src')}">
+													<!-- <img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_img.gif"
+													alt="파일첨부" class="ec-common-rwd-image"> -->
+													<i class="fas fa-image"></i>
+												</c:if> <%-- rCount 추가 나중에 --%> <span
+												class="rWrap Before ${st.index}"> [ </span><span><font
+													id="rCount${st.index}"></font></span><span
+												class="rWrap After ${st.index}"> ] </span></td>
+											<td>${ g.nickname }</td>
+											<td>${ g.g_enroll_date }</td>
+											<td>${ g.g_count }</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
 
+
+						<br>
+						<div class="row">
+							<div class="col-md-5"
+								style="text-align: center; left: 35%; width: 350px;">
+								<!-- <div class="col-md-5" id="searchbox"> -->
+								<select id="searchfor" name="searchfor">
+									<option value="title">제목</option>
+									<option value="writer">작성자</option>
+								</select> <input id="searchText" name="searchText" type="search" /> <input
+									type="hidden" id="category" value="${ cate }">
+								<button type="button" id="searchBtn"
+									style="background: none; border: 0;">
+									<i class="fas fa-search"></i>
+								</button>
+
+
+								<ul class="pagination">
+									<!-- 이전 -->
+									<c:if test="${ pi.currentPage <= 1} ">
+										<li class="disabled"><a href="#">«</a></li>
+									</c:if>
+									<c:if test="${ pi.currentPage > 1 }">
+										<c:url var="before" value="gList.ge">
+											<c:param name="page" value="${ pi.currentPage - 1 } " />
+											<c:param name="category" value="${ cate }" />
+										</c:url>
+										<li><a href="${ before }">«</a></li>
+									</c:if>
+									<!-- 페이지 -->
+									<c:forEach var="p" begin="${ pi.startPage }"
+										end="${ pi.endPage }">
+										<c:if test="${ p eq pi.currentPage }">
+											<li class="active"><a>${ p }</a></li>
+										</c:if>
+										<c:if test="${ p ne pi.currentPage }">
+											<c:url var="pagination" value="gList.ge">
+												<c:param name="page" value="${ p } " />
+												<c:param name="category" value="${ cate }" />
+											</c:url>
+											<li><a href="${ pagination }">${ p }</a></li>
+										</c:if>
+									</c:forEach>
+									<!-- 다음 -->
+									<c:if test="${ pi.currentPage >= pi.maxPage }">
+										<li class="disabled"><a href="#">»</a></li>
+									</c:if>
+									<c:if test="${ pi.currentPage < pi.maxPage }">
+										<c:url var="after" value="gList.ge">
+											<c:param name="page" value="${ pi.currentPage + 1 } " />
+											<c:param name="category" value="${ cate }" />
+										</c:url>
+										<li><a href="${ after }">»</a></li>
+									</c:if>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<script>
+		// 게시글 상세정보 조회
+		$(function(){
+			$('.subject').click(function(){
+				var g_id = $(this).prev().prev().text();
+				location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
+			})
+		});
+		
+		function getReplyList(){
+			var g_ref = document.getElementsByName("gId");
+			var array = [];
+			for(var i in g_ref){
+				array.push(Number(g_ref[i].innerText));
+			}
+			
+			jQuery.ajaxSettings.traditional = true;
+			$.ajax({
+				url: "rCount.ge",
+				data: {g_ref:array},
+				dataType: "json",
+				success: function(data) {
+					console.log(Object.keys(data).length);
+					var subject = $("#subject");
+					for(var i in data){
+						for(var j = 0; j < Object.keys(data).length; j++){
+							var g_id = $('#g_id'+j).text();
+							
+							var rWrapBefore = $('.rWrap.Before.'+j);
+							var rWrapAfter = $('.rWrap.After.'+j);
+							var rCount = $('#rCount'+j);
+							if(i == g_id && data[i] > 0){
+								rWrapBefore.css("visibility", "visible");
+								rWrapAfter.css("visibility", "visible");
+								rCount.text(data[i]);
+							} else if(i == g_id && data[i] <= 0){
+								rWrapBefore.css("visibility", "hidden");
+								rWrapAfter.css("visibility", "hidden");
+							}
+						}
+					} 
+				}, error: function(){
+					console.log('안됨');
+				}
+			});
+			
+		}
+	</script>
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
