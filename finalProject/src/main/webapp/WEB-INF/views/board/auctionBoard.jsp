@@ -6,7 +6,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-	<title>Store Template</title>
+	<title>경매 거래 게시판</title>
 	</head>
 	<body>
 	
