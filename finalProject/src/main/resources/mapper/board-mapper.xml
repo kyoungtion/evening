@@ -53,5 +53,12 @@
 		SELECT * FROM ADD_FILE
 		WHERE FILE_STATUS='N'
 	</select>
+	
+	<insert id="insertBoard" parameterType="Board">
+   </insert>
+   
+   <insert id="attachmentInsert" parameterType="Attachment">
+   </insert>
+	
 
 </mapper>
