@@ -102,7 +102,7 @@
 						<!-- 비회원시 -->
 						<li><a href="loginView.me">로그인/회원가입</a></li>
 						<!-- 로그인시 -->
-						<li class="nav_sub"><a>마이페이지</a>
+						<!-- <li class="nav_sub"><a>마이페이지</a>
 							<div style="position: fixed;">
 								<ul id="test">
 									<li><a href="myinfo.me">내정보보기</a></li>
@@ -110,7 +110,7 @@
 									<li><a href="dealDetail.me">거래 내역</a></li>
 									<li><a href="mypost.me">내가 쓴 글</a></li>
 								</ul>
-							</div></li>
+							</div></li> -->
 						<li><img src="../push_bell/img/bell.png" alt=""></li>
 					</ul>
 				</div>

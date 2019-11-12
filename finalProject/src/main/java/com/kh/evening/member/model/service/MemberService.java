@@ -27,6 +27,9 @@ public interface MemberService {
    Member searchId(Member m);
 
 
+int memberUpdate(Member m);
+
+
    //Object searchId(HttpServletResponse response, String user_name, String user_email);
 
    

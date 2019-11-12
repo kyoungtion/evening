@@ -7,25 +7,28 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.evening.member.model.vo.Member;
 
-
 @Repository("mDAO")
 public class MemberDAO {
 
-   public int insertMember(SqlSessionTemplate sqlSession, Member m) {
-      return sqlSession.insert("memberMapper.insertMember",m);
-   }
+	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.insert("memberMapper.insertMember", m);
+	}
 
-   public int checkIdDup(SqlSessionTemplate sqlSession, String user_id) {
-      return sqlSession.selectOne("memberMapper.idCheck", user_id);
-   }
+	public int checkIdDup(SqlSessionTemplate sqlSession, String user_id) {
+		return sqlSession.selectOne("memberMapper.idCheck", user_id);
+	}
 
-   public Member memberLogin(SqlSessionTemplate sqlSession, Member m) {
-      return sqlSession.selectOne("memberMapper.selectOne",m);
-   }
+	public Member memberLogin(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.selectOne", m);
+	}
 
-   public Member searchId(SqlSessionTemplate sqlSession, Member m) {
-      return sqlSession.selectOne("memberMapper.searchId", m);
-   }
+	public Member searchId(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.searchId", m);
+	}
+
+	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateMember", m);
+	}
 
 //   public Member searchId(SqlSessionTemplate sqlSession, String user_name,String user_email) {
 //      return (Member) sqlSession.selectMap("memberMapper.searchId",user_name,user_email);
@@ -35,6 +38,4 @@ public class MemberDAO {
 //      return sqlSession.selectOne("memberMapper.getPw", paramMap);
 //   }
 
-   
-   
 }

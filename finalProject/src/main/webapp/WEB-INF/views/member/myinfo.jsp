@@ -47,34 +47,50 @@
 					<div id="tab-1" class="tab-content current">
 						<div class="clear-fix" style="width:100%; height:30px;"></div>
 						<div class="contact-wrap" style="height: auto;">
-							<form action="#">
+							<form action="mUpdate.me" method="POST">
 								<div class="row form-group">
 									<div class="col-md-6 padding-bottom">
 										<label for="user_id">유저아이디</label> <input type="text"
-											name="user_id" class="form-control no-drag" value="유저아이디"
+											name="user_id" class="form-control no-drag" value="${ sessionScope.loginUser.user_id }"
 											readonly>
 									</div>
 									<div class="col-md-6">
 										<label for="nickname">별명</label> <input type="text"
-											name="nickname" class="form-control" value="별명">
+											name="nickName" class="form-control" value="${ sessionScope.loginUser.nickName }">
 									</div>
 								</div>
 								<div class="row form-group">
 									<div class="col-md-6">
-										<label for="phone">연락처</label> <input type="tel" name="phone1"
-											class="form-control" value="010">
+										<label for="phone">연락처</label> <input type="tel" name="phone"
+											class="form-control" value="${ sessionScope.loginUser.phone }">
 									</div>
 									<div class="col-md-6">
 										<label for="email">이메일</label> <input type="email"
-											name="email" class="form-control" value="user@gmail.com">
+											name="user_email" class="form-control" value="user@gmail.com">
 									</div>
 								</div>
+				
+								<c:forTokens var="addr" items="${ sessionScope.loginUser.address }" delims="/" varStatus="st">
+									<c:if test="${ st.index eq 0 && addr >= '0' && addr <= '99999' }">
+										<c:set var="post" value="${ addr }"/>
+									</c:if>
+									<c:if test="${ st.index eq 0 && !(addr >= '0' && addr <= '99999') }">
+										<c:set var="address1" value="${ addr }"/>
+									</c:if>
+									<c:if test="${ st.index eq 1 }">
+										<c:set var="address1" value="${ addr }"/>
+									</c:if>
+									<c:if test="${ st.index eq 2 }">
+										<c:set var="address2" value="${ addr }"/>
+									</c:if>
+								</c:forTokens>
+								
 								<div class="row form-group">
 									<div class="col-md-6" style="display:inline;">
 										<!-- <label for="address">주소</label> <input type="text"
 											name="address" class="form-control" value="서울시 강남구 역삼동"> -->
 										<label for="post">우편번호</label>
-										<input type="text" name="post" class="postcodify_postcode5 form-control" value="" size="6">
+										<input type="text" name="post" class="postcodify_postcode5 form-control" value="${ post }" size="6">
 									</div>
 									
 									<div class="col-md-6">
@@ -85,13 +101,13 @@
 										<!-- <label for="address">주소</label> <input type="text"
 											name="address" class="form-control" value="서울시 강남구 역삼동"> -->
 										<label for="post">도로명 주소</label>
-										<input type="text" name="address1" class="postcodify_address form-control" value="">
+										<input type="text" name="address1" class="postcodify_address form-control" value="${ address1 }">
 									</div>
 									<div class="col-md-12">
 										<!-- <label for="address">주소</label> <input type="text"
 											name="address" class="form-control" value="서울시 강남구 역삼동"> -->
 										<label for="post">상세 주소</label>
-										<input type="text" name="address2" class="postcodify_extra_info form-control" value="">
+										<input type="text" name="address2" class="postcodify_extra_info form-control" value="${ address2 }">
 									</div>
 								</div>
 
@@ -106,8 +122,8 @@
 								<div class="clear-fix" style="width:100%; height:80px;"></div>
 								<div class="form-group text-center buttons">
 									<input type="submit" value="수정완료" class="btn btn-primary">
-									<input type="button" value="비밀번호변경" class="btn btn-info">
-									<input type="submit" value="회원탈퇴" class="btn btn-danger">
+									<input type="button" onclick="updatePwd();" value="비밀번호변경" class="btn btn-info">
+									<input type="button" value="회원탈퇴" class="btn btn-danger">
 								</div>
 							</form>
 						</div>
@@ -154,7 +170,15 @@
 		</div>
 	</div>
 
+	<script>
+		function updatePwd(){
+			var url = "updatePwd.me";
+			var name = "비밀번호 수정";
 
+			var option = "width=620px, height=450px, top=100, left=200, resizable=0, location=0, scrollbars=0, tollbars=0, status=0";
+			window.open(url, name, option);
+		}
+	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 

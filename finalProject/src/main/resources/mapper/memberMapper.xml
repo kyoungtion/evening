@@ -62,6 +62,11 @@
            and user_email = #{user_email}
    </select> -->
 
+	<update id="updateMember" parameterType="Member">
+		update member 
+		set nickname = #{nickName}, phone=#{phone}, user_email=#{user_email}, address=#{address}
+		where user_id=#{user_id}
+	</update>
 
 
 

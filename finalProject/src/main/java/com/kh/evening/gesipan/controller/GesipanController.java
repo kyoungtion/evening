@@ -213,9 +213,10 @@ public class GesipanController {
 	
 	@RequestMapping("addReply.ge")
 	@ResponseBody
-	public String insertReply(GesipanReply r /*, HttpSession session*/) {
-		r.setUser_id("user_id");
-		r.setNickname("유저1");
+	public String insertReply(GesipanReply r, @RequestParam("user_id") String user_id, @RequestParam("nickname") String nickname /*, HttpSession session*/) {
+		
+		r.setUser_id(user_id);
+		r.setNickname(nickname);
 		
 		int result = gService.insertReply(r);
 		
