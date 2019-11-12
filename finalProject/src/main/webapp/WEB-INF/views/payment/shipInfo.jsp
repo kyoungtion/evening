@@ -37,14 +37,14 @@
 		
 							<input type="text" id="address2" class="form-control" placeholder=""
 							   name="post" style="text-align: left; margin-bottom: 10px;" onclick="mapsearch();">
-							   
+<!-- 							   
 							 <button onclick="postCheck();">클릭</button>
 							<script>
 								function postCheck(){
 									var str = $('#addr').val();
 									console.log(str);
 								}		
-							</script>
+							</script> -->
 						
 							</div>
 							<div class="form-group">
