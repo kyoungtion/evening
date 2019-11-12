@@ -17,19 +17,17 @@
 	<div class="my-panel" style="height:1000px;">
 		<div class="col-md-10 col-md-offset-1"  style="margin: 0; width: 100%;">
 			<div class="contact-wrap" style="height:100%;">
-				<form style="height: 100%;" action="gInsert.ge" id="insertForm" method="post" enctype="multipart/form-data">
+				<form style="height: 100%;" action="reInsert.ge" id="insertForm" method="post" enctype="multipart/form-data">
 					<div class="container">
 						<div class="row content" style="background:whitesmoke;">
-							
-							<span id="titlespan" style="font-weight:bold">게시글작성</span>&nbsp;
-							
-							<span id="titlespan" class="locked" style="visibility:hidden; font-size:12px;">문의사항 게시글은 비밀글 설정이 가능합니다  [비밀글 설정]</span><input class="locked" id="lockedCheck" type="checkbox" style="visibility:hidden;">
-							<input type="number" id="g_pwd" name="g_pwd" style="visibility:hidden; height:18px;" placeholder="숫자만 입력해주세요.">
+							<span id="titlespan" style="font-weight:bold">답글작성</span>&nbsp;
+							<!-- <span id="titlespan" class="locked" style="visibility:hidden; font-size:12px;">문의사항 게시글은 비밀글 설정이 가능합니다  [비밀글 설정]</span><input class="locked" id="lockedCheck" type="checkbox" style="visibility:hidden;">
+							<input type="number" id="g_pwd" name="g_pwd" style="visibility:hidden; height:18px;" placeholder="숫자만 입력해주세요."> -->
 							<script>
 							</script>
 							<div class="category" style="float:right;">
 								<label for="category">카테고리설정</label>
-								<select id="category">
+								<select id="category" disabled>
 									<option value="Community">커뮤니티</option>
 									<option value="Selling">삽니다</option>
 									<option value="QNA">문의사항</option>
@@ -40,7 +38,7 @@
 								<div class="col-md-6 padding-bottom">
 									<label for="fname">게시글 제목</label> 
 									<input type="text" id="fname" name="g_title"
-										class="form-control" placeholder="게시글 제목을 입력하세요." required>
+										class="form-control" placeholder="게시글 제목을 입력하세요." value="re:${g.g_title }"required>
 								</div>
 								<div class="col-md-6 padding-bottom">
 									<label for="fname">작성자</label> 
@@ -62,7 +60,9 @@
 							</div>
 							<input type="hidden" id="contentInput" name="g_content">
 							<input type="hidden" id="g_category" name="g_category">
-							<input type="hidden" id="locked" name="locked" value="N">
+							<input type="hidden" id="locked" name="locked">
+							<input type="hidden" id="g_pwd" name="g_pwd" value="${g.g_pwd }">
+							<input type="hidden" id="g_ref" name="g_ref" class="displaynone">
 						</div>
 					</div>
 				</form>
@@ -105,13 +105,28 @@
 				$('#g_category').val($('#category').val());
 				console.log($('#g_category').val());
 			});
+			
 		});
 		
 		function submitGesipan() {
-
+			
+			var g_id_value = $('#g_id_value').val();
+			$('#g_ref').val(g_id_value);
+			
+			var g_pwd = $('#g_pwd').val();
+			console.log(g_pwd == "");
+			
+			if(g_pwd != ""){
+				console.log(g_pwd);
+				$('#locked').val("Y");
+				$('#g_pwd').val(g_pwd);			
+			} else if(g_pwd == "") {
+				$('#locked').val("N");
+			}
+			
 			$('#contentInput').val(document.getElementById("insertField").innerHTML);
-			$('#insertForm').submit();
-		
+			$('#insertForm').submit();				
+			
 		}
 	
 /* 		

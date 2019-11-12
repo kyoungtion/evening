@@ -9,7 +9,7 @@
 		<typeAlias type="com.kh.evening.board.model.vo.Board" alias="Board"/>
      	<typeAlias type="com.kh.evening.board.model.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.evening.gesipan.model.vo.Gesipan" alias="Gesipan"/>
-		<typeAlias type="com.kh.evening.board.model.vo.BoardMode" alias="BoardMode"/>
+		<typeAlias type="com.kh.evening.gesipan.model.vo.GesipanReply" alias="gReply"/>
 	</typeAliases>
 	
 	<mappers>

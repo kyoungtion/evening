@@ -17,12 +17,13 @@
 	<div class="my-panel" style="height:1000px;">
 		<div class="col-md-10 col-md-offset-1"  style="margin: 0; width: 100%;">
 			<div class="contact-wrap" style="height:100%;">
-				<form style="height: 100%;" action="gInsert.ge" id="insertForm" method="post" enctype="multipart/form-data">
+				<form style="height: 100%;" action="gUpdate.ge" id="insertForm" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="page" value="${ page }">
+					<input type="hidden" name="g_id" value="${ g.g_id }">
+					
 					<div class="container">
 						<div class="row content" style="background:whitesmoke;">
-							
 							<span id="titlespan" style="font-weight:bold">게시글작성</span>&nbsp;
-							
 							<span id="titlespan" class="locked" style="visibility:hidden; font-size:12px;">문의사항 게시글은 비밀글 설정이 가능합니다  [비밀글 설정]</span><input class="locked" id="lockedCheck" type="checkbox" style="visibility:hidden;">
 							<input type="number" id="g_pwd" name="g_pwd" style="visibility:hidden; height:18px;" placeholder="숫자만 입력해주세요.">
 							<script>
@@ -39,13 +40,14 @@
 							<div class="row form-group">
 								<div class="col-md-6 padding-bottom">
 									<label for="fname">게시글 제목</label> 
+									<font class="displaynone" id="gtext">${ g.g_title }</font>
 									<input type="text" id="fname" name="g_title"
 										class="form-control" placeholder="게시글 제목을 입력하세요." required>
 								</div>
 								<div class="col-md-6 padding-bottom">
 									<label for="fname">작성자</label> 
 									<input type="text" id="fname"
-										class="form-control" name="g_writer" value="user01"  readonly>
+										class="form-control" name="g_writer" value="${ g.g_writer }"  readonly>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -54,19 +56,28 @@
 									<c:import url="/WEB-INF/views/common/toolbar.jsp" />
 									<div id="insertField" contenteditable="true"
 										style="width: 100%; min-height: 400px; border: 1px solid whitesmoke;">
+										${ g.g_content }
 									</div>
 								</div>
 							</div>
 							<div class="form-group text-center">
-								<input type="button" value="게시글 작성하기" onclick="submitGesipan();" class="btn btn-primary">
+								<input type="button" value="게시글 수정완료" onclick="updateGesipan();" class="btn btn-primary">
 							</div>
 							<input type="hidden" id="contentInput" name="g_content">
 							<input type="hidden" id="g_category" name="g_category">
-							<input type="hidden" id="locked" name="locked" value="N">
+							<c:if test="${g.locked eq 'Y' }">
+								<input type="hidden" id="locked" name="locked" value="Y">
+							</c:if>
+							<c:if test="${g.locked eq 'N' }">
+								<input type="hidden" id="locked" name="locked" value="N">
+							</c:if>
+							<c:if test="${!empty g.g_pwd }">
+								<input type="hidden" id="g_pwd_value" value="${ g.g_pwd }">
+							</c:if>
 						</div>
 					</div>
 				</form>
-				<input type="hidden" id="g_id_value" value="${g.g_id }">
+				
 				<form id="imgAjax" method="post" enctype="multipart/form-data">
 					<ul id="ImgInputs" style="display: none;">
 						<li><input type='file' name='trImgFile' id='trImgFile'
@@ -78,18 +89,14 @@
 	</div>
 	<script>
 		$(function(){
-			var cateVal = '${category}';
+			var cateVal = '${g.g_category}';
 			$('#category').val(cateVal).prop("selected", true);
 			
 			/* input g_category값 넣기 */
 			$('#g_category').val(cateVal);
 			
 			if($('#category').val() == 'QNA'){
-				if('${g.g_id}' == ""){
-					$('.locked').css('visibility','visible');
-				} else if('${g.g_id}' != ""){
-					$('.locked').css('visibility','hidden');
-				}
+				$('.locked').css('visibility','visible');
 			} else {
 				$('.locked').css('visibility','hidden');
 			}
@@ -105,13 +112,14 @@
 				$('#g_category').val($('#category').val());
 				console.log($('#g_category').val());
 			});
+			
 		});
 		
-		function submitGesipan() {
-
+		function updateGesipan() {
+			$('#g_pwd').val($('#g_pwd_value').val());
+			
 			$('#contentInput').val(document.getElementById("insertField").innerHTML);
 			$('#insertForm').submit();
-		
 		}
 	
 /* 		
@@ -141,12 +149,16 @@
 					$('#g_pwd').css("visibility", "visible");
 				} else {
 					$('#g_pwd').css("visibility", "hidden");
-					$('#g_pwd').val("");
+					/* $('#g_pwd').val(""); */
 				}
 				
 			});
 		});
 		
+		$(function(){
+			var gtext = $('#gtext').html().replace(/<(\/span|span)([^>]*)>/gi,"");
+			$('#fname').val(gtext);
+		})
 		
 	</script>
 
