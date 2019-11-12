@@ -95,6 +95,22 @@
 		<url-pattern>*.py</url-pattern>
 	</servlet-mapping>
 	
+	<!-- gesiServlet(일반게시판) -->
+   <servlet>
+      <servlet-name>gesipanServlet</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+      <init-param>
+         <param-name>contextConfigLocation</param-name>
+         <param-value>/WEB-INF/spring/appServlet/gesipan-context.xml</param-value>
+      </init-param>
+      <load-on-startup>1</load-on-startup>
+   </servlet>
+      
+   <servlet-mapping>
+      <servlet-name>gesipanServlet</servlet-name>
+      <url-pattern>*.ge</url-pattern>
+   </servlet-mapping>
+	
 	
 	
 	<!-- 공용 에러페이지 등록 -->
