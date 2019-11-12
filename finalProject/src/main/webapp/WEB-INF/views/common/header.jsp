@@ -84,6 +84,8 @@
 				<div id="hLogo">
 					<img src="resources/images/eve-logo.png">
 				</div>
+				<!-- 로그인 전 -->
+				<c:if test="${ empty sessionScope.loginUser }">
 				<div id="navTag">
 					<ul id="hNav">
 						<li><a href="auctionList.bo">경매</a></li>
@@ -98,8 +100,7 @@
 							</div>
 						</li>
 						<!-- 비회원시 -->
-						<li><a href="">로그인</a></li>
-						<li><a href="">회원가입</a></li>
+						<li><a href="loginView.me">로그인/회원가입</a></li>
 						<!-- 로그인시 -->
 						<li class="nav_sub"><a>마이페이지</a>
 							<div style="position: fixed;">
@@ -113,6 +114,37 @@
 						<li><img src="../push_bell/img/bell.png" alt=""></li>
 					</ul>
 				</div>
+				</c:if>
+				<!-- 로그인 후 -->
+				<c:if test="${ !empty sessionScope.loginUser }">
+					<div id="navTag">
+					<ul id="hNav">
+						<li><a href="auctionList.bo">경매</a></li>
+						<li><a href="usedListAll.ud">중고거래</a></li>
+						<li class="nav_sub"><a href="gList.ge?category=Community">게시판</a>
+							<div style="position: fixed;">
+								<ul id="test" style="height:75px !important;">
+									<li><a href="gList.ge?category=Community">커뮤니티</a></li>
+									<li><a href="gList.ge?category=Selling">삽니다</a></li>
+									<li><a href="gList.ge?category=QNA">문의사항</a></li>
+								</ul>
+							</div>
+						</li>
+						<!-- 로그인시 -->
+						<li class="nav_sub"><a>마이페이지</a>
+							<div style="position: fixed;">
+								<ul id="test">
+									<li><a href="myinfo.me">내정보보기</a></li>
+									<li><a href="favorites.me">관심 목록</a></li>
+									<li><a href="dealDetail.me">거래 내역</a></li>
+									<li><a href="mypost.me">내가 쓴 글</a></li>
+								</ul>
+							</div></li>
+						<li><img src="../push_bell/img/bell.png" alt=""></li>
+						<li><a href="logout.me" title="로그아웃"><i class="fas fa-sign-out-alt fa-1x"></i></a></li>
+					</ul>
+				</div>
+				</c:if>
 			</div>
 		</div>
 	</header>

@@ -6,10 +6,10 @@
    <select id="selectOne" parameterType="Member" resultType="Member"
       resultMap="memberResultSet">
       
-      select *
-       from member
-       where user_id=#{user_id}
-         
+		select *
+		from member
+		where user_id=#{user_id} and 
+        status = 'N'
    </select>
    
    <resultMap type="Member" id="memberResultSet">

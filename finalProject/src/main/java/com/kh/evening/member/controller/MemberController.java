@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.Manager;
+//import org.apache.catalina.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.evening.member.email.Email;
@@ -110,7 +111,7 @@ public class MemberController {
    }
    
    // 로그인용 컨트롤러
-   @RequestMapping("login.me")
+   @RequestMapping("loginView.me")
    public String login() {
       return "login";
    }
@@ -127,9 +128,23 @@ public class MemberController {
       }else {
          throw new MemberException("로그인에 실패하였습니다.");
       }
-      return "redirect:home.do";
+      
+      if(loginUser != null) {
+    	  model.addAttribute("loginUser", loginUser);
+    	  return "redirect:home.do";
+      } else {
+    	  throw new MemberException("로그인에 실패하였습니다.");
+      }
+      
       
    }
+   
+   // 로그아웃 컨트롤러
+   @RequestMapping("logout.me")
+	public String logout(SessionStatus status) {
+		status.setComplete();
+		return "redirect:home.do";
+	}
    
    @RequestMapping(value="searchId.me", method=RequestMethod.POST)
    public String searchId(@ModelAttribute Member m, Model model) {
