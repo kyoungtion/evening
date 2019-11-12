@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+
+   <!-- 암호화 후 로그인  -->
+   <select id="selectOne" parameterType="Member" resultType="Member"
+      resultMap="memberResultSet">
+      
+      select *
+       from member
+       where user_id=#{user_id}
+         
+   </select>
+   
+   <resultMap type="Member" id="memberResultSet">
+      <id property="user_id" column="USER_ID"/>
+      <result property="rank_code" column="RANK_CODE"/>
+      <result property="user_pwd" column="USER_PWD"/>
+      <result property="nickName" column="NICKNAME"/>
+      <result property="user_name" column="USER_NAME"/>
+      <result property="phone" column="PHONE"/>
+      <result property="user_residentNumber" column="USER_RESIDENTNUMBER"/>
+      <result property="user_email" column="USER_EMAIL"/>
+      <result property="address" column="ADDRESS"/>
+      <result property="enroll_date" column="ENROLL_DATE"/>
+      <result property="update_date" column="UPDATE_DATE"/>
+      <result property="bookmark" column="BOOKMARK"/>
+      <result property="status" column="STATUS"/>
+      <result property="penalty_point" column="PENALTY_POINT"/>
+      <result property="panalty_date" column="PENALTY_DATE"/>
+      <result property="penalty_stack" column="PENALTY_STACK"/>
+      
+   </resultMap>
+
+   <insert id="insertMember" parameterType="Member">
+      insert into member
+      values(#{user_id}, default,#{user_pwd}, #{nickName},#{user_name},
+            #{phone},#{user_residentNumber},#{user_email}, #{address},
+                sysdate,sysdate,default,default,default,sysdate,default)
+   </insert>
+
+   <select id="idCheck" parameterType="string" resultType="_int">
+      select count(*)
+      from member
+      where user_id=#{user_id}
+   </select>
+
+
+   <!-- 아이디 찾기 -->  
+   <select id="searchId" parameterType="String" resultType="String">
+      select user_id 
+        from member 
+         where user_name= #{user_name}
+          and phone= #{phone}
+   </select>
+
+
+   <!-- <select id="getPw" parameterType="java.util.Map" resultType="java.lang.String">
+      select user_pwd
+       from Member
+        where user_id = #{user_id}
+           and user_email = #{user_email}
+   </select> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

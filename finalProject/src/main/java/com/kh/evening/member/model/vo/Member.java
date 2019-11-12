@@ -3,153 +3,190 @@ package com.kh.evening.member.model.vo;
 import java.sql.Date;
 
 public class Member {
-	
-	private String user_id;
-	private String rank_code;
-	private String user_pwd;
-	private String nickName;
-	private String phone;
-	private String address;
-	private Date enroll_date;
-	private Date update_date;
-	private String bookmark;
-	private String status;
-	private int penalty_point;
-	private Date panalty_date;
-	private int penalty_stack;
-	
-	public Member() {}
-	
-	public Member(String user_id, String rank_code, String user_pwd, String nickName, String phone, String address,
-			Date enroll_date, Date update_date, String bookmark, String status, int penalty_point, Date panalty_date,
-			int penalty_stack) {
-		super();
-		this.user_id = user_id;
-		this.rank_code = rank_code;
-		this.user_pwd = user_pwd;
-		this.nickName = nickName;
-		this.phone = phone;
-		this.address = address;
-		this.enroll_date = enroll_date;
-		this.update_date = update_date;
-		this.bookmark = bookmark;
-		this.status = status;
-		this.penalty_point = penalty_point;
-		this.panalty_date = panalty_date;
-		this.penalty_stack = penalty_stack;
-	}
+   
+   private String user_id;
+   private String rank_code;
+   private String user_pwd;
+   private String nickName;
+   private String user_name;
+   private String user_email;
+   private String phone;
+   private String user_residentNumber;
+   private String address;
+   private Date enroll_date;
+   private Date update_date;
+   private String bookmark;
+   private String status;
+   private int penalty_point;
+   private Date panalty_date;
+   private int penalty_stack;
+   
+   public Member() {}
 
-	public String getUser_id() {
-		return user_id;
-	}
+   public Member(String user_id, String rank_code, String user_pwd, String nickName, String user_name,
+         String user_email, String phone, String user_residentNumber, String address, Date enroll_date,
+         Date update_date, String bookmark, String status, int penalty_point, Date panalty_date, int penalty_stack) {
+      super();
+      this.user_id = user_id;
+      this.rank_code = rank_code;
+      this.user_pwd = user_pwd;
+      this.nickName = nickName;
+      this.user_name = user_name;
+      this.user_email = user_email;
+      this.phone = phone;
+      this.user_residentNumber = user_residentNumber;
+      this.address = address;
+      this.enroll_date = enroll_date;
+      this.update_date = update_date;
+      this.bookmark = bookmark;
+      this.status = status;
+      this.penalty_point = penalty_point;
+      this.panalty_date = panalty_date;
+      this.penalty_stack = penalty_stack;
+   }
 
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
+   public String getUser_id() {
+      return user_id;
+   }
 
-	public String getRank_code() {
-		return rank_code;
-	}
+   public void setUser_id(String user_id) {
+      this.user_id = user_id;
+   }
 
-	public void setRank_code(String rank_code) {
-		this.rank_code = rank_code;
-	}
+   public String getRank_code() {
+      return rank_code;
+   }
 
-	public String getUser_pwd() {
-		return user_pwd;
-	}
+   public void setRank_code(String rank_code) {
+      this.rank_code = rank_code;
+   }
 
-	public void setUser_pwd(String user_pwd) {
-		this.user_pwd = user_pwd;
-	}
+   public String getUser_pwd() {
+      return user_pwd;
+   }
 
-	public String getNickName() {
-		return nickName;
-	}
+   public void setUser_pwd(String user_pwd) {
+      this.user_pwd = user_pwd;
+   }
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
+   public String getNickName() {
+      return nickName;
+   }
 
-	public String getPhone() {
-		return phone;
-	}
+   public void setNickName(String nickName) {
+      this.nickName = nickName;
+   }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+   public String getUser_name() {
+      return user_name;
+   }
 
-	public String getAddress() {
-		return address;
-	}
+   public void setUser_name(String user_name) {
+      this.user_name = user_name;
+   }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+   public String getUser_email() {
+      return user_email;
+   }
 
-	public Date getEnroll_date() {
-		return enroll_date;
-	}
+   public void setUser_email(String user_email) {
+      this.user_email = user_email;
+   }
 
-	public void setEnroll_date(Date enroll_date) {
-		this.enroll_date = enroll_date;
-	}
+   public String getPhone() {
+      return phone;
+   }
 
-	public Date getUpdate_date() {
-		return update_date;
-	}
+   public void setPhone(String phone) {
+      this.phone = phone;
+   }
 
-	public void setUpdate_date(Date update_date) {
-		this.update_date = update_date;
-	}
+   public String getUser_residentNumber() {
+      return user_residentNumber;
+   }
 
-	public String getBookmark() {
-		return bookmark;
-	}
+   public void setUser_residentNumber(String user_residentNumber) {
+      this.user_residentNumber = user_residentNumber;
+   }
 
-	public void setBookmark(String bookmark) {
-		this.bookmark = bookmark;
-	}
+   public String getAddress() {
+      return address;
+   }
 
-	public String getStatus() {
-		return status;
-	}
+   public void setAddress(String address) {
+      this.address = address;
+   }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+   public Date getEnroll_date() {
+      return enroll_date;
+   }
 
-	public int getPenalty_point() {
-		return penalty_point;
-	}
+   public void setEnroll_date(Date enroll_date) {
+      this.enroll_date = enroll_date;
+   }
 
-	public void setPenalty_point(int penalty_point) {
-		this.penalty_point = penalty_point;
-	}
+   public Date getUpdate_date() {
+      return update_date;
+   }
 
-	public Date getPanalty_date() {
-		return panalty_date;
-	}
+   public void setUpdate_date(Date update_date) {
+      this.update_date = update_date;
+   }
 
-	public void setPanalty_date(Date panalty_date) {
-		this.panalty_date = panalty_date;
-	}
+   public String getBookmark() {
+      return bookmark;
+   }
 
-	public int getPenalty_stack() {
-		return penalty_stack;
-	}
+   public void setBookmark(String bookmark) {
+      this.bookmark = bookmark;
+   }
 
-	public void setPenalty_stack(int penalty_stack) {
-		this.penalty_stack = penalty_stack;
-	}
+   public String getStatus() {
+      return status;
+   }
 
-	@Override
-	public String toString() {
-		return "Member [user_id=" + user_id + ", rank_code=" + rank_code + ", user_pwd=" + user_pwd + ", nickName="
-				+ nickName + ", phone=" + phone + ", address=" + address + ", enroll_date=" + enroll_date
-				+ ", update_date=" + update_date + ", bookmark=" + bookmark + ", status=" + status + ", penalty_point="
-				+ penalty_point + ", panalty_date=" + panalty_date + ", penalty_stack=" + penalty_stack + "]";
-	}
-	
-	
+   public void setStatus(String status) {
+      this.status = status;
+   }
+
+   public int getPenalty_point() {
+      return penalty_point;
+   }
+
+   public void setPenalty_point(int penalty_point) {
+      this.penalty_point = penalty_point;
+   }
+
+   public Date getPanalty_date() {
+      return panalty_date;
+   }
+
+   public void setPanalty_date(Date panalty_date) {
+      this.panalty_date = panalty_date;
+   }
+
+   public int getPenalty_stack() {
+      return penalty_stack;
+   }
+
+   public void setPenalty_stack(int penalty_stack) {
+      this.penalty_stack = penalty_stack;
+   }
+
+   @Override
+   public String toString() {
+      return "Member [user_id=" + user_id + ", rank_code=" + rank_code + ", user_pwd=" + user_pwd + ", nickName="
+            + nickName + ", user_name=" + user_name + ", user_email=" + user_email + ", phone=" + phone
+            + ", user_residentNumber=" + user_residentNumber + ", address=" + address + ", enroll_date="
+            + enroll_date + ", update_date=" + update_date + ", bookmark=" + bookmark + ", status=" + status
+            + ", penalty_point=" + penalty_point + ", panalty_date=" + panalty_date + ", penalty_stack="
+            + penalty_stack + "]";
+   }
+
+   
+
+   
+   
+   
+   
 }
