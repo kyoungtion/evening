@@ -7,7 +7,7 @@
 		where SG_STATUS='N' 
 		
 		<choose>
-			<when test="B_category == 'A'">
+			<when test='B_category == "A" '>
 				AND B_CATEGORY='A'
 			</when>
 			<when test="B_category == 'SG'">

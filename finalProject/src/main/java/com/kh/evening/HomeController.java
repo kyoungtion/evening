@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.kh.evening.board.model.service.BoardService;
+import com.kh.evening.board.model.service.BoardServiceImp;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.BoardMode;
 import com.kh.evening.board.model.vo.PageInfo;
@@ -22,7 +22,7 @@ import com.kh.evening.common.Pageination;
 public class HomeController {
   
   @Autowired
-  private BoardService bService;
+  private BoardServiceImp bService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
