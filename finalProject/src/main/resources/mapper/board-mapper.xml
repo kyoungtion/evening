@@ -54,11 +54,18 @@
 		WHERE FILE_STATUS='N'
 	</select>
 	
-	<insert id="insertBoard" parameterType="Board">
+<!-- 	<insert id="insertBoard" parameterType="Board">
    </insert>
    
    <insert id="attachmentInsert" parameterType="Attachment">
-   </insert>
+   </insert> -->
+	
+	<select id="boardSelectOne" parameterType="Board" resultType="Board">
+		SELECT * FROM SECOND_GOODS WHERE SG_ID=#{sg_id}
+	</select>
+	<select id="boardFileOne" parameterType="Attachment" resultType="Attachment">
+		SELECT * FROM ADD_FILE WHERE SG_ID=#{sg_id}
+	</select>
 	
 
 </mapper>

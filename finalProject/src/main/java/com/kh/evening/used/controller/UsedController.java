@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.evening.board.model.exception.BoardException;
+import com.kh.evening.board.model.service.BoardService;
 import com.kh.evening.board.model.vo.Attachment;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.used.model.service.UsedService;
@@ -27,6 +29,9 @@ public class UsedController {
 
 	@Autowired
 	private UsedService uService;
+	
+	@Autowired
+	private BoardService bService;
 
 	@RequestMapping("uInsert.ud")
 	public String usedInsert(@ModelAttribute Board b, @RequestParam("smImg") MultipartFile uploadFile,
@@ -134,9 +139,19 @@ public class UsedController {
 	}
 
 	@RequestMapping("selectOne.ud")
-	public String selectOne() {
+	public ModelAndView selectOne(@RequestParam("sgId") int sgId,ModelAndView mv) {
 
-		return "usedDetail";
+		Board board = bService.selectOne(sgId);
+		Attachment at = bService.boardFileList(sgId);
+		if(board != null) {
+		
+			mv.addObject("board",board)
+				.setViewName("usedDetail"); 
+		}else {
+			throw new BoardException("게시글 읽기를 실패하였습니다.");
+		}
+		
+		return mv;
 	}
 
 	@RequestMapping("updateForm.ud")

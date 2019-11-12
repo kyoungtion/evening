@@ -76,7 +76,7 @@
 										</div>
 										
 										<div class="desc">
-											<h3><a href="product-detail.html">${ i.SG_BNAME }</a></h3>
+											<h3><a onclick="oneClick(${i.SG_ID});">${ i.SG_BNAME }</a></h3>
 											<p class="price">АЁАн<span> <br> <fmt:formatNumber value="${i.SG_PRICE }" type="currency"/></span></p>
 										</div>
 										
@@ -201,6 +201,11 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	function oneClick(sgId){
+		location.href='selectOne.ud?sgId='+sgId;
+		}
+	</script>
 		
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 

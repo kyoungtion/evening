@@ -50,7 +50,7 @@
 		<div class="pg" style="width: 90%; display: inline-block; background: #f5f5f5;;">
 			<br>
 			<div class="headLine" style="width:50%; display: inline-block;">
-				<h2>가가가가가가가가가가가가가가가</h2>
+				<h2>${board.SG_BNAME }</h2>
 				<p style="border-top: 1px solid gray;">2019-10-27</p>
 			</div>
 			<div style="height: 300px;width: 100%; background: #f5f5f5;">
