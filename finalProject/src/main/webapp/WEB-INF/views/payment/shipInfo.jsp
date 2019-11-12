@@ -13,82 +13,108 @@
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
 
 		<div class="row">
 			<div class="col-md-7" style="margin-left: 230px">
-				<form action="pinsert.py" method="post" class="colorlib-form" style="margin-top:30px; margin-left:auto; width: 650px; height:700px;">
 					<h2>배송지 정보 입력</h2>
+				<form action="pinsert.py" id="pinsert" method="post" class="colorlib-form" style="margin-top:30px; margin-left:auto; width: 650px; height:700px;">
 						<div class="row">
 					 		<div class="col-md-12">
 								<div class="form-group">
 									<div class="col-md-6">
 										<label for="fname">이름</label>
-										<input type="text" id="fname" class="form-control" placeholder="Your name">
+										<input type="text" id="fname" class="form-control" placeholder="Your name" name="P_NAME">
+									</div>
 								</div>
-							</div>
-			<div class="form-group">
-				<div class="col-md-6">
-					<label for="addr">주소</label>
-					<input type="button" id="address" class="form-control" placeholder="Enter Your Address"
-					onclick="mapsearch();" name="postcode" style="text-align: left; margin-bottom: 10px;">
-						</div>
+								
 					<div class="form-group">
-					<div class="col-md-6">
-					<input type="text" id="address2" class="form-control" placeholder=""
-					name="addr1" style="text-align: left">
+						<div class="col-md-6">
+							<label for="addres">주소</label>
+		
+							<input type="text" id="address2" class="form-control" placeholder=""
+							   name="post" style="text-align: left; margin-bottom: 10px;" onclick="mapsearch();">
+							   
+							 <button onclick="postCheck();">클릭</button>
+							<script>
+								function postCheck(){
+									var str = $('#addr').val();
+									console.log(str);
+								}		
+							</script>
+						
+							</div>
+							<div class="form-group">
+							<div class="col-md-6">
+							<input type="text" id="address2" class="form-control" placeholder=""
+							name="addr1" style="text-align: left">
+							</div>
+							 <div class="col-md-6">
+											  
+							<input type="text" id="address2" class="form-control" placeholder=""
+							name="addr2" style="text-align: left">
+							</div>
+											  
+						</div>
 					</div>
-					 <div class="col-md-6">
-									  
-					<input type="text" id="address2" class="form-control" placeholder=""
-					name="addr2" style="text-align: left">
-					</div>
-									  
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-md-6">
-					<label for="email">이메일</label>
-					<input type="text" id="email" class="form-control" placeholder="">
-				</div>
-					<div class="col-md-6">
-						<label for="Phone">전화 번호</label>
-						<input type="text" id="zippostalcode" class="form-control" placeholder="">
-					</div>
+					
+					<div class="form-group">
+						<div class="col-md-6">
+							<label for="email">이메일</label>
+							<input type="text" id="email" class="form-control" name="P_EMAIL" placeholder="">
+						</div>
+							<div class="col-md-6">
+								<label for="Phone">전화 번호</label>
+								<input type="text" id="phone" name="P_PHONE" class="form-control" placeholder="">
+							</div>
 						<div class="form-group">
-					<div class="col-md-12">
-					<label for="memo">배송시 메모</label>
-					<input type="text" id="memo" class="form-control" placeholder="">
-					</div>
-				</div>
-			</div>
-			</form>
+							<div class="col-md-12">
+							<label for="memo">배송시 메모</label>
+							<input type="text" id="memo" class="form-control" name="memo" placeholder="">
+							</div>
 							
-			</div>
+							<div class="col-md-12">
+							<label for="money">금액</label>
+							<input type="text" id="money" name="MONEY" class="form-control" placeholder="">
+							</div>
+						</div>
+					</div>
+			
 				</div>
+			</div>
+		</form>
+	</div>
+</div>
+			
 					<div class="row">
 						<div class="col-md-12">
-							<button onclick="" class="btn btn-primary" style="float: right;" id="check_module">주문</button>
+							<button onclick="" class="btn btn-primary" style="float: right; margin-right:130px;" id="check_module">주문</button>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-	</form>
+			
+	
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
-		
-	<script>
+
+
+
+	
+</body>
+<script>
 		function mapsearch() {
         new daum.Postcode({
           oncomplete: function(data) {
-            $('[name=postcode]').val(data.zonecode); // 우편번호 (5자리)
+            $('[name=post]').val(data.zonecode); // 우편번호 (5자리)
             $('[name=addr1]').val(data.address);
             $('[name=addr2]').val(data.buildingName);
           }
         }).open();
       }
+</script>
+<script>
+// 결제 function		
 // 금액 부분은 필수로 기입 해줄 것
 $("#check_module").click(function () {
 var IMP = window.IMP; // 생략가능
@@ -126,12 +152,12 @@ https://docs.iamport.kr/implementation/payment
 */
 name: '결제',
 //결제창에서 보여질 이름
-amount: 1000,
+amount: $('#money').val(),
 //가격
-buyer_email: 'dmdk7979@naver.com',//$('#spid').val(),
-buyer_name: '이한솔',//$('#spname').val(),
-buyer_tel: '010-2208-6707',//$('#spphone').val(),
-buyer_addr: '서울 강남',//$('#spaddress').val(),
+buyer_email: $('#email').val(),//$('#spid').val(),
+buyer_name: $('#fname').val(),
+buyer_tel: $('#phone').val(),
+buyer_addr: $('#addr').val(),
 m_redirect_url: 'https://www.yourdomain.com/payments/complete'
 /*
 모바일 결제시,
@@ -146,6 +172,7 @@ msg += '고유ID : ' + rsp.imp_uid;
 msg += '상점 거래ID : ' + rsp.merchant_uid;
 msg += '결제 금액 : ' + rsp.paid_amount;
 msg += '카드 승인번호 : ' + rsp.apply_num;
+$("#pinsert").submit();
 } else {
 var msg = '결제에 실패하였습니다.';
 msg += '에러내용 : ' + rsp.error_msg;
@@ -154,28 +181,5 @@ alert(msg);
 document.location.href="index.jsp";
 });
 });
-	</script>
-	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
-	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
-	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
-	<!-- Flexslider -->
-	<script src="js/jquery.flexslider-min.js"></script>
-	<!-- Owl carousel -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!-- Magnific Popup -->
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/magnific-popup-options.js"></script>
-	<!-- Date Picker -->
-	<script src="js/bootstrap-datepicker.js"></script>
-	<!-- Stellar Parallax -->
-	<script src="js/jquery.stellar.min.js"></script>
-	<!-- Main -->
-	<script src="js/main.js"></script>
-	</script>
-</body>
+</script>	
 </html>

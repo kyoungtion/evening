@@ -3,6 +3,6 @@
 <mapper namespace="payMapper">
 	<insert id="insertPay" parameterType="Payment">
 	insert into payment
-	values(#{P_NO},#{P_ID},#{P_NICKNAME},#{P_ADDRESS},#{P_EMAIL},#{PAYDAY},#{P_UPDATE_DATE},#{P_STATUS},#{MONEY})
+	values(P_NO_SEQ.nextval,#{P_ID},#{P_NICKNAME},#{P_ADDRESS},#{P_PHONE},#{P_EMAIL},sysdate,sysdate,default,#{MONEY})
 	</insert>
 </mapper>

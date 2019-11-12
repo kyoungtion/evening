@@ -28,11 +28,14 @@ public class PaymentController {
 	// 배송 정보 입력 -> DB
 	@RequestMapping("pinsert.py")
 	public String insertPay(@ModelAttribute Payment p,
-							@RequestParam(value="postcode", required=false) String postcode,
+							//@RequestParam("postcode") String postcode,
+							@RequestParam("post") String postcode,
 							@RequestParam("addr1") String addr1,
 							@RequestParam("addr2") String addr2) {
+		
 		p.setP_ADDRESS(postcode + "/" + addr1 + "/" + addr2);
 		
+		System.out.println(p);
 		int result = pService.insertPay(p);
 		
 		if(result > 0) {
