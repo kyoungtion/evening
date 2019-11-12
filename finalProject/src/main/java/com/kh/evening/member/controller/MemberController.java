@@ -40,8 +40,8 @@ public class MemberController {
    /*@Autowired
    private EmailSender emailSender;*/
    
-   @Autowired
-   private Email email;
+//   @Autowired
+//   private Email email;
    
    /*@Autowired
    JavaMailSender mailSender;*/
