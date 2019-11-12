@@ -7,11 +7,11 @@
 <title>Insert title here</title>
 
 <!-- header css -->
-<link rel="stylesheet" href="resources/css/toolbal.css">
+<link rel="stylesheet" href="resources/css/toolbar.css">
 
 </head>
 <body>
-	<div style="height: 30px; background: lemonchiffon;">
+	<div style="height: 30px; background: lemonchiffon; text-align:center;">
 
 					<ul class="Ttoolbal" style="height: 100%;">
 						<li><button type="button" id="bold" class="fontM" value="bold" title="굵기"
