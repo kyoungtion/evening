@@ -1,17 +1,264 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>중고물품거래, 경매는 이브닝</title>
+<style>
+		/* Insert Css */
+		.form-field {
+			width: 45%; 
+			float: left;
+			margin: 0 0 0 30px;
+		}
 
-<!-- header css -->
-<link rel="stylesheet" href="resources/css/toolbal.css">
+		/*  */
+		* {
+			/* list-style: none; */
+			/* font-family: Georgia, 'Times New Roman', Times, serif; */
+		}
 
+		#t1 {
+			height: 30px;
+			width: 800px;
+			background: whitesmoke;
+			position: relative;
+
+		}
+
+		.Ttoolbal li {
+			float: left;
+			height: 100%;
+		}
+
+		.Ttoolbal {
+			display: inline-block;
+		}
+
+		.Ttoolbal>li>button {
+			min-width: 30px;
+			height: 100%;
+			border: 0 none;
+			background-color: transparent;
+			cursor: pointer
+		}
+
+		.Ttoolbal>li>button:hover {
+			background-color: #383838;
+		}
+
+		.Ttoolbal>li {
+			margin-right: 5px;
+		}
+
+		/* i{
+        font-weight: bold;
+    } */
+		.inFontTag.on .font-style-bar {
+			height: 200px;
+		}
+
+		.font-style-bar {
+			width: 150px;
+			height: 0px;
+			background: blanchedalmond;
+			position: absolute;
+			overflow-y: scroll;
+		}
+
+		.clickspan {
+			width: 0;
+			height: 0;
+			border-left: 4px solid transparent;
+			border-right: 4px solid transparent;
+			border-top: 4px solid #999;
+			right: 4px;
+			top: 16.5px;
+		}
+
+		.on .font-size-bar {
+			height: 200px;
+		}
+
+		.font-size-bar {
+			width: 80px;
+			height: 0px;
+			background: #999;
+			position: absolute;
+			overflow-y: scroll;
+		}
+
+		.on .text-sort-bar {
+			height: 90px;
+		}
+
+		.text-sort-bar {
+			width: 40px;
+			height: 0px;
+			background: #999;
+			position: absolute;
+			overflow: hidden;
+		}
+
+		.on .int-sort-bar {
+			height: 180px;
+		}
+
+		.int-sort-bar {
+			width: 150px;
+			height: 0px;
+			background: #999;
+			position: absolute;
+			overflow: hidden;
+		}
+
+		.on .int-video-bar {
+			height: 60px;
+		}
+
+		.int-video-bar {
+			width: 300px;
+			height: 0px;
+			background: #999;
+			position: absolute;
+			overflow: hidden;
+			margin-left: -120px;
+		}
+
+		.uls {
+			padding: 0;
+			height: auto;
+		}
+
+		.uls li {
+			width: 100%;
+			height: 30px;
+		}
+
+		.uls>* {
+
+			display: inline-block;
+		}
+
+		.fontC {
+			display: none;
+		}
+
+		.font-C.on .fontC {
+			display: block;
+
+		}
+
+		#insertField {
+			text-align: initial;
+		}
+
+		#insertField ul {
+			list-style: initial;
+		}
+	</style>
 </head>
 <body>
-	<div style="height: 30px; background: lemonchiffon;">
+	<c:import url="/WEB-INF/views/common/header.jsp"/>
+	<div class="evPage" style="height:auto;width: 100%;background: #ffffff;  text-align: center; ">
+		<form>
+			<div style="width: 90%; height: auto; background: #f5f5f5;display: inline-block;
+		 ">
+				<br>
+				<div style="height: auto;width: 150px;">
+					<h2>상품 등록</h2>
+				</div>
+
+				<div style="width: 90%;height: auto;display: inline-block;">
+					<div style="width: 230px; float: left; padding: none;">
+						<div style="height: 30px;"></div>
+						<div style="width: 200px;height: 200px;background: white;display: inline-block;"></div>
+						<p>썸네일 이미지</p>
+					</div>
+					<div class="col-md-7" style="float: left;width: 500px;">
+						<div method="post" class="colorlib-form" style="padding: 0em;">
+
+							<div class=" row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="fname">제 목</label>
+										<input type="text" id="companyname" class="form-control"
+											placeholder="Company Name">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<label for="country">카테고리</label>
+									<div class="form-group">
+										<div class="form-field">
+											<i class="icon icon-arrow-down3"></i>
+											<select name="people" id="people" class="form-control">
+												<option value="#">Select country</option>
+												<option value="#">Alaska</option>
+												<option value="#">China</option>
+												<option value="#">Japan</option>
+												<option value="#">Korea</option>
+												<option value="#">Philippines</option>
+											</select>
+
+										</div>
+										<div style="width: 30px;height: 1px;float: left;"></div>
+										<div class="form-field">
+											<i class="icon icon-arrow-down3"></i>
+											<select name="people" id="people" class="form-control">
+												<option value="#">Select country</option>
+												<option value="#">Alaska</option>
+												<option value="#">China</option>
+												<option value="#">Japan</option>
+												<option value="#">Korea</option>
+												<option value="#">Philippines</option>
+											</select>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="companyname">가격</label>
+										<input type="text" id="towncity" class="form-control"
+											placeholder="Town or City">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div style="float: left; width: 200px;">
+										<label for="companyname">거래 방식</label>
+										<div class="col-md-12">
+											<div class="radio">
+												<label><input type="radio" name="dealType" value="1" checked>직거래</label>
+												<label><input type="radio" name="dealType" value="2">택배거래</label>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="radio">
+												<label><input type="radio" name="dealType2" disabled checked>배송비
+													포함</label>
+												<label><input type="radio" name="dealType2" disabled>무료배송</label>
+											</div>
+										</div>
+									</div>
+									<div>
+										<label for="companyname">거래 지역</label>
+										<input type="text" id="towncity" class="form-control" placeholder="Town or City"
+											style="width: 280px;">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div style="display: inline-block;width: 90%;">
+			<c:import url="/WEB-INF/views/common/toolbar.jsp"/>
+				<%-- <div style="height: 30px; background: lemonchiffon;">
 
 					<ul class="Ttoolbal" style="height: 100%;">
 						<li><button type="button" id="bold" class="fontM" value="bold" title="굵기"
@@ -162,10 +409,10 @@
 						</li>
 
 						<li><button type="button" id="removeFormat" class="fontM" title="서식 제거" value="removeFormat">
-								<img src="resources/img/11.png" style="width: 20px;"></button></li>
+								<img src="resources/img/11.PNG" style="width: 20px;"></button></li>
 
 						<li class="font-C "><button type="button" id="fontColor" class="ftC" title="글자 색" value="black">
-								<img class="tcimg" src="resources/img/33.png" style="width: 20px;"></button>
+								<img class="tcimg" src="img/33.PNG" style="width: 20px;"></button>
 							<div class="fontC">
 								<div id="rgbPicker" class="rgbClick"
 									style="position: absolute; margin: 0; display: block;"></div>
@@ -181,22 +428,22 @@
 
 
 						<li class="textSort"><button type="button" class="ts_btn" title="정렬"> <img class="ts_img"
-									src="resources/img/center.png" style="width: 20px;">
+									src="img/center.PNG" style="width: 20px;">
 
 							</button>
 							<div class="text-sort-bar">
 								<ul class="uls" style="text-align: center;">
 									<li><button type="button" id="justifyCenter" class="fontM" value="justifyCenter"
 											title="가운데 정렬">
-											<img src="resources/img/center.png" style="width: 20px;">
+											<img src="img/center.PNG" style="width: 20px;">
 										</button></li>
 									<li><button type="button" id="justifyLeft" class="fontM" value="justifyLeft"
 											title="왼쪽 정렬">
-											<img src="resources/img/left.png" style="width: 20px;">
+											<img src="img/left.PNG" style="width: 20px;">
 										</button></li>
 									<li><button type="button" id="justifyRight" class="fontM" value="justifyRight"
 											title="오른쪽 정렬">
-											<img src="resources/img/right.png" style="width: 20px;">
+											<img src="img/right.PNG" style="width: 20px;">
 										</button></li>
 
 								</ul>
@@ -205,7 +452,7 @@
 						</li>
 
 						<li class="intSort"><button type="button" class="is_btn" title="숫자 리스트"> <img class="is_img"
-									src="resources/img/intSort.png" style="width: 20px;">
+									src="img/intSort.PNG" style="width: 20px;">
 
 							</button>
 
@@ -242,25 +489,25 @@
 						</li>
 						<li><button type="button" id="insertUnorderedList" class="fontM2" value="insertUnorderedList"
 								title="점 리스트">
-								<img src="resources/img/dotList.png" style="width: 15px;"></button></li>
+								<img src="img/dotList.PNG" style="width: 15px;"></button></li>
 
 						<li><button type="button" id="insertHTML" class="fontM2" value="<hr>" title="가로선 삽입">
-								<img src="resources/img/hr.png" style="width: 15px;"></button></li>
+								<img src="img/hr.PNG" style="width: 15px;"></button></li>
 						<li>
 							<div style="height: 100%;width: 1px; background: #666;"></div>
 						</li>
 						<li><button type="button" id="iimg" class="insertImg" value="insertImage" title="이미지 삽입">
-								<img src="resources/img/img.png" style="width: 20px;"></button></li>
+								<img src="img/img.PNG" style="width: 20px;"></button></li>
 
 						<li class="inVideo"><button type="button" id="ivideo" class="insertVideo" value="insertHTML"
 								title="동영상 삽입">
-								<img src="resources/img/video.png" style="width: 20px;"></button>
+								<img src="img/video.PNG" style="width: 20px;"></button>
 							<div class="int-video-bar">
 
-								<input type="text" id="urlInput" style="width: 100%; height: 30px;" placeholder="동영상 url을 입력해주세요.">
-								<button type="button" id="insertURL" class="fontM4" value="default"
+								<input type="text" style="width: 100%; height: 30px;">
+								<button type="button" id="insertorderedList" class="fontM3" value="default"
 									style="float: right;">
-									<a style="font-family: Verdana,Geneva,sans-serif;" title="입력">입력</a>
+									<a style="font-family: Verdana,Geneva,sans-serif;" title="기본">기본</a>
 								</button>
 							</div>
 						</li>
@@ -268,9 +515,24 @@
 
 					</ul>
 
+				</div> --%>
+
+
+				<div id="insertField" contenteditable="true"
+					style="width:100%; min-height:400px;border: 1px solid whitesmoke; ">
+					<div>텍스트 편집기</div>
 				</div>
-					<!-- toolbar-->
-	<script src="resources/js/toolbar.js"></script>
+				<br>
+				<button type="button" class="btn btn-primary" style="float: right;"> 글쓰기 </button>
+			</div>
+		</form>
+		<form id="imgAjax"  method="post" enctype="multipart/form-data">
+			<ul id="ImgInputs" style="display: none;">
+				<li><input type='file' name='trImgFile' id='trImgFile' accept="image/*" onchange="TintsetImg(this);" />
+				</li>
+			</ul>
+		</form>
 	
+	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
