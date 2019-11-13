@@ -122,12 +122,42 @@
 								<div class="clear-fix" style="width:100%; height:80px;"></div>
 								<div class="form-group text-center buttons">
 									<input type="submit" value="수정완료" class="btn btn-primary">
-									<input type="button" onclick="updatePwd();" value="비밀번호변경" class="btn btn-info">
-									<input type="button" value="회원탈퇴" class="btn btn-danger">
+									<input type="button" onclick="updatePwdView();" value="비밀번호변경" class="btn btn-info">
+									<input type="button" onclick="deleteMember();" value="회원탈퇴" class="btn btn-danger">
 								</div>
 							</form>
 						</div>
 					</div>
+					<script>
+						function updatePwdView(){
+							
+							var url = "updatePwdView.me";
+							var name = "비밀번호 수정";
+					
+							var option = "width=620px, height=450px, top=100, left=200, resizable=0, location=0, scrollbars=0, tollbars=0, status=0";
+							window.open(url, name, option);
+							
+						}
+						
+						function deleteMember(){
+							if(confirm("정말로 탈퇴하시겠습니까?") == true){
+								var user_id = '${loginUser.user_id}';
+								var pwd = prompt("비밀번호를 입력하세요");
+								$.ajax({
+									url:"checkPwd.me",
+									data:{user_id:user_id, user_pwd:pwd },
+									success: function(){
+										onSuccess();
+									}
+								});
+							}
+						};
+						
+						function onSuccess(){
+							alert('탈퇴되었습니다.');
+							location.href="mDelete.me";
+						};
+					</script>
 					
 					<!-- 판매자 인증 화면 -->
 					<div id="tab-2" class="tab-content">
@@ -170,15 +200,7 @@
 		</div>
 	</div>
 
-	<script>
-		function updatePwd(){
-			var url = "updatePwd.me";
-			var name = "비밀번호 수정";
-
-			var option = "width=620px, height=450px, top=100, left=200, resizable=0, location=0, scrollbars=0, tollbars=0, status=0";
-			window.open(url, name, option);
-		}
-	</script>
+	
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 

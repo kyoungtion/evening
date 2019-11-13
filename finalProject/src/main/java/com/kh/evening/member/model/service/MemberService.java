@@ -8,31 +8,27 @@ import com.kh.evening.member.model.vo.Member;
 
 public interface MemberService {
 
-   int insertMember(Member m);
+	int insertMember(Member m);
 
+	int checkIdDup(String user_id);
 
-   int checkIdDup(String user_id);
+	Member memberLogin(Member m);
 
-   Member memberLogin(Member m);
-   
-   Member enrollView(Member m);
+	Member enrollView(Member m);
 
+	// Member searchId(Member m);
 
-   //Member searchId(Member m);
+	String getPw(Map<String, Object> paramMap);
 
+	Member searchId(Member m);
 
-   String getPw(Map<String, Object> paramMap);
+	int memberUpdate(Member m);
 
+	int updatePwd(Member loginUser);
 
-   Member searchId(Member m);
+	int deleteMember(Member m);
 
-
-int memberUpdate(Member m);
-
-
-   //Object searchId(HttpServletResponse response, String user_name, String user_email);
-
-   
-   
+	// Object searchId(HttpServletResponse response, String user_name, String
+	// user_email);
 
 }

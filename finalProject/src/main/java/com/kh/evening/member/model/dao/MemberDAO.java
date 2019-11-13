@@ -30,6 +30,14 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.updateMember", m);
 	}
 
+	public int updatePwd(SqlSessionTemplate sqlSession, Member loginUser) {
+		return sqlSession.update("memberMapper.updatePwd", loginUser);
+	}
+
+	public int deleteMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.deleteMember", m);
+	}
+
 //   public Member searchId(SqlSessionTemplate sqlSession, String user_name,String user_email) {
 //      return (Member) sqlSession.selectMap("memberMapper.searchId",user_name,user_email);
 //   }

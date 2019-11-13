@@ -16,70 +16,59 @@ import com.kh.evening.member.model.dao.MemberDAO;
 import com.kh.evening.member.model.vo.Member;
 
 @Service("mService")
-public class MemberServiceImpl implements MemberService{
-   
-   @Autowired
-   private SqlSessionTemplate sqlSession;
-   
-   @Autowired
-   private MemberDAO mDAO;
-   
-   
-   /////////////////////////////////////////
+public class MemberServiceImpl implements MemberService {
 
-   @Override
-   public int insertMember(Member m) {
-      return mDAO.insertMember(sqlSession, m);
-   }
+	@Autowired
+	private SqlSessionTemplate sqlSession;
 
-   @Override
-   public int checkIdDup(String user_id) {
-      return mDAO.checkIdDup(sqlSession, user_id);
-   }
+	@Autowired
+	private MemberDAO mDAO;
 
-   @Override
-   public Member memberLogin(Member m) {
-      return mDAO.memberLogin(sqlSession, m);
-   }
+	/////////////////////////////////////////
 
-   @Override
-   public Member enrollView(Member m) {
-      // TODO Auto-generated method stub
-      return null;
-   }
+	@Override
+	public int insertMember(Member m) {
+		return mDAO.insertMember(sqlSession, m);
+	}
 
+	@Override
+	public int checkIdDup(String user_id) {
+		return mDAO.checkIdDup(sqlSession, user_id);
+	}
 
-   @Override
-   public Member searchId(Member m) {
-      // TODO Auto-generated method stub
-      return mDAO.searchId(sqlSession,m);
-   }
+	@Override
+	public Member memberLogin(Member m) {
+		return mDAO.memberLogin(sqlSession, m);
+	}
 
-   @Override
-   public String getPw(Map<String, Object> paramMap) {
-      // TODO Auto-generated method stub
-      return null;
-   }
+	@Override
+	public Member enrollView(Member m) {
+		return null;
+	}
 
-@Override
-public int memberUpdate(Member m) {
-	return mDAO.updateMember(sqlSession, m);
-}
+	@Override
+	public Member searchId(Member m) {
+		return mDAO.searchId(sqlSession, m);
+	}
 
+	@Override
+	public String getPw(Map<String, Object> paramMap) {
+		return null;
+	}
 
-   
-   
-   
-   
-   
+	@Override
+	public int memberUpdate(Member m) {
+		return mDAO.updateMember(sqlSession, m);
+	}
 
+	@Override
+	public int updatePwd(Member loginUser) {
+		return mDAO.updatePwd(sqlSession, loginUser);
+	}
 
-   
-   
-   
-   
-   
-   
-   
-   
+	@Override
+	public int deleteMember(Member m) {
+		return mDAO.deleteMember(sqlSession, m);
+	}
+
 }

@@ -90,7 +90,7 @@ public class MemberController {
 	   }
    }
    
-   @RequestMapping("updatePwd.me")
+   @RequestMapping("updatePwdView.me")
    public String updatePwdView() {
 	   return "updatePwd";
    }
@@ -98,13 +98,47 @@ public class MemberController {
    /* 11/12 작업중*/
    @ResponseBody
    @RequestMapping("checkPwd.me")
-   public String checkPwd(){
-	   return "success";
+   public String checkPwd(Member m, @RequestParam("user_id") String user_id, @RequestParam("user_pwd") String user_pwd){
+	   
+	   // 유저 정보 가져오기(user객체에)
+	   Member user = mService.memberLogin(m);
+	   
+	   if(bcryptPasswordEncoder.matches(user_pwd, user.getUser_pwd())) {
+		   return "success";
+	   } else {
+		   return "error";
+	   }
    }
    
    @RequestMapping("updatePwd.me")
-   public String updatePwd() {
-	   return "redirect:updatePwd.me";
+   public String updatePwd(Model model, @RequestParam("newPwd") String newPwd) {
+	   
+	   Member loginUser = (Member)model.getAttribute("loginUser");
+	   
+	   String encPwd = bcryptPasswordEncoder.encode(newPwd);
+	   loginUser.setUser_pwd(encPwd);
+	   int result = mService.updatePwd(loginUser);
+	   
+	   if(result > 0) {
+		   return "redirect:updatePwdView.me";
+	   } else {
+		   throw new MemberException("비밀번호 수정에 실패하였습니다.");
+	   }
+   }
+   
+   @RequestMapping("mDelete.me")
+   public String deleteMember(Model model, SessionStatus ss) {
+	   
+	   Member m = (Member)model.getAttribute("loginUser");
+	   
+	   int result = mService.deleteMember(m);
+	   
+	   if(result > 0) {
+		   ss.setComplete();
+		   return "redirect:home.do";
+	   } else {
+		   throw new MemberException("회원 탈퇴에 실패하였습니다.");
+	   }
    }
    
    // ********************************************끝
@@ -172,7 +206,6 @@ public class MemberController {
       } else {
     	  throw new MemberException("로그인에 실패하였습니다.");
       }
-      
       
    }
    

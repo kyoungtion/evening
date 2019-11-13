@@ -68,6 +68,17 @@
 		where user_id=#{user_id}
 	</update>
 
+	<update id="updatePwd" parameterType="Member">
+		update member
+		set user_pwd = #{user_pwd}
+		where user_id=#{user_id}
+	</update>
+	
+	<update id="deleteMember" parameterType="Member">
+		update member
+		set status='Y'
+		where user_id=#{user_id}
+	</update>
 
 
 

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>입찰내역 수정</title>
+<title>비밀번호 변경</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700"
@@ -66,7 +66,7 @@ input[type=password] {
 				<div class="col-md-10 col-md-offset-1" style="margin-top: 50px;">
 					<div class="product-name" style="text-align: left;">
 						<div class="one-eight text-center" style="width: 100%;">
-							<span>&nbsp;입찰 중인 상품 정보</span>
+							<span>&nbsp;비밀변호 변경</span>
 						</div>
 					</div>
 					<div class="product-cart"
@@ -74,16 +74,18 @@ input[type=password] {
 						<br>
 						<div
 							style="display: inline-block; text-align: right;">
-							<label>현재 비밀번호&nbsp;</label><br> <label>변경할
-								비밀번호&nbsp;</label><br> <label>변경할 비밀번호 확인&nbsp;</label><br>
+							<label>현재 비밀번호&nbsp;</label><br> 
+							<label>변경할 비밀번호&nbsp;</label><br> 
+							<label>변경할 비밀번호 확인&nbsp;</label><br>
 						</div>
 						<div
 							style="text-align: center; display: inline-block;">
-							<input type="password" name="user_pwd" id="pwd" placeholder="현재 비밀번호를 입력하세요."><br>
+							<%-- <input type="hidden" name="user_id" value="${ sessionScope.loginUser.user_id }"> --%>
+							<input type="password" name="user_pwd" id="pwd"><br>
 							<input type="password" id="newPwd" name="newPwd"
-								placeholder="변경할 비밀번호를 입력하세요." required><br> <input
+								required><br> <input
 								id="checkPwd" type="password" name="newPwd2"
-								placeholder="변경할 비밀번호 확인 " required>
+								 required>
 						</div><br>
 						<div style="display:inline-block;"></div><br>
 						<div style="display:inline-block;">
@@ -91,7 +93,7 @@ input[type=password] {
 						</div>
 					</div>
 					<div class="one-eight text-center">
-						<button id="updatePwd" type="button" onclick="updatePwd();" class="btn btn-primary">비밀번호 변경</button>
+						<button id="updatePwd" type="button" class="btn btn-primary">비밀번호 변경</button>
 					</div>
 				</div>
 			</div>
@@ -123,21 +125,25 @@ input[type=password] {
 			});
 		});
 		
-		function updatePwd(){
+		$('#updatePwd').on('click', function(){
 			var user_id = '${sessionScope.loginUser.user_id}';
-			var pwd = $('#pwd');
+			var pwd = $('#pwd').val();
 			$.ajax({
 				url:"checkPwd.me",
 				data:{user_id:user_id, user_pwd : pwd},
-				type:"POST",
 				success: function(data){
 					if(data == "success"){
-						$('#updatePwdForm').submit();
-					} else {
+						onSuccess();
+					} else if(data == "error"){
 						alert('현재 비밀번호가 일치하지 않습니다.');
 					}
 				}
 			});
+		});
+		
+		function onSuccess(){
+			$('#updatePwdForm').submit();
+			alert('비밀번호가 변경되었습니다.');
 		}
 	</script>
 
