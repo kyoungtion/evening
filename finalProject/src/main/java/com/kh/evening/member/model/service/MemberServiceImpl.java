@@ -2,6 +2,7 @@ package com.kh.evening.member.model.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -12,6 +13,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.evening.board.model.vo.PageInfo;
+import com.kh.evening.gesipan.model.vo.Gesipan;
 import com.kh.evening.member.model.dao.MemberDAO;
 import com.kh.evening.member.model.vo.Member;
 
@@ -69,6 +72,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int deleteMember(Member m) {
 		return mDAO.deleteMember(sqlSession, m);
+	}
+
+	@Override
+	public int getMyPostListCount(Map<String, String> map) {
+		return mDAO.getMyPostListCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Gesipan> selectMyPost(PageInfo pi, Map<String, String> map) {
+		return mDAO.selectMyPost(sqlSession, map, pi);
 	}
 
 }

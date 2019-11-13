@@ -1,6 +1,9 @@
 package com.kh.evening.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,7 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.evening.board.model.vo.PageInfo;
+import com.kh.evening.common.Pageination;
+import com.kh.evening.gesipan.model.vo.Gesipan;
 //import com.kh.evening.member.email.EmailSender;
 import com.kh.evening.member.model.exception.MemberException;
 import com.kh.evening.member.model.service.MemberService;
@@ -63,8 +70,39 @@ public class MemberController {
    }
    
    @RequestMapping("mypost.me")
-   public String mypost() {
-      return "mypost";
+   public ModelAndView mypost(Model model, 
+		   					ModelAndView mv, 
+		   					@RequestParam(value="category", required=false) String category,
+		   					@RequestParam(value="page", required=false) Integer page) {
+
+	   Member loginUser = (Member)model.getAttribute("loginUser");
+	   
+	   int currentPage = 1;
+	   if(page != null) {
+		   currentPage = page;
+	   }
+	   if(category == null) {
+		   category = "Community";
+	   }
+
+	   Map<String, String> map = new HashMap<>();
+	   map.put("category", category);
+	   map.put("user_id", loginUser.getUser_id());
+	   
+	   int listCount = mService.getMyPostListCount(map);
+	   
+	   PageInfo pi = null;
+	   pi = Pageination.getGesipanPageInfo(currentPage, listCount);
+	   
+	   ArrayList<Gesipan> list = mService.selectMyPost(pi, map);
+	   
+	   if(list != null) {
+		   mv.addObject("list", list);
+		   mv.addObject("pi", pi);
+		   mv.addObject("category", category);
+		   mv.setViewName("mypost");
+	   }
+      return mv;
    }
    
    @RequestMapping("updateAucView.me")

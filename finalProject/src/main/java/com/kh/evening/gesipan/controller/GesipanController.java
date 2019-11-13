@@ -134,7 +134,8 @@ public class GesipanController {
 							@RequestParam("searchfor") String searchfor, 
 							@RequestParam("keyword") String keyword,
 							@RequestParam("category") String category,
-							ModelAndView mv) throws UnsupportedEncodingException {
+							ModelAndView mv,
+							HttpServletRequest request) throws UnsupportedEncodingException {
 		
 		Map<String, String> parameters = new HashMap<>();
 		parameters.put("searchfor", URLDecoder.decode(searchfor,"UTF-8"));

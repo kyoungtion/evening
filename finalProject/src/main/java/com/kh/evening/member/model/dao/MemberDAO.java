@@ -1,10 +1,14 @@
 package com.kh.evening.member.model.dao;
 
+import java.util.ArrayList;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.evening.board.model.vo.PageInfo;
+import com.kh.evening.gesipan.model.vo.Gesipan;
 import com.kh.evening.member.model.vo.Member;
 
 @Repository("mDAO")
@@ -36,6 +40,17 @@ public class MemberDAO {
 
 	public int deleteMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.deleteMember", m);
+	}
+
+	public int getMyPostListCount(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.selectOne("memberMapper.getMyPostListCount", map);
+	}
+
+	public ArrayList<Gesipan> selectMyPost(SqlSessionTemplate sqlSession, Map<String, String> map, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMyPost", map, rb);
 	}
 
 //   public Member searchId(SqlSessionTemplate sqlSession, String user_name,String user_email) {

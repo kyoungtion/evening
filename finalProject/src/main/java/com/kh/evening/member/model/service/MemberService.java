@@ -1,9 +1,12 @@
 package com.kh.evening.member.model.service;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.evening.board.model.vo.PageInfo;
+import com.kh.evening.gesipan.model.vo.Gesipan;
 import com.kh.evening.member.model.vo.Member;
 
 public interface MemberService {
@@ -27,6 +30,10 @@ public interface MemberService {
 	int updatePwd(Member loginUser);
 
 	int deleteMember(Member m);
+
+	int getMyPostListCount(Map<String, String> map);
+
+	ArrayList<Gesipan> selectMyPost(PageInfo pi, Map<String, String> map);
 
 	// Object searchId(HttpServletResponse response, String user_name, String
 	// user_email);

@@ -80,6 +80,21 @@
 		where user_id=#{user_id}
 	</update>
 
+	<select id="getMyPostListCount" parameterType="map" resultType="_int">
+		select count(*)
+		from gesipan 
+		where g_writer = #{user_id}
+		and g_category = #{category}
+		and g_status='N'
+	</select>
+	
+	<select id="selectMyPost" parameterType="map" resultType="Gesipan">
+		select g.*, m.nickname
+		from gesipan g
+		join member m on(g.g_writer = m.user_id)
+		where g_writer = #{user_id} and g_category = #{category} and g_status='N'
+		order by g_type desc, g_ref desc, g_order asc
+	</select>
 
 
 
