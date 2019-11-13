@@ -268,9 +268,6 @@
 			<c:import url="/WEB-INF/views/common/toolbar.jsp"/>
 				<div id="insertField" contenteditable="true"
 					style="width:100%; min-height:400px;border: 1px solid whitesmoke; ">
-					<div>텍스트 편집기</div>
-					<br>
-					<br>
 				</div>
 				<br>
 				<input type="text" name="SG_INFO" id="textForm" style="display:none;">

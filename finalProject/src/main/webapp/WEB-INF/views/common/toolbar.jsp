@@ -8,6 +8,7 @@
 
 <!-- header css -->
 <link rel="stylesheet" href="resources/css/toolbar.css">
+     <link rel="stylesheet" href="colorjoe.css">
 
 </head>
 <body>
@@ -271,6 +272,7 @@
 				</div>
 					<!-- toolbar-->
 	<script src="resources/js/toolbar.js"></script>
+	        <script data-main="main" src="c/require.js"></script>
 	
 </body>
 </html>
