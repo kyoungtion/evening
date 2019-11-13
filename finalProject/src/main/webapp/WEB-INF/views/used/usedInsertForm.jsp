@@ -206,13 +206,13 @@
 									<div class="form-group">
 										<div class="form-field">
 											<i class="icon icon-arrow-down3"></i>
-											<select name="people" id="people" class="form-control">
-												<option value="1">Select country</option>
-												<option value="2">Alaska</option>
-												<option value="3">China</option>
-												<option value="4">Japan</option>
-												<option value="5">Korea</option>
-												<option value="6">Philippines</option>
+											<select name="people" id="category" class="form-control" onchange="stChange();">
+												<option value="전체">전체</option>
+												<option value="패션">패션</option>
+												<option value="뷰티">뷰티</option>
+												<option value="인테리어">인테리어</option>
+												<option value="전자제품">전자제품</option>
+												<option value="스포츠">스포츠</option>
 											</select>
 
 										</div>
@@ -220,12 +220,7 @@
 										<div class="form-field">
 											<i class="icon icon-arrow-down3"></i>
 											<select name="people" id="people" class="form-control">
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
+											
 											</select>
 
 										</div>
@@ -245,22 +240,22 @@
 										<label for="companyname">거래 방식</label>
 										<div class="col-md-12">
 											<div class="radio">
-												<label><input type="radio" name="dealType" value="1" checked>직거래</label>
-												<label><input type="radio" name="dealType" value="2">택배거래</label>
+												<label><input type="radio" name="SG_DEAL" value="직거래" checked>직거래</label>
+												<label><input type="radio" name="SG_DEAL" value="택배">택배거래</label>
 											</div>
 										</div>
 										<div class="col-md-12">
 											<div id="radios" class="radio">
-												<label><input type="radio" name="dealType2" disabled checked>배송비
+												<label><input type="radio" name="SG_DELIVERY" value="N" disabled checked>배송비
 													포함</label>
-												<label><input type="radio" name="dealType2" disabled>무료배송</label>
+												<label><input type="radio" name="SG_DELIVERY" value="Y" disabled>무료배송</label>
 											</div>
 										</div>
 									</div>
 									<div id="radios2" >
 										<label for="companyname">거래 지역</label>
-										<input type="text" id="towncity" class="form-control" placeholder="Town or City"
-											style="width: 280px;">
+										<input type="text" id="towncity" name="SG_AREA" class="form-control" placeholder="Town or City"
+											style="width: 280px;" value="지역무관">
 									</div>
 								</div>
 							</div>
@@ -290,34 +285,36 @@
 		</form>  
 		
 	<script>
-	$('input[name="dealType"]').change(function () {
-		if ($(this).val() == 2) {
-			$('input[name="dealType2"]').removeAttr("disabled");
-			$('#radios').fadeOut(300);
-			$('#radios2').fadeOut(300);
-		} else {
-			$('#radios').fadeIn(300);
-			$('#radios2').fadeIn(300);
-			$('input[name="dealType2"]').attr("disabled", "true");
-		}
-	});
-	function saveBtn() {
-		var deletImgArr = new Array();
-		var imgArray = $('#insertField img');
-		$('#textForm').val(document.getElementById('insertField').innerHTML);			
-		
-		for (var i = 0; i < imgArray.length; i++) {
-			deletImgArr[i] = imgArray.eq(i).attr('name');
-		}
-		$('#imgNames').val(imgNamesArr);
-		$('#deletImg').val(deletImgArr);		
-	 	$('#insertForm').submit(); 
-	 
-	};
+	var all= ["전체"];
+	var ps= ["가","나","다","라","마"];
+	var bt= ["바","사","아","자","차"];
+	var it= ["카","타"];
+	var jj= ["파","하"];
+	var sp= ["A","B"];
+	var df= ["c"];
 	
-	function shumnailImg() {
-		$('#smImg').click();
-	};
+	function stChange(){
+		var rselect = document.getElementById('category').value;
+		var rsItem;
+		switch(rselect){
+		
+		case "전체":rsItem=all; break;
+		case "패션":rsItem=ps; break;
+		case "뷰티":rsItem=bt;break;
+		case "인테리어":rsItem=it; break;
+		case "전자제품":rsItem=jj; break;
+		case "스포츠":rsItem=sp; break;
+		
+		default :rsItem=Sejong; break;
+		}
+		$('#people').empty();
+		$('#people').append('<option value="전체">전체</option>');
+		for(var i=0;i<rsItem.length;i++){
+			var option = $("<option>"+rsItem[i]+"</option>");
+			$('#people').append(option);
+		} 
+	}
+	
 	function shumnailImgChange(value) {
 		if (value.files && value.files[0]) {
 
@@ -332,6 +329,34 @@
 
 		}
 	};
+	$('input[name="SG_DEAL"]').change(function () {
+		if ($(this).val() == "택배") {
+			$('input[name="SG_DELIVERY"]').removeAttr("disabled");
+			$('#radios2').fadeOut(300);
+			$('#radios').fadeIn(300);
+		} else {
+			$('#radios').fadeOut(300);
+			$('#radios2').fadeIn(300);
+			$('input[name="SG_DELIVERY"]').attr("disabled", "true");
+		}
+	});
+	function saveBtn() {
+		var deletImgArr = new Array();
+		var imgArray = $('#insertField img');
+		$('#textForm').val(document.getElementById('insertField').innerHTML);			
+		
+		for (var i = 0; i < imgArray.length; i++) {
+			deletImgArr[i] = imgArray.eq(i).attr('name');
+		}
+		$('#imgNames').val(imgNamesArr);
+		$('#deletImg').val(deletImgArr);
+	 	$('#insertForm').submit();
+	};
+	
+	function shumnailImg() {
+		$('#smImg').click();
+	};
+	
 	
 	</script>
 	

@@ -44,7 +44,7 @@
 												</c:forTokens>
 											</c:if>
 										</c:forEach>
-										<div class="product-img" style="background-image: url(resources/images/${ k })">
+										<div class="product-img" style="background-image: url(resources/thumbnail/${ k })">
 										
 										<!-- 사진이 없을시 나타날 공백표시 -->
 										<c:remove var="k"/>
@@ -76,7 +76,7 @@
 										</div>
 										
 										<div class="desc">
-											<h3><a onclick="oneClick(${i.SG_ID});">${ i.SG_BNAME }</a></h3>
+											<h3><a onclick="oneClick(${i.SG_ID});" style="cursor: pointer;">${ i.SG_BNAME }</a></h3>
 											<p class="price">가격<span> <br> <fmt:formatNumber value="${i.SG_PRICE }" type="currency"/></span></p>
 										</div>
 										
@@ -203,7 +203,7 @@
 	</div>
 	<script>
 	function oneClick(sgId){
-		location.href='selectOne.ud?sgId='+sgId;
+		location.href='selectOne.bo?sgId='+sgId;
 		}
 	</script>
 		

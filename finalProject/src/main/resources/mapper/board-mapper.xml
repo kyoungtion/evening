@@ -54,11 +54,13 @@
 		WHERE FILE_STATUS='N'
 	</select>
 	
-<!-- 	<insert id="insertBoard" parameterType="Board">
+   <insert id="insertBoard" parameterType="Board">
+   INSERT INTO SECOND_GOODS VALUES(SEQ_SG.NEXTVAL,'admin','SG',#{SG_BNAME},'운영자','TEST태그3',DEFAULT,#{SG_PRICE},default,#{SG_INFO},DEFAULT,SYSDATE,SYSDATE,DEFAULT,SYSDATE,#{SG_DEAL},#{SG_AREA},#{SG_DELIVERY})
    </insert>
    
    <insert id="attachmentInsert" parameterType="Attachment">
-   </insert> -->
+   INSERT INTO ADD_FILE VALUES(SEQ_FILE.NEXTVAL, (SELECT MAX(SG_ID) FROM SECOND_GOODS), #{ORIGINALFILENAME}, #{RENAMEFILENAME}, sysdate,sysdate,default)
+   </insert>
 	
 	<select id="boardSelectOne" parameterType="Board" resultType="Board">
 		SELECT * FROM SECOND_GOODS WHERE SG_ID=#{sg_id}

@@ -87,5 +87,24 @@ public class BoardController {
     
     return mv;
   }
+  
+	@RequestMapping("selectOne.bo")
+	public ModelAndView selectOne(@RequestParam("sgId") int sgId,ModelAndView mv) {
+
+		Board board = bService.selectOne(sgId);
+		Attachment at = bService.boardFileList(sgId);
+		
+		if(board != null) {
+		
+			mv.addObject("board",board)
+				.addObject("at",at)
+				.setViewName("usedDetail"); 
+		}else {
+			throw new BoardException("게시글 읽기를 실패하였습니다.");
+		}
+		
+		return mv;
+	}
+	
 
 }

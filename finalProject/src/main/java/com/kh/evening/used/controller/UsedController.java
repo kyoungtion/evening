@@ -36,6 +36,15 @@ public class UsedController {
 	@RequestMapping("uInsert.ud")
 	public String usedInsert(@ModelAttribute Board b, @RequestParam("smImg") MultipartFile uploadFile,
 			HttpServletRequest request, HttpServletResponse response) {
+		System.out.println(b.getSG_PRICE());
+		if(b.getSG_DELIVERY()==null) {
+			b.setSG_DELIVERY("N");
+		}else {
+			b.setSG_AREA("");
+		}
+		System.out.println(b.getSG_DEAL());
+		System.out.println(b.getSG_DELIVERY());
+		
 		Attachment atm = new Attachment();
 //		b.setSG_PRICE(Integer.parseInt(b.getSG_PRICE()));
 		if (uploadFile != null && !uploadFile.isEmpty()) {
@@ -103,7 +112,7 @@ public class UsedController {
 	public String saveFile(MultipartFile file, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\textImgs";
+		String savePath = root + "\\thumbnail";
 
 		File folder = new File(savePath);
 		if (!folder.exists()) {
@@ -143,9 +152,11 @@ public class UsedController {
 
 		Board board = bService.selectOne(sgId);
 		Attachment at = bService.boardFileList(sgId);
+		
 		if(board != null) {
 		
 			mv.addObject("board",board)
+				.addObject("at",at)
 				.setViewName("usedDetail"); 
 		}else {
 			throw new BoardException("게시글 읽기를 실패하였습니다.");
