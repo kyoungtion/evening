@@ -5,13 +5,56 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
+  <!-- MiniColors -->
+  <script src="resources/js/jquery.minicolors.js"></script>
+  <link rel="stylesheet" href="resources/css/jquery.minicolors.css">
+  
 <!-- header css -->
 <link rel="stylesheet" href="resources/css/toolbar.css">
-     <link rel="stylesheet" href="colorjoe.css">
+ 
 
 </head>
 <body>
+<script>
+    $(document).ready( function() {
+
+      $('.demo').each( function() {
+        //
+        // Dear reader, it's actually very easy to initialize MiniColors. For example:
+        //
+        //  $(selector).minicolors();
+        //
+        // The way I've done it below is just for the demo, so don't get confused
+        // by it. Also, data- attributes aren't supported at this time. Again,
+        // they're only used for the purposes of this demo.
+        //
+        $(this).minicolors({
+          control: $(this).attr('data-control') || 'hue',
+          defaultValue: $(this).attr('data-defaultValue') || '',
+          format: $(this).attr('data-format') || 'hex',
+          keywords: $(this).attr('data-keywords') || '',
+          inline: $(this).attr('data-inline') === 'true',
+          letterCase: $(this).attr('data-letterCase') || 'lowercase',
+          opacity: $(this).attr('data-opacity'),
+          position: $(this).attr('data-position') || 'bottom',
+          swatches: $(this).attr('data-swatches') ? $(this).attr('data-swatches').split('|') : [],
+          change: function(hex, opacity) {
+            var log;
+            try {
+              log = hex ? hex : 'transparent';
+              if( opacity ) log += ', ' + opacity;
+            } catch(e) {}
+          },
+          theme: 'default'
+        });
+
+      });
+
+    });
+  </script>
 	<div style="height: 30px; background: lemonchiffon; text-align:center;">
 
 					<ul class="Ttoolbal" style="height: 100%;">
@@ -167,15 +210,19 @@
 
 						<li class="font-C "><button type="button" id="fontColor" class="ftC" title="글자 색" value="black">
 								<img class="tcimg" src="resources/img/33.png" style="width: 20px;"></button>
+							    
+							
 							<div class="fontC">
 								<div id="rgbPicker" class="rgbClick"
 									style="position: absolute; margin: 0; display: block;"></div>
-								<div class="rgbClick" style="position: absolute; margin-top: 258px; height: 30px;">
-									<div class="selectC"
-										style=" width: 100px; height: 30px; background: black; float: left;"></div>
-									<button type="button" class="ftc-btn" style="height: 100%; width: 50px;">변경</button>
+								<div class="rgbClick" style="position: absolute;  height: 30px;">
+							    <input type="text" id="hue-demo" class="demo" data-control="hue" value="#ff6161">
+									<!-- <div class="selectC"
+										style=" width: 100px; height: 30px; background: black; float: left;"></div> -->
+									<button type="button" class="ftc-btn" style=" width: 50px;">변경</button>
 								</div>
-							</div>
+							</div> 
+							
 							<div id="rgbValue" style="float: left; display: none;"></div>
 						</li>
 
@@ -272,7 +319,7 @@
 				</div>
 					<!-- toolbar-->
 	<script src="resources/js/toolbar.js"></script>
-	        <script data-main="main" src="c/require.js"></script>
+	 
 	
 </body>
 </html>
