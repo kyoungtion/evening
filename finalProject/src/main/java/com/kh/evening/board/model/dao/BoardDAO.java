@@ -28,6 +28,16 @@ public class BoardDAO {
     return (ArrayList) sqlSession.selectList("boardMapper.boardFileList");
   }
 
+public Attachment boardFileList(SqlSession sqlSession, int sg_id) {
+	System.out.println(sg_id);
+	return  sqlSession.selectOne("boardMapper.boardFileOne",sg_id);
+}
+
+public Board boardSelectOne(SqlSession sqlSession, int sg_id) {
+	System.out.println(sg_id);
+	return sqlSession.selectOne("boardMapper.boardSelectOne", sg_id);
+}
+
 
 
 }

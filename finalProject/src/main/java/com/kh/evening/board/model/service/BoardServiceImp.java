@@ -34,4 +34,15 @@ public class BoardServiceImp implements BoardService {
     return bDAO.boardFileList(sqlSession);
   }
 
+	@Override
+	public Board selectOne(int sgId) {
+		System.out.println("test");
+		return bDAO.boardSelectOne(sqlSession,sgId);
+	}
+	
+	@Override
+	public Attachment boardFileList(int sgId) {
+		return bDAO.boardFileList(sqlSession,sgId);
+	}
+
 }

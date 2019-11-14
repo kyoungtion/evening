@@ -28,6 +28,9 @@ public class Board {
   private Date SG_UPDATE_DATE;  // 수정일
   private String SG_STATUS;     // 삭제여부
   private Date SG_END_DATE;     // 경매 종료일
+  private String SG_DEAL;		// 거래방법
+  private String SG_AREA;		// 거래지역
+  private String SG_DELIVERY;	// 무료배송여부
   
   
 

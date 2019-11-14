@@ -14,4 +14,8 @@ public interface BoardService {
 
   ArrayList<Attachment> boardFileList();
 
+Board selectOne(int sgId);
+
+Attachment boardFileList(int sgId);
+
 }

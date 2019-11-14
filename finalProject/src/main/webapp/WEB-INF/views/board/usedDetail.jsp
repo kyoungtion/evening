@@ -37,7 +37,7 @@
 			height: 30px;
 			background: gray;
 		}
-
+		
 		.row {
 			line-height: normal;
 		}
@@ -47,17 +47,19 @@
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	
 	<div class="evPage" style="height:auto;width: 100%;background: #ffffff;  text-align: center; ">
-		<div class="pg" style="width: 90%; display: inline-block; background: #f5f5f5;;">
+		<div class="pg" style="width: 90%; display: inline-block; background: #f5f5f5;">
 			<br>
 			<div class="headLine" style="width:50%; display: inline-block;">
 				<h2>${board.SG_BNAME }</h2>
-				<p style="border-top: 1px solid gray;">2019-10-27</p>
+				<p style="border-top: 1px solid gray;">${board.SG_ENROLL_DATE}</p>
 			</div>
 			<div style="height: 300px;width: 100%; background: #f5f5f5;">
 
 				<div style="width: 230px; float: left; padding: none;">
 					<div style="height: 30px;"></div>
-					<div style="width: 200px;height: 200px;background: white;display: inline-block;"></div>
+					<div style="width: 200px;height: 200px;background: white;display: inline-block;">
+						<img src="/evening/resources/thumbnail/${at.RENAMEFILENAME}" style="width: 100%; height: 100%;">
+					</div>
 					<p>썸네일 이미지</p>
 				</div>
 				<div class="col-md-7" style="float: left;width: 500px;">
@@ -69,7 +71,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label for="companyname">가격</label>
-									<input type="text" id="towncity" class="form-control" placeholder="Town or City">
+									<input type="text" id="towncity" class="form-control" style="text-align: center;" value="${board.SG_PRICE }" placeholder="Town or City">
 								</div>
 							</div>
 
@@ -117,8 +119,8 @@
 				<button class="btn btn-primary" onclick="location.href='updateForm.ud';" >수정 </button>
 			</div>
 		</div>
-		<div style="width: 90%; height: 500px; background: lemonchiffon;display: inline-block; ">
-			<p>gte</p>
+		<div style="width: 90%; height: 500px; display: inline-block; ">
+			${board.SG_INFO }
 		</div>
 		
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>
