@@ -6,6 +6,18 @@
 <meta charset="UTF-8">
 <title>채팅</title>
 <script src="resources/js/jquery.min.js"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 
 <script type="text/javascript">
 	//resize 이벤트가 발생할때마다 사이즈를 조절
@@ -18,13 +30,12 @@
 	function disable() {
 		var winWidth = $(window).width();
 		var winHeight = $(window).height();
-		if(winWidth>430||winWidth<430){
-			window.resizeTo(430,560)
+		if (winWidth > 430 || winWidth < 430) {
+			window.resizeTo(430, 520)
 			console.log("window 가로 사이즈 강제 조절")
 		}
-		if(winHeight>560||winHeight<560){
-			$(window).height(560);
-			window.resizeTo(430,560)
+		if (winHeight > 560 || winHeight < 560) {
+			window.resizeTo(430, 520)
 			console.log("window 세로 사이즈 강제 조절")
 		}
 	}
@@ -39,11 +50,6 @@
 		wsocket.onclose = onClose;
 
 		$('#message').attr('disabled', false);
-	}
-
-	function disconnect() {
-		var msg = 'msg:[' + $('#nickname').val() + '퇴장!]';
-		wsocket.send(msg);
 	}
 
 	function onOpen(evt) {
@@ -94,6 +100,13 @@
 			event.stopPropagation();
 		});
 		$('#sendBtn').click(function() {
+			var nick = $('#nickname').val();
+			var message = $('#message').val();
+			var nickLength = (nick).length
+			var messageLength = (message).length
+			console.log("닉네임 길이" + nickLength);
+			console.log("메세지 길이" + messageLength);
+
 			send();
 		});
 		$('#enterBtn').click(function() {
@@ -103,42 +116,47 @@
 				return;
 			}
 			$("#enter").hide();
+			window.resizeTo(430, 520)
 			connect();
 		});
-		$('#exitBtn').click(function() {
-			if ($('#nickname').val() == '') {
-				alert('이름을 입력하세요!');
-				$('#nickname').focus();
-				return;
-			}
-			$("#enter").show();
-			disconnect();
-		});
+
 	});
 </script>
 <style type="text/css">
 #chatArea {
-	width: 300px;
-	height: 100px;
+	width: auto;
+	height: 400px;
 	overflow-y: auto;
 	border: 1px solid black;
+	background-color:#6884b3;
 }
+
+#message {
+	width: 350px;
+	height: 30px;
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
 </style>
 </head>
 
 <body>
-	<div id="enter">
-		이름 : <input type="text" id="nickname"> <input type="button"
-			id="enterBtn" value="입장">
-	</div>
 
+	<div id="enter">
+		<hr>
+		이름 : <input type="text" id="nickname"> 
+				<button type="button" id="enterBtn" class="btn btn-default btn-sm">입장</button>
+			
+		<hr>
+	</div>
 
 	<div id="chatArea">
 		<div id="chatMessageArea"></div>
 	</div>
-	<br>
 	<input type="text" id="message" disabled>
-	<input type="button" id="sendBtn" value="전송">
-	<input type="button" id="exitBtn" value="나가기">
+	<button type="button" id="sendBtn" class="btn btn-default btn-sm">전송</button>
 </body>
 </html>
