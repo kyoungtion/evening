@@ -29,11 +29,9 @@
 	
 <websocket:handlers>
 		<!-- echo.jsp에서 웹 소켓 클라이언트가 /echo-we.do로 접속하면 echoHanlder 빈을 이용해서 메시지 처리 -->
-		<websocket:mapping handler="echoHandler" path="/echo-ws.ch"/>
 		<websocket:mapping handler="chatHandler" path="/chat-ws.ch"/>
 	</websocket:handlers>
 	<!-- 위의 echoHandler 매핑. 자동 스캔 안해놨기에 직접 매핑 -->
-	<beans:bean id="echoHandler" class="com.kh.evening.chatting.ws.EchoHandler"/>
 	<beans:bean id="chatHandler" class="com.kh.evening.chatting.ws.ChatWebSocketHandler"/>
 	
 
