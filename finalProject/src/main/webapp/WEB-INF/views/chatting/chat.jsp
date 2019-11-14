@@ -60,14 +60,11 @@
 
 	function onMessage(evt) {
 		var data = evt.data;
+		console.log(data)
 		if (data.substring(0, 4) == 'msg:') {
 			appendMessage(data.substring(4));
 			/* 닉네임 추출 == 자기 닉네임과 같은지 체크 */
-			if (data.substring(5, data.lastIndexOf('퇴장!')) == $('#nickname')
-					.val()
-					&& data.lastIndexOf('퇴장!') != -1) {
-				wsocket.close();
-			}
+			
 		}
 	}
 
@@ -123,14 +120,19 @@
 	});
 </script>
 <style type="text/css">
+
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 #chatArea {
 	width: auto;
 	height: 400px;
 	overflow-y: auto;
 	border: 1px solid black;
 	background-color:#6884b3;
+	
 }
-
+div{
+	font-family: 'Noto Sans KR', sans-serif;
+}
 #message {
 	width: 350px;
 	height: 30px;
@@ -155,6 +157,8 @@
 
 	<div id="chatArea">
 		<div id="chatMessageArea"></div>
+		
+		
 	</div>
 	<input type="text" id="message" disabled>
 	<button type="button" id="sendBtn" class="btn btn-default btn-sm">전송</button>
