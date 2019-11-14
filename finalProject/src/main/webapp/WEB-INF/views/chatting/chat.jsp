@@ -129,9 +129,11 @@
 	border: 1px solid black;
 	background-color:#6884b3;
 	
+	
 }
 div{
 	font-family: 'Noto Sans KR', sans-serif;
+	
 }
 #message {
 	width: 350px;
@@ -140,6 +142,11 @@ div{
 
 ::-webkit-scrollbar {
 	display: none;
+}
+#chatMessageArea{
+	color: black;
+    background-color:#fdf01b;
+    font-size:1.3rem;
 }
 
 </style>
@@ -156,8 +163,9 @@ div{
 	</div>
 
 	<div id="chatArea">
-		<div id="chatMessageArea"></div>
-		
+		<section id="chatMessageArea" >
+		</section>	
+	
 		
 	</div>
 	<input type="text" id="message" disabled>
