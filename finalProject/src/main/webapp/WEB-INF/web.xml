@@ -48,6 +48,10 @@
 		<servlet-name>memberServlet</servlet-name>
 		<url-pattern>*.me</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>memberServlet</servlet-name>
+		<url-pattern>*.ad</url-pattern>
+	</servlet-mapping>
 	
 	<!-- boardServlet -->
 	<servlet>

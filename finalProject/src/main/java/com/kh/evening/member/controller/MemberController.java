@@ -179,9 +179,34 @@ public class MemberController {
 	   }
    }
    
-   @RequestMapping("adminView.me")
-   public String adminView() {
-	   return "manageMember";
+   @RequestMapping("adminView.ad")
+   public ModelAndView adminView(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+	   int currentPage = 1;
+	   if(page != null) {
+		   currentPage = page;
+	   }
+	   
+	   int listCount = mService.getMemberListCount();
+	   
+	   PageInfo pi = null;
+	   pi = Pageination.getGesipanPageInfo(currentPage, listCount);
+	   
+	   ArrayList<Member> list = mService.getMembers(pi);
+	   System.out.println(list);
+	   
+	   if(list != null) {
+		   mv.addObject("list", list).addObject("pi", pi).setViewName("manageMember");
+	   }
+	   return mv;
+   }
+   
+   @RequestMapping("memberLevelView.ad")
+   public String memberLevelView(Model model, @RequestParam("user_id") String user_id) {
+	   Member m = new Member();
+	   m.setUser_id(user_id);
+	   Member result = mService.memberLogin(m);
+	   model.addAttribute("m", result);
+	   return "MemberLevelView";
    }
    
    // ********************************************끝

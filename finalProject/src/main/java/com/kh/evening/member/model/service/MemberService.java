@@ -35,6 +35,10 @@ public interface MemberService {
 
 	ArrayList<Gesipan> selectMyPost(PageInfo pi, Map<String, String> map);
 
+	int getMemberListCount();
+
+	ArrayList<Member> getMembers(PageInfo pi);
+
 	// Object searchId(HttpServletResponse response, String user_name, String
 	// user_email);
 
