@@ -218,20 +218,22 @@
 
 							<div class="side">
 								<h2>최근에 본 물건</h2>
-								<div>test</div>
-								<% 
-								Cookie coo = new Cookie("testCo","test Cookie");
-								coo.setMaxAge(60*60*24);
-								response.addCookie(coo);
-								
-								Cookie[] result = request.getCookies();
-								
+								<%
+								  Cookie[] cookies = request.getCookies();
+
+								  if (cookies != null) {
+								    for (Cookie c : cookies) {
+								      if (c.getName().contains("num")) {
 								%>
-								${ cookie.testCo.name }
-								<br>
-								${ cookie.testCo.value }
-								<br>
-								
+								<div><%=c.getName()%>
+									<%=c.getValue()%>
+								</div>
+								<%
+								  }
+								    }
+
+								  } ;
+								%>
 							</div>
 							 
 						</div>
