@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.kh.evening.board.model.exception.BoardException;
-import com.kh.evening.board.model.service.BoardServiceImp;
+import com.kh.evening.board.model.service.BoardService;
 import com.kh.evening.board.model.vo.Attachment;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.BoardMode;
@@ -18,7 +18,7 @@ import com.kh.evening.common.Pageination;
 public class BoardController {
 
   @Autowired
-  private BoardServiceImp bService;
+  private BoardService bService;
 
   @RequestMapping("auctionList.bo")
   public ModelAndView auctionList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv, @RequestParam(value="mode", required=false) String mode) {
@@ -87,5 +87,24 @@ public class BoardController {
     
     return mv;
   }
+  
+	@RequestMapping("selectOne.bo")
+	public ModelAndView selectOne(@RequestParam("sgId") int sgId,ModelAndView mv) {
+
+		Board board = bService.selectOne(sgId);
+		Attachment at = bService.boardFileList(sgId);
+		
+		if(board != null) {
+		
+			mv.addObject("board",board)
+				.addObject("at",at)
+				.setViewName("usedDetail"); 
+		}else {
+			throw new BoardException("게시글 읽기를 실패하였습니다.");
+		}
+		
+		return mv;
+	}
+	
 
 }
