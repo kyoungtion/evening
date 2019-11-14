@@ -179,6 +179,11 @@ public class MemberController {
 	   }
    }
    
+   @RequestMapping("adminView.me")
+   public String adminView() {
+	   return "manageMember";
+   }
+   
    // ********************************************끝
    
    // 아이디 비밀번호 찾기 컨트롤러

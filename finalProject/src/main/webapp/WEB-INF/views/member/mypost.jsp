@@ -173,7 +173,6 @@
 			<%-- user_id = "<%= session.getAttribute("user_id")%>"; --%>
 			category = $('#boardSelect option:selected').val();
 			location.href="mypost.me?category="+category;
-			
 		});
 	});
 
