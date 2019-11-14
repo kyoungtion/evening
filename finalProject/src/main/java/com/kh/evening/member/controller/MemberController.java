@@ -209,6 +209,26 @@ public class MemberController {
 	   return "MemberLevelView";
    }
    
+   @RequestMapping("updateRankCode.ad")
+   public String updateRackCode(@RequestParam("user_id") String user_id, @RequestParam("rank_code") String rank_code, Model model) {
+	   Member m = new Member();
+	   m.setUser_id(user_id);
+	   
+	   Map<String, String> map = new HashMap<>();
+	   map.put("user_id", user_id);
+	   map.put("rank_code", rank_code);
+	   int result = mService.updateRankCode(map);
+	   
+	   if(result > 0) {
+		   Member resultMember = mService.memberLogin(m);
+		   model.addAttribute("user_id", resultMember.getUser_id());
+		   return "redirect:memberLevelView.ad";
+	   } else {
+		   throw new MemberException("등급 변경에 실패하였습니다.");
+	   }
+	   
+   }
+   
    // ********************************************끝
    
    // 아이디 비밀번호 찾기 컨트롤러

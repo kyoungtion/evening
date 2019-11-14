@@ -94,4 +94,9 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.getMembers(sqlSession, pi);
 	}
 
+	@Override
+	public int updateRankCode(Map<String, String> map) {
+		return mDAO.updateRankCode(sqlSession, map);
+	}
+
 }

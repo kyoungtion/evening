@@ -39,6 +39,8 @@ public interface MemberService {
 
 	ArrayList<Member> getMembers(PageInfo pi);
 
+	int updateRankCode(Map<String, String> map);
+
 	// Object searchId(HttpServletResponse response, String user_name, String
 	// user_email);
 

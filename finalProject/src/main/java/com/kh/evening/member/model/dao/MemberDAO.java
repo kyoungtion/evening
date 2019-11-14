@@ -64,6 +64,10 @@ public class MemberDAO {
 		return (ArrayList)sqlSession.selectList("memberMapper.getMembers", null, rb);
 	}
 
+	public int updateRankCode(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.update("memberMapper.updateRankCode", map);
+	}
+
 //   public Member searchId(SqlSessionTemplate sqlSession, String user_name,String user_email) {
 //      return (Member) sqlSession.selectMap("memberMapper.searchId",user_name,user_email);
 //   }

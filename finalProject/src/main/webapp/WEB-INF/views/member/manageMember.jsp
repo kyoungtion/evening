@@ -116,7 +116,7 @@
 										<th scope="col">주소</th>
 										<th scope="col">가입일</th>
 										<th scope="col">등급</th>
-										<th scope="col" style="text-align:center;"><i class="fas fa-cog"></i></th>
+										<th scope="col" style="text-align:center;">설정</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -124,7 +124,7 @@
 										<tr style="background-color: #FFFFFF; color: #333333;">
 											<td class="displaynone" id="listLength">${fn:length(list)}</td>
 											<td><input class="chk" id="chk" name="chk" type="checkbox"></td>
-											<td id="user_id${st.index }">${ m.user_id }</td>
+											<td id="user_id${st.index}">${ m.user_id }</td>
 											<td>${ m.user_name }(${m.nickName })</td>
 											<td>${ m.phone }</td>
 											<td>${ m.user_email }</td>
@@ -134,10 +134,10 @@
 											<td style="text-align:center;">
 												<ul class="nav navbar panel_toolbox">
 													<li class="dropdown">
-														<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">설정</a>
+														<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></a>
 														<ul class="dropdown-menu" role="menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(-5px, 30px, 0px); top: 0px; left: 0px; will-change: transform;">
-															<li><a class="dropdown-item" id="memberLevel${st.index }"onclick="memberLevel();">등급 조정</a></li>
-															<li><a class="dropdown-item" id="memberDelete${st.index }"onclick="checkDelete();">회원 삭제</a></li>
+															<li><a class="dropdown-item memberLevel" id="memberLevel.${st.index }">등급 조정</a></li>
+															<li><a class="dropdown-item memberDelete" id="memberDelete.${st.index }"onclick="checkDelete();">회원 삭제</a></li>
 														</ul>
 													</li>
 												</ul>
@@ -214,22 +214,21 @@
 			}
 		}
 		
-		function memberLevel(){
-			var listLength = $('#listLength').text();
-			for(var i = 0; i < listLength; i++){
-				$('#memberLevel'+i).click(function(){
-					var user_id = $('#user_id'+i).text();
-					
-					var url = "memberLevelView.ad?user_id="+user_id;
-					var name = "회원등급 조정";
+		$(function(){
+			$('.memberLevel').on('click', function(){
+				var user_id = $(this).attr('id');
+				var indexof = ($(this).attr('id')).indexOf('.');
+				var i = user_id.substring(indexof+1);
 
-					var option = "width=620px, height=450px, top=100, left=200, resizable=0, location=0, scrollbars=0, tollbars=0, status=0";
-					window.open(url, name, option);
-				})
-			}
-			
-		}
-	
+				user_id = $('#user_id'+i).text();
+				
+				var url = "memberLevelView.ad?user_id="+user_id;
+				var name = "회원등급 조정";
+
+				var option = "width=620px, height=450px, top=100, left=200, resizable=0, location=0, scrollbars=0, tollbars=0, status=0";
+				window.open(url, name, option);
+			});
+		});
 	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />

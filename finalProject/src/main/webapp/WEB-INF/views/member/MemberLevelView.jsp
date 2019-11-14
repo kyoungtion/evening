@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비밀번호 변경</title>
+<title>회원등급 변경</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700"
@@ -56,12 +56,16 @@
 input[type=password] {
 	width: 200px;
 }
+
+.lab2{
+	font-weight:100;
+}
 </style>
 </head>
 <body>
 	<div class="container">
 		<br>
-		<form id="updatePwdForm" action="updatePwd.me" method="POST">
+		<form id="updateCodeForm" action="updateRankCode.ad">
 			<div class="row row-pb-md">
 				<div class="col-md-10 col-md-offset-1" style="margin-top: 50px;">
 					<div class="product-name" style="text-align: left;">
@@ -72,25 +76,32 @@ input[type=password] {
 					<div class="product-cart"
 						style="text-align: center; display: inline-block;">
 						<br>
-						<div
-							style="display: inline-block; text-align: right;">
-							<label>현재 등급&nbsp;</label><br> 
-							<label>변경할 등급&nbsp;</label><br> 
+						<div style="display: inline-block; text-align: right;">
+							<label class="lab">현재 등급&nbsp;</label><br> 
+							<label class="lab">변경할 등급&nbsp;</label><br> 
 						</div>
 						<div
 							style="text-align: center; display: inline-block;">
 							<%-- <input type="hidden" name="user_id" value="${ sessionScope.loginUser.user_id }"> --%>
-							${ m.rankCode.rank_name } ( ${ m.rankCode.rank_img } )
-							<input type="password" id="newPwd" name="newPwd"
-								required><br>
-						</div><br>
+							<label class="lab2">${ m.rankCode.rank_name } ( ${ m.rankCode.rank_img } )</label><br>
+							<label class="displaynone" id="rank_code">${ m.rankCode.rank_code }</label>
+							<input type="hidden" name="user_id" value="${ m.user_id }">
+							<select id="selectCode" name="rank_code">
+								<option hidden selected value="none">회원등급</option>
+								<option value="NM">초승달</option>
+								<option value="HM">반달</option>
+								<option value="FM">보름달</option>
+								<option value="E">이클립스</option>
+							</select>
+							<%-- <label class="lab2">${ m.rankCode.rank_name } ( ${ m.rankCode.rank_img } )</label> --%>
+						</div>
 						<div style="display:inline-block;"></div><br>
 						<div style="display:inline-block;">
 							<span id="notice"></span>
 						</div>
 					</div>
 					<div class="one-eight text-center">
-						<button id="updatePwd" type="button" class="btn btn-primary">비밀번호 변경</button>
+						<button id="updateCode" type="button" class="btn btn-primary">회원등급 변경</button>
 					</div>
 				</div>
 			</div>
@@ -98,50 +109,34 @@ input[type=password] {
 	</div>
 
 	<script>
-		$(function() {
-			$('#alert-success').hide();
-			$('#alert-danger').hide();
-			$('#checkPwd').keyup(function() {
-				var newPwd = $('#newPwd').val();
-				var checkPwd = $('#checkPwd').val();
-				if (newPwd != "" && checkPwd != "") {
-					if (newPwd == checkPwd) {
-						$('#notice').text("비밀번호가 일치합니다.");
-						$('#notice').css('color', 'lightsteelblue');
-						$('#updatePwd').removeAttr("disabled");
-					} else if (newPwd != checkPwd) {
-						$('#notice').text("");
-						$('#notice').text("비밀번호가 일치하지 않습니다.");
-						$('#notice').css('color', 'tomato');
-						$('#updatePwd').attr("disabled", "disabled");
-					}
+		$(function(){
+			var myCode = $('#rank_code').text();
+			if($('#selectCode').val() =="none"){
+				$('#updateCode').attr("disabled", "disabled");
+			} else {
+				$('#updateCode').removeAttr("disabled");
+			}
+			$('#selectCode').on('change', function(){
+				if(myCode == $('#selectCode').val()){
+					alert('같은 등급으로는 변경할 수 없습니다.');
+					$('#selectCode').val('none');
 				}
-				if (newPwd == "" && checkPwd == "") {
-					$('#notice').text("");
+				
+				if($('#selectCode').val() =='none'){
+					$('#updateCode').attr("disabled", "disabled");
+				} else {
+					$('#updateCode').removeAttr("disabled");
+				}
+			});
+			
+			$('#updateCode').click(function(){
+				if(confirm("변경하시겠습니까?")){
+					$('#updateCodeForm').submit();
 				}
 			});
 		});
 		
-		$('#updatePwd').on('click', function(){
-			var user_id = '${sessionScope.loginUser.user_id}';
-			var pwd = $('#pwd').val();
-			$.ajax({
-				url:"checkPwd.me",
-				data:{user_id:user_id, user_pwd : pwd},
-				success: function(data){
-					if(data == "success"){
-						onSuccess();
-					} else if(data == "error"){
-						alert('현재 비밀번호가 일치하지 않습니다.');
-					}
-				}
-			});
-		});
 		
-		function onSuccess(){
-			$('#updatePwdForm').submit();
-			alert('비밀번호가 변경되었습니다.');
-		}
 	</script>
 
 	<!-- jQuery -->
