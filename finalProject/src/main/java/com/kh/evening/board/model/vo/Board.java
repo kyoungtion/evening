@@ -20,6 +20,8 @@ public class Board {
   private String SG_BNAME;      // 게시판 이름
   private String SG_NAME;       // 닉네임
   private String TAG_NAME;      // 태그
+  private int SG_COUNT;			// 조회수
+  private int SG_LIKE;			// 좋아요 카운트
   private int SG_PRICE;         // 판매가격(즉매가)
   private int SG_SPRICE;        // 경매시작가격
   private String SG_INFO;       // 내용

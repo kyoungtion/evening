@@ -31,7 +31,7 @@
 			}; 
 
 			$('html').click(function (e) {
-				  $("#insertField").focus();
+				
 				if (!$(e.target).hasClass('font-style-bar') && !$(e.target).hasClass('btn-1')) {
 					$('.inFontTag').removeClass('on');
 				}
