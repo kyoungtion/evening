@@ -91,7 +91,7 @@ public class BoardController {
   
   @RequestMapping("selectOne.bo")
   public ModelAndView selectOne(@RequestParam("sgId") int sgId,ModelAndView mv) {
-     System.out.println(sgId);
+     
      int a = bService.viewCount(sgId);
      
      Board board = bService.selectOne(sgId);
@@ -116,7 +116,7 @@ public class BoardController {
 	@RequestMapping("insertF.bo")
 	public ModelAndView insertF(ModelAndView mv,@RequestParam("type") int type) {
 		ArrayList<String> category = bService.category();
-		System.out.println(type);
+		
 		String fromname="";
 		if(type==1) {
 			fromname="usedInsertForm";

@@ -37,14 +37,11 @@ public class UsedController {
 	@RequestMapping("uInsert.ud")
 	public String usedInsert(@ModelAttribute Board b, @RequestParam("smImg") MultipartFile uploadFile,
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println(b.getSG_PRICE());
 		if(b.getSG_DELIVERY()==null) {
 			b.setSG_DELIVERY("N");
 		}else {
 			b.setSG_AREA("");
 		}
-		System.out.println(b.getSG_DEAL());
-		System.out.println(b.getSG_DELIVERY());
 		
 		Attachment atm = new Attachment();
 //		b.setSG_PRICE(Integer.parseInt(b.getSG_PRICE()));
