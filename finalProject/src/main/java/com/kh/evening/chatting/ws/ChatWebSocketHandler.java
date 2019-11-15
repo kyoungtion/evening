@@ -33,6 +33,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 		System.out.println(session.getId() + "로부터 메시지 수신 : " + message.getPayload());
 		for(WebSocketSession s : users.values()) {
 			s.sendMessage(message);
+			
 			System.out.println(s.getId() + "에 메시지 발송 : " + message.getPayload());
 		}
 	}

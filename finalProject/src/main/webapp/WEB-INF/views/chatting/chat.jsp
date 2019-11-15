@@ -60,7 +60,7 @@
 
 	function onMessage(evt) {
 		var data = evt.data;
-		console.log(data)
+	
 		if (data.substring(0, 4) == 'msg:') {
 			appendMessage(data.substring(4));
 			/* 닉네임 추출 == 자기 닉네임과 같은지 체크 */
@@ -82,7 +82,29 @@
 	}
 
 	function appendMessage(msg) {
-		$('#chatMessageArea').append(msg + '<br>');
+		console.log(msg.substring(0,1));
+			if(msg.substring(0,1)=='['){
+				$('#MiddleCMA').append(msg + '<br>');
+
+			}else if(msg.substring(0,1)!='['){
+				var str = msg;
+				var checkstr = str.split(':');
+				var checkname = checkstr[0];
+				console.log("자른 checkname의 값 [nickname값이 나와야 한다]  !!" + checkname);
+				console.log($('nickname').val());
+				if(checkname == $('#nickname').val()){
+					$('#chatMessageArea').append(msg + '<br>');
+				}else{
+					$('#anotherCMA').append(msg + '<br>');
+				}
+			}
+	
+		
+		
+			
+	
+		
+		
 		var chatAreaHeight = $('#chatArea').height();
 		var maxScroll = $('#chatMessageArea').height() - chatAreaHeight;
 		$('#chatArea').scrollTop(maxScroll);
@@ -129,6 +151,7 @@
 	border: 1px solid black;
 	background-color:#6884b3;
 	
+    border: 1px solid #ddd;
 	
 }
 div{
@@ -147,8 +170,26 @@ div{
 	color: black;
     background-color:#fdf01b;
     font-size:1.3rem;
+	float: right;
+	overflow-y: auto;
+}
+#MiddleCMA {
+	float: middle;
+}
+#anotherCMA{
+	float: left;
 }
 
+.msg {
+
+
+}
+.middle{
+	
+}
+.another{
+
+}
 </style>
 </head>
 
@@ -157,15 +198,19 @@ div{
 	<div id="enter">
 		<hr>
 		이름 : <input type="text" id="nickname"> 
-				<button type="button" id="enterBtn" class="btn btn-default btn-sm">입장</button>
+			<button type="button" id="enterBtn" class="btn btn-default btn-sm">입장</button>
 			
 		<hr>
 	</div>
 
 	<div id="chatArea">
-		<section id="chatMessageArea" >
+		<section id="chatMessageArea" class="msg">
+		
 		</section>	
-	
+		<section id="MiddleCMA" class="middle">
+		</section>
+		<section id="anotherCMA" class="another">
+		</section>
 		
 	</div>
 	<input type="text" id="message" disabled>
