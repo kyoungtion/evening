@@ -71,7 +71,7 @@
 		WHERE SG_ID=#{sg_id}
 	</update>
 	
-	<select id="boardSelectOne" parameterType="Board"
+	<select id="boardSelectOne" parameterType="_int"
 		resultType="Board">
 		SELECT * FROM SECOND_GOODS WHERE SG_ID=#{sg_id}
 	</select>
@@ -81,7 +81,7 @@
 		SELECT * FROM ADD_FILE WHERE SG_ID=#{sg_id}
 	</select>
 	
-	<select id="category" parameterType="String">
+	<select id="category" resultType="string">
 		SELECT * FROM GOODS_TAG
 	</select>
 

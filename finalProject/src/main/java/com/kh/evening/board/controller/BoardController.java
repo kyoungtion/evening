@@ -91,7 +91,6 @@ public class BoardController {
   
 	@RequestMapping("selectOne.bo")
 	public ModelAndView selectOne(@RequestParam("sgId") int sgId,ModelAndView mv) {
-		System.out.println(sgId);
 		int a = bService.viewCount(sgId);
 		
 		Board board = bService.selectOne(sgId);
@@ -99,10 +98,11 @@ public class BoardController {
 		
 		
 		if(board != null) {
-		
-			mv.addObject("board",board)
-				.addObject("at",at)
-				.setViewName("usedDetail"); 
+		  if(board.getB_Category().equals("A")) {
+		    mv.addObject("board",board).addObject("at",at).setViewName("auctionDetail");
+		  }else {
+		    mv.addObject("board",board).addObject("at",at).setViewName("usedDetail");
+		  }
 		}else {
 			throw new BoardException("게시글 읽기를 실패하였습니다.");
 		}

@@ -70,8 +70,12 @@
 							<br>
 							<div class="col-md-12">
 								<div class="form-group">
-									<label for="companyname">가격</label>
+									<label for="companyname">현재 경매가</label>
 									<input type="text" id="towncity" class="form-control" style="text-align: center;" value="${board.SG_PRICE }" placeholder="Town or City">
+								</div>
+								<div class="form-group">
+									<label for="companyname">경매 시작가</label>
+									<input type="text" id="towncity" class="form-control" style="text-align: center;" value="${board.SG_SPRICE }" placeholder="Town or City">
 								</div>
 							</div>
 
