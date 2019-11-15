@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.kh.evening.board.model.exception.BoardException;
 import com.kh.evening.board.model.service.BoardService;
+import com.kh.evening.board.model.service.BoardServiceImp;
 import com.kh.evening.board.model.vo.Attachment;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.BoardMode;
@@ -90,9 +91,12 @@ public class BoardController {
   
 	@RequestMapping("selectOne.bo")
 	public ModelAndView selectOne(@RequestParam("sgId") int sgId,ModelAndView mv) {
-
+		System.out.println(sgId);
+		int a = bService.viewCount(sgId);
+		System.out.println("실패");
 		Board board = bService.selectOne(sgId);
 		Attachment at = bService.boardFileList(sgId);
+		
 		
 		if(board != null) {
 		

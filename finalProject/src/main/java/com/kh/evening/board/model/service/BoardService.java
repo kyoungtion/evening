@@ -8,14 +8,18 @@ import com.kh.evening.board.model.vo.PageInfo;
 
 public interface BoardService {
   
-  ArrayList<Board> boardList(PageInfo pi, BoardMode bMode);
+	ArrayList<Board> boardList(PageInfo pi, BoardMode bMode);
+	
+	int getBoardListCount(String boardCategory);
+	
+	ArrayList<Attachment> boardFileList();
 
-  int getBoardListCount(String boardCategory);
+	Board selectOne(int sgId);
+	
+	Attachment boardFileList(int sgId);
 
-  ArrayList<Attachment> boardFileList();
+	int viewCount(int sgId);
 
-Board selectOne(int sgId);
-
-Attachment boardFileList(int sgId);
+	ArrayList<String> category();
 
 }

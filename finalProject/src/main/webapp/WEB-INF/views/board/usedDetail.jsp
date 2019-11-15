@@ -25,7 +25,7 @@
 
 		.sbViewAtag {
 			float: right;
-			width: 30px;
+			width: 40px;
 			height: 50px;
 			margin: -5px 5px 0 0;
 			line-height: 1;
@@ -103,8 +103,8 @@
 									<span class="new">#New</span><span class="new">#New</span>
 								</div>
 								<div style="width: 200px; height: 50px; float: left;">
-									<div class="sbViewAtag"><img class="sbViewAtag_img"></img><a>1</a> </div>
-									<div class="sbViewAtag"><img class="sbViewAtag_img"></img><a>1</a> </div>
+									<div class="sbViewAtag"><h6>조회수</h6><a>${board.SG_COUNT}</a> </div>
+									<div class="sbViewAtag"><h6>좋아요</h6><a>1</a> </div>
 								</div>
 							</div>
 						</div>

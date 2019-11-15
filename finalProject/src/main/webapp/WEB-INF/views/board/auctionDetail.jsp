@@ -25,7 +25,7 @@
 
 		.sbViewAtag {
 			float: right;
-			width: 30px;
+			width: 40px;
 			height: 50px;
 			margin: -5px 5px 0 0;
 			line-height: 1;
@@ -37,7 +37,7 @@
 			height: 30px;
 			background: gray;
 		}
-
+		
 		.row {
 			line-height: normal;
 		}
@@ -47,17 +47,19 @@
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	
 	<div class="evPage" style="height:auto;width: 100%;background: #ffffff;  text-align: center; ">
-		<div class="pg" style="width: 90%; display: inline-block; background: #f5f5f5;;">
+		<div class="pg" style="width: 90%; display: inline-block; background: #f5f5f5;">
 			<br>
 			<div class="headLine" style="width:50%; display: inline-block;">
 				<h2>${board.SG_BNAME }</h2>
-				<p style="border-top: 1px solid gray;">2019-10-27</p>
+				<p style="border-top: 1px solid gray;">${board.SG_ENROLL_DATE}</p>
 			</div>
 			<div style="height: 300px;width: 100%; background: #f5f5f5;">
 
 				<div style="width: 230px; float: left; padding: none;">
 					<div style="height: 30px;"></div>
-					<div style="width: 200px;height: 200px;background: white;display: inline-block;"></div>
+					<div style="width: 200px;height: 200px;background: white;display: inline-block;">
+						<img src="/evening/resources/thumbnail/${at.RENAMEFILENAME}" style="width: 100%; height: 100%;">
+					</div>
 					<p>썸네일 이미지</p>
 				</div>
 				<div class="col-md-7" style="float: left;width: 500px;">
@@ -69,7 +71,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label for="companyname">가격</label>
-									<input type="text" id="towncity" class="form-control" placeholder="Town or City">
+									<input type="text" id="towncity" class="form-control" style="text-align: center;" value="${board.SG_PRICE }" placeholder="Town or City">
 								</div>
 							</div>
 
@@ -101,8 +103,8 @@
 									<span class="new">#New</span><span class="new">#New</span>
 								</div>
 								<div style="width: 200px; height: 50px; float: left;">
-									<div class="sbViewAtag"><img class="sbViewAtag_img"></img><a>1</a> </div>
-									<div class="sbViewAtag"><img class="sbViewAtag_img"></img><a>1</a> </div>
+									<div class="sbViewAtag"><h6>조회수</h6><a>${board.SG_COUNT}</a> </div>
+									<div class="sbViewAtag"><h6>좋아요</h6><a>1</a> </div>
 								</div>
 							</div>
 						</div>
@@ -117,8 +119,8 @@
 				<button class="btn btn-primary" onclick="location.href='updateForm.ud';" >수정 </button>
 			</div>
 		</div>
-		<div style="width: 90%; height: 500px; background: lemonchiffon;display: inline-block; ">
-			<p>gte</p>
+		<div style="width: 90%; height: 500px; display: inline-block; ">
+			${board.SG_INFO }
 		</div>
 		
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>

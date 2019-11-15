@@ -45,4 +45,14 @@ public class BoardServiceImp implements BoardService {
 		return bDAO.boardFileList(sqlSession,sgId);
 	}
 
+	@Override
+	public int viewCount(int sgId) {
+		return bDAO.viewCount(sqlSession,sgId);
+	}
+
+	@Override
+	public ArrayList<String> category() {
+		return bDAO.insertF(sqlSession);
+	}
+
 }

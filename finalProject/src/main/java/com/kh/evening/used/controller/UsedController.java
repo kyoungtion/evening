@@ -3,6 +3,7 @@ package com.kh.evening.used.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,9 +48,9 @@ public class UsedController {
 		
 		Attachment atm = new Attachment();
 //		b.setSG_PRICE(Integer.parseInt(b.getSG_PRICE()));
+		String renameFileName = "";
 		if (uploadFile != null && !uploadFile.isEmpty()) {
 
-			String renameFileName;
 			try {
 				renameFileName = saveFile(uploadFile, request, response);
 				if (renameFileName != null) {
@@ -66,6 +67,8 @@ public class UsedController {
 		String[] saveName=request.getParameter("deletImg").split(",");
 		String root = request.getSession().getServletContext().getRealPath("resources")
 				+"\\textImgs/";
+		String root2 = request.getSession().getServletContext().getRealPath("resources")
+				+"\\thumbnail/";
 		File file;
 		for(int i=0;i<saveName.length;i++) {
 			for(int j=0; j<allName.length; j++) {
@@ -95,6 +98,8 @@ public class UsedController {
 						System.out.println("파일 삭제 확인 : " + file.delete());
 					}
 				}
+				file = new File(root2+renameFileName);
+				System.out.println("파일 삭제 확인 : " + file.delete());
 				throw new BoardException("썸네일 이미지 등록을 실패하였습니다.");
 			}
 		} else {
@@ -104,6 +109,8 @@ public class UsedController {
 					System.out.println("파일 삭제 확인 : " + file.delete());
 				}
 			}
+			file = new File(root2+renameFileName);
+			System.out.println("파일 삭제 확인 : " + file.delete());
 			throw new BoardException("게시물 등록을 실패하였습니다.");
 		}
 
@@ -145,6 +152,17 @@ public class UsedController {
 	public String insertForm() {
 
 		return "usedInsertForm";
+	}
+	@RequestMapping("insertF.ud")
+	public ModelAndView insertF(ModelAndView mv) {
+		System.out.println("시작");
+		ArrayList<String> category = bService.category();
+		for(String a :category) {
+			System.out.println(category);
+		}
+		mv.addObject("category", category)
+					.setViewName("usedInsertForm");;
+		return mv;
 	}
 
 	@RequestMapping("selectOne.ud")

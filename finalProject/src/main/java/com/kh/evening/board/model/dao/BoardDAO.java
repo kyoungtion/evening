@@ -29,13 +29,20 @@ public class BoardDAO {
   }
 
 public Attachment boardFileList(SqlSession sqlSession, int sg_id) {
-	System.out.println(sg_id);
 	return  sqlSession.selectOne("boardMapper.boardFileOne",sg_id);
 }
 
 public Board boardSelectOne(SqlSession sqlSession, int sg_id) {
-	System.out.println(sg_id);
 	return sqlSession.selectOne("boardMapper.boardSelectOne", sg_id);
+}
+
+public int viewCount(SqlSession sqlSession, int sg_id) {
+	sqlSession.update("boardMapper.boardViewCount",sg_id);
+	return 1;
+}
+
+public ArrayList<String> insertF(SqlSession sqlSession) {
+	return (ArrayList)sqlSession.selectList("boardMapper.category");
 }
 
 
