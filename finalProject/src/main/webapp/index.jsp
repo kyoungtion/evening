@@ -12,27 +12,6 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
 	
-	<%
-	String str = "안녕~";
-	String str2 = "안녕하세요";
-	Cookie co = new Cookie("num1",str);
-	Cookie co2 = new Cookie("num2",str2);
-	Cookie co3 = new Cookie("num3", str+str2);
-	Cookie co4 = new Cookie("num4", "test");
-	
-	co.setMaxAge(60*60*24);
-	co2.setMaxAge(60*60*24);
-	co3.setMaxAge(60*60*24);
-	co4.setMaxAge(60*60*24);
-	
-	co.setComment("test1");
-	co2.setComment("test2");
-	
-	response.addCookie(co);
-	response.addCookie(co2);
-	response.addCookie(co3);
-	response.addCookie(co4);
-	%>
 	
 	<!-- 리스트 불러오기 (ajax 대용) -->
 	<c:if test="${ empty alist }">

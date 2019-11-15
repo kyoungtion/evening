@@ -218,22 +218,7 @@
 
 							<div class="side">
 								<h2>최근에 본 물건</h2>
-								<%
-								  Cookie[] cookies = request.getCookies();
-
-								  if (cookies != null) {
-								    for (Cookie c : cookies) {
-								      if (c.getName().contains("num")) {
-								%>
-								<div><%=c.getName()%>
-									<%=c.getValue()%>
-								</div>
-								<%
-								  }
-								    }
-
-								  } ;
-								%>
+								<div>쿠키 테스트 장소</div>
 							</div>
 							 
 						</div>
