@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.kh.evening.board.model.exception.BoardException;
@@ -90,7 +91,9 @@ public class BoardController {
   }
   
   @RequestMapping("selectOne.bo")
-  public ModelAndView selectOne(@RequestParam("sgId") int sgId,ModelAndView mv) {
+  public ModelAndView selectOne(@RequestParam("sgId") int sgId,ModelAndView mv, @RequestParam(value="auctionPrice", required=false) Integer price) {
+    System.out.println(price);
+    
      int a = bService.viewCount(sgId);
      
      Board board = bService.selectOne(sgId);
