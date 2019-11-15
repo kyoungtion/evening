@@ -23,7 +23,7 @@
 						<div class="row row-pb-lg">
 
 						<button class="btn btn-primary btn-outline"style="float: right; margin: 0px 50px 0 0px;"
-							onclick="location.href='insertForm.ud';">글쓰기</button>
+							onclick="location.href='insertF.bo?type=2';">글쓰기</button>
 								
 						<h2><span style="font-size: 50px;">경매 거래 게시판</span></h2>
 						
@@ -72,9 +72,13 @@
 
 												<div class="cart">
 													<p>
-														<!-- 카트, 좋아요, 디테일 있는 라인(이미지 자세히보기시) -->
-														<!-- <span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span> --> 
-														<!-- <span><a href="selectOne.ud"><i class="icon-eye"></i></a></span> -->
+														<span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span> 
+														
+														<c:url var="boardDetail" value="selectOne.ud">
+															<c:param name="SG_ID" value="${ i.SG_ID }"/>
+														</c:url>
+														<span><a href="selectOne.ud"><i class="icon-eye"></i></a></span>
+														 
 														<span><a href="#"><i class="icon-heart3"></i></a></span>
 														<!-- <span><a href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span> --> <!-- 필요없을꺼같아서 대기중 (삭제대기중) -->
 													</p>
@@ -84,11 +88,11 @@
 										
 										<div class="desc">
 											<c:url var="detailView" value="selectOne.bo">
-												<c:param name="sgId" value="${ i.SG_ID }"/>
-											</c:url>
-											<h3><a href="${ detailView }" style="cursor: pointer;">${ i.SG_BNAME }</a></h3>
-											<p class="price">현재 경매가<span> <br> <fmt:formatNumber value="${i.SG_PRICE }" type="currency"/></span></p>
-											<p class="price">경매 시작가<span> <br> <fmt:formatNumber value="${i.SG_SPRICE }" type="currency"/></span></p>
+			                                    <c:param name="sgId" value="${ i.SG_ID }"/>
+			                                 </c:url>
+			                                 <h3><a href="${ detailView }" style="cursor: pointer;">${ i.SG_BNAME }</a></h3>
+			                                 <p class="price">현재 경매가<span> <br> <fmt:formatNumber value="${i.SG_PRICE }" type="currency"/></span></p>
+			                                 <p class="price">경매 시작가<span> <br> <fmt:formatNumber value="${i.SG_SPRICE }" type="currency"/></span></p>
 										</div>
 										
 									</div>
@@ -216,7 +220,7 @@
 
 							<div class="side">
 								<h2>최근에 본 물건</h2>
-								<div>쿠키 테스트 장소</div>
+								<div>test</div>
 							</div>
 							 
 						</div>
