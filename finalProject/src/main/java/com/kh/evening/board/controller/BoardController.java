@@ -93,7 +93,7 @@ public class BoardController {
 	public ModelAndView selectOne(@RequestParam("sgId") int sgId,ModelAndView mv) {
 		System.out.println(sgId);
 		int a = bService.viewCount(sgId);
-		System.out.println("실패");
+		
 		Board board = bService.selectOne(sgId);
 		Attachment at = bService.boardFileList(sgId);
 		

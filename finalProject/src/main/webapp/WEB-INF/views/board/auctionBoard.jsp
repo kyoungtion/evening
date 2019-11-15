@@ -72,15 +72,10 @@
 
 												<div class="cart">
 													<p>
-														<span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span> 
-														
-														<c:url var="boardDetail" value="selectOne.ud">
-															<c:param name="SG_ID" value="${ i.SG_ID }"/>
-														</c:url>
-														<span><a href="selectOne.ud"><i class="icon-eye"></i></a></span>
-														 
+														<!-- 카트, 좋아요, 디테일 있는 라인(이미지 자세히보기시) -->
+														<!-- <span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span> --> 
+														<!-- <span><a href="selectOne.ud"><i class="icon-eye"></i></a></span> -->
 														<span><a href="#"><i class="icon-heart3"></i></a></span>
-														
 														<!-- <span><a href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span> --> <!-- 필요없을꺼같아서 대기중 (삭제대기중) -->
 													</p>
 												</div>
@@ -88,9 +83,12 @@
 										</div>
 										
 										<div class="desc">
-											<h3><a href="#">${ i.SG_BNAME }</a></h3>
-											<p class="price">급매가<span> <br> <fmt:formatNumber value="${i.SG_PRICE }" type="currency"/></span></p>
-											<p class="price">경매시작가<span> <br> <fmt:formatNumber value="${i.SG_SPRICE }" type="currency"/></span></p>
+											<c:url var="detailView" value="selectOne.bo">
+												<c:param name="sgId" value="${ i.SG_ID }"/>
+											</c:url>
+											<h3><a href="${ detailView }" style="cursor: pointer;">${ i.SG_BNAME }</a></h3>
+											<p class="price">현재 경매가<span> <br> <fmt:formatNumber value="${i.SG_PRICE }" type="currency"/></span></p>
+											<p class="price">경매 시작가<span> <br> <fmt:formatNumber value="${i.SG_SPRICE }" type="currency"/></span></p>
 										</div>
 										
 									</div>
