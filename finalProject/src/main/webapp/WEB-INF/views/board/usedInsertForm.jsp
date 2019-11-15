@@ -201,31 +201,38 @@
 											placeholder="제목">
 									</div>
 								</div>
-								<div class="col-md-12">
+								<div class="col-md-12" style="width: 50%;">
 									<label for="country">카테고리</label>
 									<div class="form-group">
-										<div class="form-field">
+										<div class="form-field" style="width: 100%;">
 											<i class="icon icon-arrow-down3"></i>
-											<select name="people" id="category" class="form-control" onchange="stChange();">
+											<select name="TAG_NAME" id="category" class="form-control" onchange="stChange();">
 												<option value="전체">전체</option>
-												<option value="패션">패션</option>
-												<option value="뷰티">뷰티</option>
-												<option value="인테리어">인테리어</option>
-												<option value="전자제품">전자제품</option>
-												<option value="스포츠">스포츠</option>
+												<c:forEach var='ctgy' items="${ category }">
+													<option value="${ ctgy }">${ ctgy }</option>
+												</c:forEach>
 											</select>
 
 										</div>
-										<div style="width: 30px;height: 1px;float: left;"></div>
-										<div class="form-field">
-											<i class="icon icon-arrow-down3"></i>
-											<select name="people" id="people" class="form-control">
-											
-											</select>
-
-										</div>
+										
 									</div>
 								</div>
+								<div style="float: left; width: 200px; height: 110px;">
+										<label for="companyname">거래 방식</label>
+										<div class="col-md-12">
+											<div class="radio">
+												<label><input type="radio" name="SG_DEAL" value="택배" checked>택배거래</label>
+												<label><input type="radio" name="SG_DEAL" value="직거래" >직거래</label>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div id="radios" class="radio">
+												<label><input type="radio" name="SG_DELIVERY" value="N" disabled checked>배송비
+													포함</label>
+												<label><input type="radio" name="SG_DELIVERY" value="Y" disabled>무료배송</label>
+											</div>
+										</div>
+									</div>
 
 								<div class="col-md-12">
 									<div class="form-group">
@@ -235,8 +242,8 @@
 									</div>
 								</div>
 
-								<div class="form-group">
-									<div style="float: left; width: 200px;">
+								<div class="form-group" style="height: 50px; width: 280px;">
+									<!-- <div style="float: left; width: 200px;">
 										<label for="companyname">거래 방식</label>
 										<div class="col-md-12">
 											<div class="radio">
@@ -251,11 +258,11 @@
 												<label><input type="radio" name="SG_DELIVERY" value="Y" disabled>무료배송</label>
 											</div>
 										</div>
-									</div>
-									<div id="radios2" >
+									</div> -->
+									<div id="radios2" style="display: none;" >
 										<label for="companyname">거래 지역</label>
 										<input type="text" id="towncity" name="SG_AREA" class="form-control" placeholder="Town or City"
-											style="width: 280px;" value="지역무관">
+											style=" margin-left: 15px;" value="지역무관">
 									</div>
 								</div>
 							</div>

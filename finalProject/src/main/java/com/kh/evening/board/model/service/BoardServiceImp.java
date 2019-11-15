@@ -36,7 +36,6 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public Board selectOne(int sgId) {
-		System.out.println("test");
 		return bDAO.boardSelectOne(sqlSession,sgId);
 	}
 	

@@ -57,7 +57,7 @@
 
 	<insert id="insertBoard" parameterType="Board">
 		INSERT INTO SECOND_GOODS
-		VALUES(SEQ_SG.NEXTVAL,'admin','SG',#{SG_BNAME},'운영자','TEST태그3',DEFAULT,#{SG_PRICE},default,#{SG_INFO},DEFAULT,SYSDATE,SYSDATE,DEFAULT,SYSDATE,#{SG_DEAL},#{SG_AREA},#{SG_DELIVERY})
+		VALUES(SEQ_SG.NEXTVAL,'admin','SG',#{SG_BNAME},'운영자',#{TAG_NAME},DEFAULT,#{SG_PRICE},default,#{SG_INFO},DEFAULT,SYSDATE,SYSDATE,DEFAULT,SYSDATE,#{SG_DEAL},#{SG_AREA},#{SG_DELIVERY})
 	</insert>
 
 	<insert id="attachmentInsert" parameterType="Attachment">

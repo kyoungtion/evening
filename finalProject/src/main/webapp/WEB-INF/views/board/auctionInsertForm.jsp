@@ -207,11 +207,10 @@
 									<div class="form-group">
 										<div class="form-field">
 											<i class="icon icon-arrow-down3"></i>
-											<select name="people" id="category" class="form-control" onchange="stChange();">
+											<select name="peopl" id="category" class="form-control" onchange="stChange();">
 												<option value="전체">전체</option>
 												<c:forEach var='ctgy' items="${ category }">
 													<option value="${ ctgy }">${ ctgy }</option>
-														
 												</c:forEach>
 											</select>
 
