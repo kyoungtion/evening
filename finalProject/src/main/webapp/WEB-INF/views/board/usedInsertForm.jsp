@@ -221,8 +221,8 @@
 										<label for="companyname">거래 방식</label>
 										<div class="col-md-12">
 											<div class="radio">
-												<label><input type="radio" name="SG_DEAL" value="택배" checked>택배거래</label>
-												<label><input type="radio" name="SG_DEAL" value="직거래" >직거래</label>
+												<label><input type="radio" name="SG_DEAL" value="DELIVERY" checked>택배거래</label>
+												<label><input type="radio" name="SG_DEAL" value="DIRECT" >직거래</label>
 											</div>
 										</div>
 										<div class="col-md-12">
