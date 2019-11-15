@@ -81,7 +81,7 @@
 		SELECT * FROM ADD_FILE WHERE SG_ID=#{sg_id}
 	</select>
 	
-	<select id="category" parameterType="String">
+	<select id="category" resultType="string">
 		SELECT * FROM GOODS_TAG
 	</select>
 

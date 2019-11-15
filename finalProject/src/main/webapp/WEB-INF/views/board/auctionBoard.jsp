@@ -23,7 +23,7 @@
 						<div class="row row-pb-lg">
 
 						<button class="btn btn-primary btn-outline"style="float: right; margin: 0px 50px 0 0px;"
-							onclick="location.href='insertForm.ud';">글쓰기</button>
+							onclick="location.href='insertF.bo?type=2';">글쓰기</button>
 								
 						<h2><span style="font-size: 50px;">경매 거래 게시판</span></h2>
 						
@@ -87,9 +87,12 @@
 										</div>
 										
 										<div class="desc">
-											<h3><a href="product-detail.html">${ i.SG_BNAME }</a></h3>
-											<p class="price">급매가<span> <br> <fmt:formatNumber value="${i.SG_PRICE }" type="currency"/></span></p>
-											<p class="price">경매시작가<span> <br> <fmt:formatNumber value="${i.SG_SPRICE }" type="currency"/></span></p>
+											<c:url var="detailView" value="selectOne.bo">
+			                                    <c:param name="sgId" value="${ i.SG_ID }"/>
+			                                 </c:url>
+			                                 <h3><a href="${ detailView }" style="cursor: pointer;">${ i.SG_BNAME }</a></h3>
+			                                 <p class="price">현재 경매가<span> <br> <fmt:formatNumber value="${i.SG_PRICE }" type="currency"/></span></p>
+			                                 <p class="price">경매 시작가<span> <br> <fmt:formatNumber value="${i.SG_SPRICE }" type="currency"/></span></p>
 										</div>
 										
 									</div>

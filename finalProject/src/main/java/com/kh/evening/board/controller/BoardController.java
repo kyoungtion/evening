@@ -89,26 +89,42 @@ public class BoardController {
     return mv;
   }
   
-	@RequestMapping("selectOne.bo")
-	public ModelAndView selectOne(@RequestParam("sgId") int sgId,ModelAndView mv) {
-		System.out.println(sgId);
-		int a = bService.viewCount(sgId);
-		System.out.println("실패");
-		Board board = bService.selectOne(sgId);
-		Attachment at = bService.boardFileList(sgId);
-		
-		
-		if(board != null) {
-		
-			mv.addObject("board",board)
-				.addObject("at",at)
-				.setViewName("usedDetail"); 
+  @RequestMapping("selectOne.bo")
+  public ModelAndView selectOne(@RequestParam("sgId") int sgId,ModelAndView mv) {
+     System.out.println(sgId);
+     int a = bService.viewCount(sgId);
+     
+     Board board = bService.selectOne(sgId);
+     Attachment at = bService.boardFileList(sgId);
+     
+     
+     if(board != null) {
+       if(board.getB_Category().equals("A")) {
+         mv.addObject("board",board).addObject("at",at).setViewName("auctionDetail");
+       }else {
+        mv.addObject("board",board)
+           .addObject("at",at)
+           .setViewName("usedDetail");
+       }
+     }else {
+        throw new BoardException("게시글 읽기를 실패하였습니다.");
+     }
+     
+     return mv;
+  }
+	
+	@RequestMapping("insertF.bo")
+	public ModelAndView insertF(ModelAndView mv,@RequestParam("type") int type) {
+		ArrayList<String> category = bService.category();
+		System.out.println(type);
+		String fromname="";
+		if(type==1) {
+			fromname="usedInsertForm";
 		}else {
-			throw new BoardException("게시글 읽기를 실패하였습니다.");
+			fromname="auctionInsertForm";
 		}
-		
+		mv.addObject("category", category)
+					.setViewName(fromname);;
 		return mv;
 	}
-	
-
 }

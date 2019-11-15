@@ -148,22 +148,8 @@ public class UsedController {
 		return "UsedList";
 	}
 
-	@RequestMapping("insertForm.ud")
-	public String insertForm() {
 
-		return "usedInsertForm";
-	}
-	@RequestMapping("insertF.ud")
-	public ModelAndView insertF(ModelAndView mv) {
-		System.out.println("시작");
-		ArrayList<String> category = bService.category();
-		for(String a :category) {
-			System.out.println(category);
-		}
-		mv.addObject("category", category)
-					.setViewName("usedInsertForm");;
-		return mv;
-	}
+	
 
 	@RequestMapping("selectOne.ud")
 	public ModelAndView selectOne(@RequestParam("sgId") int sgId,ModelAndView mv) {
