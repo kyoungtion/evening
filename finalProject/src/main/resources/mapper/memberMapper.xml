@@ -87,7 +87,7 @@
 		select m.*, r.*
 		from member m
 		join user_rank r on(m.rank_code = r.rank_code)
-		where m.status='N'
+		where m.status='N' and user_id != 'admin'
 		order by user_id asc
 	</select>
 	
@@ -120,6 +120,16 @@
 		update member
 		set rank_code = #{rank_code}
 		where user_id = #{user_id}
+	</update>
+	
+	<update id="deleteAllMember" parameterType="java.util.ArrayList">
+		update member
+		set status = 'Y'
+		where user_id in
+		<foreach collection="array" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		
 	</update>
 
 

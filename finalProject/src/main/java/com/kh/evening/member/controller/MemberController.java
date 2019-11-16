@@ -229,6 +229,36 @@ public class MemberController {
 	   
    }
    
+   @RequestMapping("memberDelete.ad")
+   public String memberDelete(@RequestParam("user_id") String user_id) {
+	   
+	   Member m = new Member();
+	   m.setUser_id(user_id);
+	   
+	   int result = mService.deleteMember(m);
+	   
+	   if(result > 0) {
+		   return "redirect:adminView.ad";
+	   } else {
+		   throw new MemberException("회원삭제에 실패했습니다.");
+	   }
+   }
+   
+   @RequestMapping("deleteAllMember.ad")
+   public String memberDeleteAll(@RequestParam("ids") String ids) {
+	   
+	   String[] idArray = ids.split(",");
+	   
+	   int result = mService.deleteAllMember(idArray);
+	   
+	   if(result > 0) {
+		   return "redirect:adminView.ad";
+	   } else {
+		   throw new MemberException("선택한 회원 삭제에 실패했습니다.");
+	   }
+   }
+   
+   
    // ********************************************끝
    
    // 아이디 비밀번호 찾기 컨트롤러

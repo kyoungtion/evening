@@ -99,4 +99,9 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.updateRankCode(sqlSession, map);
 	}
 
+	@Override
+	public int deleteAllMember(String[] idArray) {
+		return mDAO.deleteAllMember(sqlSession, idArray);
+	}
+
 }

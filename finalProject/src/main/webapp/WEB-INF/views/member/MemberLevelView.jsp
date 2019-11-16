@@ -132,6 +132,8 @@ input[type=password] {
 			$('#updateCode').click(function(){
 				if(confirm("변경하시겠습니까?")){
 					$('#updateCodeForm').submit();
+					window.close();
+					window.opener.location.reload();
 				}
 			});
 		});

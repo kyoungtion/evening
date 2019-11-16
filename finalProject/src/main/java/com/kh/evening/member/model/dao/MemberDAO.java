@@ -68,6 +68,10 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.updateRankCode", map);
 	}
 
+	public int deleteAllMember(SqlSessionTemplate sqlSession, String[] idArray) {
+		return sqlSession.update("memberMapper.deleteAllMember", idArray);
+	}
+
 //   public Member searchId(SqlSessionTemplate sqlSession, String user_name,String user_email) {
 //      return (Member) sqlSession.selectMap("memberMapper.searchId",user_name,user_email);
 //   }

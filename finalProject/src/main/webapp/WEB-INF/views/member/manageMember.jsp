@@ -64,10 +64,10 @@
 		style="width: 100%; height: 1000px;">
 		<div style="width: 100%; text-align:center !important; padding: 10px;">		
 			<ul class="my-tabs1">
-				<li class="my-tab"><button class="btn" id="adminView" onclick="location.href='adminView.me'">회원 관리</button></li>
-				<li class="my-tab"><button class="btn" id="qna" onclick="location.href='qna.me'">문의글 관리</button></li>
+				<li class="my-tab"><button class="btn" id="adminView" onclick="location.href='adminView.ad'">회원 관리</button></li>
+				<li class="my-tab"><button class="btn" id="qna" onclick="location.href='qna.ad'">문의글 관리</button></li>
 				<!-- <li class="my-tab"><a href="dealDetail.me">거래내역</a></li> -->
-				<li class="my-tab"><button class="btn" id="insertNotice" onclick="location.href='insertNoticeView.me'">공지사항 작성</button></li>
+				<li class="my-tab"><button class="btn" id="insertNotice" onclick="location.href='insertNoticeView.ad'">공지사항 작성</button></li>
 			</ul>
 		</div>	
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 100%; background: whitesmoke;">
@@ -123,7 +123,7 @@
 									<c:forEach var="m" items="${list}" varStatus="st">
 										<tr style="background-color: #FFFFFF; color: #333333;">
 											<td class="displaynone" id="listLength">${fn:length(list)}</td>
-											<td><input class="chk" id="chk" name="chk" type="checkbox"></td>
+											<td><input class="chk" id="chk" name="chk" type="checkbox" value="${ m.user_id }"></td>
 											<td id="user_id${st.index}">${ m.user_id }</td>
 											<td>${ m.user_name }(${m.nickName })</td>
 											<td>${ m.phone }</td>
@@ -137,7 +137,7 @@
 														<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></a>
 														<ul class="dropdown-menu" role="menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(-5px, 30px, 0px); top: 0px; left: 0px; will-change: transform;">
 															<li><a class="dropdown-item memberLevel" id="memberLevel.${st.index }">등급 조정</a></li>
-															<li><a class="dropdown-item memberDelete" id="memberDelete.${st.index }"onclick="checkDelete();">회원 삭제</a></li>
+															<li><a class="dropdown-item memberDelete" id="memberDelete.${st.index }">회원 삭제</a></li>
 														</ul>
 													</li>
 												</ul>
@@ -191,29 +191,31 @@
 									</div>
 								</div>
 								<div style="text-align:center;">
-									<button class="btn-primary">등급변경</button>
-									<button class="btn-danger">회원삭제</button>
+									<!-- <button class="btn-primary">등급변경</button> -->
+									<button class="btn-danger" id="deleteAllMember">선택회원 전체삭제</button>
 								</div>
 							</div>
 						</div>
-
 						<br>
-
-						<!-- 페이징 -->
-						
-
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 	<script>
-		function checkDelete(){
-			if(confirm("정말로 삭제하시겠습니까?")){
-				location.href="memberDelete.ad";
-			}
-		}
-		
+		$(function(){
+			$('.memberDelete').on('click', function(){
+				var user_id = $(this).attr('id');
+				var indexof = user_id.indexOf('.');
+				var i = user_id.substring(indexof+1);
+				
+				user_id = $('#user_id'+i).text();
+				
+				if(confirm('해당 회원을 삭제하시겠습니까?')){
+					location.href="memberDelete.ad?user_id="+user_id;
+				}
+			});
+		});
 		$(function(){
 			$('.memberLevel').on('click', function(){
 				var user_id = $(this).attr('id');
@@ -229,6 +231,25 @@
 				window.open(url, name, option);
 			});
 		});
+		
+		$('#deleteAllMember').on('click', function(){
+			if(confirm("선택한 회원 모두 삭제하시겠습니까?")){
+				
+				var ids = "";
+				$('input:checkbox:checked').each(function(index){
+					if(index != 0){
+						ids += "," + $(this).val();
+					} else {
+						ids += $(this).val();
+					}
+					
+					location.href="deleteAllMember.ad?ids="+ids;
+				});
+				
+				console.log(ids);
+			}
+		});	
+		
 	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />

@@ -41,6 +41,8 @@ public interface MemberService {
 
 	int updateRankCode(Map<String, String> map);
 
+	int deleteAllMember(String[] idArray);
+
 	// Object searchId(HttpServletResponse response, String user_name, String
 	// user_email);
 
