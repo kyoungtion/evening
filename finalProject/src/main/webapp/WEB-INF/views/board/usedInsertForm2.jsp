@@ -178,9 +178,10 @@
 					<h2>상품 등록</h2>
 				</div>
 
-					<div style=" padding: none; display: inline-block;">
+				<div style="width: 90%;height: auto;display: inline-block;">
+					<div style="width: 230px; float: left; padding: none;">
 						<div style="height: 30px;"></div>
-						<div onclick="shumnailImg();" style="width: 400px;height: 400px;background: white;display: inline-block; cursor: pointer;">
+						<div onclick="shumnailImg();" style="width: 200px;height: 200px;background: white;display: inline-block; cursor: pointer;">
 						<img id="smImgTag" style="width: 100%; height: 100%;"></div>
 						<div style="display:none;">
 						<input type='file' name='smImg' style="display:none;" id='smImg' accept="image/*" onchange="shumnailImgChange(this);" />
@@ -189,8 +190,7 @@
 						</div>
 						<p>썸네일 이미지</p>
 					</div>
-				<div style="width: 90%;height: auto;display: inline-block;">
-					<div class="col-md-7" style="width: 600px; float: none; display: inline-block;">
+					<div class="col-md-7" style="float: left;width: 500px;">
 						<div method="post" class="colorlib-form" style="padding: 0em;">
 
 							<div class=" row">

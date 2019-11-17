@@ -95,13 +95,13 @@
 											<label for="companyname">거래 방식</label>
 											<div class="col-md-12">
 												<div class="radio">
-													<c:if test="${board.SG_DEAL eq '택배' }">
+													<c:if test="${board.SG_DEAL eq 'DELIVERY' }">
 														<label><input type="radio" name="dealType"
 															value="직거래" disabled>직거래</label>
 														<label><input type="radio" name="dealType"
 															value="택배" disabled checked>택배거래</label>
 													</c:if>
-													<c:if test="${board.SG_DEAL eq '직거래' }">
+													<c:if test="${board.SG_DEAL eq 'DIRECT' }">
 														<label><input type="radio" name="dealType"
 															value="직거래" disabled checked>직거래</label>
 														<label><input type="radio" name="dealType"
@@ -111,10 +111,10 @@
 											</div>
 											<div class="col-md-12">
 
-												<c:if test="${board.SG_DEAL eq '직거래' }">
+												<c:if test="${board.SG_DEAL eq 'DIRECT' }">
 													<div class="radio" style="opacity: 0;">
 												</c:if>
-												<c:if test="${board.SG_DEAL eq '택배' }">
+												<c:if test="${board.SG_DEAL eq 'DELIVERY' }">
 													<div class="radio" style="opacity: 1;">
 												</c:if>
 												<c:if test="${board.SG_DELIVERY eq 'N' }">
@@ -132,10 +132,10 @@
 											</div>
 										</div>
 									</div>
-									<c:if test="${board.SG_DEAL eq '직거래' }">
+									<c:if test="${board.SG_DEAL eq 'DIRECT' }">
 										<div style="float: left;">
 									</c:if>
-									<c:if test="${board.SG_DEAL eq '택배' }">
+									<c:if test="${board.SG_DEAL eq 'DELIVERY' }">
 										<div style="float: left; opacity: 0;">
 									</c:if>
 									<label for="companyname">거래 지역</label>
@@ -173,13 +173,14 @@
 	</div>
 	<br>
 	
-	<div style="width: 90%; height: auto; display: inline-block;">
+	<div style="width: 90%; min-height:300px; height: auto; display: inline-block;">
 		${board.SG_INFO }</div>
-
+		<br>
+	<hr>
 	<script>
 	$(document).ready(function () {
 		console.log($('input[name="dealType"]'));
-		if ($('input[name="dealType"]').val() == "택배") {
+		if ($('input[name="dealType"]').val() == "DELIVERY") {
 			$('#delivery').css("opacity",1);
 		} else {			
 			$('#delivery').css("opacity",0);
@@ -188,8 +189,7 @@
 	</script>
 
 
-	<br>
-	<br>
+	
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
