@@ -116,20 +116,21 @@
 		</association>
 	</resultMap>
 	
-	<update id="updateRankCode" parameterType="map">
+	<update id="updateRankCode" parameterType="Member">
 		update member
 		set rank_code = #{rank_code}
 		where user_id = #{user_id}
 	</update>
 	
-	<update id="deleteAllMember" parameterType="java.util.ArrayList">
+	<update id="deleteAllMember" parameterType="string">
 		update member
 		set status = 'Y'
-		where user_id in
-		<foreach collection="array" item="item" index="index" open="(" separator="," close=")">
-			#{item}
-		</foreach>
-		
+		<trim prefix="where" prefixOverrides="and|or">
+			user_id in
+			<foreach collection="array" item="item" index="index" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</trim>
 	</update>
 
 

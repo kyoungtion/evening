@@ -39,7 +39,7 @@ public interface MemberService {
 
 	ArrayList<Member> getMembers(PageInfo pi);
 
-	int updateRankCode(Map<String, String> map);
+	int updateRankCode(Member m);
 
 	int deleteAllMember(String[] idArray);
 

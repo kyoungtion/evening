@@ -43,7 +43,7 @@
 								<div class="col-md-6 padding-bottom">
 									<label for="fname">작성자</label> 
 									<input type="text" id="fname"
-										class="form-control" name="g_writer" value="user01"  readonly>
+										class="form-control" name="g_writer" value="${sessionScope.loginUser.user_id }"  readonly>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -63,6 +63,10 @@
 							<input type="hidden" id="locked" name="locked">
 							<input type="hidden" id="g_pwd" name="g_pwd" value="${g.g_pwd }">
 							<input type="hidden" id="g_ref" name="g_ref" class="displaynone">
+							<c:if test="${ viewName !=  ''}">
+								<input type="hidden" id="viewName" name="viewName" value="adminQnaView">
+							</c:if>
+							<input type="hidden" id="page" name="page" value="${ page }">
 						</div>
 					</div>
 				</form>

@@ -148,37 +148,75 @@ tbody td {
 						<input type="hidden" id="nickname" name="nickname" value="${ sessionScope.loginUser.nickName }">
 						
 						<div style="float:left; margin-top:10px; display:inline-block;" >
-							<c:url var="glist" value="gList.ge">
-								<c:param name="page" value="${ page }"/>
-								<c:param name="category" value="${ cate }"/>
-							</c:url>
-							<c:url var="reInsert" value="gesipanReInsertView.ge">
-								<c:param name="g_id" value="${ g.g_id }"/>
-								<c:param name="g_category" value="${ g.g_category }"/>
-							</c:url>
+							<c:if test="${ viewName != null }">
+								<c:url var="glist" value="qna.ad">
+									<c:param name="page" value="${ page }"/>
+									<c:param name="category" value="${ cate }"/>
+									<c:param name="viewName" value="${ viewName }"/>
+								</c:url>
+								<c:url var="reInsert" value="gesipanReInsertView.ge">
+									<c:param name="g_id" value="${ g.g_id }"/>
+									<c:param name="g_category" value="${ g.g_category }"/>
+									<c:param name="viewName" value="${ viewName }"/>
+									<c:param name="page" value="${ page }"/>
+								</c:url>
+								<c:url var="gUpdateView" value="gUpdateView.ge">
+									<c:param name="g_id" value="${ g.g_id }"/>
+									<c:param name="page" value="${ page }"/>
+									<c:param name="viewName" value="${ viewName }"/>
+								</c:url>
+								<c:url var="gDelete" value="gDelete.ge">
+									<c:param name="page" value="${ page }"/>
+									<c:param name="g_id" value="${ g.g_id }"/>
+									<c:param name="viewName" value="${ viewName }"/>
+									<c:param name="category" value="QNA"/>
+								</c:url>
+							</c:if>
+							<c:if test="${ viewName == null }">
+								<c:url var="glist" value="gList.ge">
+									<c:param name="page" value="${ page }"/>
+									<c:param name="category" value="${ cate }"/>
+								</c:url>
+								<c:url var="reInsert" value="gesipanReInsertView.ge">
+									<c:param name="g_id" value="${ g.g_id }"/>
+									<c:param name="g_category" value="${ g.g_category }"/>
+								</c:url>
+								<c:url var="gUpdateView" value="gUpdateView.ge">
+									<c:param name="g_id" value="${ g.g_id }"/>
+									<c:param name="page" value="${ page }"/>
+								</c:url>
+								<c:url var="gDelete" value="gDelete.ge">
+									<c:param name="page" value="${ page }"/>
+									<c:param name="g_id" value="${ g.g_id }"/>
+									<c:param name="category" value="${ cate }"/>
+								</c:url>
+							</c:if>
 							<button class="btn btn-default" onclick="location.href='${ glist }'" style="font-size:12px; display:inline-block;">목록으로 돌아가기</button>
-							<button class="btn btn-default" id="reGesipan" style="display:none;" onclick="location.href='${reInsert}'">답글<i class="fas fa-pencil-alt"></i></button>
+							<c:if test="${ loginUser.user_id == 'admin' }">
+								<button class="btn btn-default" id="reGesipan" style="display:none;" onclick="location.href='${reInsert}'">답글<i class="fas fa-pencil-alt"></i></button>
+							</c:if>
 						</div>
-						<c:if test="${ g.g_writer == sessionScope.loginUser.user_id }">
 						<div style="float:right; margin-top:10px; display:inline-block;">
-							<c:url var="gUpdateView" value="gUpdateView.ge">
-								<c:param name="g_id" value="${ g.g_id }"/>
-								<c:param name="page" value="${ page }"/>
-							</c:url>
-							<c:url var="gDelete" value="gDelete.ge">
-								<c:param name="g_id" value="${ g.g_id }"/>
-							</c:url>
-							<button class="btn btn-primary" style="font-size:12px;" onclick="location.href='${ gUpdateView }'">수정하기</button>
-							<button class="btn btn-danger" style="font-size:12px;" onclick="checkDelete();">삭제하기</button>
-							<input id="g_id" type="hidden" value="${ g.g_id }">
+							<c:if test="${ g.g_writer == sessionScope.loginUser.user_id }">
+								<button class="btn btn-primary" style="font-size:12px;" onclick="location.href='${ gUpdateView }'">수정하기</button>
+								<%-- <button class="btn btn-danger" style="font-size:12px;" onclick="location.href='${gDelete}'">삭제하기</button> --%>
+								<input id="g_id" type="hidden" value="${ g.g_id }">
+								<a href="${ gDelete }" class="btn btn-danger" style="font-size:12px;" onclick="return confirm('삭제하시겠습니까?')">삭제하기</a>
+							</c:if>
+							<c:if test="${ loginUser.user_id == 'admin' }">
+								<!-- <button class="btn btn-danger" style="font-size:12px;" onclick="checkDelete();">삭제하기</button> -->
+								<!-- <button class="btn btn-danger" style="font-size:12px;" onclick="return if()">삭제하기</button> -->
+								<a href="${ gDelete }" class="btn btn-danger" style="font-size:12px;" onclick="return confirm('삭제하시겠습니까?')">삭제하기</a>
+								<input id="g_id" type="hidden" value="${ g.g_id }">
+							</c:if>
 						</div>
-						</c:if>
 					</div>
 				<!-- </form> -->
 			</div>
 		</div>
 	</div>
 	<script>
+	
 		function callback(){
 			getReplyList();
 		}
@@ -337,20 +375,19 @@ tbody td {
 			});
 		});
 		
-		function checkDelete(){
+		/* function checkDelete(){
 			if(confirm("정말 삭제하시겠습니까?") == true){
-				console.log("???")
-				location.href="gDelete.ge?g_id="+$('#g_id').val()+"&category="+'${cate}';
+				if('${viewName}' == null){
+					location.href="gDelete.ge?g_id="+$('#g_id').val()+"&category="+'${cate}';
+				} else {
+					location.href="gDelete.ge?g_id="+$('#g_id').val()+"&viewName=adminViewName";
+				}
 			} else {
 				return;
 			}
-		}
+		} */
 		
 		$(function(){
-			/* 관리자 조건넣기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-			if('${cate}' =='QNA' ){
-				$('#reGesipan').attr("style", "display:inline-block;");
-			}
 			
 			if('${g.g_order}' != 0){
 				$('#reGesipan').attr("style", "display:none");

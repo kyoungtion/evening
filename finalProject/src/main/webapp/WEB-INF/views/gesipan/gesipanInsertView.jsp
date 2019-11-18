@@ -33,6 +33,9 @@
 									<option value="Community">커뮤니티</option>
 									<option value="Selling">삽니다</option>
 									<option value="QNA">문의사항</option>
+									<c:if test="${loginUser.user_id == 'admin' }">
+										<option value="Notice">공지사항</option>
+									</c:if>
 								</select><br>
 							</div>
 							<br><br>
@@ -63,6 +66,13 @@
 							<input type="hidden" id="contentInput" name="g_content">
 							<input type="hidden" id="g_category" name="g_category">
 							<input type="hidden" id="locked" name="locked" value="N">
+							<c:if test="${ viewName == null }">
+								<input type="hidden" id="g_type" name="g_type" value="G">
+							</c:if>
+							<c:if test="${ viewName != null }">
+								<input type="hidden" id="viewName" name="viewName" value="${ viewName }">
+								<input type="hidden" id="g_type" name="g_type" value="N">
+							</c:if>
 						</div>
 					</div>
 				</form>

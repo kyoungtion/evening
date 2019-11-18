@@ -79,6 +79,16 @@ public class GesipanDAO {
 		return sqlSession.insert("gMapper.reInsert", g);
 	}
 
+	public int getListCountByType(SqlSessionTemplate sqlSession, String type) {
+		return sqlSession.selectOne("gMapper.getListCountByType", type);
+	}
+
+	public ArrayList<Gesipan> selectNoticeList(SqlSessionTemplate sqlSession, PageInfo pi, String type) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("gMapper.selectNoticeList", type, rb);
+	}
+
 
 
 	/*public int getCListCount(SqlSessionTemplate sqlSession) {

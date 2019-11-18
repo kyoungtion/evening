@@ -38,22 +38,37 @@ public class GesipanController {
 	private GesipanService gService;
 	
 	@RequestMapping("gesipanInsertView.ge")
-	public ModelAndView InsertView(@RequestParam("g_category") String category, ModelAndView mv) {
+	public ModelAndView InsertView(@RequestParam("g_category") String category, ModelAndView mv,
+			@RequestParam(value="viewName", required=false) String viewName, @RequestParam(value="page") Integer page, @RequestParam("g_type") String g_type) {
 		mv.addObject("category", category);
-		mv.setViewName("gesipanInsertView");
+		mv.addObject("page", page);
+		System.out.println(viewName);
+		if(viewName != null) {
+			mv.addObject("viewName", viewName);
+		} 
+			mv.setViewName("gesipanInsertView");
+		
 		return mv;
 	}
 	
 	@RequestMapping("gesipanReInsertView.ge")
-	public ModelAndView reInsertView(@RequestParam("g_category") String category, @RequestParam("g_id") int g_id, ModelAndView mv) {
+	public ModelAndView reInsertView(@RequestParam("g_category") String category, @RequestParam("g_id") int g_id, ModelAndView mv,
+									@RequestParam(value="viewName", required=false) String viewName, @RequestParam(value="page") Integer page) {
+		
+		mv.addObject("page", page);
 		mv.addObject("category", category);
 		mv.addObject("g", gService.selectGesipan(g_id));
-		mv.setViewName("gesipanReInsertView");
+		if(viewName != "") {
+			mv.addObject("viewName", viewName);
+		} else {
+			mv.setViewName("gesipanReInsertView");
+		}
 		return mv;
 	}
 	
 	@RequestMapping("gInsert.ge")
-	public String gInsert(@ModelAttribute Gesipan g, HttpServletRequest request) {
+	// 여ㄱ ㅣ작업중 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	public String gInsert(@ModelAttribute Gesipan g, HttpServletRequest request, @RequestParam(value="viewName", required=false) String viewName, Model model) {
 		String url = "redirect:gList.ge?category=";
 		if(g.getG_category().equals("Community")) {
 			url += "Community";
@@ -65,15 +80,20 @@ public class GesipanController {
 		
 		int result = gService.insertGesipan(g);
 		if(result > 0) {
-			return url;
+			if(viewName != null) {
+				model.addAttribute("viewName", viewName);
+				return "redirect:adminNoticeView.ad";
+			} else {
+				return url;
+			}
 		} else {
 			throw new GesipanException("게시글 등록에 실패하였습니다.");
 		}
 	}
 	
 	@RequestMapping("reInsert.ge")
-	public String reInsert(@ModelAttribute Gesipan g) {
-		System.out.println(g.getG_ref());
+	public String reInsert(@ModelAttribute Gesipan g, @RequestParam(value="viewName", required=false) String viewName, Model model,
+							@RequestParam(value="page") Integer page) {
 		String url = "redirect:gList.ge?category=";
 		if(g.getG_category().equals("Community")) {
 			url += "Community";
@@ -85,11 +105,18 @@ public class GesipanController {
 		
 		int result = gService.reGesipan(g);
 		if(result > 0) {
-			return url;
+			if(viewName != "") {
+				model.addAttribute("category", "QNA");
+				if(page != null) {
+					model.addAttribute("page", page);
+				}
+				return "redirect:qna.ad";
+			} else {
+				return url;
+			}
 		} else {
 			throw new GesipanException("답글 등록에 실패했습니다.");
 		}
-		
 	}
 	
 	
@@ -183,14 +210,21 @@ public class GesipanController {
 		return mv;
 	}
 	
+	// 게시판 상세화면 조회
 	@RequestMapping("gDetail.ge")
 	public ModelAndView gesipanDetail(ModelAndView mv,
 									@RequestParam("g_id") int g_id,
-									@RequestParam("page") int page) {
+									@RequestParam("page") int page,
+									@RequestParam(value="viewName", required=false) String viewName) {
 		Gesipan g = gService.selectGesipan(g_id);
 		
 		if(g != null) {
 			mv.addObject("g", g).addObject("page", page).setViewName("gesipanDetail");
+
+			if(viewName != "") {
+				mv.addObject("viewName", viewName);
+			} 
+			
 		} else {
 			throw new GesipanException("게시글 상세정보 조회에 실패하였습니다.");
 		}
@@ -288,10 +322,14 @@ public class GesipanController {
 	@RequestMapping("gUpdateView.ge")
 	public ModelAndView gUpdateView(@RequestParam("g_id") int g_id,
 									@RequestParam("page") int page,
-									ModelAndView mv) {
+									ModelAndView mv,
+									@RequestParam(value="viewName", required=false) String viewName) {
 		Gesipan g = gService.selectGesipan(g_id);
 		
 		if(g != null) {
+			if(viewName != "") {
+				mv.addObject("viewName", viewName);
+			}
 			mv.addObject("g", g).addObject("page", page).addObject("g_id", g_id).setViewName("gesipanUpdateForm");
 		} else {
 			throw new GesipanException("수정화면 접근에 실패했습니다.");
@@ -302,19 +340,22 @@ public class GesipanController {
 	
 	@RequestMapping("gUpdate.ge")
 	public ModelAndView gesipanUpdate(@ModelAttribute Gesipan g, @RequestParam("page") int page, @RequestParam("g_id") int g_id,
-								ModelAndView mv) {	
+								ModelAndView mv, @RequestParam(value="viewName", required=false) String viewName) {	
 		
-		System.out.println(g.getG_content());
-		System.out.println(g.getG_title());
-		System.out.println(g.getLocked());
 		g.setG_id(g_id);
 		
-		System.out.println("잠금???" + g.getLocked());
 		int result = gService.updateGesipan(g);
 		g = gService.selectGesipan(g_id);
 		
 		if(result > 0) {
-			mv.addObject("g_id", g_id).addObject("page", page).setViewName("redirect:gDetail.ge");
+			mv.addObject("g_id", g_id).addObject("page", page);
+
+			if(viewName != null) {
+				mv.addObject("viewName", viewName);
+				mv.addObject("category", "QNA");
+			}
+			mv.setViewName("redirect:gDetail.ge");
+			
 		} else {
 			throw new GesipanException("게시글 수정에 실패하였습니다.");
 		}
@@ -322,12 +363,18 @@ public class GesipanController {
 	}
 	
 	@RequestMapping("gDelete.ge")
-	public ModelAndView gesipanDelete(@RequestParam("category") String category, @RequestParam("g_id") int g_id, ModelAndView mv) {
+	public ModelAndView gesipanDelete(@RequestParam("category") String category, @RequestParam("g_id") int g_id, ModelAndView mv, @RequestParam(value="viewName", required=false) String viewName) {
 		
+		System.out.println(viewName);
 		int result = gService.deleteGesipan(g_id);
 		
 		if(result > 0) {
-			mv.addObject("category", category).setViewName("redirect:gList.ge");
+			mv.addObject("category", category);
+			if(viewName != "") {
+				mv.setViewName("redirect:qna.ad");
+			} else {
+				mv.setViewName("redirect:gList.ge");
+			}
 		} else {
 			throw new GesipanException("게시판 삭제에 실패했습니다.");
 		}

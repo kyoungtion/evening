@@ -33,5 +33,6 @@ public class Gesipan {
 	private String locked;
 	private String g_pwd;
 	private int g_order;
+	private String g_type;
 
 }

@@ -25,32 +25,31 @@
 
 .my-tabs1 {
 	padding-top: 10px;
-	list-style:none;
+	list-style: none;
 }
 
 .my-tabs1 li {
-	display:inline;
+	display: inline;
 }
 
 .btn {
 	font-size: 12px !important;
-	
 }
 
-#adminView {
+.active {
 	background: gray;
 	color: white;
 }
 
 .navbar {
-	margin-bottom:0px !important;
+	margin-bottom: 0px !important;
 	min-height: 0px !important;
 }
 
-.nav > li > a {
-    position: relative;
-    display:inline-block;
-    padding: 5px 10px !important;
+.nav>li>a {
+	position: relative;
+	display: inline-block;
+	padding: 5px 10px !important;
 }
 
 .dropdown-item {
@@ -60,98 +59,120 @@
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
-	<div class="my-panel"
-		style="width: 100%; height: 1000px;">
-		<div style="width: 100%; text-align:center !important; padding: 10px;">		
+	<div class="my-panel" style="width: 100%; height: 1000px;">
+		<div
+			style="width: 100%; text-align: center !important; padding: 10px;">
 			<ul class="my-tabs1">
-				<li class="my-tab"><button class="btn" id="adminView" onclick="location.href='adminView.ad'">회원 관리</button></li>
-				<li class="my-tab"><button class="btn" id="qna" onclick="location.href='qna.ad'">문의글 관리</button></li>
-				<!-- <li class="my-tab"><a href="dealDetail.me">거래내역</a></li> -->
-				<li class="my-tab"><button class="btn" id="insertNotice" onclick="location.href='insertNoticeView.ad'">공지사항 작성</button></li>
+				<li class="my-tab"><button class="btn active" id="adminView"
+						onclick="location.href='adminView.ad'">회원 관리</button></li>
+				<c:url var="qnaList" value="qna.ad">
+					<c:param name="category" value="QNA" />
+					<c:param name="viewName" value="adminQnaView" />
+				</c:url>
+				<li class="my-tab"><button class="btn" id="qna"
+						onclick="location.href='${qnaList}'">문의글 관리</button></li>
+				<c:url var="adminNotice" value="adminNoticeView.ad">
+					<c:param name="viewName" value="adminNotice"/>
+				</c:url>
+				<li class="my-tab"><button class="btn" id="insertNotice"
+						onclick="location.href='${adminNotice}'">공지사항 관리</button></li>
 			</ul>
-		</div>	
-		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 100%; background: whitesmoke;">
-			<div class="contact-wrap" style="height: 900px; padding:0;">
+		</div>
+		<div class="col-md-10 col-md-offset-1"
+			style="margin: 0; width: 100%; background: whitesmoke;">
+			<div class="contact-wrap" style="height: 900px; padding: 0;">
 				<form style="height: 100%;">
 					<div class="container">
 						<div class="row content" style="height: 800px;">
-							<div class="row content table" style="height: 600px; ">
-							<input type="checkbox" id="selectAll"> <label for="selectAll">전체선택</label>
-							<script>
-								$(function(){
-									$('#selectAll').click(function(){
-										if($('#selectAll').is(":checked")){
-											$("input[name='chk']").prop('checked', true);
-										} else {
-											$("input[name='chk']").prop('checked', false);
-										}
+							<div class="row content table" style="height: 600px;">
+								<input type="checkbox" id="selectAll"> <label
+									for="selectAll">전체선택</label>
+								<script>
+									$(function() {
+										$('#selectAll').click(function() {
+											if ($('#selectAll').is(":checked")) {
+												$("input[name='chk']").prop('checked',true);
+											} else {
+												$("input[name='chk']").prop('checked',false);
+											}
+										});
+
+										$('#chk').on('click',function() {
+											if ($('#chk').is(":checked") == false) {
+												$('#selectAll').attr("checked",false);
+											}
+										});
 									});
-									
-									$('#chk').on('click', function(){
-										if($('#chk').is(":checked") == false){
-											$('#selectAll').attr("checked", false);
-										}
-									});
-								});
-							</script>
-							<table border="1" summary="" class="content-table">
-								<colgroup>
-									<col style="width: 2%">
-									<col style="width: 6%;">
-									<col style="width: 10%;">
-									<col style="width: 10%;">
-									<col style="width: 12%;">
-									<col style="width: 30%;">
-									<col style="width: 10%;">
-									<col style="width: 10%;">
-									<col style="width: 5%;">
-								</colgroup>
-								<thead>
-									<tr style="">
-										<th scope="col"><i class="fas fa-check"></i></th>
-										<th scope="col">아이디</th>
-										<th scope="col">이름(별명)</th>
-										<th scope="col">연락처</th>
-										<th scope="col">이메일</th>
-										<th scope="col">주소</th>
-										<th scope="col">가입일</th>
-										<th scope="col">등급</th>
-										<th scope="col" style="text-align:center;">설정</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="m" items="${list}" varStatus="st">
-										<tr style="background-color: #FFFFFF; color: #333333;">
-											<td class="displaynone" id="listLength">${fn:length(list)}</td>
-											<td><input class="chk" id="chk" name="chk" type="checkbox" value="${ m.user_id }"></td>
-											<td id="user_id${st.index}">${ m.user_id }</td>
-											<td>${ m.user_name }(${m.nickName })</td>
-											<td>${ m.phone }</td>
-											<td>${ m.user_email }</td>
-											<td>${ m.address }</td>
-											<td>${ m.enroll_date }</td>
-											<td>${ m.rankCode.rank_name }( ${ m.rankCode.rank_img } )</td>
-											<td style="text-align:center;">
-												<ul class="nav navbar panel_toolbox">
-													<li class="dropdown">
-														<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></a>
-														<ul class="dropdown-menu" role="menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(-5px, 30px, 0px); top: 0px; left: 0px; will-change: transform;">
-															<li><a class="dropdown-item memberLevel" id="memberLevel.${st.index }">등급 조정</a></li>
-															<li><a class="dropdown-item memberDelete" id="memberDelete.${st.index }">회원 삭제</a></li>
-														</ul>
-													</li>
-												</ul>
-											</td>
+								</script>
+								<table border="1" summary="" class="content-table">
+									<colgroup>
+										<col style="width: 2%">
+										<col style="width: 6%;">
+										<col style="width: 10%;">
+										<col style="width: 10%;">
+										<col style="width: 12%;">
+										<col style="width: 30%;">
+										<col style="width: 10%;">
+										<col style="width: 10%;">
+										<col style="width: 5%;">
+									</colgroup>
+									<thead>
+										<tr style="">
+											<th scope="col"><i class="fas fa-check"></i></th>
+											<th scope="col">아이디</th>
+											<th scope="col">이름(별명)</th>
+											<th scope="col">연락처</th>
+											<th scope="col">이메일</th>
+											<th scope="col">주소</th>
+											<th scope="col">가입일</th>
+											<th scope="col">등급</th>
+											<th scope="col" style="text-align: center;">설정</th>
 										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
+									</thead>
+									<tbody>
+										<c:forEach var="m" items="${list}" varStatus="st">
+											<tr style="background-color: #FFFFFF; color: #333333;">
+												<td class="displaynone" id="listLength">${fn:length(list)}</td>
+												<td><input class="chk" id="chk" name="chk"
+													type="checkbox" value="${ m.user_id }"></td>
+												<td id="user_id${st.index}">${ m.user_id }</td>
+												<td>${ m.user_name }(${m.nickName })</td>
+												<td>${ m.phone }</td>
+												<td>${ m.user_email }</td>
+												<td>${ m.address }</td>
+												<td>${ m.enroll_date }</td>
+												<td>${ m.rankCode.rank_name }(${ m.rankCode.rank_img }
+													)</td>
+												<td style="text-align: center;">
+													<ul class="nav navbar panel_toolbox">
+														<li class="dropdown"><a href=""
+															class="dropdown-toggle" data-toggle="dropdown"
+															role="button" aria-haspopup="true" aria-expanded="false"><i
+																class="fas fa-cog"></i></a>
+															<ul class="dropdown-menu" role="menu"
+																x-placement="bottom-start"
+																style="position: absolute; transform: translate3d(-5px, 30px, 0px); top: 0px; left: 0px; will-change: transform;">
+																<li><a class="dropdown-item memberLevel"
+																	id="memberLevel.${st.index }">등급 조정</a></li>
+																<li><a class="dropdown-item memberDelete"
+																	id="memberDelete.${st.index }">회원 삭제</a></li>
+															</ul></li>
+													</ul>
+												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
 							</div>
-							<div style="width:100%; border-top:1px solid whitesmoke; height:100px; padding-top:10px;">
+							<div
+								style="width: 100%; border-top: 1px solid whitesmoke; height: 100px; padding-top: 10px;">
 								<div class="row">
-									<div class="col-md-5"
-										style="text-align: center; width: 100%;">
-			
+									<div style="text-align:right; margin-right:20px;">
+											<!-- <button class="btn-primary">등급변경</button> -->
+											<button type="button" class="btn-danger" id="deleteAllMember">선택회원 전부 삭제</button>
+										</div>
+									<div class="col-md-5" style="text-align: center; width: 100%;">
+
 										<!-- </div> -->
 										<ul class="pagination">
 											<!-- 이전 -->
@@ -190,10 +211,7 @@
 										</ul>
 									</div>
 								</div>
-								<div style="text-align:center;">
-									<!-- <button class="btn-primary">등급변경</button> -->
-									<button class="btn-danger" id="deleteAllMember">선택회원 전체삭제</button>
-								</div>
+								
 							</div>
 						</div>
 						<br>
@@ -203,53 +221,56 @@
 		</div>
 	</div>
 	<script>
-		$(function(){
-			$('.memberDelete').on('click', function(){
+		$(function() {
+			$('.memberDelete').on('click', function() {
 				var user_id = $(this).attr('id');
 				var indexof = user_id.indexOf('.');
-				var i = user_id.substring(indexof+1);
-				
-				user_id = $('#user_id'+i).text();
-				
-				if(confirm('해당 회원을 삭제하시겠습니까?')){
-					location.href="memberDelete.ad?user_id="+user_id;
+				var i = user_id.substring(indexof + 1);
+
+				user_id = $('#user_id' + i).text();
+
+				if (confirm('해당 회원을 삭제하시겠습니까?')) {
+					location.href = "memberDelete.ad?user_id=" + user_id;
 				}
 			});
 		});
-		$(function(){
-			$('.memberLevel').on('click', function(){
-				var user_id = $(this).attr('id');
-				var indexof = ($(this).attr('id')).indexOf('.');
-				var i = user_id.substring(indexof+1);
+		$(function() {
+			$('.memberLevel')
+					.on(
+							'click',
+							function() {
+								var user_id = $(this).attr('id');
+								var indexof = ($(this).attr('id')).indexOf('.');
+								var i = user_id.substring(indexof + 1);
 
-				user_id = $('#user_id'+i).text();
-				
-				var url = "memberLevelView.ad?user_id="+user_id;
-				var name = "회원등급 조정";
+								user_id = $('#user_id' + i).text();
 
-				var option = "width=620px, height=450px, top=100, left=200, resizable=0, location=0, scrollbars=0, tollbars=0, status=0";
-				window.open(url, name, option);
-			});
+								var url = "memberLevelView.ad?user_id="
+										+ user_id;
+								var name = "회원등급 조정";
+
+								console.log(url);
+								var option = "width=620px, height=450px, top=100, left=200, resizable=0, location=0, scrollbars=0, tollbars=0, status=0";
+								window.open(url, name, option);
+							});
 		});
-		
-		$('#deleteAllMember').on('click', function(){
-			if(confirm("선택한 회원 모두 삭제하시겠습니까?")){
-				
+
+		$('#deleteAllMember').on('click', function() {
+			if (confirm("선택한 회원 모두 삭제하시겠습니까?")) {
+
 				var ids = "";
-				$('input:checkbox:checked').each(function(index){
-					if(index != 0){
+				$('input:checkbox:checked').each(function(index) {
+					if (index != 0) {
 						ids += "," + $(this).val();
 					} else {
 						ids += $(this).val();
 					}
-					
-					location.href="deleteAllMember.ad?ids="+ids;
+
+					location.href = "deleteAllMember.ad?ids=" + ids;
 				});
-				
 				console.log(ids);
 			}
-		});	
-		
+		});
 	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />

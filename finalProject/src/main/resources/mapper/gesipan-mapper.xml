@@ -4,7 +4,7 @@
 
 	<insert id="insertGesipan" parameterType="Gesipan">
 		insert into Gesipan
-		values(seq_gesipan.nextval, #{g_category}, #{g_title}, #{g_content}, #{g_writer}, #{g_count}, default, default, seq_gesipan.nextval, default, #{locked}, #{g_pwd}, default, default)
+		values(seq_gesipan.nextval, #{g_category}, #{g_title}, #{g_content}, #{g_writer}, #{g_count}, default, default, seq_gesipan.nextval, default, #{locked}, #{g_pwd}, default, #{g_type})
 	</insert>
 	
 	<insert id="reInsert" parameterType="Gesipan">
@@ -56,6 +56,19 @@
 			</when>
 		</choose>
 		order by g_type desc, g_ref desc, g_order asc
+	</select>
+	
+	<select resultType="_int" id="getListCountByType">
+		select count(*)
+		from gesipan
+		where g_status='Y' and g_type = #{ type }
+	</select>
+	
+	<select id="selectNoticeList" resultType="Gesipan">
+		select *
+		from gesipan
+		where g_status='Y' and g_type = #{ type }
+		order by g_id desc
 	</select>
 	
 	<select id="selectGesipan" resultType="Gesipan" parameterType="_int">
@@ -121,5 +134,6 @@
 		set g_status='Y'
 		where g_id = #{g_id}
 	</update>
+	
 
 </mapper>

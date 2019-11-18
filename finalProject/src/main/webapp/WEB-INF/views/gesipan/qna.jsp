@@ -262,7 +262,10 @@
 			var index = ${fn:length(list)};
 			
 			for(var i = 0; i < index; i++){
-					
+				if('${sessionScope.loginUser.user_id}' == 'admin'){
+					var g_id = $(this).prev().prev().text();
+					location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
+				} else {
 					$('#subject'+i).click(function(){
 						if(${sessionScope.loginUser != null}){
 							var g_pwd = $(this).prev().text();
@@ -291,6 +294,7 @@
 							alert('회원만 조회가능합니다.');
 						}
 					});
+				}
 			}
 			
 			$('#modal_close_btn').click(function(){

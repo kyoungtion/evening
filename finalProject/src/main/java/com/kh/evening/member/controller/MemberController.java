@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.common.Pageination;
+import com.kh.evening.gesipan.model.service.GesipanService;
 import com.kh.evening.gesipan.model.vo.Gesipan;
 //import com.kh.evening.member.email.EmailSender;
 import com.kh.evening.member.model.exception.MemberException;
@@ -36,6 +37,9 @@ public class MemberController {
    
    @Autowired
    private MemberService mService;
+   
+   @Autowired
+   private GesipanService gService;
    
    @Autowired
    private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -192,7 +196,6 @@ public class MemberController {
 	   pi = Pageination.getGesipanPageInfo(currentPage, listCount);
 	   
 	   ArrayList<Member> list = mService.getMembers(pi);
-	   System.out.println(list);
 	   
 	   if(list != null) {
 		   mv.addObject("list", list).addObject("pi", pi).setViewName("manageMember");
@@ -202,8 +205,10 @@ public class MemberController {
    
    @RequestMapping("memberLevelView.ad")
    public String memberLevelView(Model model, @RequestParam("user_id") String user_id) {
+	   
 	   Member m = new Member();
 	   m.setUser_id(user_id);
+	   
 	   Member result = mService.memberLogin(m);
 	   model.addAttribute("m", result);
 	   return "MemberLevelView";
@@ -213,11 +218,9 @@ public class MemberController {
    public String updateRackCode(@RequestParam("user_id") String user_id, @RequestParam("rank_code") String rank_code, Model model) {
 	   Member m = new Member();
 	   m.setUser_id(user_id);
+	   m.setRank_code(rank_code);
 	   
-	   Map<String, String> map = new HashMap<>();
-	   map.put("user_id", user_id);
-	   map.put("rank_code", rank_code);
-	   int result = mService.updateRankCode(map);
+	   int result = mService.updateRankCode(m);
 	   
 	   if(result > 0) {
 		   Member resultMember = mService.memberLogin(m);
@@ -246,7 +249,6 @@ public class MemberController {
    
    @RequestMapping("deleteAllMember.ad")
    public String memberDeleteAll(@RequestParam("ids") String ids) {
-	   
 	   String[] idArray = ids.split(",");
 	   
 	   int result = mService.deleteAllMember(idArray);
@@ -258,6 +260,52 @@ public class MemberController {
 	   }
    }
    
+   @RequestMapping("qna.ad")
+   public ModelAndView adminQnaView(@RequestParam("category") String category, @RequestParam(value="page", required=false) Integer page, 
+		   							ModelAndView mv, @RequestParam(value="viewName", required=false) String viewName)  {
+	   int currentPage = 1;
+	   if(page != null) {
+		   currentPage = page;
+	   }
+	   
+	   int listCount = gService.getListCount(category);	
+	   
+	   PageInfo pi = null;
+	   pi = Pageination.getQnaPageInfo(currentPage, listCount);
+	   
+	   ArrayList<Gesipan> list = gService.selectGesipanList(pi, category);
+	   
+	   if(list != null) {
+		   mv.addObject("list", list);
+		   mv.addObject("pi", pi);
+		   mv.setViewName("adminQnaView");
+	   }
+	   return mv;
+   }
+   
+   @RequestMapping("adminNoticeView.ad")
+   public ModelAndView adminNoticeView(@RequestParam(value="page", required=false) Integer page, ModelAndView mv,
+		   								@RequestParam(value="viewName", required=false) String viewName){
+	   String type = "N";
+	   int currentPage = 1;
+	   if(page != null) {
+		   currentPage = page;
+	   }
+	   
+	   int listCount = gService.getListCountByType(type);
+	   
+	   PageInfo pi = null;
+	   pi = Pageination.getQnaPageInfo(currentPage, listCount);
+	   
+	   ArrayList<Gesipan> list = gService.selectNoticeList(pi, type);
+	   
+	   if(list != null) {
+		   mv.addObject("pi", pi);
+		   mv.addObject("list", list);
+		   mv.setViewName(viewName);
+	   }
+	   return mv;
+   }
    
    // ********************************************끝
    
