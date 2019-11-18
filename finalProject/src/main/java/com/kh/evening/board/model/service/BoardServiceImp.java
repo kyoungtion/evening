@@ -54,4 +54,26 @@ public class BoardServiceImp implements BoardService {
 		return bDAO.insertF(sqlSession);
 	}
 
+	@Override
+	public int insertBoard(Board b) {
+		return bDAO.insertBoard(sqlSession,b);
+		
+	}
+
+	@Override
+	public int insertAttachment(Attachment atm) {
+		return bDAO.insertAttachment(sqlSession,atm);
+		
+	}
+
+	@Override
+	public int updateBoard(Board b) {
+		return bDAO.updateBoard(sqlSession,b);
+	}
+
+	@Override
+	public int updateAttachment(Attachment atm) {
+		return bDAO.updateAttachment(sqlSession,atm);
+	}
+
 }

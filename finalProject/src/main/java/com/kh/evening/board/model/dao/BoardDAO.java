@@ -3,6 +3,7 @@ package com.kh.evening.board.model.dao;
 import java.util.ArrayList;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import com.kh.evening.board.model.vo.Attachment;
 import com.kh.evening.board.model.vo.Board;
@@ -44,6 +45,23 @@ public int viewCount(SqlSession sqlSession, int sg_id) {
 public ArrayList<String> insertF(SqlSession sqlSession) {
 	return (ArrayList)sqlSession.selectList("boardMapper.category");
 }
+
+public int insertBoard(SqlSession sqlSession, Board b) {
+	return sqlSession.insert("boardMapper.insertBoard",b);
+}
+
+public int insertAttachment(SqlSession sqlSession, Attachment atm) {
+	return sqlSession.insert("boardMapper.attachmentInsert",atm);
+}
+
+public int updateBoard(SqlSession sqlSession, Board b) {
+	return sqlSession.update("boardMapper.updateBoard",b);
+}
+
+public int updateAttachment(SqlSession sqlSession, Attachment atm) {
+	return sqlSession.update("boardMapper.attachmentUpdate",atm);
+}
+
 
 
 

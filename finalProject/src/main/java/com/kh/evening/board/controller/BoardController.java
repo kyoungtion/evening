@@ -1,10 +1,20 @@
 package com.kh.evening.board.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.kh.evening.board.model.exception.BoardException;
 import com.kh.evening.board.model.service.BoardService;
@@ -18,113 +28,287 @@ import com.kh.evening.common.Pageination;
 @Controller
 public class BoardController {
 
-  @Autowired
-  private BoardService bService;
+	@Autowired
+	private BoardService bService;
 
-  @RequestMapping("auctionList.bo")
-  public ModelAndView auctionList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv, @RequestParam(value="mode", required=false) String mode) {
-    int currentPage = 1;
-    if (page != null) {
-      currentPage = page;
-    }
-    
-    String modeSet = "recent";
-    if (mode != null) {
-      modeSet = mode;
-    }
-    
-    String boardCategory = "A";
-    int listCount = bService.getBoardListCount(boardCategory);
-    PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
-
-    BoardMode bMode = new BoardMode(modeSet, boardCategory);
-    
-    ArrayList<Board> alist = bService.boardList(pi,bMode);
-    ArrayList<Attachment> af = bService.boardFileList();
-    
-    if (alist != null) {
-      mv.addObject("alist", alist);
-      mv.addObject("pi",pi);
-      mv.addObject("modeSet",modeSet);
-      mv.addObject("af", af);
-      mv.setViewName("auctionBoard");
-    } else {
-      throw new BoardException("경매 게시판 조회 실패.");
-    }
-
-    return mv;
-  }
-  
-  @RequestMapping("secondgoodList.bo")
-  public ModelAndView secondGoodList(@RequestParam(value="page", required=false) Integer page, ModelAndView mv, @RequestParam(value="mode", required=false) String mode) {
-    int currentPage = 1;
-    if (page != null) {
-      currentPage = page;
-    }
-    
-    String modeSet = "recent";
-    if (mode != null) {
-      modeSet = mode;
-    }
-    
-    String boardCategory = "SG";
-    int listCount = bService.getBoardListCount(boardCategory);
-    PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
-    
-    BoardMode bMode = new BoardMode(modeSet, boardCategory);
-
-    ArrayList<Board> alist = bService.boardList(pi,bMode);
-    ArrayList<Attachment> af = bService.boardFileList();
-    
-    if (alist != null) {
-      mv.addObject("alist", alist);
-      mv.addObject("pi",pi);
-      mv.addObject("af", af);
-      mv.addObject("modeSet", modeSet);
-      mv.setViewName("secondGoodBoard");
-    } else {
-      throw new BoardException("중고 게시판 조회 실패.");
-    }
-    
-    return mv;
-  }
-  
-  @RequestMapping("selectOne.bo")
-  public ModelAndView selectOne(@RequestParam("sgId") int sgId,ModelAndView mv) {
-     
-     int a = bService.viewCount(sgId);
-     
-     Board board = bService.selectOne(sgId);
-     Attachment at = bService.boardFileList(sgId);
-     
-     
-     if(board != null) {
-       if(board.getB_Category().equals("A")) {
-         mv.addObject("board",board).addObject("at",at).setViewName("auctionDetail");
-       }else {
-        mv.addObject("board",board)
-           .addObject("at",at)
-           .setViewName("usedDetail");
-       }
-     }else {
-        throw new BoardException("게시글 읽기를 실패하였습니다.");
-     }
-     
-     return mv;
-  }
-	
-	@RequestMapping("insertF.bo")
-	public ModelAndView insertF(ModelAndView mv,@RequestParam("type") int type) {
-		ArrayList<String> category = bService.category();
-		
-		String fromname="";
-		if(type==1) {
-			fromname="usedInsertForm";
-		}else {
-			fromname="auctionInsertForm";
+	@RequestMapping("auctionList.bo")
+	public ModelAndView auctionList(@RequestParam(value = "page", required = false) Integer page, ModelAndView mv,
+			@RequestParam(value = "mode", required = false) String mode) {
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = page;
 		}
-		mv.addObject("category", category)
-					.setViewName(fromname);;
+
+		String modeSet = "recent";
+		if (mode != null) {
+			modeSet = mode;
+		}
+
+		String boardCategory = "A";
+		int listCount = bService.getBoardListCount(boardCategory);
+		PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
+
+		BoardMode bMode = new BoardMode(modeSet, boardCategory);
+
+		ArrayList<Board> alist = bService.boardList(pi, bMode);
+		ArrayList<Attachment> af = bService.boardFileList();
+
+		if (alist != null) {
+			mv.addObject("alist", alist);
+			mv.addObject("pi", pi);
+			mv.addObject("modeSet", modeSet);
+			mv.addObject("af", af);
+			mv.setViewName("auctionBoard");
+		} else {
+			throw new BoardException("경매 게시판 조회 실패.");
+		}
+
 		return mv;
+	}
+
+	@RequestMapping("secondgoodList.bo")
+	public ModelAndView secondGoodList(@RequestParam(value = "page", required = false) Integer page, ModelAndView mv,
+			@RequestParam(value = "mode", required = false) String mode) {
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = page;
+		}
+
+		String modeSet = "recent";
+		if (mode != null) {
+			modeSet = mode;
+		}
+
+		String boardCategory = "SG";
+		int listCount = bService.getBoardListCount(boardCategory);
+		PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
+
+		BoardMode bMode = new BoardMode(modeSet, boardCategory);
+
+		ArrayList<Board> alist = bService.boardList(pi, bMode);
+		ArrayList<Attachment> af = bService.boardFileList();
+
+		if (alist != null) {
+			mv.addObject("alist", alist);
+			mv.addObject("pi", pi);
+			mv.addObject("af", af);
+			mv.addObject("modeSet", modeSet);
+			mv.setViewName("secondGoodBoard");
+		} else {
+			throw new BoardException("중고 게시판 조회 실패.");
+		}
+
+		return mv;
+	}
+
+	@RequestMapping("selectOne.bo")
+	public ModelAndView selectOne(@RequestParam("sgId") int sgId, ModelAndView mv) {
+
+		int a = bService.viewCount(sgId);
+
+		Board board = bService.selectOne(sgId);
+		Attachment at = bService.boardFileList(sgId);
+
+		if (board != null) {
+			if (board.getB_Category().equals("A")) {
+				mv.addObject("board", board).addObject("at", at).setViewName("auctionDetail");
+			} else {
+				mv.addObject("board", board).addObject("at", at).setViewName("usedDetail");
+			}
+		} else {
+			throw new BoardException("게시글 읽기를 실패하였습니다.");
+		}
+
+		return mv;
+	}
+
+	@RequestMapping("boardupdateForm.bo")
+	public ModelAndView boardUpdateForm(ModelAndView mv, @RequestParam("sgId") int sgId) {
+		ArrayList<String> category = bService.category();
+		Board board = bService.selectOne(sgId);
+		Attachment at = bService.boardFileList(sgId);
+
+		if (board != null) {
+			if (board.getB_Category().equals("A")) {
+				mv.addObject("board", board).addObject("at", at).addObject("category", category)
+						.setViewName("auctionUpdateForm");
+			} else {
+				mv.addObject("board", board).addObject("at", at).addObject("category", category)
+						.setViewName("usedUpdateForm");
+			}
+		} else {
+			throw new BoardException("게시글 읽기를 실패하였습니다.");
+		}
+		return mv;
+	}
+
+	@RequestMapping("boardUpdate.bo")
+	public ModelAndView boardUpdate(ModelAndView mv, @ModelAttribute Board b,
+			@RequestParam("smImg") MultipartFile uploadFile, HttpServletRequest request, HttpServletResponse response) {
+		if (b.getSG_DEAL().equals("DIRECT")) {
+			b.setSG_DELIVERY("N");
+		} else {
+			b.setSG_AREA("");
+		}
+		
+		System.out.println(b);
+
+		Attachment atm = new Attachment();
+		String renameFileName = "";
+		
+		System.out.println(uploadFile.isEmpty());
+		if (uploadFile != null && !uploadFile.isEmpty()) {
+
+			try {
+				renameFileName = saveFile(uploadFile, request, response);
+				if (renameFileName != null) {
+					atm.setORIGINALFILENAME(uploadFile.getOriginalFilename());
+					atm.setRENAMEFILENAME(renameFileName);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		String root2 = request.getSession().getServletContext().getRealPath("resources") + "\\thumbnail/";
+		File file;
+		int result1 = bService.updateBoard(b);
+
+		if (result1 > 0) {
+			int result = 1;
+			if (!uploadFile.isEmpty()) {
+				result = bService.updateAttachment(atm);
+			}
+			if (result <= 0){
+				file = new File(root2 + renameFileName);
+				System.out.println("파일 삭제 확인 : " + file.delete());
+				throw new BoardException("썸네일 이미지 등록을 실패하였습니다.");
+			}
+		} else {
+			file = new File(root2 + renameFileName);
+			System.out.println("파일 삭제 확인 : " + file.delete());
+			throw new BoardException("게시물 등록을 실패하였습니다.");
+		}
+
+		mv.addObject("sgId", b.getSG_ID()).setViewName("redirect:selectOne.bo");
+
+		return mv;
+	}
+
+	@RequestMapping("insertF.bo")
+	public ModelAndView insertF(ModelAndView mv, @RequestParam("type") int type) {
+		ArrayList<String> category = bService.category();
+
+		String fromname = "";
+		if (type == 1) {
+			fromname = "usedInsertForm";
+		} else {
+			fromname = "auctionInsertForm";
+		}
+		mv.addObject("category", category).setViewName(fromname);
+		;
+		return mv;
+	}
+
+	@RequestMapping("uInsert.bo")
+	public String usedInsert(@ModelAttribute Board b, @RequestParam("smImg") MultipartFile uploadFile,
+			HttpServletRequest request, HttpServletResponse response) {
+		if (b.getSG_DELIVERY() == null) {
+			b.setSG_DELIVERY("N");
+		} else {
+			b.setSG_AREA("");
+		}
+
+		Attachment atm = new Attachment();
+//		b.setSG_PRICE(Integer.parseInt(b.getSG_PRICE()));
+		String renameFileName = "";
+		if (uploadFile != null && !uploadFile.isEmpty()) {
+
+			try {
+				renameFileName = saveFile(uploadFile, request, response);
+				if (renameFileName != null) {
+					atm.setORIGINALFILENAME(uploadFile.getOriginalFilename());
+					atm.setRENAMEFILENAME(renameFileName);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+//		request.getParameter("imgNames");
+
+		String[] allName = request.getParameter("imgNames").split(",");
+		String[] saveName = request.getParameter("deletImg").split(",");
+		String root = request.getSession().getServletContext().getRealPath("resources") + "\\textImgs/";
+		String root2 = request.getSession().getServletContext().getRealPath("resources") + "\\thumbnail/";
+		File file;
+		for (int i = 0; i < saveName.length; i++) {
+			for (int j = 0; j < allName.length; j++) {
+				if (saveName[i].equals(allName[j])) {
+					allName[j] = "N";
+				}
+			}
+		}
+		for (int i = 0; i < allName.length; i++) {
+			if (!allName[i].equals("N")) {
+				file = new File(root + allName[i]);
+				System.out.println("파일 삭제 확인 : " + file.delete());
+			}
+		}
+
+		int result1 = bService.insertBoard(b);
+
+		if (result1 > 0) {
+			int result = bService.insertAttachment(atm);
+
+			if (result > 0) {
+				return "redirect:home.do";
+			} else {
+				for (int i = 0; i < allName.length; i++) {
+					if (!allName[i].equals("N")) {
+						file = new File(root + allName[i]);
+						System.out.println("파일 삭제 확인 : " + file.delete());
+					}
+				}
+				file = new File(root2 + renameFileName);
+				System.out.println("파일 삭제 확인 : " + file.delete());
+				throw new BoardException("썸네일 이미지 등록을 실패하였습니다.");
+			}
+		} else {
+			for (int i = 0; i < allName.length; i++) {
+				if (!allName[i].equals("N")) {
+					file = new File(root + allName[i]);
+					System.out.println("파일 삭제 확인 : " + file.delete());
+				}
+			}
+			file = new File(root2 + renameFileName);
+			System.out.println("파일 삭제 확인 : " + file.delete());
+			throw new BoardException("게시물 등록을 실패하였습니다.");
+		}
+
+	}
+
+	public String saveFile(MultipartFile file, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\thumbnail";
+
+		File folder = new File(savePath);
+		if (!folder.exists()) {
+			folder.mkdirs();
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
+		String oringinFileName = file.getOriginalFilename();
+		String renameFileName = "i" + sdf.format(new java.sql.Date(System.currentTimeMillis()))
+				+ (int) (Math.random() * 1000) + 1 + "."
+				+ oringinFileName.substring(oringinFileName.lastIndexOf(".") + 1);
+		String renamePath = folder + "\\" + renameFileName;
+
+		try {
+			file.transferTo(new File(renamePath));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return renameFileName;
 	}
 }

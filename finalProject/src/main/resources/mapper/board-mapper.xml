@@ -57,7 +57,7 @@
 
 	<insert id="insertBoard" parameterType="Board">
 		INSERT INTO SECOND_GOODS
-		VALUES(SEQ_SG.NEXTVAL,'admin','SG',#{SG_BNAME},'운영자',#{TAG_NAME},DEFAULT,#{SG_PRICE},default,#{SG_INFO},DEFAULT,SYSDATE,SYSDATE,DEFAULT,SYSDATE,#{SG_DEAL},#{SG_AREA},#{SG_DELIVERY})
+		VALUES(SEQ_SG.NEXTVAL,'admin','SG',#{SG_BNAME},'운영자',#{TAG_NAME},DEFAULT,#{SG_PRICE},default,#{SG_INFO},DEFAULT,SYSDATE,SYSDATE,DEFAULT,SYSDATE,#{SG_DEAL},#{SG_AREA},#{SG_DELIVERY},DEFAULT)
 	</insert>
 
 	<insert id="attachmentInsert" parameterType="Attachment">
@@ -65,6 +65,7 @@
 		SECOND_GOODS), #{ORIGINALFILENAME}, #{RENAMEFILENAME},
 		sysdate,sysdate,default)
 	</insert>
+	
 	<update id="boardViewCount" parameterType="_int">
 		UPDATE SECOND_GOODS
 		SET SG_COUNT = SG_COUNT+1 
@@ -84,7 +85,20 @@
 	<select id="category" resultType="string">
 		SELECT * FROM GOODS_TAG
 	</select>
+	
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE SECOND_GOODS 
+		SET SG_BNAME = #{SG_BNAME},TAG_NAME = #{TAG_NAME},SG_PRICE=#{SG_PRICE},SG_INFO=#{SG_INFO},SG_DEAL=#{SG_DEAL},SG_AREA=#{SG_AREA},SG_DELIVERY=#{SG_DELIVERY}
+		WHERE SG_ID=#{SG_ID}
+	</update>
 
+	<update id="attachmentUpdate">
+		UPDATE ADD_FILE
+		SET ORIGINALFILENAME=#{ORIGINALFILENAME},RENAMEFILENAME=#{RENAMEFILENAME},FILE_UPDATE_DATE=SYSDATE
+		WHERE SG_ID=#{SG_ID}
+	</update>
+	
 
 
 </mapper>

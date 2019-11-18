@@ -46,16 +46,16 @@
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
-
+	<div>
 	<div class="evPage"
 		style="height: auto; width: 100%; background: #ffffff; text-align: center;">
 		<div class="pg"
-			style="width: 90%; display: inline-block; background: #f5f5f5;">
+			style="width: 75%; height: 1050px; display: inline-block; background: #f5f5f5;">
 			<br>
-			<div class="headLine" style="width: 50%; display: inline-block;">
+			<div class="headLine" style="width: auto; display: inline-block;">
 				<h2>${board.SG_BNAME }</h2>
 				<img src="/evening/resources/thumbnail/${at.RENAMEFILENAME}"
-								style="width: 500px; height: auto;">
+								style="width: 500px; height: 500px;">
 				<br><br>
 				
 				<p style="border-top: 1px solid gray;">${board.SG_ENROLL_DATE}</p>
@@ -166,15 +166,18 @@
 		</div>
 	</div>
 	<div style="width: 100%; height: 60px; display: inline-block;">
-		<button class="btn btn-primary">구매</button>
+		<c:url value="boardupdateForm.bo?type=1" var="bUpdate">
+			<c:param name="sgId" value="${board.SG_ID }"/>	
+		</c:url>
+		<button class="btn btn-primary">구매</button>		
 		<button class="btn btn-primary"
-			onclick="location.href='updateForm.ud';">수정</button>
+			onclick="location.href='${bUpdate}';">수정</button>
 	</div>
 	</div>
 	<br>
 	
-	<div style="width: 90%; min-height:300px; height: auto; display: inline-block;">
-		${board.SG_INFO }</div>
+	<div style="width: 90%; min-height:300px; height: auto; display: inline-block;">${board.SG_INFO }</div>
+	<div style="width: 90%; height: auto; min-height: 150px; background: aqua; display: inline-block;"></div>
 		<br>
 	<hr>
 	<script>

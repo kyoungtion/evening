@@ -22,4 +22,12 @@ public interface BoardService {
 
 	ArrayList<String> category();
 
+	int insertBoard(Board b);
+
+	int insertAttachment(Attachment atm);
+
+	int updateBoard(Board b);
+
+	int updateAttachment(Attachment atm);
+
 }
