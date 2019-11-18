@@ -48,11 +48,11 @@
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	
 	<div class="evPage" style="height:auto;width: 100%; background: #ffffff;  text-align: center; ">
-		<div class="pg" style="width: 65%; height: 880px; display: inline-block; background: #f5f5f5;">
+		<div class="pg" style="width: 65%; height: 1050px; display: inline-block; background: #f5f5f5;">
 			<br>
-			<div class="headLine" style="width:50%; display: inline-block;" >
+			<div class="headLine" style="width: auto; display: inline-block;" >
 				<h2>${board.SG_BNAME }</h2>
-				<img src="/evening/resources/thumbnail/${at.RENAMEFILENAME}" style="width: 500px; height: auto;">
+				<img src="/evening/resources/thumbnail/${at.RENAMEFILENAME}" style="width: 500px; height: 500px;">
 				<br>
 				<br>
 				<p style="border-top: 1px solid gray;">${board.SG_ENROLL_DATE}<br> <span style="color: red; font-size: 20px;">${ board.TAG_NAME }</span> </p>
@@ -121,27 +121,33 @@
 								</div>
 								<div>
 									<label for="companyname">거래 지역</label>
-									<input type="text" id="towncity" class="form-control" placeholder="Town or City"
-										style="width: 280px;">
+									<input type="text" name="sgArea" id="towncity" class="form-control" placeholder="판매자에게 연락해주세요."style="width: 280px;" value="${ board.SG_AREA }" readonly="readonly">
 								</div>
 								<br><br>
 								<div style="width: 200px; height: 50px; float: left;">
 								<!-- 입찰버튼 로그인시에만 뜨도록 하기(원활한 작업하기위해 일단 조건문 주석처리 -->
-								<%-- <c:if test="${ !empty loginUser }"> --%>
+								<c:if test="${ !empty loginUser && loginUser.user_id != board.USER_ID }">
 									<form action="selectOne.bo" id="sendPrice" method="POST">
 										<input type="number" hidden="hidden" id="auctionPrice" name="auctionPrice">
 										<input type="number" hidden="hidden" name="sgId" value="${ board.SG_ID }">
+										<input type="text" hidden="hidden" name="userId" value="${ loginUser.user_id }">
 									</form>
 									<button class="btn btn-primary btn-outline"style="float: right; margin: 0px 50px 0 0px;" onclick="auctionStart()">입찰</button>
-								<%-- </c:if> --%>
+								</c:if>
 									<script>
+									// 입찰 기능 ( 입찰액 조건문  : 시작가보다 높고 현재 경매가와 같으면 안되며 숫자만 입력받아야됨)
 										function auctionStart(){
-										  var price = prompt("입찰할 금액을 적어주세요.","숫자만 입력 가능");
-										  if(price > 0){
-										    $('#auctionPrice').val(price);
-										    $('#sendPrice').submit();
+										  var price = prompt("입찰할 금액을 적어주세요.","숫자만 입력 가능!(100단위이상부터 가능) )");
+										  if( ( price >= ${ board.SG_SPRICE} && price > ${ board.SG_PRICE} ) ){
+										    var floorPrice = Math.floor(price/100) * 100;
+										    if(floorPrice == ${ board.SG_PRICE} ){
+										      alert("입력하신 입찰액 : "+price+"("+floorPrice+")가 현재 경매가와 같습니다.\n다시입력해주세요.");
+										    }else{
+											    $('#auctionPrice').val(floorPrice);
+											    $('#sendPrice').submit();
+										    }
 										  }else{
-										    alert("숫자만 입력해 주세요.");
+										    alert("1. 숫자만 입력해 주세요. \n2. 최소 시작가 이상으로 입력해주세요.\n3. 현재 경매가보다 높게 입력해주세요.");
 										  }
 										}
 									</script>

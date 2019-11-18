@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="resources/css/bootstrap.css">
 
 <!-- Magnific Popup -->
-<link rel="stylesheet" href="resources/css/magnific-popup.css">
+<!-- <link rel="stylesheet" href="resources/css/magnific-popup.css"> -->
 
 <!-- Flexslider  -->
 <link rel="stylesheet" href="resources/css/flexslider.css">
@@ -199,8 +199,8 @@
 	<!-- Owl carousel -->
 	<script src="resources/js/owl.carousel.min.js"></script>
 	<!-- Magnific Popup -->
-	<script src="resources/js/jquery.magnific-popup.min.js"></script>
-	<script src="resources/js/magnific-popup-options.js"></script>
+	<!-- <script src="resources/js/jquery.magnific-popup.min.js"></script>
+	<script src="resources/js/magnific-popup-options.js"></script> -->
 	<!-- Date Picker -->
 	<script src="resources/js/bootstrap-datepicker.js"></script>
 	<!-- Stellar Parallax -->

@@ -49,6 +49,16 @@
 		</choose>
 
 	</select>
+	
+	<insert id="insertAuction" parameterType="AuctionHistory">
+		INSERT INTO AUCTION_HISTORY VALUES(SEQ_AH.NEXTVAL, #{user_Id}, #{sg_Id},#{a_Price} , SYSDATE, DEFAULT)
+	</insert>
+	
+	<update id="auctionMaxPrice" parameterType="_int">
+		UPDATE SECOND_GOODS
+		SET SG_PRICE = ( SELECT MAX(A_PRICE) FROM AUCTION_HISTORY WHERE SG_ID=#{sgId} AND A_CHECK='N')
+		WHERE SG_ID = #{sgId}
+	</update>
 
 	<select id="boardFileList" resultType="Attachment">
 		SELECT * FROM ADD_FILE

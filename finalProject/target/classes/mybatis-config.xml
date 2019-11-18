@@ -12,6 +12,7 @@
 		<typeAlias type="com.kh.evening.board.model.vo.BoardMode" alias="BoardMode"/>
 		<typeAlias type="com.kh.evening.gesipan.model.vo.GesipanReply" alias="gReply"/>
 		<typeAlias type="com.kh.evening.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.evening.board.model.vo.AuctionHistory" alias="AuctionHistory"/>
 	</typeAliases>
 	
 	<mappers>
