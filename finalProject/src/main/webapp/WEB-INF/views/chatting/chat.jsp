@@ -43,6 +43,7 @@
 	var wsocket;
 
 	function connect() {
+		
 		wsocket = new WebSocket("ws://localhost:8989/evening/chat-ws.ch");
 		wsocket.onopen = onOpen;
 		//서버로부터 메시지를 받으면 호출되는 함수 지정
@@ -53,8 +54,10 @@
 	}
 
 	function onOpen(evt) {
-		var msg = 'msg:[' + $('#nickname').val() + '입장!]';
+		
+		var msg = 'msg:[' + $('#nickname').val() + '님 등장!]';
 		wsocket.send(msg);
+	
 
 	}
 
@@ -82,31 +85,36 @@
 	}
 
 	function appendMessage(msg) {
+		
+		var $chatArea = $('#chatArea');
+		var $enter;
+		var $me;
+		var $you;
 		console.log(msg.substring(0,1));
 			if(msg.substring(0,1)=='['){
-				$('#MiddleCMA').append(msg + '<br>');
-
+				//$('#MiddleCMA').append(msg + '<br>');
+				$enter = $("<div class='enterMsg'>").text(msg);
+				$chatArea.append($enter);
 			}else if(msg.substring(0,1)!='['){
 				var str = msg;
 				var checkstr = str.split(':');
 				var checkname = checkstr[0];
+				var context = checkstr[1];
 				console.log("자른 checkname의 값 [nickname값이 나와야 한다]  !!" + checkname);
 				console.log($('nickname').val());
 				if(checkname == $('#nickname').val()){
-					$('#chatMessageArea').append(msg + '<br>');
+					//$('#chatMessageArea').append('<div class="msg">'+context + '<br>'+'</div>');
+					$me = $("<div class='msg meMsg'>").text(context);
+					$chatArea.append($me);
+					$chatArea.append("<br clear='all'>");
 				}else{
-					$('#anotherCMA').append(msg + '<br>');
+					//$('#anotherCMA').append('<div class="msg">'+context + '<br>'+'</div>');
+					$you = $("<div class='msg youMsg'>").text(context);
+					$chatArea.append($you);
+					$chatArea.append("<br clear='all'>");
+					}
 				}
-			}
-	
-		
-		
-			
-	
-		
-		
-		var chatAreaHeight = $('#chatArea').height();
-		var maxScroll = $('#chatMessageArea').height() - chatAreaHeight;
+		var maxScroll = $('#chatArea').height();
 		$('#chatArea').scrollTop(maxScroll);
 	}
 
@@ -115,16 +123,17 @@
 			var keycode = (event.keyCode ? event.keyCode : event.which);
 			if (keycode == '13') {
 				send();
+			
 			}
 			event.stopPropagation();
 		});
 		$('#sendBtn').click(function() {
+			
 			var nick = $('#nickname').val();
 			var message = $('#message').val();
 			var nickLength = (nick).length
 			var messageLength = (message).length
-			console.log("닉네임 길이" + nickLength);
-			console.log("메세지 길이" + messageLength);
+			
 
 			send();
 		});
@@ -142,22 +151,52 @@
 	});
 </script>
 <style type="text/css">
-
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
 #chatArea {
 	width: auto;
 	height: 400px;
 	overflow-y: auto;
 	border: 1px solid black;
-	background-color:#6884b3;
-	
-    border: 1px solid #ddd;
-	
+	background-color: #6884b3;
+	border: 1px solid #ddd;
 }
-div{
+
+div {
 	font-family: 'Noto Sans KR', sans-serif;
-	
 }
+.enterMsg{margin-left: 42%; color: white;}
+.meMsg{
+	float: right;
+	overflow-y: auto;
+	text-align: center;
+	margin-bottom: 7px;
+}
+.youMsg{
+	float: left;
+	overflow-y: auto;
+	text-align: center;
+	margin-bottom: 7px;
+}
+.msg {
+	padding: 5px;
+	min-width: 80px;
+	max-width: 200px;
+	min-height: 25px;
+	border-radius: 15px;
+	color: black;
+	background-color: #fdf01b;
+	font-size: 1.3rem;
+}
+
+/* section {
+	display: inline-block;
+	
+	padding: 7px 15px;
+	margin-bottom: 10px;
+	margin-top: 5px;
+} */
+
 #message {
 	width: 350px;
 	height: 30px;
@@ -166,30 +205,28 @@ div{
 ::-webkit-scrollbar {
 	display: none;
 }
-#chatMessageArea{
-	color: black;
-    background-color:#fdf01b;
-    font-size:1.3rem;
+/* 
+#chatMessageArea {
 	float: right;
 	overflow-y: auto;
+	text-align: center;
 }
+
 #MiddleCMA {
-	float: middle;
-}
-#anotherCMA{
-	float: left;
-}
-
-.msg {
-
-
-}
-.middle{
+	margin-left: auto;
+	text-align: center;
+	color: lightgray;
 	
 }
-.another{
 
-}
+#anotherCMA {
+	float: left;
+	overflow-y: auto;
+	text-align: center;
+}*/
+ 
+
+
 </style>
 </head>
 
@@ -197,21 +234,20 @@ div{
 
 	<div id="enter">
 		<hr>
-		이름 : <input type="text" id="nickname"> 
-			<button type="button" id="enterBtn" class="btn btn-default btn-sm">입장</button>
-			
+		이름 : <input type="text" id="nickname">
+		<button type="button" id="enterBtn" class="btn btn-default btn-sm">입장</button>
+
 		<hr>
 	</div>
 
 	<div id="chatArea">
-		<section id="chatMessageArea" class="msg">
+		<!-- <section id="chatMessageArea" class="msg"></section>
 		
-		</section>	
-		<section id="MiddleCMA" class="middle">
-		</section>
-		<section id="anotherCMA" class="another">
-		</section>
-		
+		<br clear="all">
+
+		<section id="MiddleCMA" class="middle"></section>
+		<section id="anotherCMA" class="msg"></section> -->
+
 	</div>
 	<input type="text" id="message" disabled>
 	<button type="button" id="sendBtn" class="btn btn-default btn-sm">전송</button>

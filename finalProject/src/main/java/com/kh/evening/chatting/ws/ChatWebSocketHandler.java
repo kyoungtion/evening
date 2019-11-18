@@ -20,6 +20,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		System.out.println(session.getId() + " 연결됨");
 		users.put(session.getId(), session);
+		
 	}
 	
 	/*
