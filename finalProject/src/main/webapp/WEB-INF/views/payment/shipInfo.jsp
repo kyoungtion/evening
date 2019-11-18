@@ -135,13 +135,13 @@ html5_inicis':이니시스(웹표준결제)
 'paypal':페이팔
 */
 pay_method: 'card',
-/*
-'samsung':삼성페이,
+
+/* 'samsung':삼성페이,
 'card':신용카드,
 'trans':실시간계좌이체,
 'vbank':가상계좌,
-'phone':휴대폰소액결제
-*/
+'phone':휴대폰소액결제 */
+
 merchant_uid: 'merchant_' + new Date().getTime(),
 /*
 merchant_uid에 경우

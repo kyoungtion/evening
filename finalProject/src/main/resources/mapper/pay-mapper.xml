@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="payMapper">
+
+
 	<insert id="insertPay" parameterType="Payment">
 	insert into payment
 	values(P_NO_SEQ.nextval,#{P_ID},#{P_NICKNAME},#{P_ADDRESS},#{P_PHONE},#{P_EMAIL},sysdate,sysdate,default,#{MONEY})
 	</insert>
+	
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from payment
+		where P_STATUS='Y'
+	</select>
+	
+	<select id="selectPaymentList" resultType="Payment">
+		select *
+		from payment
+		where P_STATUS='Y'
+		order by P_NO desc
+	</select>
+	
+	
+	
+	
 </mapper>

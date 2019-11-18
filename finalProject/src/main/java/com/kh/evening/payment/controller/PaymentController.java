@@ -1,15 +1,21 @@
 package com.kh.evening.payment.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.evening.board.model.vo.PageInfo;
+import com.kh.evening.common.Pageination;
 import com.kh.evening.payment.model.exception.PaymentException;
 import com.kh.evening.payment.model.service.PaymentService;
 import com.kh.evening.payment.model.vo.Payment;
+
 
 //@SessionAttributes("loginUser")
 @Controller
@@ -44,4 +50,32 @@ public class PaymentController {
 			throw new PaymentException("배송지 정보 입력에 실패하셨습니다.");
 		}
 	}
+	
+	@RequestMapping("pList.py")
+	public ModelAndView pList(@RequestParam(value="page", required=false) Integer page,
+						ModelAndView mv)	{
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		int listCount = pService.getListCount();
+		PageInfo pi = Pageination.getPayPageInfo(currentPage, listCount);
+		
+		ArrayList<Payment> list = pService.selectPaymentList(pi);
+		if(list != null) {
+			mv.addObject("list", list);
+			System.out.println(list);
+			mv.addObject("pi", pi);
+			System.out.println(pi);
+			mv.setViewName("paylist");
+			System.out.println(mv);
+		}else {
+			throw new PaymentException("결제 내역 조회에 실패하였습니다.");
+		}
+		
+		return mv;
+		
+		
+	}
+	
 }

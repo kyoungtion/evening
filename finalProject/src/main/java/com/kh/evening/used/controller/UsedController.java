@@ -148,7 +148,7 @@ public class UsedController {
 	}
 
 	@RequestMapping("selectOne.ud")
-	public ModelAndView selectOne(@RequestParam("sgId") int sgId,ModelAndView mv) {
+	public ModelAndView selectOne(@RequestParam("sgId") int sgId, ModelAndView mv) {
 
 		Board board = bService.selectOne(sgId);
 		Attachment at = bService.boardFileList(sgId);
