@@ -179,10 +179,85 @@ public class MemberController {
 	   }
    }
    
-   @RequestMapping("adminView.me")
-   public String adminView() {
-	   return "manageMember";
+   @RequestMapping("adminView.ad")
+   public ModelAndView adminView(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+	   int currentPage = 1;
+	   if(page != null) {
+		   currentPage = page;
+	   }
+	   
+	   int listCount = mService.getMemberListCount();
+	   
+	   PageInfo pi = null;
+	   pi = Pageination.getGesipanPageInfo(currentPage, listCount);
+	   
+	   ArrayList<Member> list = mService.getMembers(pi);
+	   System.out.println(list);
+	   
+	   if(list != null) {
+		   mv.addObject("list", list).addObject("pi", pi).setViewName("manageMember");
+	   }
+	   return mv;
    }
+   
+   @RequestMapping("memberLevelView.ad")
+   public String memberLevelView(Model model, @RequestParam("user_id") String user_id) {
+	   Member m = new Member();
+	   m.setUser_id(user_id);
+	   Member result = mService.memberLogin(m);
+	   model.addAttribute("m", result);
+	   return "MemberLevelView";
+   }
+   
+   @RequestMapping("updateRankCode.ad")
+   public String updateRackCode(@RequestParam("user_id") String user_id, @RequestParam("rank_code") String rank_code, Model model) {
+	   Member m = new Member();
+	   m.setUser_id(user_id);
+	   
+	   Map<String, String> map = new HashMap<>();
+	   map.put("user_id", user_id);
+	   map.put("rank_code", rank_code);
+	   int result = mService.updateRankCode(map);
+	   
+	   if(result > 0) {
+		   Member resultMember = mService.memberLogin(m);
+		   model.addAttribute("user_id", resultMember.getUser_id());
+		   return "redirect:memberLevelView.ad";
+	   } else {
+		   throw new MemberException("등급 변경에 실패하였습니다.");
+	   }
+	   
+   }
+   
+   @RequestMapping("memberDelete.ad")
+   public String memberDelete(@RequestParam("user_id") String user_id) {
+	   
+	   Member m = new Member();
+	   m.setUser_id(user_id);
+	   
+	   int result = mService.deleteMember(m);
+	   
+	   if(result > 0) {
+		   return "redirect:adminView.ad";
+	   } else {
+		   throw new MemberException("회원삭제에 실패했습니다.");
+	   }
+   }
+   
+   @RequestMapping("deleteAllMember.ad")
+   public String memberDeleteAll(@RequestParam("ids") String ids) {
+	   
+	   String[] idArray = ids.split(",");
+	   
+	   int result = mService.deleteAllMember(idArray);
+	   
+	   if(result > 0) {
+		   return "redirect:adminView.ad";
+	   } else {
+		   throw new MemberException("선택한 회원 삭제에 실패했습니다.");
+	   }
+   }
+   
    
    // ********************************************끝
    

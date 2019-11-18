@@ -84,4 +84,24 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.selectMyPost(sqlSession, map, pi);
 	}
 
+	@Override
+	public int getMemberListCount() {
+		return mDAO.getMemberListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Member> getMembers(PageInfo pi) {
+		return mDAO.getMembers(sqlSession, pi);
+	}
+
+	@Override
+	public int updateRankCode(Map<String, String> map) {
+		return mDAO.updateRankCode(sqlSession, map);
+	}
+
+	@Override
+	public int deleteAllMember(String[] idArray) {
+		return mDAO.deleteAllMember(sqlSession, idArray);
+	}
+
 }

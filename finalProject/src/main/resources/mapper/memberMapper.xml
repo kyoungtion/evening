@@ -4,33 +4,15 @@
 
    <!-- 암호화 후 로그인  -->
    <select id="selectOne" parameterType="Member" resultType="Member"
-      resultMap="memberResultSet">
-      
-		select *
-		from member
+      resultMap="MemberResultSet">
+		select m.*, r.*
+		from member m
+		join user_rank r on(m.rank_code = r.rank_code)
 		where user_id=#{user_id} and 
         status = 'N'
    </select>
    
-   <resultMap type="Member" id="memberResultSet">
-      <id property="user_id" column="USER_ID"/>
-      <result property="rank_code" column="RANK_CODE"/>
-      <result property="user_pwd" column="USER_PWD"/>
-      <result property="nickName" column="NICKNAME"/>
-      <result property="user_name" column="USER_NAME"/>
-      <result property="phone" column="PHONE"/>
-      <result property="user_residentNumber" column="USER_RESIDENTNUMBER"/>
-      <result property="user_email" column="USER_EMAIL"/>
-      <result property="address" column="ADDRESS"/>
-      <result property="enroll_date" column="ENROLL_DATE"/>
-      <result property="update_date" column="UPDATE_DATE"/>
-      <result property="bookmark" column="BOOKMARK"/>
-      <result property="status" column="STATUS"/>
-      <result property="penalty_point" column="PENALTY_POINT"/>
-      <result property="panalty_date" column="PENALTY_DATE"/>
-      <result property="penalty_stack" column="PENALTY_STACK"/>
-      
-   </resultMap>
+   
 
    <insert id="insertMember" parameterType="Member">
       insert into member
@@ -96,9 +78,59 @@
 		order by g_type desc, g_ref desc, g_order asc
 	</select>
 
-
-
-
+	<select id="getMemberListCount" resultType="_int">
+		select count(*)
+		from member
+	</select>
+	
+	<select id="getMembers" resultMap="MemberResultSet">
+		select m.*, r.*
+		from member m
+		join user_rank r on(m.rank_code = r.rank_code)
+		where m.status='N' and user_id != 'admin'
+		order by user_id asc
+	</select>
+	
+	<resultMap type="Member" id="MemberResultSet">
+		<id property="user_id" column="user_id"/>
+		<result property="rank_code" column="rank_code"/>
+		<result property="user_pwd" column="user_pwd"/>
+		<result property="nickName" column="nickname"/>
+		<result property="user_name" column="user_name"/>
+		<result property="phone" column="phone"/>
+		<result property="user_residentNumber" column="user_residentNumber"/>
+		<result property="user_email" column="user_email"/>
+		<result property="address" column="address"/>
+		<result property="enroll_date" column="enroll_date"/>
+		<result property="update_date" column="update_date"/>
+		<result property="bookmark" column="bookmark"/>
+		<result property="status" column="status"/>
+		<result property="penalty_point" column="penalty_point"/>
+		<result property="penalty_date" column="penalty_date"/>
+		<result property="penalty_stack" column="penalty_stack"/>
+		<association property="rankCode" javaType="RankCode">
+			<result property = "rank_code" column="rank_code"/>
+			<result property = "rank_name" column="rank_name"/>
+			<result property = "rank_ename" column="rank_ename"/>
+			<result property = "rank_img" column="rank_img"/>
+		</association>
+	</resultMap>
+	
+	<update id="updateRankCode" parameterType="map">
+		update member
+		set rank_code = #{rank_code}
+		where user_id = #{user_id}
+	</update>
+	
+	<update id="deleteAllMember" parameterType="java.util.ArrayList">
+		update member
+		set status = 'Y'
+		where user_id in
+		<foreach collection="array" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		
+	</update>
 
 
 
