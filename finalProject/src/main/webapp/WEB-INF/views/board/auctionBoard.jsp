@@ -44,7 +44,7 @@
 												</c:forTokens>
 											</c:if>
 										</c:forEach>
-										<div class="product-img" style="background-image: url(resources/images/${ k })">
+										<div class="product-img" style="background-image: url(resources/thumbnail/${ k })">
 										
 										<!-- 사진이 없을시 나타날 공백표시 -->
 										<c:remove var="k"/>
@@ -72,13 +72,8 @@
 
 												<div class="cart">
 													<p>
-														<span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span> 
-														
-														<c:url var="boardDetail" value="selectOne.ud">
-															<c:param name="SG_ID" value="${ i.SG_ID }"/>
-														</c:url>
-														<span><a href="selectOne.ud"><i class="icon-eye"></i></a></span>
-														 
+														<!-- <span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span> 
+														<span><a href="selectOne.ud"><i class="icon-eye"></i></a></span> -->
 														<span><a href="#"><i class="icon-heart3"></i></a></span>
 														<!-- <span><a href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span> --> <!-- 필요없을꺼같아서 대기중 (삭제대기중) -->
 													</p>

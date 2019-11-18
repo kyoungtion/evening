@@ -20,6 +20,7 @@ import com.kh.evening.board.model.exception.BoardException;
 import com.kh.evening.board.model.service.BoardService;
 import com.kh.evening.board.model.service.BoardServiceImp;
 import com.kh.evening.board.model.vo.Attachment;
+import com.kh.evening.board.model.vo.AuctionHistory;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.BoardMode;
 import com.kh.evening.board.model.vo.PageInfo;
@@ -101,14 +102,55 @@ public class BoardController {
 		return mv;
 	}
 
+	/*
+	 * @RequestMapping("selectOne.bo") public ModelAndView
+	 * selectOne(@RequestParam("sgId") int sgId, ModelAndView mv) {
+	 * 
+	 * int a = bService.viewCount(sgId);
+	 * 
+	 * Board board = bService.selectOne(sgId); Attachment at =
+	 * bService.boardFileList(sgId);
+	 * 
+	 * if (board != null) { if (board.getB_Category().equals("A")) {
+	 * mv.addObject("board", board).addObject("at",
+	 * at).setViewName("auctionDetail"); } else { mv.addObject("board",
+	 * board).addObject("at", at).setViewName("usedDetail"); } } else { throw new
+	 * BoardException("게시글 읽기를 실패하였습니다."); }
+	 * 
+	 * return mv; }
+	 */
 	@RequestMapping("selectOne.bo")
-	public ModelAndView selectOne(@RequestParam("sgId") int sgId, ModelAndView mv) {
-
+	public ModelAndView selectOne(@RequestParam("sgId") int sgId, ModelAndView mv,
+			@RequestParam(value = "auctionPrice", required = false) Integer price,
+			@RequestParam(value = "userId", required = false) String userId) {
+		// 라산이 조회수 카운트 기능
 		int a = bService.viewCount(sgId);
+
+		if (price != null && userId != null) {
+			// 로그인상태 : 경매 입찰시
+			AuctionHistory ah = new AuctionHistory();
+			ah.setSg_Id(sgId);
+			ah.setUser_Id(userId);
+			ah.setA_Price(price);
+			int result = bService.insertAuction(ah);
+
+			if (result > 0) {
+				// 입찰 성공시
+				// 경매내역 조회하여 최고금액을 게시판에 적용하기
+				int maxPrice = bService.auctionMaxPrice(sgId);
+
+				if (maxPrice < 1) {
+					throw new BoardException(sgId + "의 경매가 최신화에 실패하였습니다.");
+				}
+			} else {
+				throw new BoardException("입찰 실패");
+			}
+		}
 
 		Board board = bService.selectOne(sgId);
 		Attachment at = bService.boardFileList(sgId);
 
+		// 게시판 타입에 따른 뷰화면 전환
 		if (board != null) {
 			if (board.getB_Category().equals("A")) {
 				mv.addObject("board", board).addObject("at", at).setViewName("auctionDetail");
@@ -150,12 +192,12 @@ public class BoardController {
 		} else {
 			b.setSG_AREA("");
 		}
-		
+
 		System.out.println(b);
 
 		Attachment atm = new Attachment();
 		String renameFileName = "";
-		
+
 		System.out.println(uploadFile.isEmpty());
 		if (uploadFile != null && !uploadFile.isEmpty()) {
 
@@ -178,7 +220,7 @@ public class BoardController {
 			if (!uploadFile.isEmpty()) {
 				result = bService.updateAttachment(atm);
 			}
-			if (result <= 0){
+			if (result <= 0) {
 				file = new File(root2 + renameFileName);
 				System.out.println("파일 삭제 확인 : " + file.delete());
 				throw new BoardException("썸네일 이미지 등록을 실패하였습니다.");
@@ -311,4 +353,5 @@ public class BoardController {
 
 		return renameFileName;
 	}
+
 }

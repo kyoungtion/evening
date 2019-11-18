@@ -56,7 +56,6 @@
 											
 											<fmt:parseNumber value="${ now.time / (1000*60*60*24) }" integerOnly="true" var="nowDays"/>
 											<fmt:parseNumber value="${ enroll.time / (1000*60*60*24) }" integerOnly="true" var="enrollDays"/>
-											<fmt:parseNumber value="${ end.time / (1000*60*60*24) }" integerOnly="true" var="endDays"/>
 
 												<p class="tag">
 													<c:if test="${ ( nowDays - enrollDays ) <= 7 }">

@@ -12,6 +12,7 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
 	
+	
 	<!-- 리스트 불러오기 (ajax 대용) -->
 	<c:if test="${ empty alist }">
 						<script>
