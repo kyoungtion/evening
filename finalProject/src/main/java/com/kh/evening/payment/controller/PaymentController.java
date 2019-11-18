@@ -27,7 +27,6 @@ public class PaymentController {
 	// 배송지 정보 입력 폼
 	@RequestMapping("shipInfo.py")
 	public String shipInfo() {
-		
 		return "shipInfo";
 	}
 	

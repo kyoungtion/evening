@@ -115,7 +115,7 @@
 			<div style="    width: 100%;
 			height: 60px;
 			display: inline-block;">
-				<button class="btn btn-primary">구매 </button>
+				<button class="btn btn-primary" onclick="location.href='shipInfo.py';">구매 </button>
 				<button class="btn btn-primary" onclick="location.href='updateForm.ud';" >수정 </button>
 			</div>
 		</div>

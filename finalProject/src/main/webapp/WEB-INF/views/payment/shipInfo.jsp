@@ -27,7 +27,7 @@
 								<div class="form-group">
 									<div class="col-md-6">
 										<label for="fname">이름</label>
-										<input type="text" id="fname" class="form-control" placeholder="Your name" name="P_NAME">
+										<input type="text" value="${ loginUser.user_name }" id="fname" class="form-control" name="P_NAME">
 									</div>
 								</div>
 								

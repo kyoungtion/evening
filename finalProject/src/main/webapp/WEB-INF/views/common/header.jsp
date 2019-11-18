@@ -200,7 +200,6 @@
 	<!-- Owl carousel -->
 	<script src="resources/js/owl.carousel.min.js"></script>
 	<!-- Magnific Popup -->
-<<<<<<< HEAD
 <!-- 	<script src="resources/js/jquery.magnific-popup.min.js"></script>
 =======
 	<!-- <script src="resources/js/jquery.magnific-popup.min.js"></script>
