@@ -23,7 +23,7 @@
 						<div class="row row-pb-lg">
 						
 						<button class="btn btn-primary btn-outline"style="float: right; margin: 0px 50px 0 0px;"
-							onclick="location.href='insertForm.ud';">글쓰기</button>
+							onclick="location.href='insertF.bo?type=1';">글쓰기</button>
 						
 						<h2><span style="font-size: 50px;">중고 거래 게시판</span></h2>
 						
@@ -56,7 +56,6 @@
 											
 											<fmt:parseNumber value="${ now.time / (1000*60*60*24) }" integerOnly="true" var="nowDays"/>
 											<fmt:parseNumber value="${ enroll.time / (1000*60*60*24) }" integerOnly="true" var="enrollDays"/>
-											<fmt:parseNumber value="${ end.time / (1000*60*60*24) }" integerOnly="true" var="endDays"/>
 
 												<p class="tag">
 													<c:if test="${ ( nowDays - enrollDays ) <= 7 }">

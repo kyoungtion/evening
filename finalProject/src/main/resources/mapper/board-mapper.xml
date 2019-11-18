@@ -2,10 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
 
-	<select id="boardList" resultType="Board" parameterType="BoardMode">
+	<select id="boardList" resultType="Board"
+		parameterType="BoardMode">
 		select * from second_goods
-		where SG_STATUS='N' 
-		
+		where SG_STATUS='N'
+
 		<choose>
 			<when test='B_category == "A" '>
 				AND B_CATEGORY='A'
@@ -14,7 +15,7 @@
 				AND B_CATEGORY='SG'
 			</when>
 		</choose>
-		
+
 		<choose>
 			<when test="modeSet == 'recent'">
 				order by SG_ID DESC
@@ -32,12 +33,12 @@
 				ORDER BY SG_COUNT DESC
 			</when>
 		</choose>
-		
+
 	</select>
-	
+
 	<select id="getAuctionListCount" resultType="_int">
-		select count(*) from second_goods where sg_status='N' 
-		
+		select count(*) from second_goods where sg_status='N'
+
 		<choose>
 			<when test='boardCategory == "A" '>
 				and B_CATEGORY='A'
@@ -46,28 +47,54 @@
 				AND B_CATEGORY='SG'
 			</when>
 		</choose>
-		
+
 	</select>
 	
+	<insert id="insertAuction" parameterType="AuctionHistory">
+		INSERT INTO AUCTION_HISTORY VALUES(SEQ_AH.NEXTVAL, #{user_Id}, #{sg_Id},#{a_Price} , SYSDATE, DEFAULT)
+	</insert>
+	
+	<update id="auctionMaxPrice" parameterType="_int">
+		UPDATE SECOND_GOODS
+		SET SG_PRICE = ( SELECT MAX(A_PRICE) FROM AUCTION_HISTORY WHERE SG_ID=#{sgId} AND A_CHECK='N')
+		WHERE SG_ID = #{sgId}
+	</update>
+
 	<select id="boardFileList" resultType="Attachment">
 		SELECT * FROM ADD_FILE
 		WHERE FILE_STATUS='N'
 	</select>
+
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO SECOND_GOODS
+		VALUES(SEQ_SG.NEXTVAL,'admin','SG',#{SG_BNAME},'운영자','TEST태그3',DEFAULT,#{SG_PRICE},default,#{SG_INFO},DEFAULT,SYSDATE,SYSDATE,DEFAULT,SYSDATE,#{SG_DEAL},#{SG_AREA},#{SG_DELIVERY})
+	</insert>
+
+	<insert id="attachmentInsert" parameterType="Attachment">
+		INSERT INTO ADD_FILE VALUES(SEQ_FILE.NEXTVAL, (SELECT MAX(SG_ID) FROM
+		SECOND_GOODS), #{ORIGINALFILENAME}, #{RENAMEFILENAME},
+		sysdate,sysdate,default)
+	</insert>
+	<update id="boardViewCount" parameterType="_int">
+		UPDATE SECOND_GOODS
+		SET SG_COUNT = SG_COUNT+1 
+		WHERE SG_ID=#{sg_id}
+	</update>
 	
-   <insert id="insertBoard" parameterType="Board">
-   INSERT INTO SECOND_GOODS VALUES(SEQ_SG.NEXTVAL,'admin','SG',#{SG_BNAME},'운영자','TEST태그3',DEFAULT,#{SG_PRICE},default,#{SG_INFO},DEFAULT,SYSDATE,SYSDATE,DEFAULT,SYSDATE,#{SG_DEAL},#{SG_AREA},#{SG_DELIVERY})
-   </insert>
-   
-   <insert id="attachmentInsert" parameterType="Attachment">
-   INSERT INTO ADD_FILE VALUES(SEQ_FILE.NEXTVAL, (SELECT MAX(SG_ID) FROM SECOND_GOODS), #{ORIGINALFILENAME}, #{RENAMEFILENAME}, sysdate,sysdate,default)
-   </insert>
-	
-	<select id="boardSelectOne" parameterType="Board" resultType="Board">
+	<select id="boardSelectOne" parameterType="_int"
+		resultType="Board">
 		SELECT * FROM SECOND_GOODS WHERE SG_ID=#{sg_id}
 	</select>
-	<select id="boardFileOne" parameterType="Attachment" resultType="Attachment">
+	
+	<select id="boardFileOne" parameterType="Attachment"
+		resultType="Attachment">
 		SELECT * FROM ADD_FILE WHERE SG_ID=#{sg_id}
 	</select>
 	
+	<select id="category" resultType="string">
+		SELECT * FROM GOODS_TAG
+	</select>
+
+
 
 </mapper>

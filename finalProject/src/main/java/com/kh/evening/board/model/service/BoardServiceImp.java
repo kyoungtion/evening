@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.kh.evening.board.model.dao.BoardDAO;
 import com.kh.evening.board.model.vo.Attachment;
+import com.kh.evening.board.model.vo.AuctionHistory;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.BoardMode;
 import com.kh.evening.board.model.vo.PageInfo;
+import com.kh.evening.member.model.vo.Member;
 
 @Service("bService")
 public class BoardServiceImp implements BoardService {
@@ -18,7 +20,7 @@ public class BoardServiceImp implements BoardService {
 
   @Autowired
   private BoardDAO bDAO;
-  
+
   @Override
   public ArrayList<Board> boardList(PageInfo pi, BoardMode bMode) {
     return bDAO.boardList(sqlSession, pi, bMode);
@@ -34,15 +36,36 @@ public class BoardServiceImp implements BoardService {
     return bDAO.boardFileList(sqlSession);
   }
 
-	@Override
-	public Board selectOne(int sgId) {
-		System.out.println("test");
-		return bDAO.boardSelectOne(sqlSession,sgId);
-	}
-	
-	@Override
-	public Attachment boardFileList(int sgId) {
-		return bDAO.boardFileList(sqlSession,sgId);
-	}
+  @Override
+  public Board selectOne(int sgId) {
+    return bDAO.boardSelectOne(sqlSession, sgId);
+  }
+
+  @Override
+  public Attachment boardFileList(int sgId) {
+    return bDAO.boardFileList(sqlSession, sgId);
+  }
+
+  @Override
+  public int viewCount(int sgId) {
+    return bDAO.viewCount(sqlSession, sgId);
+  }
+
+  @Override
+  public ArrayList<String> category() {
+    return bDAO.insertF(sqlSession);
+  }
+
+  @Override
+  public int insertAuction(AuctionHistory ah) {
+    return bDAO.insertAuction(sqlSession,ah);
+  }
+
+  @Override
+  public int auctionMaxPrice(int sgId) {
+    return bDAO.auctionMaxPrice(sqlSession, sgId);
+  }
+
+
 
 }

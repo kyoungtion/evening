@@ -23,7 +23,7 @@
 						<div class="row row-pb-lg">
 
 						<button class="btn btn-primary btn-outline"style="float: right; margin: 0px 50px 0 0px;"
-							onclick="location.href='insertForm.ud';">글쓰기</button>
+							onclick="location.href='insertF.bo?type=2';">글쓰기</button>
 								
 						<h2><span style="font-size: 50px;">경매 거래 게시판</span></h2>
 						
@@ -44,7 +44,7 @@
 												</c:forTokens>
 											</c:if>
 										</c:forEach>
-										<div class="product-img" style="background-image: url(resources/images/${ k })">
+										<div class="product-img" style="background-image: url(resources/thumbnail/${ k })">
 										
 										<!-- 사진이 없을시 나타날 공백표시 -->
 										<c:remove var="k"/>
@@ -72,15 +72,9 @@
 
 												<div class="cart">
 													<p>
-														<span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span> 
-														
-														<c:url var="boardDetail" value="selectOne.ud">
-															<c:param name="SG_ID" value="${ i.SG_ID }"/>
-														</c:url>
-														<span><a href="selectOne.ud"><i class="icon-eye"></i></a></span>
-														 
+														<!-- <span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span> 
+														<span><a href="selectOne.ud"><i class="icon-eye"></i></a></span> -->
 														<span><a href="#"><i class="icon-heart3"></i></a></span>
-														
 														<!-- <span><a href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span> --> <!-- 필요없을꺼같아서 대기중 (삭제대기중) -->
 													</p>
 												</div>
@@ -88,9 +82,12 @@
 										</div>
 										
 										<div class="desc">
-											<h3><a href="#">${ i.SG_BNAME }</a></h3>
-											<p class="price">급매가<span> <br> <fmt:formatNumber value="${i.SG_PRICE }" type="currency"/></span></p>
-											<p class="price">경매시작가<span> <br> <fmt:formatNumber value="${i.SG_SPRICE }" type="currency"/></span></p>
+											<c:url var="detailView" value="selectOne.bo">
+			                                    <c:param name="sgId" value="${ i.SG_ID }"/>
+			                                 </c:url>
+			                                 <h3><a href="${ detailView }" style="cursor: pointer;">${ i.SG_BNAME }</a></h3>
+			                                 <p class="price">현재 경매가<span> <br> <fmt:formatNumber value="${i.SG_PRICE }" type="currency"/></span></p>
+			                                 <p class="price">경매 시작가<span> <br> <fmt:formatNumber value="${i.SG_SPRICE }" type="currency"/></span></p>
 										</div>
 										
 									</div>
@@ -218,22 +215,7 @@
 
 							<div class="side">
 								<h2>최근에 본 물건</h2>
-								<%
-								  Cookie[] cookies = request.getCookies();
-
-								  if (cookies != null) {
-								    for (Cookie c : cookies) {
-								      if (c.getName().contains("num")) {
-								%>
-								<div><%=c.getName()%>
-									<%=c.getValue()%>
-								</div>
-								<%
-								  }
-								    }
-
-								  } ;
-								%>
+								<div>test</div>
 							</div>
 							 
 						</div>

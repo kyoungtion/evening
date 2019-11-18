@@ -31,6 +31,7 @@
 			}; 
 
 			$('html').click(function (e) {
+				
 				if (!$(e.target).hasClass('font-style-bar') && !$(e.target).hasClass('btn-1')) {
 					$('.inFontTag').removeClass('on');
 				}
@@ -38,7 +39,7 @@
 					$('.inSizeTag').removeClass('on');
 				}
 
-				if (!$(e.target).is('.ftC, .colorPicker, .twod, .oned, .ftc-btn, .selectC, .tcimg ')) {
+				if (!$(e.target).is('.ftC, .colorPicker, .twod, .oned, .ftc-btn, #hue-demo, .tcimg, .rgbClick * ')) {
 					$('.font-C').removeClass('on');
 				}
 
@@ -69,6 +70,7 @@
 			});
 
 			$('.ftC').on("click", function () {
+				$("#insertField").focus();
 				$('.font-C').toggleClass('on');
 			});
 			$('.insertVideo').on("click", function () {
@@ -76,7 +78,7 @@
 			});
 
 			$('#rgbValue').bind("DOMSubtreeModified", function () {
-				$('.selectC').css('background-color', $('#rgbValue').text());
+				$('.demo').css('background-color', $('#rgbValue').text());
 			});
 
 
@@ -95,6 +97,9 @@
 			};
 
 			$(document).ready(function () {
+//				$('#hue-demo').click(function() {
+//					$("#insertField").focus();					
+//				});
 				$("#insertField").focus();
 
 				$('.fontM').click(function () {
@@ -129,9 +134,12 @@
 				});
 
 				$('.ftc-btn').click(function () {
-					textOptionBtn2('foreColor', false, $('#rgbValue').text());
 					$("#insertField").focus();
-					console.log($('#rgbValue').text());
+					console.log($('#hue-demo').val());
+					textOptionBtn2('foreColor', false, $('#hue-demo').val());
+//					textOptionBtn2('foreColor', false, $('#rgbValue').val());
+					$("#insertField").focus();
+				
 				});
 
 				$('.insertImg').click(function () {

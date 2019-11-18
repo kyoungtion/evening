@@ -11,10 +11,10 @@
     
     <!-- 다음 주소 api -->
    <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
-  <!-- 카카오 로그인 관련  -->
+ <!--  <!-- 카카오 로그인 관련  -->
   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
   
-   <!--구글 로그인 관련  -->
+  <!--  구글 로그인 관련 
   <script src="https://ajax.googleleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="colors.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -32,7 +32,7 @@
          console.log('Image URL: ' + profile.getImageUrl());
          console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
        }
-  </script>
+  </script> -->
        
 
      
@@ -54,7 +54,7 @@
       background-color: #f8f8f8;
     }
 
-    body .container {
+    body .containerSe {
       position: relative;
       overflow: hidden;
       width: 900px;
@@ -66,14 +66,14 @@
       box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
     }
 
-    body .container .half {
+    body .containerSe .half {
       float: left;
       width: 50%;
       height: 100%;
       padding: 58px 40px 0;
     }
 
-    body .container .half.bg {
+    body .containerSe .half.bg {
 
       float: right;
       width: 50%;
@@ -82,7 +82,7 @@
 
     }
 
-    body .container h1 {
+    body .containerSe h1 {
       font-size: 18px;
       font-weight: 700;
       margin-bottom: 23px;
@@ -93,13 +93,13 @@
       color: #263238;
     }
 
-    body .container .tabs {
+    body .containerSe .tabs {
       width: 100%;
       margin-bottom: 29px;
       border-bottom: 1px solid #d9d9d9;
     }
 
-    body .container .tabs .tab {
+    body .containerSe .tabs .tab {
       display: inline-block;
       margin-bottom: -1px;
       padding: 20px 15px 10px;
@@ -113,7 +113,7 @@
       transition: all 0.1s ease-in-out;
     }
 
-    body .container .tabs .tab a {
+    body .containerSe .tabs .tab a {
       font-size: 11px;
       text-decoration: none;
       text-transform: uppercase;
@@ -121,45 +121,45 @@
       transition: all 0.1s ease-in-out;
     }
 
-    body .container .tabs .tab.active a,
-    body .container .tabs .tab:hover a {
+    body .containerSe .tabs .tab.active a,
+    body .containerSe .tabs .tab:hover a {
       color: #263238;
     }
 
-    body .container .tabs .tab.active {
+    body .containerSe .tabs .tab.active {
       border-bottom: 1px solid #263238;
     }
 
-    body .container .content form {
+    body .containerSe .content form {
       position: relative;
       height: 287px;
     }
 
-    body .container .content label:first-of-type,
-    body .container .content input:first-of-type,
-    body .container .content .more:first-of-type {
+    body .containerSe .content label:first-of-type,
+    body .containerSe .content input:first-of-type,
+    body .containerSe .content .more:first-of-type {
       -moz-animation: slideIn 0.4s cubic-bezier(0.37, 0.82, 0.2, 1);
       -webkit-animation: slideIn 0.4s cubic-bezier(0.37, 0.82, 0.2, 1);
       animation: slideIn 0.4s cubic-bezier(0.37, 0.82, 0.2, 1);
     }
 
-    body .container .content label:nth-of-type(2),
-    body .container .content input:nth-of-type(2),
-    body .container .content .more:nth-of-type(2) {
+    body .containerSe .content label:nth-of-type(2),
+    body .containerSe .content input:nth-of-type(2),
+    body .containerSe .content .more:nth-of-type(2) {
       -moz-animation: slideIn 0.5s cubic-bezier(0.37, 0.82, 0.2, 1);
       -webkit-animation: slideIn 0.5s cubic-bezier(0.37, 0.82, 0.2, 1);
       animation: slideIn 0.5s cubic-bezier(0.37, 0.82, 0.2, 1);
     }
 
-    body .container .content label:nth-of-type(3),
-    body .container .content input:nth-of-type(3),
-    body .container .content .more:nth-of-type(3) {
+    body .containerSe .content label:nth-of-type(3),
+    body .containerSe .content input:nth-of-type(3),
+    body .containerSe .content .more:nth-of-type(3) {
       -moz-animation: slideIn 0.6s cubic-bezier(0.37, 0.82, 0.2, 1);
       -webkit-animation: slideIn 0.6s cubic-bezier(0.37, 0.82, 0.2, 1);
       animation: slideIn 0.6s cubic-bezier(0.37, 0.82, 0.2, 1);
     }
 
-    body .container .content label {
+    body .containerSe .content label {
       font-size: 12px;
       color: #263238;
       -moz-user-select: -moz-none;
@@ -168,11 +168,11 @@
       user-select: none;
     }
 
-    body .container .content label:not([for='remember']) {
+    body .containerSe .content label:not([for='remember']) {
       display: none;
     }
 
-    body .container .content input.inpt {
+    body .containerSe .content input.inpt {
       font-size: 14px;
       display: block;
       width: 100%;
@@ -191,7 +191,7 @@
     
     #postalCode{float: left;}
 
-     body .container .content input.inpt2 {
+     body .containerSe .content input.inpt2 {
       font-size: 14px;
       display: block;
       width: 70%;
@@ -206,7 +206,7 @@
       border-radius: 2px;
     }
 
-    body .container .content input.inpt3 {
+    body .containerSe .content input.inpt3 {
       font-size: 18px;
       display: block;
       width: 30%;
@@ -222,35 +222,35 @@
       
     } 
 
-    body .container .content input.inpt::-webkit-input-placeholder {
+    body .containerSe .content input.inpt::-webkit-input-placeholder {
       font-size: 14px;
       color: #999999;
       font-family: 'Lato', sans-serif;
     }
 
-    body .container .content input.inpt:-moz-placeholder {
+    body .containerSe .content input.inpt:-moz-placeholder {
       font-size: 14px;
       color: #999999;
       font-family: 'Lato', sans-serif;
     }
 
-    body .container .content input.inpt::-moz-placeholder {
+    body .containerSe .content input.inpt::-moz-placeholder {
       font-size: 14px;
       color: #999999;
       font-family: 'Lato', sans-serif;
     }
 
-    body .container .content input.inpt:-ms-input-placeholder {
+    body .containerSe .content input.inpt:-ms-input-placeholder {
       font-size: 14px;
       color: #999999;
       font-family: 'Lato', sans-serif;
     }
 
-    body .container .content input.inpt:focus {
+    body .containerSe .content input.inpt:focus {
       border-color: #999999;
     }
 
-    body .container .content input.submit {
+    body .containerSe .content input.submit {
       font-size: 12px;
       line-height: 42px;
       display: block;
@@ -268,7 +268,7 @@
       border-radius: 2px;
     }
 
-    body .container .content input.submit:hover {
+    body .containerSe .content input.submit:hover {
       background-color: #263238;
       color: #ffffff;
       -moz-transition: all 0.2s;
@@ -277,11 +277,11 @@
       transition: all 0.2s;
     }
 
-    body .container .content input:focus {
+    body .containerSe .content input:focus {
       outline: none;
     }
 
-    body .container .content .checkbox {
+    body .containerSe .content .checkbox {
       margin-top: 4px;
       overflow: hidden;
       clip: rect(0 0 0 0);
@@ -292,13 +292,13 @@
       border: 0;
     }
 
-    body .container .content .checkbox+label {
+    body .containerSe .content .checkbox+label {
       vertical-align: middle;
       display: inline-block;
       width: 50%;
     }
 
-    body .container .content .checkbox+label:before {
+    body .containerSe .content .checkbox+label:before {
       content: "\A";
       color: #999999;
       font-family: Verdana;
@@ -319,17 +319,17 @@
       margin: -2px 8px 0 0;
     }
 
-    body .container .content .checkbox:checked+label:before {
+    body .containerSe .content .checkbox:checked+label:before {
       content: "✓";
     }
 
-    body .container .content .submit-wrap {
+    body .containerSe .content .submit-wrap {
       position: relative;
       bottom: 0;
       width: 100%;
     }
 
-    body .container .content .submit-wrap a {
+    body .containerSe .content .submit-wrap a {
       font-size: 12px;
       display: block;
       margin-top: 20px;
@@ -338,11 +338,11 @@
       color: #999999;
     }
 
-    body .container .content .submit-wrap a:hover {
+    body .containerSe .content .submit-wrap a:hover {
       text-decoration: underline;
     }
 
-    body .container .content .signup-cont {
+    body .containerSe .content .signup-cont {
       display: none;
     }
 
@@ -409,7 +409,7 @@
  <c:import url="/WEB-INF/views/common/header.jsp" />
 
    
-  <section class="container">
+  <section class="containerSe">
     
     <!-- 일반회원 로그인-->
     <article class="half">
@@ -420,14 +420,13 @@
       </div>
       <div class="content">
         <div class="signin-cont cont">
-        <c:if test= "${ empty sessionScope.login}">
           <form action="login.me" method="post" enctype="multipart/form-data">
             <input type="text" name="user_id" id="user_id" class="inpt" required="required" placeholder="Your id">
             <label for="ID">Your id</label>
             
-            <input type="password" name="user_pwd" id="password" class="inpt" required="required"
+            <input type="password" name="user_pwd" id="user_pwd" class="inpt" required="required"
               placeholder="Your password">
-            <label for="password">Your Password</label>
+            <label for="user_pwd">Your Password</label>
             
             <input type="checkbox" id="remember" class="checkbox" checked>
             <label for="remember">Remember me</label>
@@ -437,15 +436,12 @@
               <a href="search.me" class="more">Forgot your id & password?</a>
             </div>
           </form>
-           </c:if>
         </div> 
-          <c:if test= "${ !empty sesseionScope.login}">
-           <c:out value="${ searchId.user_id } 입니다."/>
-           </c:if>  
         </div>
         
         
         <!-- 회원가입용   -->
+        <div class="content">
         <div class="signup-cont cont">
           <form action="ebinsert.me" method="post" enctype="multipart/form-data">
             <input type="text" name="user_id" id="ID" class="inpt" required="required" placeholder="Your id">
@@ -499,6 +495,7 @@
                </div>
           </form>
         </div>
+        </div>
         
         <script>
         <!-- 회원가입시 유효성 검사  -->
@@ -547,7 +544,7 @@
     <!-- 우측 카카오 로그인 및 구글 로그인 화면 만들기 -->
     <div class="half bg">
 
-      <br><br><br><br><br><br><br><br>
+     <!--  <br><br><br><br><br><br><br><br>
 
       <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
@@ -564,7 +561,7 @@
         Kakao.init('f64ed07cd2c0fe7ce2b8eb13280efeda');
         // 카카오 로그인 버튼을 생성합니다.
         Kakao.Auth.createLoginButton({
-          container: '#kakao-login-btn',
+          containerSe: '#kakao-login-btn',
           success: function (authObj) {
             alert(JSON.stringify(authObj));
           },
@@ -573,7 +570,7 @@
           }
         });
                       //]]>
-      </script>
+      </script> -->
 
 
 
@@ -603,7 +600,7 @@
         $('.signup-cont').show();
       }
     });
-    $('.container .bg').mousemove(function (e) {
+    $('.containerSe .bg').mousemove(function (e) {
       var amountMovedX = (e.pageX * -1 / 30);
       var amountMovedY = (e.pageY * -1 / 9);
       $(this).css('background-position', amountMovedX + 'px ' + amountMovedY + 'px');
