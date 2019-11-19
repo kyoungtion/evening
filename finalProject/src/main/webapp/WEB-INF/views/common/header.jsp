@@ -91,6 +91,7 @@
 				</div>
 				<!-- 로그인 전 -->
 				<c:if test="${ empty sessionScope.loginUser }">
+
 				<div id="navTag">
 					<ul id="hNav">
 						<li><a href="auctionList.bo">경매</a></li>
@@ -119,6 +120,7 @@
 						<li><img src="../push_bell/img/bell.png" alt=""></li>
 					</ul>
 				</div>
+
 				</c:if>
 				<!-- 로그인 후 -->
 				<c:if test="${ !empty sessionScope.loginUser && loginUser.user_id ne 'admin'}">
@@ -154,6 +156,7 @@
 				<!-- 관리자 로그인 시 -->
 				<c:if test="${ !empty sessionScope.loginUser && loginUser.user_id eq 'admin' }">
 					<div id="navTag">
+
 					<ul id="hNav">
 						<!-- 관리자 페이지 -->
 						<li id="userLi"><span>${ loginUser.rankCode.rank_img }</span>&nbsp;<b>${ loginUser.nickName }</b> 님.</li>
@@ -161,15 +164,18 @@
 						<li><a href="logout.me" title="로그아웃"><i class="fas fa-sign-out-alt"></i></a></li>
 					</ul>
 				</div>
+
 				</c:if>
 			</div>
 		</div>
 	</header>
 	<script>
-		$('#hLogo img').click(function(){
-			location.href="home.do";
+		$('#hLogo img').click(function() {
+			location.href = "home.do";
 		});
-   </script>
+
+		
+	</script>
 	<div class="catalog no-drag">
 		<div style="text-align: center; display: inline-block;">
 			<ul class="catalog-ul">
@@ -180,12 +186,12 @@
 					style="font-size: 21px;">경매</a></li>
 				<li class="catalog-tap"><a style="font-size: 21px;">게시판</a>
 					<ul class="catalogTag">
-						<li onclick="location.href='gList.ge?category=Community'">
-							<i class="fas fa-comments fa-2x"></i><br>커뮤니티</li>
-						<li onclick="location.href='gList.ge?category=Selling'">
-							<i class="fas fa-shopping-basket fa-2x"></i><br>삽니다</li>
-						<li onclick="location.href='gList.ge?category=QNA'">
-							<i class="fas fa-question-circle fa-2x"></i><br>문의글</li>
+						<li onclick="location.href='gList.ge?category=Community'"><i
+							class="fas fa-comments fa-2x"></i><br>커뮤니티</li>
+						<li onclick="location.href='gList.ge?category=Selling'"><i
+							class="fas fa-shopping-basket fa-2x"></i><br>삽니다</li>
+						<li onclick="location.href='gList.ge?category=QNA'"><i
+							class="fas fa-question-circle fa-2x"></i><br>문의글</li>
 					</ul></li>
 			</ul>
 		</div>

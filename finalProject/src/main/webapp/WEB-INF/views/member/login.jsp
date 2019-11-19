@@ -16,6 +16,7 @@
   
    <!--구글 로그인 관련  -->
   <script src="https://ajax.googleleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
   <!-- <script src="colors.js"></script> -->
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <meta name="google-signin-client_id"
