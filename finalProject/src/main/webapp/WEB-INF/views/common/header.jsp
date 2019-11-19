@@ -111,10 +111,7 @@
 										<li><a href="favorites.me">관심 목록</a></li>
 										<li><a href="dealDetail.me">거래 내역</a></li>
 										<li><a href="mypost.me">내가 쓴 글</a></li>
-										<li><a href="javascript:void(0);"
-											onclick="window.open('pushMain.pu', '알림창', 'top=10, left=10, width=920, height=510, status=no, menubar=no, toolbar=no, resizable=no');"><img
-												src="https://i.imgur.com/CNXbr6P.png"></a></li>
-
+										
 									</ul>
 								</div></li>
 							<li><img src="../push_bell/img/bell.png" alt=""></li>
@@ -127,6 +124,9 @@
 						<ul id="hNav">
 							<li><a href="auctionList.bo">경매</a></li>
 							<li><a href="usedListAll.ud">중고거래</a></li>
+							<li><a href="javascript:void(0);"
+								onclick="window.open('chat.ch', '채팅', 'top=10, left=10, width=430, height=560, status=no, menubar=no, toolbar=no, resizable=no');">
+									채팅</a></li>
 							<li class="nav_sub"><a href="gList.ge?category=Community">게시판</a>
 								<div style="position: fixed;">
 									<ul id="test" style="height: 75px !important;">
@@ -145,7 +145,6 @@
 										<li><a href="mypost.me">내가 쓴 글</a></li>
 									</ul>
 								</div></li>
-							<li><img src="../push_bell/img/bell.png" alt=""></li>
 							<li><a href="logout.me" title="로그아웃"><i
 									class="fas fa-sign-out-alt fa-1x"></i></a></li>
 						</ul>
