@@ -10,6 +10,7 @@ import com.kh.evening.board.model.vo.AuctionHistory;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.BoardMode;
 import com.kh.evening.board.model.vo.PageInfo;
+import com.kh.evening.board.model.vo.Reply;
 
 @Service("bService")
 public class BoardServiceImp implements BoardService {
@@ -90,6 +91,11 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public int deleteBoard(int sgId) {
 		return bDAO.deleteBoard(sqlSession,sgId);
+	}
+
+	@Override
+	public int insertReply(Reply r) {
+		return bDAO.insertReply(sqlSession,r);
 	}
 
 }

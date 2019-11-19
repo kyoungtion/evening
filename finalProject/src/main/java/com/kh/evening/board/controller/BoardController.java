@@ -2,11 +2,13 @@ package com.kh.evening.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.evening.board.model.exception.BoardException;
 import com.kh.evening.board.model.service.BoardService;
 import com.kh.evening.board.model.service.BoardServiceImp;
@@ -24,6 +30,7 @@ import com.kh.evening.board.model.vo.AuctionHistory;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.BoardMode;
 import com.kh.evening.board.model.vo.PageInfo;
+import com.kh.evening.board.model.vo.Reply;
 import com.kh.evening.common.Pageination;
 
 @Controller
@@ -160,8 +167,39 @@ public class BoardController {
 		} else {
 			throw new BoardException("게시글 읽기를 실패하였습니다.");
 		}
-
 		return mv;
+	}
+	
+	@RequestMapping("replyList.bo")
+	public void replyList(HttpServletResponse response,int sgId) {
+		ArrayList<Reply> list= bService.selectReplyList(sgId);
+		
+		for(Reply r : list) {
+			r.setREPLY_INFO(URLEncoder.encode(r.getREPLY_INFO(),"UTF-8"));
+			
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			gson.toJson(list,response.getWriter());
+		}
+		
+		
+	}
+	
+	@RequestMapping("addReply.bo")
+	@ResponseBody
+	public String addReply(Reply r,HttpSession session) {
+//		Member loginUser = (Member)session.getAttribute("loginUser");
+//		String rWriter = loginUser.getId();
+		
+		r.setNICKNAME("testUser");
+		r.setUSER_ID("testId");
+		
+		int result = bService.insertReply(r);
+		
+		if(result >0) {
+			return "success";
+		}else {
+			throw new BoardException("댓글 등록에 실패하였습니다.");
+		}
 	}
 
 	@RequestMapping("boardupdateForm.bo")

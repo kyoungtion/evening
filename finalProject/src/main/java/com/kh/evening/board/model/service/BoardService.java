@@ -6,6 +6,7 @@ import com.kh.evening.board.model.vo.AuctionHistory;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.BoardMode;
 import com.kh.evening.board.model.vo.PageInfo;
+import com.kh.evening.board.model.vo.Reply;
 import com.kh.evening.member.model.vo.Member;
 
 public interface BoardService {
@@ -37,5 +38,7 @@ public interface BoardService {
 	int updateAttachment(Attachment atm);
 
 	int deleteBoard(int sgId);
+
+	int insertReply(Reply r);
 
 }

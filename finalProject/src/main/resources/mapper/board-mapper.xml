@@ -76,14 +76,17 @@
 		sysdate,sysdate,default)
 	</insert>
 	
+	<insert id="insertReply" parameterType="Reply">
+		INSERT INTO REPLY VALUES(SEQ_G_REPLY.nextval,#{USER_ID},#{NICKNAME},#{SG_ID},#{REPLY_INFO},default,SYSDATE,SYSDATE,default)
+	</insert>
+	
 	<update id="boardViewCount" parameterType="_int">
 		UPDATE SECOND_GOODS
 		SET SG_COUNT = SG_COUNT+1 
 		WHERE SG_ID=#{sg_id}
 	</update>
 	
-	<select id="boardSelectOne" parameterType="_int"
-		resultType="Board">
+	<select id="boardSelectOne" parameterType="_int" resultType="Board">
 		SELECT * FROM SECOND_GOODS WHERE SG_ID=#{sg_id}
 	</select>
 	
@@ -120,7 +123,5 @@
 		SET SG_STATUS='Y'
 		WHERE SG_ID=#{sgId}
 	</update>
-	
-
 
 </mapper>

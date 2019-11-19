@@ -10,6 +10,7 @@ import com.kh.evening.board.model.vo.AuctionHistory;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.BoardMode;
 import com.kh.evening.board.model.vo.PageInfo;
+import com.kh.evening.board.model.vo.Reply;
 
 @Repository("bDAO")
 public class BoardDAO {
@@ -78,6 +79,10 @@ public int updateAttachment(SqlSession sqlSession, Attachment atm) {
 
 public int deleteBoard(SqlSession sqlSession, int sgId) {
 	return sqlSession.update("boardMapper.deleteBoard",sgId);
+}
+
+public int insertReply(SqlSession sqlSession, Reply r) {
+	return sqlSession.insert("boardMapper.insertReply",r);
 }
 
 
