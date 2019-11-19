@@ -12,10 +12,10 @@
     <!-- 다음 주소 api -->
    <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
   <!-- 카카오 로그인 관련  -->
-  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+  <!-- <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script> -->
   
    <!--구글 로그인 관련  -->
-  <script src="https://ajax.googleleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- <script src="https://ajax.googleleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 
   <!-- <script src="colors.js"></script> -->
   <script src="https://apis.google.com/js/platform.js" async defer></script>

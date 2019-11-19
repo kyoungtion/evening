@@ -1,12 +1,14 @@
 package com.kh.evening.board.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import com.google.gson.Gson;
 import com.kh.evening.board.model.exception.BoardException;
 import com.kh.evening.board.model.service.BoardService;
 import com.kh.evening.board.model.vo.Attachment;
@@ -211,20 +213,26 @@ public class BoardController {
 	
 	@RequestMapping("selectLikeCheck.bo")
 	@ResponseBody
-	public int selectLikeCheck(@RequestParam(value="user_Id", required=false) String userId, @RequestParam(value="sgId") int sgId) {
+	public HashMap<String, Object> selectLikeCheck(@RequestParam(value="user_Id", required=false) String userId, @RequestParam(value="sgId") int sgId) {
 	  // 게시판 접속시 좋아요 체크상태 여부 확인
 	  ArrayList<GoodLike> list = bService.selectGoodLike(userId);
 	  
+	  HashMap<String,Object> rlist = new HashMap<String, Object>();
+	  rlist.put("result", 0);
+	  rlist.put("check", false);
+	  
 	  if(list.size() < 1) {
-	    return 0;
+	    return rlist;
 	  }
 	  
 	  for(GoodLike gl : list) {
 	    if(gl.getSg_Id() == sgId) {
-	      return gl.getGl_Check();
+	      rlist.put("result", gl.getGl_Check());
+	      rlist.put("check", true);
+	      return rlist;
 	    }
 	  }
 	  
-	  return 0;
+	  return rlist;
 	}
 }

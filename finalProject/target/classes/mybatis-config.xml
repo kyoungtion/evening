@@ -14,6 +14,7 @@
 		<typeAlias type="com.kh.evening.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.evening.board.model.vo.AuctionHistory" alias="AuctionHistory"/>
 		<typeAlias type="com.kh.evening.board.model.vo.GoodLike" alias="GoodLike"/>
+		<typeAlias type="com.kh.evening.member.model.vo.RankCode" alias="RankCode"/>
 	</typeAliases>
 	
 	<mappers>

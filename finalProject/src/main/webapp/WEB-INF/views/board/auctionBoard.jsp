@@ -71,11 +71,71 @@
 												</p>
 
 												<div class="cart">
-													<p>
-														<!-- <span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span> 
-														<span><a href="selectOne.ud"><i class="icon-eye"></i></a></span> -->
-														<span><a href="#"><i class="icon-heart3"></i></a></span>
-														<!-- <span><a href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span> --> <!-- 필요없을꺼같아서 대기중 (삭제대기중) -->
+													<p> <!-- 좋아요 부분 -->
+														<span><a href="#" onclick="return false;"><i class="" id="clickTest${ i.SG_ID }"></i><span id="likeCount${ i.SG_ID }">${ i.SG_LIKE }</span></a></span>
+														<script>
+														// 로그인한 유저가 좋아요를 했는지 않했는지
+												  		var likeCheck = false;
+														var likeCountCheck = false;
+														
+														$(function(){
+														  $.ajax({
+														    url:"selectLikeCheck.bo",
+														    data:{
+														      user_Id : "${ loginUser.user_id}",
+														      sgId : "${ i.SG_ID}"
+														    },success: function(data){
+														      if(data.result == 1){
+														        $('#clickTest${ i.SG_ID }').attr('class','icon-heart3');
+														        $('#clickTest${ i.SG_ID }').css('font-size','16px');
+														        likeCheck=true;
+														        likeCountCheck=true;
+														      }else if(data.result == 0){
+														        $('#clickTest${ i.SG_ID }').attr('class','icon-heart2');
+														        $('#clickTest${ i.SG_ID }').css('font-size','13px');
+														        likeCheck=data.check;
+														        likeCountCheck=false; 
+														      }
+														    }
+														  });
+														});
+														// 좋아요 눌렀을시 이벤트
+															$('#clickTest${ i.SG_ID }').on('click',function(){
+															  var userCheck = "${ loginUser.user_id}";
+															  
+															  if(userCheck.length > 0){
+																  $.ajax({
+																    url: "selectLike.bo",
+																    data: {
+																      user_Id : "${ loginUser.user_id }",
+																      sgId : "${ i.SG_ID }",
+																      likeCheck : likeCheck
+																    },
+																    success: function(data){
+																      if(data == 1){
+																        $('#clickTest${ i.SG_ID }').attr('class','icon-heart3');
+																        $('#clickTest${ i.SG_ID }').css('font-size','16px');
+																        if(likeCountCheck==false){
+																	    	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE + 1}");
+																        }else{
+																        	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE}");
+																        }
+																        likeCheck=true;
+																      }else if(data == 0){
+																        $('#clickTest${ i.SG_ID }').attr('class','icon-heart2');
+																        $('#clickTest${ i.SG_ID }').css('font-size','13px');
+																        if(likeCountCheck==true){
+																        	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE - 1}");
+																        }else{
+																	        $('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE }");
+																        }
+																        likeCheck=true;
+																      }
+																    }
+																  });
+															  }
+															});
+														</script>
 													</p>
 												</div>
 												

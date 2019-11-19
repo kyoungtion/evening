@@ -160,27 +160,25 @@
 									<script>
 									// 로그인한 유저가 좋아요를 했는지 않했는지
 							  		var likeCheck = false;
-									var likeCount = false;
+									var likeCountCheck = false;
 									
 									$(function(){
 									  $.ajax({
-									    url: "selectLikeCheck.bo",
-									    data: {
-									      user_Id : "${ loginUser.user_id }",
-									      sgId : "${ board.SG_ID }"
-									    },
-									    success: function(data){
-									      console.log(data);
-									      if(data == 1){
+									    url:"selectLikeCheck.bo",
+									    data:{
+									      user_Id : "${ loginUser.user_id}",
+									      sgId : "${ board.SG_ID}"
+									    },success: function(data){
+									      if(data.result == 1){
 									        $('#clickTest').attr('class','icon-heart3');
 									        $('#clickTest').css('font-size','');
 									        likeCheck=true;
-									        likeCount=true;
-									      }else if(data == 0){
+									        likeCountCheck=true;
+									      }else if(data.result == 0){
 									        $('#clickTest').attr('class','icon-heart2');
 									        $('#clickTest').css('font-size','18px');
-									        likeCheck=false;
-									        likeCount=false;
+									        likeCheck=data.check;
+									        likeCountCheck=false; 
 									      }
 									    }
 									  });
@@ -199,11 +197,10 @@
 											      likeCheck : likeCheck
 											    },
 											    success: function(data){
-											      console.log(data);
 											      if(data == 1){
 											        $('#clickTest').attr('class','icon-heart3');
 											        $('#clickTest').css('font-size','');
-											        if(likeCount==false){
+											        if(likeCountCheck==false){
 												    	$('#likeCount').html("${ board.SG_LIKE + 1}");
 											        }else{
 											        	$('#likeCount').html("${ board.SG_LIKE}");
@@ -212,7 +209,7 @@
 											      }else if(data == 0){
 											        $('#clickTest').attr('class','icon-heart2');
 											        $('#clickTest').css('font-size','18px');
-											        if(likeCount==true){
+											        if(likeCountCheck==true){
 											        	$('#likeCount').html("${ board.SG_LIKE - 1}");
 											        }else{
 												        $('#likeCount').html("${ board.SG_LIKE }");
@@ -225,6 +222,7 @@
 										  
 										});
 									</script>
+									
 								</div>
 							</div>
 						</div>
