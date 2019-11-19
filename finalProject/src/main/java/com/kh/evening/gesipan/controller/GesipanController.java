@@ -134,7 +134,8 @@ public class GesipanController {
 							@RequestParam("searchfor") String searchfor, 
 							@RequestParam("keyword") String keyword,
 							@RequestParam("category") String category,
-							ModelAndView mv) throws UnsupportedEncodingException {
+							ModelAndView mv,
+							HttpServletRequest request) throws UnsupportedEncodingException {
 		
 		Map<String, String> parameters = new HashMap<>();
 		parameters.put("searchfor", URLDecoder.decode(searchfor,"UTF-8"));
@@ -213,9 +214,10 @@ public class GesipanController {
 	
 	@RequestMapping("addReply.ge")
 	@ResponseBody
-	public String insertReply(GesipanReply r /*, HttpSession session*/) {
-		r.setUser_id("user_id");
-		r.setNickname("유저1");
+	public String insertReply(GesipanReply r, @RequestParam("user_id") String user_id, @RequestParam("nickname") String nickname /*, HttpSession session*/) {
+		
+		r.setUser_id(user_id);
+		r.setNickname(nickname);
 		
 		int result = gService.insertReply(r);
 		

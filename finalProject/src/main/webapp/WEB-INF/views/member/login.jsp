@@ -16,7 +16,7 @@
   
    <!--구글 로그인 관련  -->
   <script src="https://ajax.googleleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<!-- 너무 느려서 주석 나중에 풀어야됨 -->  
+
   <!-- <script src="colors.js"></script> -->
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <meta name="google-signin-client_id"
@@ -55,7 +55,7 @@
       background-color: #f8f8f8;
     }
 
-    body .container {
+    body .containerSe {
       position: relative;
       overflow: hidden;
       width: 900px;
@@ -67,14 +67,14 @@
       box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
     }
 
-    body .container .half {
+    body .containerSe .half {
       float: left;
       width: 50%;
       height: 100%;
       padding: 58px 40px 0;
     }
 
-    body .container .half.bg {
+    body .containerSe .half.bg {
 
       float: right;
       width: 50%;
@@ -83,7 +83,7 @@
 
     }
 
-    body .container h1 {
+    body .containerSe h1 {
       font-size: 18px;
       font-weight: 700;
       margin-bottom: 23px;
@@ -94,13 +94,13 @@
       color: #263238;
     }
 
-    body .container .tabs {
+    body .containerSe .tabs {
       width: 100%;
       margin-bottom: 29px;
       border-bottom: 1px solid #d9d9d9;
     }
 
-    body .container .tabs .tab {
+    body .containerSe .tabs .tab {
       display: inline-block;
       margin-bottom: -1px;
       padding: 20px 15px 10px;
@@ -114,7 +114,7 @@
       transition: all 0.1s ease-in-out;
     }
 
-    body .container .tabs .tab a {
+    body .containerSe .tabs .tab a {
       font-size: 11px;
       text-decoration: none;
       text-transform: uppercase;
@@ -122,45 +122,45 @@
       transition: all 0.1s ease-in-out;
     }
 
-    body .container .tabs .tab.active a,
-    body .container .tabs .tab:hover a {
+    body .containerSe .tabs .tab.active a,
+    body .containerSe .tabs .tab:hover a {
       color: #263238;
     }
 
-    body .container .tabs .tab.active {
+    body .containerSe .tabs .tab.active {
       border-bottom: 1px solid #263238;
     }
 
-    body .container .content form {
+    body .containerSe .content form {
       position: relative;
       height: 287px;
     }
 
-    body .container .content label:first-of-type,
-    body .container .content input:first-of-type,
-    body .container .content .more:first-of-type {
+    body .containerSe .content label:first-of-type,
+    body .containerSe .content input:first-of-type,
+    body .containerSe .content .more:first-of-type {
       -moz-animation: slideIn 0.4s cubic-bezier(0.37, 0.82, 0.2, 1);
       -webkit-animation: slideIn 0.4s cubic-bezier(0.37, 0.82, 0.2, 1);
       animation: slideIn 0.4s cubic-bezier(0.37, 0.82, 0.2, 1);
     }
 
-    body .container .content label:nth-of-type(2),
-    body .container .content input:nth-of-type(2),
-    body .container .content .more:nth-of-type(2) {
+    body .containerSe .content label:nth-of-type(2),
+    body .containerSe .content input:nth-of-type(2),
+    body .containerSe .content .more:nth-of-type(2) {
       -moz-animation: slideIn 0.5s cubic-bezier(0.37, 0.82, 0.2, 1);
       -webkit-animation: slideIn 0.5s cubic-bezier(0.37, 0.82, 0.2, 1);
       animation: slideIn 0.5s cubic-bezier(0.37, 0.82, 0.2, 1);
     }
 
-    body .container .content label:nth-of-type(3),
-    body .container .content input:nth-of-type(3),
-    body .container .content .more:nth-of-type(3) {
+    body .containerSe .content label:nth-of-type(3),
+    body .containerSe .content input:nth-of-type(3),
+    body .containerSe .content .more:nth-of-type(3) {
       -moz-animation: slideIn 0.6s cubic-bezier(0.37, 0.82, 0.2, 1);
       -webkit-animation: slideIn 0.6s cubic-bezier(0.37, 0.82, 0.2, 1);
       animation: slideIn 0.6s cubic-bezier(0.37, 0.82, 0.2, 1);
     }
 
-    body .container .content label {
+    body .containerSe .content label {
       font-size: 12px;
       color: #263238;
       -moz-user-select: -moz-none;
@@ -169,11 +169,11 @@
       user-select: none;
     }
 
-    body .container .content label:not([for='remember']) {
+    body .containerSe .content label:not([for='remember']) {
       display: none;
     }
 
-    body .container .content input.inpt {
+    body .containerSe .content input.inpt {
       font-size: 14px;
       display: block;
       width: 100%;
@@ -192,7 +192,7 @@
     
     #postalCode{float: left;}
 
-     body .container .content input.inpt2 {
+     body .containerSe .content input.inpt2 {
       font-size: 14px;
       display: block;
       width: 70%;
@@ -207,7 +207,7 @@
       border-radius: 2px;
     }
 
-    body .container .content input.inpt3 {
+    body .containerSe .content input.inpt3 {
       font-size: 18px;
       display: block;
       width: 30%;
@@ -223,35 +223,35 @@
       
     } 
 
-    body .container .content input.inpt::-webkit-input-placeholder {
+    body .containerSe .content input.inpt::-webkit-input-placeholder {
       font-size: 14px;
       color: #999999;
       font-family: 'Lato', sans-serif;
     }
 
-    body .container .content input.inpt:-moz-placeholder {
+    body .containerSe .content input.inpt:-moz-placeholder {
       font-size: 14px;
       color: #999999;
       font-family: 'Lato', sans-serif;
     }
 
-    body .container .content input.inpt::-moz-placeholder {
+    body .containerSe .content input.inpt::-moz-placeholder {
       font-size: 14px;
       color: #999999;
       font-family: 'Lato', sans-serif;
     }
 
-    body .container .content input.inpt:-ms-input-placeholder {
+    body .containerSe .content input.inpt:-ms-input-placeholder {
       font-size: 14px;
       color: #999999;
       font-family: 'Lato', sans-serif;
     }
 
-    body .container .content input.inpt:focus {
+    body .containerSe .content input.inpt:focus {
       border-color: #999999;
     }
 
-    body .container .content input.submit {
+    body .containerSe .content input.submit {
       font-size: 12px;
       line-height: 42px;
       display: block;
@@ -269,7 +269,7 @@
       border-radius: 2px;
     }
 
-    body .container .content input.submit:hover {
+    body .containerSe .content input.submit:hover {
       background-color: #263238;
       color: #ffffff;
       -moz-transition: all 0.2s;
@@ -278,11 +278,11 @@
       transition: all 0.2s;
     }
 
-    body .container .content input:focus {
+    body .containerSe .content input:focus {
       outline: none;
     }
 
-    body .container .content .checkbox {
+    body .containerSe .content .checkbox {
       margin-top: 4px;
       overflow: hidden;
       clip: rect(0 0 0 0);
@@ -293,13 +293,13 @@
       border: 0;
     }
 
-    body .container .content .checkbox+label {
+    body .containerSe .content .checkbox+label {
       vertical-align: middle;
       display: inline-block;
       width: 50%;
     }
 
-    body .container .content .checkbox+label:before {
+    body .containerSe .content .checkbox+label:before {
       content: "\A";
       color: #999999;
       font-family: Verdana;
@@ -320,17 +320,17 @@
       margin: -2px 8px 0 0;
     }
 
-    body .container .content .checkbox:checked+label:before {
+    body .containerSe .content .checkbox:checked+label:before {
       content: "✓";
     }
 
-    body .container .content .submit-wrap {
+    body .containerSe .content .submit-wrap {
       position: relative;
       bottom: 0;
       width: 100%;
     }
 
-    body .container .content .submit-wrap a {
+    body .containerSe .content .submit-wrap a {
       font-size: 12px;
       display: block;
       margin-top: 20px;
@@ -339,11 +339,11 @@
       color: #999999;
     }
 
-    body .container .content .submit-wrap a:hover {
+    body .containerSe .content .submit-wrap a:hover {
       text-decoration: underline;
     }
 
-    body .container .content .signup-cont {
+    body .containerSe .content .signup-cont {
       display: none;
     }
 
@@ -410,7 +410,7 @@
  <c:import url="/WEB-INF/views/common/header.jsp" />
 
    
-  <section class="container">
+  <section class="containerSe">
     
     <!-- 일반회원 로그인-->
     <article class="half">
@@ -421,14 +421,13 @@
       </div>
       <div class="content">
         <div class="signin-cont cont">
-        <c:if test= "${ empty sessionScope.login}">
           <form action="login.me" method="post" enctype="multipart/form-data">
-            <input type="text" name="user_id" id="user_id" class="inpt" required="required" placeholder="Your id">
+            <input type="text" name="user_id" id="user_id" class="inpt" required="required" placeholder="회원 아이디">
             <label for="ID">Your id</label>
             
-            <input type="password" name="user_pwd" id="password" class="inpt" required="required"
-              placeholder="Your password">
-            <label for="password">Your Password</label>
+            <input type="password" name="user_pwd" id="user_pwd" class="inpt" required="required"
+              placeholder="비밀번호">
+            <label for="user_pwd">Your Password</label>
             
             <input type="checkbox" id="remember" class="checkbox" checked>
             <label for="remember">Remember me</label>
@@ -438,57 +437,54 @@
               <a href="search.me" class="more">Forgot your id & password?</a>
             </div>
           </form>
-           </c:if>
         </div> 
-          <c:if test= "${ !empty sesseionScope.login}">
-           <c:out value="${ searchId.user_id } 입니다."/>
-           </c:if>  
         </div>
         
         
         <!-- 회원가입용   -->
+        <div class="content">
         <div class="signup-cont cont">
           <form action="ebinsert.me" method="post" enctype="multipart/form-data">
-            <input type="text" name="user_id" id="ID" class="inpt" required="required" placeholder="Your id">
+            <input type="text" name="user_id" id="ID" class="inpt" required="required" placeholder="회원 아이디">
             <label for="ID">Your id</label>
             <span class="guide ok"> 이 아이디는 사용 가능합니다.</span>
             <span class="guide error">이 아이디는 사용할 수 없습니다.</span>
             <input type="hidden" name="idDuplicateCheck" id="idDuplicateCheck" value="0">
          
          
-            <input type="text" name="user_name" id="name" class="inpt" required="required" placeholder="Your name">
+            <input type="text" name="user_name" id="name" class="inpt" required="required" placeholder="이름">
             <label for="name">Your name</label>
           
-         <input type="text" name="nickName" id="nickname" class="inpt" required="required" placeholder="Your nickname">
+         <input type="text" name="nickName" id="nickname" class="inpt" required="required" placeholder="별명">
             <label for="nickname">Your nickname</label>
              
-            <input type="email" name="user_email" id="email" class="inpt" required="required" placeholder="Your email">
+            <input type="email" name="user_email" id="email" class="inpt" required="required" placeholder="이메일주소">
             <label for="email">Your email</label>
 
             <input type="password" name="user_pwd" id="password" class="inpt" required="required"
-              placeholder="Your password">
+              placeholder="비밀번호">
             <label for="password">Your password</label>
          
             <input type="Password" name="Confirm Password" id="Confirm Password" class="inpt"
-              required="required" placeholder="Confirm Password">
+              required="required" placeholder="비밀번호 확인">
             <label for="Confirm Password">Confirm password</label>
          
          
          <!-- 주민등록 번호 ( - ) 포함할껀지 말껀지? ( - ) 포함할꺼면 자동으로 - 입력하게 만들기  -->
             <input type="text" maxlength="14" name="user_residentNumber" id="registration" class="inpt" required="required"
-              placeholder="Resident registration number(-포함)" pattern = "\d{6}\-\d{7}" 
+              placeholder="주민등록번호(-포함)" pattern = "\d{6}\-\d{7}" 
                               title = "123456-1234567 형식으로 입력해주세요" >
             <label for="registration">Resident registration number</label>
          
          <!-- 다음 도로명주소 사용해보기  -->
-         <input type="text" name="zipcode1"  class="postcodify_postcode5 inpt2" value="" placeholder="Postal Code" id="postalCode">
-         <input type="button"  id="address" class="inpt3"  onclick="mapsearch();" value="Search" placeholder="Search">
-            <input type="text" name="addr"  class="postcodify_address inpt" required="required" placeholder="Address" >
+         <input type="text" name="zipcode1"  class="postcodify_postcode5 inpt2" value="" placeholder="우편번호" id="postalCode">
+         <input type="button"  id="address" class="inpt3"  onclick="mapsearch();" value="Search" placeholder="검색" style="line-height: 0em; font-size: 12px;">
+            <input type="text" name="addr"  class="postcodify_address inpt" required="required" placeholder="주소" >
             
-            <input type="text" name="addrDtl"  class="postcodify_extra_info inpt" required="required" placeholder="Address1" >
+            <input type="text" name="addrDtl"  class="postcodify_extra_info inpt" required="required" placeholder="상세 주소" >
             <label for="addr">Address</label>
       
-            <input type="text" name="phone" id="Phone" class="inpt" required="required" placeholder="Phone">
+            <input type="text" name="phone" id="Phone" class="inpt" required="required" placeholder="연락처">
             <label for="Phone">Phone</label>
             <!-- <input type="Confirm Phone" name="Confirm Phone" id="Confirm Phone" class="inpt3" required="required" placeholder="Confirm"> -->
 
@@ -499,6 +495,7 @@
                    <a href="index.jsp" class="more">Evening</a>
                </div>
           </form>
+        </div>
         </div>
         
         <script>
@@ -565,7 +562,7 @@
         Kakao.init('f64ed07cd2c0fe7ce2b8eb13280efeda');
         // 카카오 로그인 버튼을 생성합니다.
         Kakao.Auth.createLoginButton({
-          container: '#kakao-login-btn',
+          containerSe: '#kakao-login-btn',
           success: function (authObj) {
             alert(JSON.stringify(authObj));
           },
@@ -604,7 +601,7 @@
         $('.signup-cont').show();
       }
     });
-    $('.container .bg').mousemove(function (e) {
+    $('.containerSe .bg').mousemove(function (e) {
       var amountMovedX = (e.pageX * -1 / 30);
       var amountMovedY = (e.pageY * -1 / 9);
       $(this).css('background-position', amountMovedX + 'px ' + amountMovedY + 'px');

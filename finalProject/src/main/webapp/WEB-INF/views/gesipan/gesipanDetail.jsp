@@ -144,6 +144,8 @@ tbody td {
 							   </table>
 							</div>
 						</div>
+						<input type="hidden" id="user_id" name="user_id" value="${ sessionScope.loginUser.user_id }">
+						<input type="hidden" id="nickname" name="nickname" value="${ sessionScope.loginUser.nickName }">
 						
 						<div style="float:left; margin-top:10px; display:inline-block;" >
 							<c:url var="glist" value="gList.ge">
@@ -157,6 +159,7 @@ tbody td {
 							<button class="btn btn-default" onclick="location.href='${ glist }'" style="font-size:12px; display:inline-block;">목록으로 돌아가기</button>
 							<button class="btn btn-default" id="reGesipan" style="display:none;" onclick="location.href='${reInsert}'">답글<i class="fas fa-pencil-alt"></i></button>
 						</div>
+						<c:if test="${ g.g_writer == sessionScope.loginUser.user_id }">
 						<div style="float:right; margin-top:10px; display:inline-block;">
 							<c:url var="gUpdateView" value="gUpdateView.ge">
 								<c:param name="g_id" value="${ g.g_id }"/>
@@ -169,6 +172,7 @@ tbody td {
 							<button class="btn btn-danger" style="font-size:12px;" onclick="checkDelete();">삭제하기</button>
 							<input id="g_id" type="hidden" value="${ g.g_id }">
 						</div>
+						</c:if>
 					</div>
 				<!-- </form> -->
 			</div>
@@ -189,12 +193,16 @@ tbody td {
 		$('#rSubmit').on('click', function(){
 			var reply_content = $('#rContent').val();
 			var g_ref = ${ g.g_id };
+			var user_id = $('#user_id').val();
+			var nickname = $('#nickname').val();
 			if(reply_content == ""){
 				alert('댓글을 입력해주세요.');				
 			} else {
 				$.ajax({
 					url: "addReply.ge",
-					data: {reply_content:reply_content, g_ref:g_ref},
+					data: {user_id:user_id,
+							nickname:nickname,	
+						reply_content:reply_content, g_ref:g_ref},
 					type: "post",
 					success: function(data) {
 						if(data == "success") {
@@ -230,20 +238,24 @@ tbody td {
 	                       $rContent = $("<td class='rContent'>").text(decodeURIComponent(data[i].reply_content.replace(/\+/g , " ")));
 	                       $rCreateDate = $("<td>").text(data[i].reply_enroll_date);
 	                       $r_id = $("<td class='displaynone'>").text(data[i].g_reply_id);
-	                       
-	                       $rButtons = $("<td>");
-	                       $rUpButton = $("<button class='rUpdate'>").text("수정");
-	                       $rUpOk = $("<button class='rUpOk' style='display:none'>").text("완료");
-	                       $rUpNo = $("<button class='rUpNo' style='display:none'>").text("취소");
-	                       $rDeButton = $("<button class='rDelete'>").text("삭제");
-	                       
+
+	                       /* 회원아이디 비교 */
+	                       if(data[i].user_id == '${sessionScope.loginUser.user_id}'){
+		                       $rButtons = $("<td>");
+		                       $rUpButton = $("<button class='rUpdate'>").text("수정");
+		                       $rUpOk = $("<button class='rUpOk' style='display:none'>").text("완료");
+		                       $rUpNo = $("<button class='rUpNo' style='display:none'>").text("취소");
+		                       $rDeButton = $("<button class='rDelete'>").text("삭제");
+	                       }
 	                       
 	                       $tr.append($rWriter);
 	                       $tr.append($rContent);
 	                       $tr.append($rCreateDate);
 	                       $tr.append($r_id);
-	                       $rButtons.append($rUpButton).append($rUpOk).append($rUpNo).append($rDeButton);
-	                       $tr.append($rButtons);
+	                       if(data[i].user_id == '${sessionScope.loginUser.user_id}'){
+	                      		$rButtons.append($rUpButton).append($rUpOk).append($rUpNo).append($rDeButton);
+	                   			$tr.append($rButtons);
+	                       }
 	                       $tableBody.append($tr);
 	                    }
 	                    
