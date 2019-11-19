@@ -8,6 +8,7 @@ import com.kh.evening.board.model.vo.Attachment;
 import com.kh.evening.board.model.vo.AuctionHistory;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.BoardMode;
+import com.kh.evening.board.model.vo.GoodLike;
 import com.kh.evening.board.model.vo.PageInfo;
 
 @Repository("bDAO")
@@ -52,6 +53,22 @@ public class BoardDAO {
 
   public int auctionMaxPrice(SqlSession sqlSession, int sgId) {
     return sqlSession.update("boardMapper.auctionMaxPrice",sgId);
+  }
+
+  public ArrayList<GoodLike> selectGoodLike(SqlSession sqlSession, String userId) {
+    return (ArrayList)sqlSession.selectList("boardMapper.selectGoodLike",userId);
+  }
+
+  public int insertGoodLike(SqlSession sqlSession, GoodLike user) {
+    return sqlSession.insert("boardMapper.insertGoodLike",user);
+  }
+
+  public int updateGoodLike(SqlSession sqlSession, GoodLike gl) {
+    return sqlSession.update("boardMapper.updateGoodLike",gl);
+  }
+
+  public int updateBoardLike(SqlSession sqlSession, GoodLike user) {
+    return sqlSession.update("boardMapper.updateBoardLike",user);
   }
 
 

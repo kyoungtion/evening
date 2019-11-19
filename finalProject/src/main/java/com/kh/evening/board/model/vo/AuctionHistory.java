@@ -15,8 +15,8 @@ import lombok.ToString;
 public class AuctionHistory {
   
   private int a_Id;             // 경매번호
-  private String user_Id;       // 유저 아이디
-  private int sg_Id;            // 게시판 번호
+  private String User_Id;       // 유저 아이디
+  private int Sg_Id;            // 게시판 번호
   private int a_Price;          // 입찰액
   private Date a_Enroll_Date;   // 등록일
   private String a_Check;       // 입찰취소여부

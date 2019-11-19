@@ -9,6 +9,7 @@ import com.kh.evening.board.model.vo.Attachment;
 import com.kh.evening.board.model.vo.AuctionHistory;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.BoardMode;
+import com.kh.evening.board.model.vo.GoodLike;
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.member.model.vo.Member;
 
@@ -64,6 +65,26 @@ public class BoardServiceImp implements BoardService {
   @Override
   public int auctionMaxPrice(int sgId) {
     return bDAO.auctionMaxPrice(sqlSession, sgId);
+  }
+
+  @Override
+  public ArrayList<GoodLike> selectGoodLike(String userId) {
+    return bDAO.selectGoodLike(sqlSession,userId);
+  }
+
+  @Override
+  public int insertGoodLike(GoodLike user) {
+    return bDAO.insertGoodLike(sqlSession,user);
+  }
+
+  @Override
+  public int updateGoodLike(GoodLike gl) {
+    return bDAO.updateGoodLike(sqlSession,gl);
+  }
+
+  @Override
+  public int updateBoardLike(GoodLike user) {
+    return bDAO.updateBoardLike(sqlSession,user);
   }
 
 

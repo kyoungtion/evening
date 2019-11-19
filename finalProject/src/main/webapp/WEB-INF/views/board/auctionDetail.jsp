@@ -55,7 +55,7 @@
 				<img src="/evening/resources/thumbnail/${at.RENAMEFILENAME}" style="width: 500px; height: 500px;">
 				<br>
 				<br>
-				<p style="border-top: 1px solid gray;">${board.SG_ENROLL_DATE}<br> <span style="color: red; font-size: 20px;">${ board.TAG_NAME }</span> </p>
+				<p style="border-top: 1px solid gray;">${board.SG_ENROLL_DATE}<br> </p>
 			</div>
 			<div style="height: 300px;width: 100%; background: #f5f5f5;">
 				<div style="display: inline-block;">
@@ -156,7 +156,75 @@
 								<div style="width: 200px; height: 50px; float: left;">
 									<!-- 좋아요랑 조회수 표시 -->
 									<div class="sbViewAtag"><h3><i class="icon-eye"></i></h3><a>${board.SG_COUNT}</a></div>
-									<div class="sbViewAtag"><h3><i class="icon-heart3"></i></h3><a>${ board.SG_LIKE }</a> </div>
+									<div class="sbViewAtag"><h3><i class="icon-heart2" id="clickTest" style="font-size: 18px;" ></i></h3><a id="likeCount">${ board.SG_LIKE }</a></div>
+									<script>
+									// 로그인한 유저가 좋아요를 했는지 않했는지
+							  		var likeCheck = false;
+									var likeCount = false;
+									
+									$(function(){
+									  $.ajax({
+									    url: "selectLikeCheck.bo",
+									    data: {
+									      user_Id : "${ loginUser.user_id }",
+									      sgId : "${ board.SG_ID }"
+									    },
+									    success: function(data){
+									      console.log(data);
+									      if(data == 1){
+									        $('#clickTest').attr('class','icon-heart3');
+									        $('#clickTest').css('font-size','');
+									        likeCheck=true;
+									        likeCount=true;
+									      }else if(data == 0){
+									        $('#clickTest').attr('class','icon-heart2');
+									        $('#clickTest').css('font-size','18px');
+									        likeCheck=false;
+									        likeCount=false;
+									      }
+									    }
+									  });
+									});
+									
+									// 좋아요 눌렀을시 이벤트
+										$('#clickTest').on('click',function(){
+										  var userCheck = "${ loginUser.user_id}";
+										  
+										  if(userCheck.length > 0){
+											  $.ajax({
+											    url: "selectLike.bo",
+											    data: {
+											      user_Id : "${ loginUser.user_id }",
+											      sgId : "${ board.SG_ID }",
+											      likeCheck : likeCheck
+											    },
+											    success: function(data){
+											      console.log(data);
+											      if(data == 1){
+											        $('#clickTest').attr('class','icon-heart3');
+											        $('#clickTest').css('font-size','');
+											        if(likeCount==false){
+												    	$('#likeCount').html("${ board.SG_LIKE + 1}");
+											        }else{
+											        	$('#likeCount').html("${ board.SG_LIKE}");
+											        }
+											        likeCheck=true;
+											      }else if(data == 0){
+											        $('#clickTest').attr('class','icon-heart2');
+											        $('#clickTest').css('font-size','18px');
+											        if(likeCount==true){
+											        	$('#likeCount').html("${ board.SG_LIKE - 1}");
+											        }else{
+												        $('#likeCount').html("${ board.SG_LIKE }");
+											        }
+											        likeCheck=true;
+											      }
+											    }
+											  });
+										  }
+										  
+										});
+									</script>
 								</div>
 							</div>
 						</div>
