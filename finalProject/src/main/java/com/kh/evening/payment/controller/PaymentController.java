@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.evening.board.model.service.BoardService;
+import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.common.Pageination;
 import com.kh.evening.payment.model.exception.PaymentException;
@@ -24,9 +26,15 @@ public class PaymentController {
 	@Autowired
 	private PaymentService pService;
 	
+	@Autowired
+	private BoardService bService;
+	
 	// 배송지 정보 입력 폼
 	@RequestMapping("shipInfo.py")
-	public String shipInfo() {
+	public String shipInfo(@RequestParam("sgId") int sgId, Model model) {
+		Board b = bService.selectOne(sgId);
+		model.addAttribute("b",b);
+		
 		return "shipInfo";
 	}
 	

@@ -24,6 +24,8 @@ public class Payment {
 	private Date p_UPDATE_DATE;	// 결제 수정 날짜
 	private String p_STATUS;	// 결제 상태
 	private int MONEY;			// 결제 금액
+	private String MEMO;		// 배송시 메모
+	private String gp_ID;		// 상품 정보
 
 
 

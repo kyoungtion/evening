@@ -64,7 +64,7 @@
 										<td>${p.p_No}</td>
 										<td>${p.p_ID}</td>
 										<td>${p.p_NICKNAME}</td>
-										<td></td>
+										<td >${p.gp_ID}</td>
 										<td>${p.MONEY}</td>
 										<td>${p.PAYDAY}</td>
 										<td style="text-align:center;">${p.p_STATUS}</td>
@@ -132,11 +132,11 @@
 	
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 	
-	<script
+<!-- 	<script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script><!-- jQuery CDN --->
-  	<script>
+    crossorigin="anonymous"></script>jQuery CDN - -->
+<!--   	<script>
     function cancelPay() {
       jQuery.ajax({
         "url": "http://www.myservice.com/payments/cancel",
@@ -153,7 +153,7 @@
         "dataType": "json"
       });
     }
-  </script>
+  </script> -->
 	
 	</body>
 	</html>

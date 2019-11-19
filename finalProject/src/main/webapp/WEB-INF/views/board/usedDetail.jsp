@@ -115,7 +115,10 @@
 			<div style="    width: 100%;
 			height: 60px;
 			display: inline-block;">
-				<button class="btn btn-primary" onclick="location.href='shipInfo.py';">구매 </button>
+			<c:url var="shopInfo" value="shipInfo.py">
+				<c:param name="sgId" value="${ board.SG_ID }"/>
+			</c:url>
+				<button class="btn btn-primary" onclick="location.href='${ shopInfo }';">구매 </button>
 				<button class="btn btn-primary" onclick="location.href='updateForm.ud';" >수정 </button>
 			</div>
 		</div>

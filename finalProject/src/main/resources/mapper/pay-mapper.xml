@@ -5,7 +5,7 @@
 
 	<insert id="insertPay" parameterType="Payment">
 	insert into payment
-	values(P_NO_SEQ.nextval,#{P_ID},#{P_NICKNAME},#{P_ADDRESS},#{P_PHONE},#{P_EMAIL},sysdate,sysdate,default,#{MONEY})
+	values(p_NO_SEQ.nextval,#{p_ID},#{p_NICKNAME},#{p_ADDRESS},#{p_PHONE},#{p_EMAIL},sysdate,sysdate,default,#{MONEY},#{MEMO},#{gp_ID})
 	</insert>
 	
 	<select id="getListCount" resultType="_int">

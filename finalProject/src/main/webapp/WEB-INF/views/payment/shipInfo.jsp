@@ -12,6 +12,7 @@
 <!-- 결제 api -->
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
+
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 </head>
@@ -27,13 +28,14 @@
 								<div class="form-group">
 									<div class="col-md-6">
 										<label for="fname">이름</label>
-										<input type="text" value="${ loginUser.user_name }" id="fname" class="form-control" name="P_NAME">
+										<input type="text" value="${ loginUser.user_name }" id="pname" class="form-control" name="P_ID">
+										<input type="hidden" value="${ loginUser.nickName }" id="pnickname" class="form-control" name="P_NICKNAME">
 									</div>
 								</div>
 								
 					<div class="form-group">
 						<div class="col-md-6">
-							<label for="addres">주소</label>
+							<label for="addr">주소</label>
 		
 							<input type="text" id="address2" class="form-control" placeholder=""
 							   name="post" style="text-align: left; margin-bottom: 10px;" onclick="mapsearch();">
@@ -73,12 +75,17 @@
 						<div class="form-group">
 							<div class="col-md-12">
 							<label for="memo">배송시 메모</label>
-							<input type="text" id="memo" class="form-control" name="memo" placeholder="">
+							<input type="text" id="memo" class="form-control" name="MEMO" placeholder="">
+							</div>
+							
+							<div class="col-md-12">
+							<label for="money">상품 이름</label>
+							<input type="text" id="gp_id" name="gp_ID" value="${ b.SG_BNAME }" class="form-control" placeholder="">
 							</div>
 							
 							<div class="col-md-12">
 							<label for="money">금액</label>
-							<input type="text" id="money" name="MONEY" class="form-control" placeholder="">
+							<input type="text" id="money" name="MONEY" value="${b.SG_PRICE }" class="form-control" placeholder="">
 							</div>
 						</div>
 					</div>
@@ -89,11 +96,11 @@
 	</div>
 </div>
 			
-					<div class="row">
-						<div class="col-md-12">
-							<button onclick="" class="btn btn-primary" style="float: right; margin-right:130px;" id="check_module">주문</button>
-						</div>
+				<div class="row">
+					<div class="col-md-12">
+						<button onclick="" class="btn btn-primary" style="float: right; margin-right:130px;" id="check_module">주문</button>
 					</div>
+				</div>
 			
 	
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
@@ -122,10 +129,11 @@ IMP.init('imp69358155');
 // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
 IMP.request_pay({
-pg: 'inicis', // version 1.1.0부터 지원.
+pg: 'html5_inicis', // version 1.1.0부터 지원.
+
 /*
 'kakao':카카오페이,
-html5_inicis':이니시스(웹표준결제)
+html5_inicis':이니시스(웹표준결제)'
 'nice':나이스페이
 'jtnet':제이티넷
 'uplus':LG유플러스
@@ -133,8 +141,8 @@ html5_inicis':이니시스(웹표준결제)
 'payco':페이코
 'syrup':시럽페이
 'paypal':페이팔
-*/
-pay_method: 'card',
+ */
+ pay_method: 'card',
 
 /* 'samsung':삼성페이,
 'card':신용카드,
@@ -142,7 +150,7 @@ pay_method: 'card',
 'vbank':가상계좌,
 'phone':휴대폰소액결제 */
 
-merchant_uid: 'merchant_' + new Date().getTime(),
+merchant_uid: '0111000' + new Date().getTime(),
 /*
 merchant_uid에 경우
 https://docs.iamport.kr/implementation/payment
@@ -153,8 +161,7 @@ https://docs.iamport.kr/implementation/payment
 name: '결제',
 //결제창에서 보여질 이름
 amount: $('#money').val(),
-//가격
-buyer_email: $('#email').val(),//$('#spid').val(),
+buyer_email: $('#email').val(),
 buyer_name: $('#fname').val(),
 buyer_tel: $('#phone').val(),
 buyer_addr: $('#addr').val(),
