@@ -36,9 +36,14 @@
 								<span id="titlespan">삽니다</span>&nbsp; 구입하고 싶은 물건이 있으면 글을 등록해주세요.
 								자유롭게 거래가 가능한 게시판입니다.
 								<div style="float: right; padding: 10px; display: block;">
-									<button class="btn btn-default" type="button"
-										style="font-size: 10px;"
-										onclick="location.href='gesipanInsertView.ge?g_category=${cate}'">글쓰기</button>
+								<c:if test="${ !empty sessionScope.loginUser }">
+								<button class="btn btn-default" type="button"
+									style="font-size: 10px;"
+									onclick="location.href='gesipanInsertView.ge?g_category=${cate}'">글쓰기</button>
+								</c:if>
+								<c:if test="${ empty sessionScope.loginUser }">
+									<br>
+								</c:if>
 								</div>
 							</div>
 						</div>
@@ -74,9 +79,9 @@
 													alt="파일첨부" class="ec-common-rwd-image"> -->
 													<i class="fas fa-image"></i>
 												</c:if> <%-- rCount 추가 나중에 --%> <span
-												class="rWrap Before ${st.index}"> [ </span><span><font
+												class="rWrap Before ${st.index}">[</span><span><font
 													id="rCount${st.index}"></font></span><span
-												class="rWrap After ${st.index}"> ] </span></td>
+												class="rWrap After ${st.index}">]</span></td>
 											<td>${ g.nickname }</td>
 											<td>${ g.g_enroll_date }</td>
 											<td>${ g.g_count }</td>
@@ -153,9 +158,13 @@
 		// 게시글 상세정보 조회
 		$(function(){
 			$('.subject').click(function(){
-				var g_id = $(this).prev().prev().text();
-				location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
-			})
+				if(${sessionScope.loginUser != null}){
+					var g_id = $(this).prev().prev().text();
+					location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
+				} else {
+					alert('회원만 조회가능합니다.');
+				}
+			});
 		});
 		
 		function getReplyList(){

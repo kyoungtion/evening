@@ -122,7 +122,14 @@
 							<div class="col-md-12">
 								<span id="titlespan">문의사항</span>&nbsp; 궁금하거나 건의할 사항이 있으면 글을 남겨주세요. 최대한 빠르게 답변드리겠습니다.
 								<div style="float: right; padding: 10px; display: block;">
-									<button class="btn btn-default" type="button" style="font-size: 10px;" onclick="location.href='gesipanInsertView.ge?g_category=${cate}'">글쓰기</button>
+								<c:if test="${ !empty sessionScope.loginUser }">
+								<button class="btn btn-default" type="button"
+									style="font-size: 10px;"
+									onclick="location.href='gesipanInsertView.ge?g_category=${cate}'">글쓰기</button>
+								</c:if>
+								<c:if test="${ empty sessionScope.loginUser }">
+									<br>
+								</c:if>
 								</div>
 							</div>
 						</div>
@@ -255,31 +262,35 @@
 			var index = ${fn:length(list)};
 			
 			for(var i = 0; i < index; i++){
-				
-				$('#subject'+i).click(function(){
-					var g_pwd = $(this).prev().text();
 					
-					var g_id = $(this).prev().prev().text();
-					
-					if(g_pwd == ""){
-						location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
-					} else {
-						$('#modal').attr("style","display:block");
-						$('#modal_input_btn').click(function(){
-							var pwd = $('#g_pwdInput').val();
-							console.log(pwd);
-							if(g_pwd == pwd){
+					$('#subject'+i).click(function(){
+						if(${sessionScope.loginUser != null}){
+							var g_pwd = $(this).prev().text();
+							
+							var g_id = $(this).prev().prev().text();
+							
+							if(g_pwd == ""){
 								location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
 							} else {
-								$('.modal_text1').text("");
-								$('.modal_text2').text("");
-								$('.modal_text1').text("틀린 비밀번호입니다.");
-								$('.modal_text2').text("다시 입력해주세요.");
+								$('#modal').attr("style","display:block");
+								$('#modal_input_btn').click(function(){
+									var pwd = $('#g_pwdInput').val();
+									console.log(pwd);
+									if(g_pwd == pwd){
+										location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
+									} else {
+										$('.modal_text1').text("");
+										$('.modal_text2').text("");
+										$('.modal_text1').text("틀린 비밀번호입니다.");
+										$('.modal_text2').text("다시 입력해주세요.");
+									}
+								});
+							$('#g_pwdInput').val("");
 							}
-						});
-					$('#g_pwdInput').val("");
-					}
-				});
+						} else {
+							alert('회원만 조회가능합니다.');
+						}
+					});
 			}
 			
 			$('#modal_close_btn').click(function(){

@@ -1,7 +1,8 @@
 package com.kh.evening.member.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -12,16 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.evening.member.email.Email;
+import com.kh.evening.board.model.vo.PageInfo;
+import com.kh.evening.common.Pageination;
+import com.kh.evening.gesipan.model.vo.Gesipan;
 //import com.kh.evening.member.email.EmailSender;
 import com.kh.evening.member.model.exception.MemberException;
 import com.kh.evening.member.model.service.MemberService;
@@ -48,6 +51,9 @@ public class MemberController {
    JavaMailSender mailSender;*/
    
    
+   
+   // ****************************************이경희 작업부분
+   
    @RequestMapping("myinfo.me")
    public String myinfo() {
       return "myinfo";
@@ -64,8 +70,39 @@ public class MemberController {
    }
    
    @RequestMapping("mypost.me")
-   public String mypost() {
-      return "mypost";
+   public ModelAndView mypost(Model model, 
+		   					ModelAndView mv, 
+		   					@RequestParam(value="category", required=false) String category,
+		   					@RequestParam(value="page", required=false) Integer page) {
+
+	   Member loginUser = (Member)model.getAttribute("loginUser");
+	   
+	   int currentPage = 1;
+	   if(page != null) {
+		   currentPage = page;
+	   }
+	   if(category == null) {
+		   category = "Community";
+	   }
+
+	   Map<String, String> map = new HashMap<>();
+	   map.put("category", category);
+	   map.put("user_id", loginUser.getUser_id());
+	   
+	   int listCount = mService.getMyPostListCount(map);
+	   
+	   PageInfo pi = null;
+	   pi = Pageination.getGesipanPageInfo(currentPage, listCount);
+	   
+	   ArrayList<Gesipan> list = mService.selectMyPost(pi, map);
+	   
+	   if(list != null) {
+		   mv.addObject("list", list);
+		   mv.addObject("pi", pi);
+		   mv.addObject("category", category);
+		   mv.setViewName("mypost");
+	   }
+      return mv;
    }
    
    @RequestMapping("updateAucView.me")
@@ -73,12 +110,164 @@ public class MemberController {
       return "updateAuc";
    }
    
+   @RequestMapping("mUpdate.me")
+   public String memberUpdate(@ModelAttribute Member m,
+		   						@RequestParam("post") String post,
+		   						@RequestParam("address1") String address1,
+		   						@RequestParam("address2") String address2,
+		   						Model model) {
+	   m.setAddress(post + "/" + address1 + "/" + address2);
+	   int result = mService.memberUpdate(m);
+	   
+	   if(result > 0) {
+		   Member loginUser = mService.memberLogin(m);
+		   model.addAttribute("loginUser", loginUser);
+		   return "redirect:myinfo.me";
+	   } else {
+		   throw new MemberException("회원정보 수정에 실패했습니다.");
+	   }
+   }
+   
+   @RequestMapping("updatePwdView.me")
+   public String updatePwdView() {
+	   return "updatePwd";
+   }
+   
+   /* 11/12 작업중*/
+   @ResponseBody
+   @RequestMapping("checkPwd.me")
+   public String checkPwd(Member m, @RequestParam("user_id") String user_id, @RequestParam("user_pwd") String user_pwd){
+	   
+	   // 유저 정보 가져오기(user객체에)
+	   Member user = mService.memberLogin(m);
+	   
+	   if(bcryptPasswordEncoder.matches(user_pwd, user.getUser_pwd())) {
+		   return "success";
+	   } else {
+		   return "error";
+	   }
+   }
+   
+   @RequestMapping("updatePwd.me")
+   public String updatePwd(Model model, @RequestParam("newPwd") String newPwd) {
+	   
+	   Member loginUser = (Member)model.getAttribute("loginUser");
+	   
+	   String encPwd = bcryptPasswordEncoder.encode(newPwd);
+	   loginUser.setUser_pwd(encPwd);
+	   int result = mService.updatePwd(loginUser);
+	   
+	   if(result > 0) {
+		   return "redirect:updatePwdView.me";
+	   } else {
+		   throw new MemberException("비밀번호 수정에 실패하였습니다.");
+	   }
+   }
+   
+   @RequestMapping("mDelete.me")
+   public String deleteMember(Model model, SessionStatus ss) {
+	   
+	   Member m = (Member)model.getAttribute("loginUser");
+	   
+	   int result = mService.deleteMember(m);
+	   
+	   if(result > 0) {
+		   ss.setComplete();
+		   return "redirect:home.do";
+	   } else {
+		   throw new MemberException("회원 탈퇴에 실패하였습니다.");
+	   }
+   }
+   
+   @RequestMapping("adminView.ad")
+   public ModelAndView adminView(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+	   int currentPage = 1;
+	   if(page != null) {
+		   currentPage = page;
+	   }
+	   
+	   int listCount = mService.getMemberListCount();
+	   
+	   PageInfo pi = null;
+	   pi = Pageination.getGesipanPageInfo(currentPage, listCount);
+	   
+	   ArrayList<Member> list = mService.getMembers(pi);
+	   System.out.println(list);
+	   
+	   if(list != null) {
+		   mv.addObject("list", list).addObject("pi", pi).setViewName("manageMember");
+	   }
+	   return mv;
+   }
+   
+   @RequestMapping("memberLevelView.ad")
+   public String memberLevelView(Model model, @RequestParam("user_id") String user_id) {
+	   Member m = new Member();
+	   m.setUser_id(user_id);
+	   Member result = mService.memberLogin(m);
+	   model.addAttribute("m", result);
+	   return "MemberLevelView";
+   }
+   
+   @RequestMapping("updateRankCode.ad")
+   public String updateRackCode(@RequestParam("user_id") String user_id, @RequestParam("rank_code") String rank_code, Model model) {
+	   Member m = new Member();
+	   m.setUser_id(user_id);
+	   
+	   Map<String, String> map = new HashMap<>();
+	   map.put("user_id", user_id);
+	   map.put("rank_code", rank_code);
+	   int result = mService.updateRankCode(map);
+	   
+	   if(result > 0) {
+		   Member resultMember = mService.memberLogin(m);
+		   model.addAttribute("user_id", resultMember.getUser_id());
+		   return "redirect:memberLevelView.ad";
+	   } else {
+		   throw new MemberException("등급 변경에 실패하였습니다.");
+	   }
+	   
+   }
+   
+   @RequestMapping("memberDelete.ad")
+   public String memberDelete(@RequestParam("user_id") String user_id) {
+	   
+	   Member m = new Member();
+	   m.setUser_id(user_id);
+	   
+	   int result = mService.deleteMember(m);
+	   
+	   if(result > 0) {
+		   return "redirect:adminView.ad";
+	   } else {
+		   throw new MemberException("회원삭제에 실패했습니다.");
+	   }
+   }
+   
+   @RequestMapping("deleteAllMember.ad")
+   public String memberDeleteAll(@RequestParam("ids") String ids) {
+	   
+	   String[] idArray = ids.split(",");
+	   
+	   int result = mService.deleteAllMember(idArray);
+	   
+	   if(result > 0) {
+		   return "redirect:adminView.ad";
+	   } else {
+		   throw new MemberException("선택한 회원 삭제에 실패했습니다.");
+	   }
+   }
+   
+   
+   // ********************************************끝
    
    // 아이디 비밀번호 찾기 컨트롤러
    @RequestMapping("searchidpwd.me")
    public String searchidpwd() {
       return "searchidpwd";
    }
+   
+   
    
    // 회원가입용 컨트롤러
    
@@ -135,7 +324,6 @@ public class MemberController {
       } else {
     	  throw new MemberException("로그인에 실패하였습니다.");
       }
-      
       
    }
    

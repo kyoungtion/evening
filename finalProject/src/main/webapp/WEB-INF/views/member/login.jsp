@@ -11,12 +11,13 @@
     
     <!-- 다음 주소 api -->
    <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
- <!--  <!-- 카카오 로그인 관련  -->
+  <!-- 카카오 로그인 관련  -->
   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
   
-  <!--  구글 로그인 관련 
+   <!--구글 로그인 관련  -->
   <script src="https://ajax.googleleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="colors.js"></script>
+
+  <!-- <script src="colors.js"></script> -->
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <meta name="google-signin-client_id"
     content="771961646010-vn99g36mbkraddshtf6brr57s94n7ivg.apps.googleusercontent.com">
@@ -32,7 +33,7 @@
          console.log('Image URL: ' + profile.getImageUrl());
          console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
        }
-  </script> -->
+  </script>
        
 
      
@@ -421,11 +422,11 @@
       <div class="content">
         <div class="signin-cont cont">
           <form action="login.me" method="post" enctype="multipart/form-data">
-            <input type="text" name="user_id" id="user_id" class="inpt" required="required" placeholder="Your id">
+            <input type="text" name="user_id" id="user_id" class="inpt" required="required" placeholder="회원 아이디">
             <label for="ID">Your id</label>
             
             <input type="password" name="user_pwd" id="user_pwd" class="inpt" required="required"
-              placeholder="Your password">
+              placeholder="비밀번호">
             <label for="user_pwd">Your Password</label>
             
             <input type="checkbox" id="remember" class="checkbox" checked>
@@ -444,46 +445,46 @@
         <div class="content">
         <div class="signup-cont cont">
           <form action="ebinsert.me" method="post" enctype="multipart/form-data">
-            <input type="text" name="user_id" id="ID" class="inpt" required="required" placeholder="Your id">
+            <input type="text" name="user_id" id="ID" class="inpt" required="required" placeholder="회원 아이디">
             <label for="ID">Your id</label>
             <span class="guide ok"> 이 아이디는 사용 가능합니다.</span>
             <span class="guide error">이 아이디는 사용할 수 없습니다.</span>
             <input type="hidden" name="idDuplicateCheck" id="idDuplicateCheck" value="0">
          
          
-            <input type="text" name="user_name" id="name" class="inpt" required="required" placeholder="Your name">
+            <input type="text" name="user_name" id="name" class="inpt" required="required" placeholder="이름">
             <label for="name">Your name</label>
           
-         <input type="text" name="nickName" id="nickname" class="inpt" required="required" placeholder="Your nickname">
+         <input type="text" name="nickName" id="nickname" class="inpt" required="required" placeholder="별명">
             <label for="nickname">Your nickname</label>
              
-            <input type="email" name="user_email" id="email" class="inpt" required="required" placeholder="Your email">
+            <input type="email" name="user_email" id="email" class="inpt" required="required" placeholder="이메일주소">
             <label for="email">Your email</label>
 
             <input type="password" name="user_pwd" id="password" class="inpt" required="required"
-              placeholder="Your password">
+              placeholder="비밀번호">
             <label for="password">Your password</label>
          
             <input type="Password" name="Confirm Password" id="Confirm Password" class="inpt"
-              required="required" placeholder="Confirm Password">
+              required="required" placeholder="비밀번호 확인">
             <label for="Confirm Password">Confirm password</label>
          
          
          <!-- 주민등록 번호 ( - ) 포함할껀지 말껀지? ( - ) 포함할꺼면 자동으로 - 입력하게 만들기  -->
             <input type="text" maxlength="14" name="user_residentNumber" id="registration" class="inpt" required="required"
-              placeholder="Resident registration number(-포함)" pattern = "\d{6}\-\d{7}" 
+              placeholder="주민등록번호(-포함)" pattern = "\d{6}\-\d{7}" 
                               title = "123456-1234567 형식으로 입력해주세요" >
             <label for="registration">Resident registration number</label>
          
          <!-- 다음 도로명주소 사용해보기  -->
-         <input type="text" name="zipcode1"  class="postcodify_postcode5 inpt2" value="" placeholder="Postal Code" id="postalCode">
-         <input type="button"  id="address" class="inpt3"  onclick="mapsearch();" value="Search" placeholder="Search">
-            <input type="text" name="addr"  class="postcodify_address inpt" required="required" placeholder="Address" >
+         <input type="text" name="zipcode1"  class="postcodify_postcode5 inpt2" value="" placeholder="우편번호" id="postalCode">
+         <input type="button"  id="address" class="inpt3"  onclick="mapsearch();" value="Search" placeholder="검색" style="line-height: 0em; font-size: 12px;">
+            <input type="text" name="addr"  class="postcodify_address inpt" required="required" placeholder="주소" >
             
-            <input type="text" name="addrDtl"  class="postcodify_extra_info inpt" required="required" placeholder="Address1" >
+            <input type="text" name="addrDtl"  class="postcodify_extra_info inpt" required="required" placeholder="상세 주소" >
             <label for="addr">Address</label>
       
-            <input type="text" name="phone" id="Phone" class="inpt" required="required" placeholder="Phone">
+            <input type="text" name="phone" id="Phone" class="inpt" required="required" placeholder="연락처">
             <label for="Phone">Phone</label>
             <!-- <input type="Confirm Phone" name="Confirm Phone" id="Confirm Phone" class="inpt3" required="required" placeholder="Confirm"> -->
 
@@ -544,7 +545,7 @@
     <!-- 우측 카카오 로그인 및 구글 로그인 화면 만들기 -->
     <div class="half bg">
 
-     <!--  <br><br><br><br><br><br><br><br>
+      <br><br><br><br><br><br><br><br>
 
       <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
@@ -570,7 +571,7 @@
           }
         });
                       //]]>
-      </script> -->
+      </script>
 
 
 

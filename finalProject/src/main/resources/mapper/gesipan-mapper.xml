@@ -107,10 +107,10 @@
 		update gesipan
 		<choose>
 			<when test="!locked.equals('N')">
-				set locked=#{locked}, g_pwd=#{g_pwd}, g_title = #{g_title}, g_category = #{g_category},g_content=#{g_content}
+				set locked=#{locked}, g_pwd=#{g_pwd}, g_title = #{g_title}, g_category = #{g_category},g_content=#{g_content},g_update_date=sysdate
 			</when>
 			<when test="locked.equals('N')">
-				set locked=#{locked}, g_pwd=null, g_title = #{g_title}, g_category = #{g_category},g_content=#{g_content}
+				set locked=#{locked}, g_pwd=null, g_title = #{g_title}, g_category = #{g_category},g_content=#{g_content}, g_update_date=sysdate
 			</when>
 		</choose>
 		where g_id=#{g_id}

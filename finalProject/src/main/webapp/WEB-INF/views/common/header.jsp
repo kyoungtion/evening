@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="resources/css/bootstrap.css">
 
 <!-- Magnific Popup -->
-<!-- <link rel="stylesheet" href="resources/css/magnific-popup.css"> -->
+<link rel="stylesheet" href="resources/css/magnific-popup.css">
 
 <!-- Flexslider  -->
 <link rel="stylesheet" href="resources/css/flexslider.css">
@@ -67,6 +67,11 @@
 * {
 	font-family: 'Noto Sans KR', sans-serif !important;
 }
+
+#userLi {
+	color: #222 !important;
+	font-size: 12px !important;
+}
 </style>
 
 </head>
@@ -86,6 +91,7 @@
 				</div>
 				<!-- 로그인 전 -->
 				<c:if test="${ empty sessionScope.loginUser }">
+
 				<div id="navTag">
 					<ul id="hNav">
 						<li><a href="auctionList.bo">경매</a></li>
@@ -102,7 +108,7 @@
 						<!-- 비회원시 -->
 						<li><a href="loginView.me">로그인/회원가입</a></li>
 						<!-- 로그인시 -->
-						<li class="nav_sub"><a>마이페이지</a>
+						<!-- <li class="nav_sub"><a>마이페이지</a>
 							<div style="position: fixed;">
 								<ul id="test">
 									<li><a href="myinfo.me">내정보보기</a></li>
@@ -110,49 +116,66 @@
 									<li><a href="dealDetail.me">거래 내역</a></li>
 									<li><a href="mypost.me">내가 쓴 글</a></li>
 								</ul>
-							</div></li>
+							</div></li> -->
 						<li><img src="../push_bell/img/bell.png" alt=""></li>
 					</ul>
 				</div>
+
 				</c:if>
 				<!-- 로그인 후 -->
-				<c:if test="${ !empty sessionScope.loginUser }">
+				<c:if test="${ !empty sessionScope.loginUser && loginUser.user_id ne 'admin'}">
 					<div id="navTag">
+						<ul id="hNav">
+							<li id="userLi"><span title="${loginUser.rankCode.rank_name }">${ loginUser.rankCode.rank_img }</span>&nbsp;<b>${ loginUser.nickName }</b> 님 반갑습니다.</li>
+							<li><a href="auctionList.bo">경매</a></li>
+							<li><a href="usedListAll.ud">중고거래</a></li>
+							<li class="nav_sub"><a href="gList.ge?category=Community">게시판</a>
+								<div style="position: fixed;">
+									<ul id="test" style="height:75px !important;">
+										<li><a href="gList.ge?category=Community">커뮤니티</a></li>
+										<li><a href="gList.ge?category=Selling">삽니다</a></li>
+										<li><a href="gList.ge?category=QNA">문의사항</a></li>
+									</ul>
+								</div>
+							</li>
+							<!-- 로그인시 -->
+							<li class="nav_sub"><a>마이페이지</a>
+								<div style="position: fixed;">
+									<ul id="test">
+										<li><a href="myinfo.me">내정보보기</a></li>
+										<li><a href="favorites.me">관심 목록</a></li>
+										<li><a href="dealDetail.me">거래 내역</a></li>
+										<li><a href="mypost.me">내가 쓴 글</a></li>
+									</ul>
+								</div></li>
+							<li><img src="../push_bell/img/bell.png" alt=""></li>
+							<li><a href="logout.me" title="로그아웃"><i class="fas fa-sign-out-alt fa-1x"></i></a></li>
+						</ul>
+					</div>
+				</c:if>
+				<!-- 관리자 로그인 시 -->
+				<c:if test="${ !empty sessionScope.loginUser && loginUser.user_id eq 'admin' }">
+					<div id="navTag">
+
 					<ul id="hNav">
-						<li><a href="auctionList.bo">경매</a></li>
-						<li><a href="usedListAll.ud">중고거래</a></li>
-						<li class="nav_sub"><a href="gList.ge?category=Community">게시판</a>
-							<div style="position: fixed;">
-								<ul id="test" style="height:75px !important;">
-									<li><a href="gList.ge?category=Community">커뮤니티</a></li>
-									<li><a href="gList.ge?category=Selling">삽니다</a></li>
-									<li><a href="gList.ge?category=QNA">문의사항</a></li>
-								</ul>
-							</div>
-						</li>
-						<!-- 로그인시 -->
-						<li class="nav_sub"><a>마이페이지</a>
-							<div style="position: fixed;">
-								<ul id="test">
-									<li><a href="myinfo.me">내정보보기</a></li>
-									<li><a href="favorites.me">관심 목록</a></li>
-									<li><a href="dealDetail.me">거래 내역</a></li>
-									<li><a href="mypost.me">내가 쓴 글</a></li>
-								</ul>
-							</div></li>
-						<li><img src="../push_bell/img/bell.png" alt=""></li>
-						<li><a href="logout.me" title="로그아웃"><i class="fas fa-sign-out-alt fa-1x"></i></a></li>
+						<!-- 관리자 페이지 -->
+						<li id="userLi"><span>${ loginUser.rankCode.rank_img }</span>&nbsp;<b>${ loginUser.nickName }</b> 님.</li>
+						<li><a href="adminView.ad">관리자 메뉴</a></li>
+						<li><a href="logout.me" title="로그아웃"><i class="fas fa-sign-out-alt"></i></a></li>
 					</ul>
 				</div>
+
 				</c:if>
 			</div>
 		</div>
 	</header>
 	<script>
-		$('#hLogo img').click(function(){
-			location.href="home.do";
+		$('#hLogo img').click(function() {
+			location.href = "home.do";
 		});
-   </script>
+
+		
+	</script>
 	<div class="catalog no-drag">
 		<div style="text-align: center; display: inline-block;">
 			<ul class="catalog-ul">
@@ -163,12 +186,12 @@
 					style="font-size: 21px;">경매</a></li>
 				<li class="catalog-tap"><a style="font-size: 21px;">게시판</a>
 					<ul class="catalogTag">
-						<li onclick="location.href='gList.ge?category=Community'">
-							<i class="fas fa-comments fa-2x"></i><br>커뮤니티</li>
-						<li onclick="location.href='gList.ge?category=Selling'">
-							<i class="fas fa-shopping-basket fa-2x"></i><br>삽니다</li>
-						<li onclick="location.href='gList.ge?category=QNA'">
-							<i class="fas fa-question-circle fa-2x"></i><br>문의글</li>
+						<li onclick="location.href='gList.ge?category=Community'"><i
+							class="fas fa-comments fa-2x"></i><br>커뮤니티</li>
+						<li onclick="location.href='gList.ge?category=Selling'"><i
+							class="fas fa-shopping-basket fa-2x"></i><br>삽니다</li>
+						<li onclick="location.href='gList.ge?category=QNA'"><i
+							class="fas fa-question-circle fa-2x"></i><br>문의글</li>
 					</ul></li>
 			</ul>
 		</div>
@@ -199,8 +222,8 @@
 	<!-- Owl carousel -->
 	<script src="resources/js/owl.carousel.min.js"></script>
 	<!-- Magnific Popup -->
-	<!-- <script src="resources/js/jquery.magnific-popup.min.js"></script>
-	<script src="resources/js/magnific-popup-options.js"></script> -->
+	<script src="resources/js/jquery.magnific-popup.min.js"></script>
+	<script src="resources/js/magnific-popup-options.js"></script>
 	<!-- Date Picker -->
 	<script src="resources/js/bootstrap-datepicker.js"></script>
 	<!-- Stellar Parallax -->
