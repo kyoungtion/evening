@@ -67,7 +67,7 @@
 
 	<insert id="insertBoard" parameterType="Board">
 		INSERT INTO SECOND_GOODS
-		VALUES(SEQ_SG.NEXTVAL,'admin','SG',#{SG_BNAME},'운영자',#{TAG_NAME},DEFAULT,#{SG_PRICE},default,#{SG_INFO},DEFAULT,SYSDATE,SYSDATE,DEFAULT,SYSDATE,#{SG_DEAL},#{SG_AREA},#{SG_DELIVERY},DEFAULT)
+		VALUES(SEQ_SG.NEXTVAL,'admin',#{b_Category},#{SG_BNAME},'운영자',#{TAG_NAME},DEFAULT,#{SG_PRICE},#{SG_SPRICE},#{SG_INFO},DEFAULT,SYSDATE,SYSDATE,DEFAULT,SYSDATE,#{SG_DEAL},#{SG_AREA},#{SG_DELIVERY},DEFAULT)
 	</insert>
 
 	<insert id="attachmentInsert" parameterType="Attachment">
@@ -97,9 +97,15 @@
 	</select>
 	
 	
-	<update id="updateBoard" parameterType="Board">
+	<update id="uUpdateBoard" parameterType="Board">
 		UPDATE SECOND_GOODS 
 		SET SG_BNAME = #{SG_BNAME},TAG_NAME = #{TAG_NAME},SG_PRICE=#{SG_PRICE},SG_INFO=#{SG_INFO},SG_DEAL=#{SG_DEAL},SG_AREA=#{SG_AREA},SG_DELIVERY=#{SG_DELIVERY}
+		WHERE SG_ID=#{SG_ID}
+	</update>
+	
+	<update id="aUpdateBoard" parameterType="Board">
+		UPDATE SECOND_GOODS 
+		SET SG_BNAME = #{SG_BNAME},TAG_NAME = #{TAG_NAME},SG_SPRICE=#{SG_SPRICE},SG_INFO=#{SG_INFO},SG_DEAL=#{SG_DEAL},SG_AREA=#{SG_AREA},SG_DELIVERY=#{SG_DELIVERY}
 		WHERE SG_ID=#{SG_ID}
 	</update>
 
@@ -107,6 +113,12 @@
 		UPDATE ADD_FILE
 		SET ORIGINALFILENAME=#{ORIGINALFILENAME},RENAMEFILENAME=#{RENAMEFILENAME},FILE_UPDATE_DATE=SYSDATE
 		WHERE SG_ID=#{SG_ID}
+	</update>
+	
+	<update id="deleteBoard">
+		UPDATE SECOND_GOODS
+		SET SG_STATUS='Y'
+		WHERE SG_ID=#{sgId}
 	</update>
 	
 

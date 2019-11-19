@@ -78,13 +78,18 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public int updateBoard(Board b) {
-		return bDAO.updateBoard(sqlSession, b);
+	public int updateBoard(Board b,int type) {
+		return bDAO.updateBoard(sqlSession, b,type);
 	}
 
 	@Override
 	public int updateAttachment(Attachment atm) {
 		return bDAO.updateAttachment(sqlSession, atm);
+	}
+
+	@Override
+	public int deleteBoard(int sgId) {
+		return bDAO.deleteBoard(sqlSession,sgId);
 	}
 
 }

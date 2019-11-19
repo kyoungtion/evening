@@ -64,12 +64,20 @@ public int insertAttachment(SqlSession sqlSession, Attachment atm) {
 	return sqlSession.insert("boardMapper.attachmentInsert",atm);
 }
 
-public int updateBoard(SqlSession sqlSession, Board b) {
-	return sqlSession.update("boardMapper.updateBoard",b);
+public int updateBoard(SqlSession sqlSession, Board b,int type) {
+	if(type == 1) {
+		return sqlSession.update("boardMapper.uUpdateBoard",b);		
+	}else {
+		return sqlSession.update("boardMapper.aUpdateBoard",b);				
+	}
 }
 
 public int updateAttachment(SqlSession sqlSession, Attachment atm) {
 	return sqlSession.update("boardMapper.attachmentUpdate",atm);
+}
+
+public int deleteBoard(SqlSession sqlSession, int sgId) {
+	return sqlSession.update("boardMapper.deleteBoard",sgId);
 }
 
 

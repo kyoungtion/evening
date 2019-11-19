@@ -42,6 +42,9 @@
 .row {
 	line-height: normal;
 }
+.radio{
+background: white;
+}
 </style>
 </head>
 <body>
@@ -99,11 +102,11 @@
 														<label><input type="radio" name="dealType"
 															value="직거래" disabled>직거래</label>
 														<label><input type="radio" name="dealType"
-															value="택배" disabled checked>택배거래</label>
+															value="택배" disabled checked><span style="color: #ff8400;">택배거래</span></label>
 													</c:if>
 													<c:if test="${board.SG_DEAL eq 'DIRECT' }">
 														<label><input type="radio" name="dealType"
-															value="직거래" disabled checked>직거래</label>
+															value="직거래" disabled checked><span style="color: #ff8400;">직거래</span></label>
 														<label><input type="radio" name="dealType"
 															value="택배" disabled>택배거래</label>
 													</c:if>
@@ -118,16 +121,12 @@
 													<div class="radio" style="opacity: 1;">
 												</c:if>
 												<c:if test="${board.SG_DELIVERY eq 'N' }">
-													<label><input type="radio" name="dealType2"
-														value="N" disabled checked>배송비 별도</label>
-													<label><input type="radio" name="dealType2"
-														value="Y" disabled>무료배송</label>
+													<label><input type="radio" name="dealType2" value="N" disabled checked><span style="color: #ff8400;">배송비 별도</span></label>
+													<label><input type="radio" name="dealType2" value="Y" disabled>무료배송</label>
 												</c:if>
 												<c:if test="${board.SG_DELIVERY eq 'Y' }">
-													<label><input type="radio" name="dealType2"
-														value="N" disabled>배송비 별도</label>
-													<label><input type="radio" name="dealType2"
-														value="Y" disabled checked>무료배송</label>
+													<label><input type="radio" name="dealType2" value="N" disabled>배송비 별도</label>
+													<label><input type="radio" name="dealType2" value="Y" disabled checked><span style="color: #ff8400;"> 무료배송</span></label>
 												</c:if>
 											</div>
 										</div>
@@ -156,7 +155,7 @@
 								</div>
 								<div class="sbViewAtag">
 									<h3><i class="icon-heart3"></i></h3>
-									<a>1</a>
+									<a>${board.SG_LIKE }</a>
 								</div>
 							</div>
 						</div>
@@ -165,13 +164,14 @@
 			</div>
 		</div>
 	</div>
+	<br><br>
 	<div style="width: 100%; height: 60px; display: inline-block;">
 		<c:url value="boardupdateForm.bo?type=1" var="bUpdate">
 			<c:param name="sgId" value="${board.SG_ID }"/>	
 		</c:url>
 		<button class="btn btn-primary">구매</button>		
-		<button class="btn btn-primary"
-			onclick="location.href='${bUpdate}';">수정</button>
+		<button class="btn btn-primary" onclick="location.href='${bUpdate}';">수정</button>
+		<button class="btn btn-primary" onclick="deleteBtn();">글삭제</button>
 	</div>
 	</div>
 	<br>
@@ -181,6 +181,18 @@
 		<br>
 	<hr>
 	<script>
+	function deleteBtn(){
+		var con_test = confirm("정말 삭제 하시겠습니까?");
+		if(con_test){
+			//alert(${board.SG_ID});
+			location.href="deleteBoard.bo?sgId=${board.SG_ID}&type=1";
+		}
+	};
+	
+	</script>
+	<script>
+	
+	
 	$(document).ready(function () {
 		console.log($('input[name="dealType"]'));
 		if ($('input[name="dealType"]').val() == "DELIVERY") {
@@ -188,7 +200,8 @@
 		} else {			
 			$('#delivery').css("opacity",0);
 		}
-	}
+	};
+	
 	</script>
 
 

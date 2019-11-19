@@ -168,7 +168,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	<c:import url="/WEB-INF/views/common/header.jsp" />
 	<div class="evPage"
 		style="height: auto; width: 100%; background: #ffffff; text-align: center;">
-		<form id="insertForm" action="boardUpdate.bo?type=1" method="post"
+		<form id="insertForm" action="boardUpdate.bo?type=2" method="post"
 			enctype="multipart/form-data">
 			<input type="hidden" name="SG_ID" value="${ board.SG_ID }">
 			<div
@@ -275,9 +275,9 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<label for="companyname">가격</label> <input type="number"
-											name="SG_PRICE" id="towncity" class="form-control"
-											placeholder="0원" value="${board.SG_PRICE }">
+										<label for="companyname">경매 시작가</label> <input type="number"
+											name="SG_SPRICE" id="towncity" class="form-control"
+											placeholder="0원" value="${board.SG_SPRICE }">
 									</div>
 								</div>
 

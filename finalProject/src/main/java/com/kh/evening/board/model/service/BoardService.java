@@ -32,8 +32,10 @@ public interface BoardService {
 
 	int insertAttachment(Attachment atm);
 
-	int updateBoard(Board b);
+	int updateBoard(Board b,int type);
 
 	int updateAttachment(Attachment atm);
+
+	int deleteBoard(int sgId);
 
 }

@@ -170,10 +170,11 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="evPage" style="height:auto;width: 100%;background: #ffffff;  text-align: center; ">
-		<form id="insertForm" action="uInsert.bo" method="post" enctype="multipart/form-data">
+		<form id="insertForm" action="uInsert.bo?type=2" method="post" enctype="multipart/form-data">
 			<div style="width: 90%; height: auto; background: #f5f5f5;display: inline-block;
 		 ">
 				<br>
+				<input type="hidden" name="b_Category" value="A">
 				<div style="height: auto;width: 150px;">
 					<h2>상품 등록</h2>
 				</div>
@@ -262,7 +263,7 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label for="companyname">경매 시작가</label>
-										<input type="number" name="SG_PRICE" id="towncity" class="form-control"
+										<input type="number" name="SG_SPRICE" id="towncity" class="form-control"
 											placeholder="0원">
 									</div>
 								</div>
