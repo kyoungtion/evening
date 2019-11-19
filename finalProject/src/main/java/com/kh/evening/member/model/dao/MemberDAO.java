@@ -72,6 +72,17 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.deleteAllMember", idArray);
 	}
 
+	public int selectSearchMemberListCount(SqlSessionTemplate sqlSession, Map<String, String> parameters) {
+		return sqlSession.selectOne("memberMapper.selectSearchMemberListCount", parameters);
+	}
+
+	public ArrayList<Member> selectSearchMemberList(SqlSessionTemplate sqlSession, PageInfo pi, Map<String, String> parameters) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.selectSearchMemberList", parameters, rb);
+	}
+
+
 //   public Member searchId(SqlSessionTemplate sqlSession, String user_name,String user_email) {
 //      return (Member) sqlSession.selectMap("memberMapper.searchId",user_name,user_email);
 //   }

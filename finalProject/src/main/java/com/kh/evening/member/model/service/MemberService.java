@@ -43,6 +43,11 @@ public interface MemberService {
 
 	int deleteAllMember(String[] idArray);
 
+	int getSearchMemberListCount(Map<String, String> parameters);
+
+	ArrayList<Member> getSearchMemberList(PageInfo pi, Map<String, String> parameters);
+
+
 	// Object searchId(HttpServletResponse response, String user_name, String
 	// user_email);
 

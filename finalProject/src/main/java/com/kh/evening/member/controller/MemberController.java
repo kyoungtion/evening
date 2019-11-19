@@ -1,6 +1,8 @@
 package com.kh.evening.member.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -260,20 +262,34 @@ public class MemberController {
 	   }
    }
    
+   @RequestMapping("deleteAllNotice.ad")
+   public String noticeDeleteAll(@RequestParam("ids") String ids, Model model) {
+	   String[] idArray = ids.split(",");
+	   
+	   int result = gService.deleteAllNotice(idArray);
+	   
+	   if(result > 0) {
+		   model.addAttribute("viewName", "adminNotice");
+		   return "redirect:adminNoticeView.ad";
+	   } else {
+		   throw new MemberException("선택한 공지글 삭제에 실패했습니다.");
+	   }
+   }
+   
    @RequestMapping("qna.ad")
-   public ModelAndView adminQnaView(@RequestParam("category") String category, @RequestParam(value="page", required=false) Integer page, 
+   public ModelAndView adminQnaView(@RequestParam(value="category", required=false) String category, @RequestParam(value="page", required=false) Integer page, 
 		   							ModelAndView mv, @RequestParam(value="viewName", required=false) String viewName)  {
 	   int currentPage = 1;
 	   if(page != null) {
 		   currentPage = page;
 	   }
 	   
-	   int listCount = gService.getListCount(category);	
+	   int listCount = gService.getQnaListCount(category);	
 	   
 	   PageInfo pi = null;
 	   pi = Pageination.getQnaPageInfo(currentPage, listCount);
 	   
-	   ArrayList<Gesipan> list = gService.selectGesipanList(pi, category);
+	   ArrayList<Gesipan> list = gService.selectQnaList(pi, category);
 	   
 	   if(list != null) {
 		   mv.addObject("list", list);
@@ -299,10 +315,41 @@ public class MemberController {
 	   
 	   ArrayList<Gesipan> list = gService.selectNoticeList(pi, type);
 	   
+	   
 	   if(list != null) {
 		   mv.addObject("pi", pi);
 		   mv.addObject("list", list);
 		   mv.setViewName(viewName);
+	   }
+	   return mv;
+   }
+   
+   @RequestMapping("memberSearch.ad")
+   public ModelAndView memberSearch(@RequestParam(value="page", required=false) Integer page,
+		   					@RequestParam("searchfor") String searchfor,
+		   					@RequestParam("keyword") String keyword,
+		   					ModelAndView mv) throws UnsupportedEncodingException {
+	   
+	   Map<String, String> parameters = new HashMap<>();
+	   parameters.put("searchfor", URLDecoder.decode(searchfor, "UTF-8"));
+	   parameters.put("keyword", URLDecoder.decode(keyword, "UTF-8"));
+	   
+	   int currentPage = 1;
+	   if(page != null) {
+		   currentPage = page;
+	   }
+	   
+	   int listCount = mService.getSearchMemberListCount(parameters);
+	   PageInfo pi = Pageination.getGesipanPageInfo(currentPage, listCount);
+	   
+	   ArrayList<Member> list = mService.getSearchMemberList(pi, parameters);
+	   
+	   if(list != null) {
+		   mv.addObject("list", list);
+		   mv.addObject("pi", pi);
+		   mv.setViewName("manageMember");
+	   } else {
+		   throw new MemberException("검색한 멤버 조회에 실패하였습니다.");
 	   }
 	   return mv;
    }

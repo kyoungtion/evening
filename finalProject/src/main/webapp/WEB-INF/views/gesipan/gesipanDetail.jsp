@@ -44,7 +44,13 @@ tbody td {
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
-	<c:set var="cate" value="${ g.g_category }" />
+	<c:if test="${ g.g_category != 'Notice'}">
+		<c:set var="cate" value="${ g.g_category }" />
+	</c:if>
+	<%-- 
+	<c:if test="${ g.g_category == 'Notice' }">
+		<c:set var="cate" value=<%= request.getHeader("referer") %>/>
+	</c:if> --%>
 	<!-- 목록으로 돌아가기 버튼 url -->
 	<c:url var="gList" value="gList.ge">
 		<c:param name="category" value="${ cate }" />
@@ -107,8 +113,8 @@ tbody td {
 									</tbody>
 								</table>
 							</div>
+							<c:if test="${ g.g_type != 'N' }">
 							<div class="row reply">
-							<!-- 댓글수 -->
 								<b id="rCount"></b>
 								<b class="data_count"><em id="messagebyte">0</em>/300자</b>
 								<table class="replyTable" style="width:100%; height:100px;">
@@ -143,33 +149,54 @@ tbody td {
 							      <tbody></tbody>
 							   </table>
 							</div>
+						</c:if>
 						</div>
 						<input type="hidden" id="user_id" name="user_id" value="${ sessionScope.loginUser.user_id }">
 						<input type="hidden" id="nickname" name="nickname" value="${ sessionScope.loginUser.nickName }">
 						
 						<div style="float:left; margin-top:10px; display:inline-block;" >
 							<c:if test="${ viewName != null }">
-								<c:url var="glist" value="qna.ad">
-									<c:param name="page" value="${ page }"/>
-									<c:param name="category" value="${ cate }"/>
-									<c:param name="viewName" value="${ viewName }"/>
-								</c:url>
+								<c:if test="${ viewName == 'adminQnaView' }">
+									<c:url var="glist" value="qna.ad">
+										<c:param name="page" value="${ page }"/>
+										<c:param name="category" value="QNA"/>
+										<c:param name="viewName" value="adminQnaView"/>
+									</c:url>
+									<c:url var="gUpdateView" value="gUpdateView.ge">
+										<c:param name="g_id" value="${ g.g_id }"/>
+										<c:param name="page" value="${ page }"/>
+										<c:param name="viewName" value="adminQnaView"/>
+									</c:url>
+									<c:url var="gDelete" value="gDelete.ge">
+										<c:param name="page" value="${ page }"/>
+										<c:param name="g_id" value="${ g.g_id }"/>
+										<c:param name="viewName"  value="adminQnaView"/>
+										<c:param name="category" value="QNA"/>
+									</c:url>
+								</c:if>
+								<c:if test="${ viewName == 'adminNotice' }">
+									<c:url var="glist" value="adminNoticeView.ad">
+										<c:param name="page" value="${ page }"/>
+										<c:param name="category" value="${ category }"/>
+										<c:param name="viewName" value="adminNotice"/>
+									</c:url>
+									<c:url var="gUpdateView" value="gUpdateView.ge">
+										<c:param name="g_id" value="${ g.g_id }"/>
+										<c:param name="page" value="${ page }"/>
+										<c:param name="viewName" value="adminNotice"/>
+									</c:url>
+									<c:url var="gDelete" value="gDelete.ge">
+										<c:param name="page" value="${ page }"/>
+										<c:param name="g_id" value="${ g.g_id }"/>
+										<c:param name="viewName"  value="adminNotice"/>
+										<c:param name="category" value="Notice"/>
+									</c:url>
+								</c:if>
 								<c:url var="reInsert" value="gesipanReInsertView.ge">
 									<c:param name="g_id" value="${ g.g_id }"/>
 									<c:param name="g_category" value="${ g.g_category }"/>
 									<c:param name="viewName" value="${ viewName }"/>
 									<c:param name="page" value="${ page }"/>
-								</c:url>
-								<c:url var="gUpdateView" value="gUpdateView.ge">
-									<c:param name="g_id" value="${ g.g_id }"/>
-									<c:param name="page" value="${ page }"/>
-									<c:param name="viewName" value="${ viewName }"/>
-								</c:url>
-								<c:url var="gDelete" value="gDelete.ge">
-									<c:param name="page" value="${ page }"/>
-									<c:param name="g_id" value="${ g.g_id }"/>
-									<c:param name="viewName" value="${ viewName }"/>
-									<c:param name="category" value="QNA"/>
 								</c:url>
 							</c:if>
 							<c:if test="${ viewName == null }">
@@ -192,22 +219,20 @@ tbody td {
 								</c:url>
 							</c:if>
 							<button class="btn btn-default" onclick="location.href='${ glist }'" style="font-size:12px; display:inline-block;">목록으로 돌아가기</button>
-							<c:if test="${ loginUser.user_id == 'admin' }">
-								<button class="btn btn-default" id="reGesipan" style="display:none;" onclick="location.href='${reInsert}'">답글<i class="fas fa-pencil-alt"></i></button>
+							<c:if test="${ loginUser.user_id == 'admin' && g.g_category == 'QNA' }">
+								<button class="btn btn-default" id="reGesipan" onclick="location.href='${reInsert}'">답글<i class="fas fa-pencil-alt"></i></button>
 							</c:if>
 						</div>
 						<div style="float:right; margin-top:10px; display:inline-block;">
-							<c:if test="${ g.g_writer == sessionScope.loginUser.user_id }">
+							<!-- 관리자 외 유저일 때 -->
+							<c:if test="${ g.g_writer == sessionScope.loginUser.user_id && g.g_order == 0 && g.g_type == 'G'}">
 								<button class="btn btn-primary" style="font-size:12px;" onclick="location.href='${ gUpdateView }'">수정하기</button>
-								<%-- <button class="btn btn-danger" style="font-size:12px;" onclick="location.href='${gDelete}'">삭제하기</button> --%>
-								<input id="g_id" type="hidden" value="${ g.g_id }">
 								<a href="${ gDelete }" class="btn btn-danger" style="font-size:12px;" onclick="return confirm('삭제하시겠습니까?')">삭제하기</a>
 							</c:if>
-							<c:if test="${ loginUser.user_id == 'admin' }">
-								<!-- <button class="btn btn-danger" style="font-size:12px;" onclick="checkDelete();">삭제하기</button> -->
-								<!-- <button class="btn btn-danger" style="font-size:12px;" onclick="return if()">삭제하기</button> -->
+							<!-- 관리자일 때 -->
+							<c:if test="${ loginUser.user_id == 'admin'  }">
+								<button class="btn btn-primary" style="font-size:12px;" onclick="location.href='${ gUpdateView }'">수정하기</button>
 								<a href="${ gDelete }" class="btn btn-danger" style="font-size:12px;" onclick="return confirm('삭제하시겠습니까?')">삭제하기</a>
-								<input id="g_id" type="hidden" value="${ g.g_id }">
 							</c:if>
 						</div>
 					</div>

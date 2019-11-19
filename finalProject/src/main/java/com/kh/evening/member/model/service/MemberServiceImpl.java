@@ -104,4 +104,15 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.deleteAllMember(sqlSession, idArray);
 	}
 
+	@Override
+	public int getSearchMemberListCount(Map<String, String> parameters) {
+		return mDAO.selectSearchMemberListCount(sqlSession, parameters);
+	}
+
+	@Override
+	public ArrayList<Member> getSearchMemberList(PageInfo pi, Map<String, String> parameters) {
+		return mDAO.selectSearchMemberList(sqlSession,pi, parameters);
+	}
+
+
 }

@@ -42,7 +42,6 @@ public class GesipanController {
 			@RequestParam(value="viewName", required=false) String viewName, @RequestParam(value="page") Integer page, @RequestParam("g_type") String g_type) {
 		mv.addObject("category", category);
 		mv.addObject("page", page);
-		System.out.println(viewName);
 		if(viewName != null) {
 			mv.addObject("viewName", viewName);
 		} 
@@ -52,7 +51,7 @@ public class GesipanController {
 	}
 	
 	@RequestMapping("gesipanReInsertView.ge")
-	public ModelAndView reInsertView(@RequestParam("g_category") String category, @RequestParam("g_id") int g_id, ModelAndView mv,
+	public ModelAndView reInsertView(@RequestParam(value="g_category", required=false) String category, @RequestParam("g_id") int g_id, ModelAndView mv,
 									@RequestParam(value="viewName", required=false) String viewName, @RequestParam(value="page") Integer page) {
 		
 		mv.addObject("page", page);
@@ -60,9 +59,10 @@ public class GesipanController {
 		mv.addObject("g", gService.selectGesipan(g_id));
 		if(viewName != "") {
 			mv.addObject("viewName", viewName);
-		} else {
-			mv.setViewName("gesipanReInsertView");
-		}
+		} 
+		
+		mv.setViewName("gesipanReInsertView");
+		
 		return mv;
 	}
 	
@@ -215,11 +215,12 @@ public class GesipanController {
 	public ModelAndView gesipanDetail(ModelAndView mv,
 									@RequestParam("g_id") int g_id,
 									@RequestParam("page") int page,
+									@RequestParam(value="category", required=false) String category,
 									@RequestParam(value="viewName", required=false) String viewName) {
-		Gesipan g = gService.selectGesipan(g_id);
 		
+		Gesipan g = gService.selectGesipan(g_id);
 		if(g != null) {
-			mv.addObject("g", g).addObject("page", page).setViewName("gesipanDetail");
+			mv.addObject("g", g).addObject("page", page).addObject("category", category).setViewName("gesipanDetail");
 
 			if(viewName != "") {
 				mv.addObject("viewName", viewName);
@@ -349,7 +350,8 @@ public class GesipanController {
 		
 		if(result > 0) {
 			mv.addObject("g_id", g_id).addObject("page", page);
-
+			mv.addObject("viewName", viewName);
+			mv.addObject("category", "QNA");
 			if(viewName != null) {
 				mv.addObject("viewName", viewName);
 				mv.addObject("category", "QNA");
@@ -363,18 +365,26 @@ public class GesipanController {
 	}
 	
 	@RequestMapping("gDelete.ge")
-	public ModelAndView gesipanDelete(@RequestParam("category") String category, @RequestParam("g_id") int g_id, ModelAndView mv, @RequestParam(value="viewName", required=false) String viewName) {
-		
-		System.out.println(viewName);
+	public ModelAndView gesipanDelete(@RequestParam("category") String category, 
+							@RequestParam(value="viewName", required=false) String viewName,
+							@RequestParam("g_id") int g_id,
+							ModelAndView mv, 
+							HttpServletRequest req) {
 		int result = gService.deleteGesipan(g_id);
-		
 		if(result > 0) {
 			mv.addObject("category", category);
-			if(viewName != "") {
-				mv.setViewName("redirect:qna.ad");
-			} else {
+			
+			if(viewName != null) {
+				mv.addObject("viewName", viewName);
+				if(viewName.equals("adminQnaView")) {
+					mv.setViewName("redirect:qna.ad");
+				} else if(viewName.equals("adminNotice")) {
+					mv.setViewName("redirect:adminNoticeView.ad");
+				}
+			} else if(viewName == null) {
 				mv.setViewName("redirect:gList.ge");
-			}
+			} 
+			
 		} else {
 			throw new GesipanException("게시판 삭제에 실패했습니다.");
 		}

@@ -132,26 +132,35 @@
 			</foreach>
 		</trim>
 	</update>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+	<select id="selectSearchMemberListCount" resultType="_int" parameterType="map">	
+		select count(*)
+		from member
+		where status='N'
+		<choose>
+			<when test="searchfor.equals('user_id')">
+				and user_id = #{ keyword }
+			</when>
+			<when test="searchfor.equals('user_name')">
+				and user_name like '%' || #{ keyword } || '%'
+			</when>
+		</choose>
+	</select>
+	
+	<select id="selectSearchMemberList" resultMap="MemberResultSet">
+		select m.*, r.*
+		from member m
+		join user_rank r on(m.rank_code = r.rank_code)
+		where status='N'
+		<choose>
+			<when test="searchfor.equals('user_id')">
+				and user_id = #{ keyword }
+			</when>
+			<when test="searchfor.equals('user_name')">
+				and user_name like '%' || #{ keyword } || '%'
+			</when>
+		</choose>
+	</select>
 
 
 

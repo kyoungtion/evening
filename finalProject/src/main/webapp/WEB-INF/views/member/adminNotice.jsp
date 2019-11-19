@@ -83,6 +83,25 @@
 					<div class="container">
 						<div class="row content" style="height: 800px;">
 							<div class="row content table" style="height:600px;">
+							<input type="checkbox" id="selectAll"> <label
+									for="selectAll">전체선택</label>
+								<script>
+									$(function() {
+										$('#selectAll').click(function() {
+											if ($('#selectAll').is(":checked")) {
+												$("input[name='chk']").prop('checked',true);
+											} else {
+												$("input[name='chk']").prop('checked',false);
+											}
+										});
+
+										$('#chk').on('click',function() {
+											if ($('#chk').is(":checked") == false) {
+												$('#selectAll').attr("checked",false);
+											}
+										});
+									});
+								</script>
 							<table border="1" summary="" class="content-table">
 								<colgroup>
 									<col style="width: 20px;">
@@ -111,21 +130,9 @@
 											<td><input class="chk" id="chk" name="chk" type="checkbox" value="${ g.g_id }"></td>
 											<td id="g_id${st.index }" class="g_id" name="gId">${ g.g_id }</td>
 											<td class="displaynone" id="g_pwd">${ g.g_pwd }</td>
-											<td class="subject" id="subject${st.index }"><c:if
-													test="${ g.g_order eq 1 }">
-													<i class="fas fa-angle-right"></i>
-												</c:if>
-												<c:if test="${ g.locked eq 'Y' }">
-													<i class="fas fa-lock"></i>
-												</c:if> <span class="gTitle">${ g.g_title }</span> <c:if
-													test="${fn:contains(g.g_content, '<img src')}">
-													<!-- <img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_img.gif"
-													alt="파일첨부" class="ec-common-rwd-image"> -->
-													<i class="fas fa-image"></i>
-												</c:if> <%-- rCount 추가 나중에 --%> <span
-												class="rWrap Before ${st.index}">[</span><span><font
-													id="rCount${st.index}"></font></span><span
-												class="rWrap After ${st.index}">]</span></td>
+											<td class="subject" id="subject${st.index }">
+												<span class="gTitle">${ g.g_title }</span> 
+											</td>
 											<td>${ g.nickname }</td>
 											<td>${ g.g_enroll_date }</td>
 											<td>${ g.g_count }</td>
@@ -136,7 +143,9 @@
 						</div>
 							<div style="width: 100%; border-top: 1px solid whitesmoke; height: 100px; padding-top: 10px; display:inline-block;">
 								<div class="row">
+									
 									<div style="text-align:right; margin-right:20px;">
+									<button type="button" class="btn-danger" id="deleteAllNotice">선택 게시글 전부 삭제</button>
 											<!-- <button class="btn-primary">등급변경</button> -->
 											<c:url var="insertNoticeView" value="gesipanInsertView.ge">
 												<c:param name="g_type" value="N"/>
@@ -207,7 +216,7 @@
 				$('#subject'+i).click(function(){
 					if(${sessionScope.loginUser.user_id == 'admin'}){
 						var g_id = $(this).prev().prev().text();
-						location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage}+"&viewName=adminQnaView";
+						location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage}+"&viewName=adminNotice";
 					} else {
 						if(${sessionScope.loginUser != null}){
 							var g_pwd = $(this).prev().text();
@@ -249,43 +258,21 @@
 			});
 		});
 		
-		
-		function getReplyList(){
-			var g_ref = document.getElementsByName("gId");
-			var array = [];
-			for(var i in g_ref){
-				array.push(Number(g_ref[i].innerText));
+		$('#deleteAllNotice').on('click', function(){
+			if(confirm("선택한 회원 모두 삭제하시겠습니까?")) {
+				
+				var ids = "";
+				$('input:checkbox:checked').each(function(index){
+					if(index != 0){
+						ids += "," + $(this).val();
+					} else {
+						ids += $(this).val();
+					}
+					
+					location.href = "deleteAllNotice.ad?ids=" + ids;
+				});
 			}
-			
-			jQuery.ajaxSettings.traditional = true;
-			$.ajax({
-				url: "rCount.ge",
-				data: {g_ref:array},
-				dataType: "json",
-				success: function(data) {
-					var subject = $("#subject");
-					for(var i in data){
-						for(var j = 0; j < Object.keys(data).length; j++){
-							var g_id = $('#g_id'+j).text();
-							
-							var rWrapBefore = $('.rWrap.Before.'+j);
-							var rWrapAfter = $('.rWrap.After.'+j);
-							var rCount = $('#rCount'+j);
-							if(i == g_id && data[i] > 0){
-								rWrapBefore.css("visibility", "visible");
-								rWrapAfter.css("visibility", "visible");
-								rCount.text(data[i]);
-							} else if(i == g_id && data[i] <= 0){
-								rWrapBefore.css("visibility", "hidden");
-								rWrapAfter.css("visibility", "hidden");
-							}
-						}
-					} 
-				}, error: function(){
-					console.log('안됨');
-				}
-			});
-		}
+		});
 	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />

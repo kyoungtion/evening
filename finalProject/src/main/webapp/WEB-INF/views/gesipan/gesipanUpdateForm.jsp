@@ -20,7 +20,7 @@
 				<form style="height: 100%;" action="gUpdate.ge" id="insertForm" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="page" value="${ page }">
 					<input type="hidden" name="g_id" value="${ g.g_id }">
-					
+					<input type="hidden" name="viewName" value="${ viewName }">
 					<div class="container">
 						<div class="row content" style="background:whitesmoke;">
 							<span id="titlespan" style="font-weight:bold">게시글작성</span>&nbsp;

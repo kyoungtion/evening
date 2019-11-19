@@ -10,9 +10,9 @@ $(document).ready(function(){
         $("#"+tab_id).addClass('current');
     })
 
-    $('.subject').on('click', function(){
+    /*$('.subject').on('click', function(){
     	location.href="#";
-    });
+    });*/
 });
 
 // 게시글 검색
@@ -26,6 +26,22 @@ $(function(){
 			alert('검색어를 입력해주세요.');
 		} else {
 			var uri = "gesipanSearch.ge?searchfor="+searchfor+"&keyword="+keyword+"&category="+category;
+			var enc = encodeURI(uri);
+			//location.href="gesipanSearch.ge?searchfor="+searchfor+"&keyword="+keyword+"&category="+category;
+			location.href=enc;
+		}
+	});
+});
+
+$(function(){
+	
+	$('#searchMemberBtn').click(function(){
+		var keyword = encodeURIComponent($('#searchText').val());
+		var searchfor = encodeURIComponent($('#searchfor').val());
+		if(keyword == ""){
+			alert('검색어를 입력해주세요.');
+		} else {
+			var uri = "memberSearch.ad?searchfor="+searchfor+"&keyword="+keyword;
 			var enc = encodeURI(uri);
 			//location.href="gesipanSearch.ge?searchfor="+searchfor+"&keyword="+keyword+"&category="+category;
 			location.href=enc;

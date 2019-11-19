@@ -155,6 +155,55 @@
 									</tr>
 								</thead>
 								<tbody>
+								<c:forEach var="g" items="${list}" varStatus="st">
+										<c:if test="${ g.g_type == 'N' }">
+											<tr style="background-color: #FFFFFF; color: #333333; font-weight:bold;">
+												<td>&nbsp;<i class="fas fa-thumbtack"></i></td>
+												<td id="g_id${st.index }" class="hidden g_id" name="gId">${ g.g_id }</td>
+												<td class="displaynone" id="g_pwd">${ g.g_pwd }</td>
+												<td class="subject" id="subject${st.index }"><span class="gTitle">${ g.g_title }</span>
+												<c:if test="${fn:contains(g.g_content, '<img src')}">
+													
+													<i class="fas fa-image"></i>
+												</c:if> <%-- rCount 추가 나중에 --%> <span
+												class="rWrap Before ${st.index}">[</span><span><font
+													id="rCount${st.index}"></font></span><span
+												class="rWrap After ${st.index}">]</span></td>
+												<td>${ g.nickname }</td>
+												<td>${ g.g_enroll_date }</td>
+												<td>${ g.g_count }</td>
+											</tr>
+										</c:if>
+									</c:forEach>
+									<c:forEach var="g" items="${list}" varStatus="st">
+										<c:if test="${ g.g_type != 'N' }">
+											<tr style="background-color: #FFFFFF; color: #333333;">
+												<td id="g_id${st.index }" class="g_id" name="gId">${ g.g_id }</td>
+												<td class="displaynone" id="g_pwd">${ g.g_pwd }</td>
+												<td class="subject" id="subject${st.index }">
+												<c:if test="${ g.g_order eq 1 }">
+													<i class="fas fa-angle-right"></i>
+												</c:if>
+												<c:if test="${ g.locked eq 'Y' }">
+													<i class="fas fa-lock"></i>
+												</c:if>
+												<span class="gTitle">${ g.g_title }</span>
+												<c:if test="${fn:contains(g.g_content, '<img src')}">
+													<!-- <img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_img.gif"
+													alt="파일첨부" class="ec-common-rwd-image"> -->
+													<i class="fas fa-image"></i>
+												</c:if> <%-- rCount 추가 나중에 --%> <span
+												class="rWrap Before ${st.index}">[</span><span><font
+													id="rCount${st.index}"></font></span><span
+												class="rWrap After ${st.index}">]</span></td>
+												<td>${ g.nickname }</td>
+												<td>${ g.g_enroll_date }</td>
+												<td>${ g.g_count }</td>
+											</tr>
+										</c:if>
+									</c:forEach>
+									
+									<%-- 
 									<c:forEach var="g" items="${list}" varStatus="st">
 										<tr style="background-color: #FFFFFF; color: #333333;">
 											<td id="g_id${st.index }" class="g_id" name="gId">${ g.g_id }</td>
@@ -171,7 +220,7 @@
 													<!-- <img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_img.gif"
 													alt="파일첨부" class="ec-common-rwd-image"> -->
 													<i class="fas fa-image"></i>
-												</c:if> <%-- rCount 추가 나중에 --%> <span
+												</c:if> rCount 추가 나중에 <span
 												class="rWrap Before ${st.index}">[</span><span><font
 													id="rCount${st.index}"></font></span><span
 												class="rWrap After ${st.index}">]</span></td>
@@ -179,7 +228,7 @@
 											<td>${ g.g_enroll_date }</td>
 											<td>${ g.g_count }</td>
 										</tr>
-									</c:forEach>
+									</c:forEach> --%>
 								</tbody>
 							</table>
 						</div>
@@ -263,8 +312,10 @@
 			
 			for(var i = 0; i < index; i++){
 				if('${sessionScope.loginUser.user_id}' == 'admin'){
-					var g_id = $(this).prev().prev().text();
-					location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
+					$('#subject'+i).click(function(){
+						var g_id = $(this).prev().prev().text();
+						location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage}+"&category=${cate}";
+					});
 				} else {
 					$('#subject'+i).click(function(){
 						if(${sessionScope.loginUser != null}){

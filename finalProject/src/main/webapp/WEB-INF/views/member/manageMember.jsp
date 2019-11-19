@@ -55,6 +55,13 @@
 .dropdown-item {
 	cursor: pointer;
 }
+
+#searchText {
+	width: 200px;
+	height: 25px;
+	border: 2px solid whitesmoke !important;
+}
+
 </style>
 </head>
 <body>
@@ -141,7 +148,7 @@
 												<td>${ m.user_email }</td>
 												<td>${ m.address }</td>
 												<td>${ m.enroll_date }</td>
-												<td>${ m.rankCode.rank_name }(${ m.rankCode.rank_img }
+												<td>${ m.rankCode.rank_name }( ${ m.rankCode.rank_img }
 													)</td>
 												<td style="text-align: center;">
 													<ul class="nav navbar panel_toolbox">
@@ -156,7 +163,8 @@
 																	id="memberLevel.${st.index }">등급 조정</a></li>
 																<li><a class="dropdown-item memberDelete"
 																	id="memberDelete.${st.index }">회원 삭제</a></li>
-															</ul></li>
+															</ul>
+														</li>
 													</ul>
 												</td>
 											</tr>
@@ -168,11 +176,18 @@
 								style="width: 100%; border-top: 1px solid whitesmoke; height: 100px; padding-top: 10px;">
 								<div class="row">
 									<div style="text-align:right; margin-right:20px;">
-											<!-- <button class="btn-primary">등급변경</button> -->
-											<button type="button" class="btn-danger" id="deleteAllMember">선택회원 전부 삭제</button>
-										</div>
+										<!-- <button class="btn-primary">등급변경</button> -->
+										<button type="button" class="btn-danger" id="deleteAllMember">선택회원 전부 삭제</button>
+									</div>
 									<div class="col-md-5" style="text-align: center; width: 100%;">
-
+										<select id="searchfor" name="searchfor">
+											<option value="user_id">아이디</option>
+											<option value="user_name">이름</option>
+										</select> <input id="searchText" name="searchText" type="search" onkeyup="enterkey();" /> 
+										<input type="hidden" id="category" value="${ cate }">
+										<button type="button" id="searchMemberBtn" style="background: none; border: 0;">
+											<i class="fas fa-search"></i>
+										</button><br>
 										<!-- </div> -->
 										<ul class="pagination">
 											<!-- 이전 -->
