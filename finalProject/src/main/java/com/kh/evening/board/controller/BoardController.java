@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.evening.board.model.exception.BoardException;
 import com.kh.evening.board.model.service.BoardService;
 import com.kh.evening.board.model.service.BoardServiceImp;
@@ -171,18 +172,20 @@ public class BoardController {
 	}
 	
 	@RequestMapping("replyList.bo")
-	public void replyList(HttpServletResponse response,int sgId) {
-		ArrayList<Reply> list= bService.selectReplyList(sgId);
+	public void replyList(HttpServletResponse response,int SG_ID) throws JsonIOException, IOException   {
+		ArrayList<Reply> list= bService.selectReplyList(SG_ID);
 		
 		for(Reply r : list) {
 			r.setREPLY_INFO(URLEncoder.encode(r.getREPLY_INFO(),"UTF-8"));
-			
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-			gson.toJson(list,response.getWriter());
+			r.setNICKNAME(URLEncoder.encode(r.getNICKNAME(),"UTF-8"));
+		
 		}
-		
-		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(list,response.getWriter());
 	}
+	
+
+	
 	
 	@RequestMapping("addReply.bo")
 	@ResponseBody

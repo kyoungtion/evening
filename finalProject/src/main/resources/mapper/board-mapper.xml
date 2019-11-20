@@ -123,5 +123,14 @@
 		SET SG_STATUS='Y'
 		WHERE SG_ID=#{sgId}
 	</update>
+	
+	<select id="selectReplyList" parameterType="Reply" resultType="Reply">
+  		select * 
+  		from reply
+  		where SG_ID = #{sgId} and REPLY_STATUS = 'N'
+  		order by REPLY_ID desc
+  	</select>
+
+  	
 
 </mapper>

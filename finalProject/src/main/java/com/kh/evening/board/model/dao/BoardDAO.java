@@ -85,6 +85,10 @@ public int insertReply(SqlSession sqlSession, Reply r) {
 	return sqlSession.insert("boardMapper.insertReply",r);
 }
 
+public ArrayList<Reply> selectReplyList(SqlSession sqlSession, int sgId) {
+	return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList",sgId);
+}
+
 
 
 

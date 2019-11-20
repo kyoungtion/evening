@@ -41,4 +41,6 @@ public interface BoardService {
 
 	int insertReply(Reply r);
 
+	ArrayList<Reply> selectReplyList(int sgId);
+
 }

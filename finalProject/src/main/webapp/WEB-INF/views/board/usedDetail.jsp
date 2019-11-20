@@ -233,7 +233,9 @@
 			<div class="comment">
 				<span>댓글 쓰기</span>
 			</div>
-
+			<div id="commentArea">
+		
+	</div>
 			<!-- 댓글 입력 -->
 			<div class="comment">
 				<div style="padding-left: 60px;">
@@ -274,9 +276,11 @@
 			var click = 0;
 			$("#replyOpen").on("click", function() {
 				if (click == 0) {
+				$('')
 				$('#replyOpen').html("댓글 닫기");
 				$('#replyTag').css("height", "auto");
-					click = 1;
+				getReplyList();
+				click = 1;
 				} else {
 					$('#replyOpen').html("댓글 보기");
 					$('#replyTag').css("height", 70);
@@ -294,8 +298,8 @@
 		            type:"post",
 		            success: function(data){
 		               if(data=="success"){
-		            	   //getReplyList(); /* 댓글 조회 */
-		            	   $("#rContent").val("");
+		            	   getReplyList(); /* 댓글 조회 */
+		            	   $("#replyArea").val("");
 		               }
 		            }
 		        }); 
@@ -308,6 +312,32 @@
 				$('#delivery').css("opacity", 0);
 			}
 		});
+		
+		 function getReplyList(){
+	         var SG_ID = ${board.SG_ID};
+	         
+	         $.ajax({
+	            url: "replyList.bo",
+	            data: {SG_ID:SG_ID},
+	            dataType: "json",
+	            success: function(data){
+	               $tableBody = $('#commentArea');
+	               $tableBody.html("");
+	               
+	               var t1='<div class="comment"><div style=" width: 95%;"><div><span style="width: 20px; height: 20px; background: white;">아이콘</span><span>';
+	               var t2='</span></div><div><span>';
+	               var t3='</span></div><div style="height: 20px;"><button style="float: left;">답글</button><div style="float: right;">좋아요<span>0</span></div></div></div></div>';
+	               
+	               if(data.length > 0){
+	                  for(var i in data){
+	                	 $tableBody.append(t1+decodeURIComponent(data[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data[i].REPLY_INFO.replace(/\+/g, " "))+t2+data[i].REPLY_UPDATE_DATE+t3);
+	                  }
+	               } else {
+	                console.log("실패");
+	               }
+	            }
+	         });
+	      } 
 	</script>
 
 
