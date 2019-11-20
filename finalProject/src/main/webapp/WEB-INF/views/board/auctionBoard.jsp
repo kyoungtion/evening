@@ -72,11 +72,10 @@
 
 												<div class="cart">
 													<p> <!-- 좋아요 부분 -->
-														<span><a href="#" onclick="return false;"><i class="" id="clickTest${ i.SG_ID }"></i><span id="likeCount${ i.SG_ID }">${ i.SG_LIKE }</span></a></span>
+														<span><a href="#" onclick="return false;" id="clickLike${ i.SG_ID }"><i class="" id="clickTest${ i.SG_ID }"></i><span id="likeCount${ i.SG_ID }">${ i.SG_LIKE }</span></a></span>
+														<input type="text" id="Check${ i.SG_ID }" value="false" hidden="hidden" >
+														<input type="text" id="CountCheck${ i.SG_ID }" value="false" hidden="hidden" >
 														<script>
-														// 로그인한 유저가 좋아요를 했는지 않했는지
-												  		var likeCheck = false;
-														var likeCountCheck = false;
 														
 														$(function(){
 														  $.ajax({
@@ -88,20 +87,20 @@
 														      if(data.result == 1){
 														        $('#clickTest${ i.SG_ID }').attr('class','icon-heart3');
 														        $('#clickTest${ i.SG_ID }').css('font-size','16px');
-														        likeCheck=true;
-														        likeCountCheck=true;
+														        $('#Check${ i.SG_ID }').val(true);
+														        $('#CountCheck${ i.SG_ID }').val(true);
 														      }else if(data.result == 0){
 														        $('#clickTest${ i.SG_ID }').attr('class','icon-heart2');
 														        $('#clickTest${ i.SG_ID }').css('font-size','13px');
-														        likeCheck=data.check;
-														        likeCountCheck=false; 
+														        $('#Check${ i.SG_ID }').val(data.check);
+														        $('#CountCheck${ i.SG_ID }').val(false);
 														      }
 														    }
 														  });
 														});
 														// 좋아요 눌렀을시 이벤트
-															$('#clickTest${ i.SG_ID }').on('click',function(){
-															  var userCheck = "${ loginUser.user_id}";
+															$('#clickLike${ i.SG_ID }').on('click',function(){
+															  var userCheck = "${loginUser.user_id}";
 															  
 															  if(userCheck.length > 0){
 																  $.ajax({
@@ -109,27 +108,25 @@
 																    data: {
 																      user_Id : "${ loginUser.user_id }",
 																      sgId : "${ i.SG_ID }",
-																      likeCheck : likeCheck
+																      likeCheck : $('#Check${ i.SG_ID }').val()
 																    },
 																    success: function(data){
 																      if(data == 1){
 																        $('#clickTest${ i.SG_ID }').attr('class','icon-heart3');
 																        $('#clickTest${ i.SG_ID }').css('font-size','16px');
-																        if(likeCountCheck==false){
+																        if( $('#CountCheck${ i.SG_ID}').val() == 'false' ){
 																	    	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE + 1}");
 																        }else{
 																        	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE}");
 																        }
-																        likeCheck=true;
 																      }else if(data == 0){
 																        $('#clickTest${ i.SG_ID }').attr('class','icon-heart2');
 																        $('#clickTest${ i.SG_ID }').css('font-size','13px');
-																        if(likeCountCheck==true){
+																        if( $('#CountCheck${ i.SG_ID}').val() == 'true' ){
 																        	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE - 1}");
 																        }else{
 																	        $('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE }");
 																        }
-																        likeCheck=true;
 																      }
 																    }
 																  });
