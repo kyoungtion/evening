@@ -59,13 +59,6 @@
 			</div>
 			<div style="height: 300px;width: 100%; background: #f5f5f5;">
 				<div style="display: inline-block;">
-				<%-- <div style="width: 230px; float: left; padding: none;">
-					<div style="height: 30px;"></div>
-					<div style="width: 230px;height: 230px;background: white;">
-						<img src="/evening/resources/thumbnail/${at.RENAMEFILENAME}" style="width: 100%; height: 100%;">
-					</div>
-					<!-- <p>썸네일 이미지</p> -->
-				</div> --%>
 				<div class="col-md-7" style="float: left;width: 500px;">
 					<div class="colorlib-form" style="padding: 0em;">
 	
@@ -180,6 +173,14 @@
 									        likeCheck=data.check;
 									        likeCountCheck=false; 
 									      }
+									    }
+									  });
+									  
+									  $.ajax({
+									    url:"createCookie.bo",
+									    data:{
+									      user_Id : "${ loginUser.user_id }",
+									      sgId : "${ board.SG_ID }"
 									    }
 									  });
 									});

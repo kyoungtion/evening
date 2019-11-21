@@ -2,13 +2,14 @@ package com.kh.evening.board.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import com.google.gson.Gson;
 import com.kh.evening.board.model.exception.BoardException;
 import com.kh.evening.board.model.service.BoardService;
 import com.kh.evening.board.model.vo.Attachment;
@@ -235,4 +236,18 @@ public class BoardController {
 	  
 	  return rlist;
 	}
+	
+	@RequestMapping("createCookie.bo")
+	public void createCookie(@RequestParam(value="user_Id", required=false) String userId,@RequestParam(value="sgId") int sgId, HttpServletResponse response) {
+	  
+	  if(userId.length() > 0) {
+	    String cookieName = "history_"+userId+"_"+sgId;
+	    String cookieValue = Integer.toString(sgId);
+	    Cookie cookie = new Cookie(cookieName,cookieValue);
+	    cookie.setMaxAge(60*5);
+	    response.addCookie(cookie);
+	  }
+	  
+	}
+	
 }

@@ -72,7 +72,7 @@
 
 												<div class="cart">
 													<p> <!-- 좋아요 부분 -->
-														<span><a href="#" onclick="return false;" id="clickLike${ i.SG_ID }"><i class="" id="clickTest${ i.SG_ID }"></i><span id="likeCount${ i.SG_ID }">${ i.SG_LIKE }</span></a></span>
+														<span><a onclick="return false;" id="clickLike${ i.SG_ID }"><i class="" id="clickTest${ i.SG_ID }"></i><span id="likeCount${ i.SG_ID }">${ i.SG_LIKE }</span></a></span>
 														<input type="text" id="Check${ i.SG_ID }" value="false" hidden="hidden" >
 														<input type="text" id="CountCheck${ i.SG_ID }" value="false" hidden="hidden" >
 														<script>
@@ -271,8 +271,40 @@
 						</div>
 
 							<div class="side">
+							<!-- 최근에 본 상품들 : 쿠키기능 이용 , 시간설정 5분(유통기한), 회원만 가능, 비회원은 이용불가 기능 -->
 								<h2>최근에 본 물건</h2>
-								<div>test</div>
+								<%
+									Cookie[] cookies = request.getCookies();
+								
+									for(Cookie co : cookies){
+									  if(co.getName().contains("history")){
+									    %>
+									    <c:forTokens var="coo" items="<%= co.getName() %>" delims="_"  varStatus="Status">
+									    	<c:if test="${ coo eq loginUser.user_id }">
+									    		<c:set var="coValue" v alue="<%= co.getValue() %>"/>
+									    		<!-- 이미지 셋팅 -->
+									    		<c:forEach var="j" items="${ af }" begin="0" end="${ fn:length(af) }">
+									    			<c:if test="${ j.SG_ID eq coValue }">
+									    				<c:forEach var="i" items="${ alist }" begin="0" end="${ fn:length(alist) }">
+															<c:if test="${ j.SG_ID eq i.SG_ID }">										    					
+												    		<div>
+												    		<c:url var="detailView" value="selectOne.bo">
+							                                    <c:param name="sgId" value="${ i.SG_ID }"/>
+							                                </c:url>
+												    		<img src="/evening/resources/thumbnail/${ j.RENAMEFILENAME }" style="width: 50px; height: 50px;">
+												    			<a href="${ detailView }" style="cursor: pointer;"> ${ i.SG_BNAME }</a> 
+												    		</div>
+												    		<br>
+												    		</c:if>
+									    				</c:forEach>
+									    			</c:if>									    		
+												</c:forEach>
+									    	</c:if>
+									    </c:forTokens>
+									    <%
+									  }
+									}
+								%>
 							</div>
 							 
 						</div>
