@@ -80,8 +80,9 @@
 	
 	<servlet-mapping>
 		<servlet-name>messageServlet</servlet-name>
-		<url-pattern>*.ms</url-pattern>
+		<url-pattern>*.sr</url-pattern>
 	</servlet-mapping>	
+		
 	<!-- usedServlet -->
 	<servlet>
 		<servlet-name>usedServlet</servlet-name>

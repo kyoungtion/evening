@@ -13,11 +13,13 @@
 		<typeAlias type="com.kh.evening.gesipan.model.vo.GesipanReply" alias="gReply"/>
 		<typeAlias type="com.kh.evening.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.evening.member.model.vo.RankCode" alias="RankCode"/>
+		<typeAlias type="com.kh.evening.message.model.vo.Message" alias="Message"/>
 	</typeAliases>
 	
 	<mappers>
       	<mapper resource="mapper/board-mapper.xml"/>
 		<mapper resource="mapper/gesipan-mapper.xml"/>
 		<mapper resource="mapper/memberMapper.xml" />
+		<mapper resource="mapper/message-mapper.xml"/>
 	</mappers>
 </configuration>

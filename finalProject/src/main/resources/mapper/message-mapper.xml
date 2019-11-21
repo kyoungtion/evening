@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="messageMapper">
+
+	<select id="receiveList" resultType="Message">
+		SELECT M_NO, M_SEND, M_TITLE,  M_ENROLL_DATE from message
+		where M_STATUS='N' and M_RECEIVE= 'user01'  
+	
+	</select>
+	
+	
+
+</mapper>

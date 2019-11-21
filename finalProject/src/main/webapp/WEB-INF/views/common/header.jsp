@@ -152,7 +152,7 @@
 										<li><a href="favorites.me">관심 목록</a></li>
 										<li><a href="dealDetail.me">거래 내역</a></li>
 										<li><a href="mypost.me">내가 쓴 글</a></li>
-										<li><a href="send.ms">내가 쓴 글</a></li>
+										<li><a href="message.sr">쪽지함</a></li>
 									</ul>
 								</div></li>
 							<li><a href="logout.me" title="로그아웃"><i class="fas fa-sign-out-alt fa-1x"></i></a></li>
