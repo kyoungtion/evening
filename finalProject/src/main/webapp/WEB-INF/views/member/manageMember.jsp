@@ -8,67 +8,16 @@
 <meta charset="UTF-8">
 <title>EVENING : 관리자 메뉴</title>
 <style>
-.subject:hover {
-	cursor: pointer;
-	font-weight: bold;
-}
-
-#searchText {
-	width: 200px;
-	height: 25px;
-	border: whitesmoke;
-}
-
-.rWrap {
-	visibility: hidden;
-}
-
-.my-tabs1 {
-	padding-top: 10px;
-	list-style: none;
-}
-
-.my-tabs1 li {
-	display: inline;
-}
-
-.btn {
-	font-size: 12px !important;
-}
-
 .active {
 	background: gray;
 	color: white;
 }
-
-.navbar {
-	margin-bottom: 0px !important;
-	min-height: 0px !important;
-}
-
-.nav>li>a {
-	position: relative;
-	display: inline-block;
-	padding: 5px 10px !important;
-}
-
-.dropdown-item {
-	cursor: pointer;
-}
-
-#searchText {
-	width: 200px;
-	height: 25px;
-	border: 2px solid whitesmoke !important;
-}
-
 </style>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
 	<div class="my-panel" style="width: 100%; height: 1000px;">
-		<div
-			style="width: 100%; text-align: center !important; padding: 10px;">
+		<div style="width: 100%; text-align: center !important; padding: 10px;">
 			<ul class="my-tabs1">
 				<li class="my-tab"><button class="btn active" id="adminView"
 						onclick="location.href='adminView.ad'">회원 관리</button></li>
@@ -118,7 +67,7 @@
 										<col style="width: 10%;">
 										<col style="width: 10%;">
 										<col style="width: 12%;">
-										<col style="width: 30%;">
+										<col style="width: 35%;">
 										<col style="width: 10%;">
 										<col style="width: 10%;">
 										<col style="width: 5%;">

@@ -59,8 +59,8 @@
 </head>
 <body onload="getReplyList();">
 	<c:import url="/WEB-INF/views/common/header.jsp" />
-	<c:set var="cate" value="QNA"/>
-	<div class="my-panel">
+		<c:set var="cate" value="QNA"/>
+	<div class="my-panel gesipan" style="height:1200px;">
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 100%;">
 			<div class="contact-wrap">
 				<form style="height: 100%;">
@@ -70,7 +70,7 @@
 						<div class="faqContainer">
 							<div class="panel-group" id="accordion">
 								<span id="titlespan1">자주 묻는 질문</span>
-								<div class="panel panel-default">
+								<div class="panel">
 									<div class="panel-heading">
 										<h4 class="panel-title">
 											<a data-toggle="collapse" data-parent="#accordion"
@@ -86,7 +86,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="panel panel-default">
+								<div class="panel">
 									<div class="panel-heading">
 										<h4 class="panel-title">
 											<a data-toggle="collapse" data-parent="#accordion"
@@ -100,7 +100,7 @@
 											내려갈 수 있습니다.</div>
 									</div>
 								</div>
-								<div class="panel panel-default">
+								<div class="panel">
 									<div class="panel-heading">
 										<h4 class="panel-title">
 											<a data-toggle="collapse" data-parent="#accordion"
@@ -203,32 +203,7 @@
 										</c:if>
 									</c:forEach>
 									
-									<%-- 
-									<c:forEach var="g" items="${list}" varStatus="st">
-										<tr style="background-color: #FFFFFF; color: #333333;">
-											<td id="g_id${st.index }" class="g_id" name="gId">${ g.g_id }</td>
-											<td class="displaynone" id="g_pwd">${ g.g_pwd }</td>
-											<td class="subject" id="subject${st.index }">
-												<c:if test="${ g.g_order eq 1 }">
-													<i class="fas fa-angle-right"></i>
-												</c:if>
-												<c:if test="${ g.locked eq 'Y' }">
-													<i class="fas fa-lock"></i>
-												</c:if>
-												<span class="gTitle">${ g.g_title }</span>
-												<c:if test="${fn:contains(g.g_content, '<img src')}">
-													<!-- <img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_img.gif"
-													alt="파일첨부" class="ec-common-rwd-image"> -->
-													<i class="fas fa-image"></i>
-												</c:if> rCount 추가 나중에 <span
-												class="rWrap Before ${st.index}">[</span><span><font
-													id="rCount${st.index}"></font></span><span
-												class="rWrap After ${st.index}">]</span></td>
-											<td>${ g.nickname }</td>
-											<td>${ g.g_enroll_date }</td>
-											<td>${ g.g_count }</td>
-										</tr>
-									</c:forEach> --%>
+									
 								</tbody>
 							</table>
 						</div>
@@ -246,7 +221,7 @@
 						</div>
 						<br>
 						<div class="row" >
-							<div class="col-md-5" style="text-align: center; left:35%; width: 350px;">
+							<div class="col-md-5" style="text-align: center; left:30%; width: 350px;">
 							<!-- <div class="col-md-5" id="searchbox"> -->
 								<select id="searchfor" name="searchfor">
 									<option value="title">제목</option>
@@ -324,7 +299,7 @@
 							var g_id = $(this).prev().prev().text();
 							
 							if(g_pwd == ""){
-								location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
+								location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage}+"&category=${cate}";
 							} else {
 								$('#modal').attr("style","display:block");
 								$('#modal_input_btn').click(function(){

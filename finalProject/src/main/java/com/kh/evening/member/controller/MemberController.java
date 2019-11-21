@@ -98,7 +98,7 @@ public class MemberController {
 	   int listCount = mService.getMyPostListCount(map);
 	   
 	   PageInfo pi = null;
-	   pi = Pageination.getGesipanPageInfo(currentPage, listCount);
+	   pi = Pageination.getQnaPageInfo(currentPage, listCount);
 	   
 	   ArrayList<Gesipan> list = mService.selectMyPost(pi, map);
 	   

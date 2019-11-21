@@ -39,8 +39,9 @@ public class GesipanController {
 	
 	@RequestMapping("gesipanInsertView.ge")
 	public ModelAndView InsertView(@RequestParam("g_category") String category, ModelAndView mv,
-			@RequestParam(value="viewName", required=false) String viewName, @RequestParam(value="page") Integer page, @RequestParam("g_type") String g_type) {
+			@RequestParam(value="viewName", required=false) String viewName, @RequestParam(value="page", required=false) Integer page, @RequestParam(value="g_type", required=false) String g_type) {
 		mv.addObject("category", category);
+		mv.addObject("g_type", g_type);
 		mv.addObject("page", page);
 		if(viewName != null) {
 			mv.addObject("viewName", viewName);
@@ -52,7 +53,7 @@ public class GesipanController {
 	
 	@RequestMapping("gesipanReInsertView.ge")
 	public ModelAndView reInsertView(@RequestParam(value="g_category", required=false) String category, @RequestParam("g_id") int g_id, ModelAndView mv,
-									@RequestParam(value="viewName", required=false) String viewName, @RequestParam(value="page") Integer page) {
+									@RequestParam(value="viewName", required=false) String viewName, @RequestParam(value="page", required=false) Integer page) {
 		
 		mv.addObject("page", page);
 		mv.addObject("category", category);
@@ -123,6 +124,7 @@ public class GesipanController {
 	@RequestMapping("gList.ge")
 	public ModelAndView gList(@RequestParam(value="page", required=false) Integer page, 
 								@RequestParam("category") String category,
+								@RequestParam(value="viewName", required=false) String viewName,
 								ModelAndView mv) {
 		int currentPage = 1;
 		if(page != null) {
@@ -146,6 +148,11 @@ public class GesipanController {
 			cate = "qna";
 		}
 		if(list != null) {
+			if(viewName != null) {
+				mv.addObject("viewName", viewName);
+			} else {
+				mv.addObject("category", cate);
+			}
 			mv.addObject("list", list);
 			mv.addObject("pi", pi);
 			mv.setViewName(cate);
@@ -351,10 +358,10 @@ public class GesipanController {
 		if(result > 0) {
 			mv.addObject("g_id", g_id).addObject("page", page);
 			mv.addObject("viewName", viewName);
-			mv.addObject("category", "QNA");
+			mv.addObject("category", g.getG_category());
 			if(viewName != null) {
 				mv.addObject("viewName", viewName);
-				mv.addObject("category", "QNA");
+				mv.addObject("category", g.getG_category());
 			}
 			mv.setViewName("redirect:gDetail.ge");
 			

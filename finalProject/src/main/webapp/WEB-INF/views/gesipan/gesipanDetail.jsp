@@ -45,12 +45,8 @@ tbody td {
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
 	<c:if test="${ g.g_category != 'Notice'}">
-		<c:set var="cate" value="${ g.g_category }" />
+		<c:set var="cate" value="${ category }" />
 	</c:if>
-	<%-- 
-	<c:if test="${ g.g_category == 'Notice' }">
-		<c:set var="cate" value=<%= request.getHeader("referer") %>/>
-	</c:if> --%>
 	<!-- 목록으로 돌아가기 버튼 url -->
 	<c:url var="gList" value="gList.ge">
 		<c:param name="category" value="${ cate }" />
@@ -202,7 +198,7 @@ tbody td {
 							<c:if test="${ viewName == null }">
 								<c:url var="glist" value="gList.ge">
 									<c:param name="page" value="${ page }"/>
-									<c:param name="category" value="${ cate }"/>
+									<c:param name="category" value="${ category }"/>
 								</c:url>
 								<c:url var="reInsert" value="gesipanReInsertView.ge">
 									<c:param name="g_id" value="${ g.g_id }"/>
@@ -218,20 +214,26 @@ tbody td {
 									<c:param name="category" value="${ cate }"/>
 								</c:url>
 							</c:if>
-							<button class="btn btn-default" onclick="location.href='${ glist }'" style="font-size:12px; display:inline-block;">목록으로 돌아가기</button>
+							<button class="btn btn-default" onclick="location.href=document.referrer" style="font-size:12px; display:inline-block;">목록으로 돌아가기</button>
 							<c:if test="${ loginUser.user_id == 'admin' && g.g_category == 'QNA' }">
 								<button class="btn btn-default" id="reGesipan" onclick="location.href='${reInsert}'">답글<i class="fas fa-pencil-alt"></i></button>
 							</c:if>
 						</div>
 						<div style="float:right; margin-top:10px; display:inline-block;">
-							<!-- 관리자 외 유저일 때 -->
-							<c:if test="${ g.g_writer == sessionScope.loginUser.user_id && g.g_order == 0 && g.g_type == 'G'}">
+							<!-- 관리자가 아닐 때 수정 -->
+							<c:if test="${loginUser.user_id == g.g_writer && g.g_writer != 'admin'}">
 								<button class="btn btn-primary" style="font-size:12px;" onclick="location.href='${ gUpdateView }'">수정하기</button>
+							</c:if>
+							<!-- 관리자일때 관리자글(공지글)만 수정 -->
+							<c:if test="${ g.g_writer == 'admin' && loginUser.user_id == 'admin'}">
+								<button class="btn btn-primary" style="font-size:12px;" onclick="location.href='${ gUpdateView }'">수정하기</button>
+							</c:if>
+							<!-- 관리자 외 유저일 때 삭제-->
+							<c:if test="${ g.g_writer == sessionScope.loginUser.user_id && g.g_order == 0 && g.g_type != 'N' && g.g_writer != 'admin'}">
 								<a href="${ gDelete }" class="btn btn-danger" style="font-size:12px;" onclick="return confirm('삭제하시겠습니까?')">삭제하기</a>
 							</c:if>
-							<!-- 관리자일 때 -->
-							<c:if test="${ loginUser.user_id == 'admin'  }">
-								<button class="btn btn-primary" style="font-size:12px;" onclick="location.href='${ gUpdateView }'">수정하기</button>
+							<!-- 관리자일 때 삭제-->
+							<c:if test="${(g.g_type == 'N' || g.g_type=='G') && loginUser.user_id == 'admin'}">
 								<a href="${ gDelete }" class="btn btn-danger" style="font-size:12px;" onclick="return confirm('삭제하시겠습니까?')">삭제하기</a>
 							</c:if>
 						</div>
@@ -241,6 +243,11 @@ tbody td {
 		</div>
 	</div>
 	<script>
+		$(function(){
+			var cate = '${category}';
+			console.log(cate);
+		});
+		
 	
 		function callback(){
 			getReplyList();

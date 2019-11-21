@@ -21,38 +21,48 @@
 .rWrap {
 	visibility: hidden;
 }
+.my-panel{display:flex;}
 </style>
 </head>
 <body onload="getReplyList();">
 	<c:import url="/WEB-INF/views/common/header.jsp" />
-	<div class="my-panel"
-		style="width: 100%; height: 1000px; display: flex;">
-		<div class="mypageCategory no-drag">
-			<ul class="my-tabs">
-				<li class="my-tab"><a href="myinfo.me">내 정보 보기</a></li>
-				<li class="my-tab"><a href="favorites.me">관심상품목록</a></li>
-				<li class="my-tab"><a href="dealDetail.me">거래내역</a></li>
-				<li class="my-tab"><a href="mypost.me">내가 쓴 글</a></li>
+	<div class="my-panel">
+		<!-- <div style="width: 100%; text-align: center !important; padding: 10px;">
+			<ul class="my-tabs1">
+				<li class="my-tab"><button class="btn"
+						onclick="location.href='myinfo.me'">내 정보 보기</button></li>
+				<li class="my-tab"><button class="btn"
+						onclick="location.href='favorites.me'">관심상품목록</button></li>
+				<li class="my-tab"><button class="btn"
+						onclick="location.href='dealDetail.me'">거래내역</button></li>
+				<li class="my-tab"><button class="btn active"
+						onclick="location.href='mypost.me'">내가 쓴 글</button></li>
 			</ul>
-		</div>
-		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 80%;">
+		</div> -->
+		<ul class="my-tabs">
+			<li class="my-tab"><a href="myinfo.me">내 정보 보기</a></li>
+			<li class="my-tab"><a href="favorites.me">관심상품목록</a></li>
+			<li class="my-tab "><a href="dealDetail.me">거래내역</a></li>
+			<li class="my-tab active"><a href="mypost.me?category=Community">내가 쓴 글</a></li>
+		</ul>
+		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 80%; padding: 0;">
 			<div class="contact-wrap" style="height: 900px;">
 				<form style="height: 100%;">
 					<div class="container">
-						<ul class="tabs no-drag">
+						<!-- <ul class="tabs no-drag">
 							<li class="tab-link current" data-tab="tab-1">글 목록</li>
 						</ul>
-						<div id="tab-1" class="tab-content current" style="height:100% !important">
+						<div id="tab-1" class="tab-content current" style="height:100% !important"> -->
 							<div class="container">
 								<div class="row">
-									<select id="boardSelect">
+									<select id="boardSelect" class="form-control sidebar colorlib-form-2">
 										<option value="Community">커뮤니티</option>
 										<option value="Selling">삽니다</option>
 										<option value="QNA">문의게시판</option>
-									</select><br> <br>
+									</select><br>
 									
 								</div>
-								<div class="row content" style="height:600px;">
+								<div class="row content" style="height:650px;">
 									<table border="1" summary="" class="content-table">
 										<colgroup
 											class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 ">
@@ -83,7 +93,10 @@
 															<!-- <img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_img.gif"
 															alt="파일첨부" class="ec-common-rwd-image"> -->
 															<i class="fas fa-image"></i>
-														</c:if> <%-- rCount 추가 나중에 --%> <span
+														</c:if> <%-- rCount 추가 나중에 --%>
+														<c:if test="${ g.locked eq 'Y' }">
+															<i class="fas fa-lock"></i>
+														</c:if> <span
 														class="rWrap Before ${st.index}">[</span><span><font
 															id="rCount${st.index}"></font></span><span
 														class="rWrap After ${st.index}">]</span></td>
@@ -101,18 +114,7 @@
 								<div class="row">
 									<div class="col-md-5"
 										style="text-align: center; left: 24%; width: 350px;">
-										<!-- <select id="searchfor" name="searchfor">
-											<option value="title">제목</option>
-											<option value="writer">작성자</option>
-										</select> <input id="searchText" name="searchText" type="search" /> 
-										
-										<input type="hidden" id="category">
-										<button type="button" id="searchBtn"
-											style="background: none; border: 0;">
-											<i class="fas fa-search"></i>
-										</button> -->
-		
-		
+										<c:set var="cate" value="${category }"/>
 										<!-- </div> -->
 										<ul class="pagination">
 											<!-- 이전 -->
@@ -155,7 +157,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						<!-- </div> -->
 					</div>
 				</form>
 			</div>
@@ -179,8 +181,9 @@
 	// 게시글 상세정보 조회
 	$(function(){
 		$('.subject').click(function(){
+			category = $('#boardSelect').val();
 			var g_id = $(this).prev().prev().text();
-			location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
+			location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage}+"&category="+category+"&viewName=mypost";
 		});
 	});
 	

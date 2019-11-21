@@ -25,7 +25,7 @@
 	<c:url var="gList" value="gList.ge">
 		<c:param name="category" value="${ cate }" />
 	</c:url>
-	<div class="my-panel">
+	<div class="my-panel gesipan" style="height:1200px;">
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 100%;">
 			<div class="contact-wrap">
 				<form style="height: 100%;">
@@ -112,7 +112,7 @@
 						<br>
 						<div class="row">
 							<div class="col-md-5"
-								style="text-align: center; left: 35%; width: 350px;">
+								style="text-align: center; left:30%; width: 350px;">
 								<!-- <div class="col-md-5" id="searchbox"> -->
 								<select id="searchfor" name="searchfor">
 									<option value="title">제목</option>
