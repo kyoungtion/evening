@@ -46,6 +46,48 @@
 .radio {
 	background: white;
 }
+
+/* 댓글  */
+.comment {
+	height: auto;
+	border-bottom: 1px solid black;
+	padding: 20px 0 10px;
+	width: 100%;
+}
+
+.comment2 {
+	border-width: 0 0 1px 1px;
+	border-style: solid;
+	opacity: .4;
+	width: 15px;
+	float: left;
+	height: 15px;
+	margin: 10px 0px 0px 20px;
+}
+
+.comment div {
+	margin-bottom: 10px;
+}
+#replyTag {
+	width: 1000px;
+	height: 70px;
+	background: whitesmoke;
+	display: inline-block;
+	overflow: hidden;
+}
+#replyArea,#replyArea2{
+height: 95px; width: 80%; resize: none;
+}
+.replyAddForm{
+	float: left;
+}
+.replyAddBtn,.replyBtn{
+width: 15%; height: 100px; float: right; margin-right: 15px;
+}
+.r_id{
+	display: none;
+}
+/* 댓글 끝 */
 </style>
 </head>
 <body>
@@ -236,7 +278,48 @@
 	</div> -->
 
 	<div style="width: 90%; height: 500px; display: inline-block;">${board.SG_INFO }</div>
+	<!-- 댓글 -->
+	<div id="replyTag">
+		<div
+			style="width: 800px; height: auto; padding-left: 50px; display: inline-block; text-align: initial;">
+			<br>
+			<div style="width: 100%; height: 50px; text-align: center;">
+				<span id="replyOpen" style="display: inline-block; cursor: pointer;">댓글
+					보기</span>
+			</div>
+			<hr>
+			<div class="comment">
+				<span>댓글 쓰기</span>
+			</div>
+			<div id="commentArea">
+		
 	</div>
+			<!-- 댓글 입력 -->
+			<div class="comment">
+				<div style="padding-left: 60px;">
+					<textarea id="replyArea"></textarea>
+					<input type="hidden" id="replyInput">
+					<button class="replyBtn" type="button" >댓글 등록</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- 댓글 페이징 -->
+		<br>
+		<br>
+		<div style="width: 100%; text-align: center;">
+			<div style="width: 200px; height: 30px; display: inline-block;">
+				<button>1</button>
+				<button>2</button>
+				<button>3</button>
+				<button>4</button>
+				<button>5</button>
+			</div>
+		</div>
+		<br>
+	</div>
+	<hr>
+	<!-- 댓글끝 -->
 	<script>
 		function deleteBtn(){
 			
@@ -246,6 +329,160 @@
 				location.href="deleteBoard.bo?sgId=${board.SG_ID}&type=2";
 			}
 		}
+	</script>
+	<script>
+	var replyA='<div id="replyAdd" class="comment" style="background: gray;"><div class="comment2"></div><div style="padding-left: 60px; "><textarea id="replyArea2"></textarea><button class="replyAddBtn" onclick="test(this);" value=';
+	var replyA2='>댓글쓰기</button></div></div>';
+	var replyB=1;	
+	$(document).ready(function() {
+			var click = 0;
+			$("#replyOpen").on("click", function() {
+				if (click == 0) {
+				$('')
+				$('#replyOpen').html("댓글 닫기");
+				$('#replyTag').css("height", "auto");
+				getReplyList();
+				click = 1;
+				} else {
+					$('#replyOpen').html("댓글 보기");
+					$('#replyTag').css("height", 70);
+					click = 0;			
+				}
+			});
+			/* 대댓글 입력 */
+			/* $('.replyAddBtn').on("click",function(){
+				console.log("테스트");
+				console.log($(this).val());
+				var REPLY_INFO=$('#replyArea2').val().replace(/\n/gi,"<br>");
+				var REPLY_ID=$(this).val();
+				var SG_ID=${board.SG_ID};
+				
+				$.ajax({
+		            url: "addReply.bo",
+		            data: {REPLY_INFO:REPLY_INFO, SG_ID:SG_ID,add:true,REPLY_ID:REPLY_ID},
+		            type:"post",
+		            success: function(data){
+		               if(data=="success"){
+		            	   replyDel();
+		            	   getReplyList(); // 댓글 조회             	   
+		               }
+		            }
+		        }); 
+			}); */
+			/* 댓글 입력 */
+			$('.replyBtn').on("click",function(){
+				var REPLY_INFO=$('#replyArea').val().replace(/\n/gi,"<br>");
+				var SG_ID=${board.SG_ID};
+				
+				$.ajax({
+		            url: "addReply.bo",
+		            data: {REPLY_INFO:REPLY_INFO, SG_ID:SG_ID,add:false},
+		            type:"post",
+		            success: function(data){
+		               if(data=="success"){
+		            	   getReplyList(); /* 댓글 조회 */
+		            	   $("#replyArea").val("");
+		               }
+		            }
+		        }); 
+			});
+			
+
+			if ($('input[name="dealType"]').val() == "DELIVERY") {
+				$('#delivery').css("opacity", 1);
+			} else {
+				$('#delivery').css("opacity", 0);
+			}
+		});
+		
+	/* 대댓글 입력 */
+	function test(a){
+		var REPLY_INFO=$('#replyArea2').val().replace(/\n/gi,"<br>");
+		var REPLY_ID=$(a).val();
+		var SG_ID=${board.SG_ID};
+		
+		$.ajax({
+            url: "addReply.bo",
+            data: {REPLY_INFO:REPLY_INFO, SG_ID:SG_ID,add:true,REPLY_ID:REPLY_ID},
+            type:"post",
+            success: function(data){
+               if(data=="success"){
+            	   replyDel();
+            	   getReplyList(); /* 댓글 조회 */		            	   
+               }
+            }
+        }); 
+	}
+	
+		function replyAdd(a){
+			$('.replyAddForm').text("답글");
+			$('.replyAddForm').attr("onclick","replyAdd(this)");
+			$('#replyAdd').remove();
+	
+			$(a).text("닫기");
+			$(a).attr("onclick","replyDel(this)");
+			$(a).parent("div").parent("div").parent("div").after(replyA+$(a).val()+replyA2);
+		};
+		function replyDel(a){
+			$('.replyAddForm').text("답글");
+			$('.replyAddForm').attr("onclick","replyAdd(this)");
+			$('#replyAdd').remove();
+		}
+		function replyDelete(a){
+			var REPLY_ID=$(a).val();
+			
+			$.ajax({
+	            url: "deleteReply.bo",
+	            data: {REPLY_ID:REPLY_ID},
+	            type:"post",
+	            success: function(data){
+	               if(data=="success"){
+	            	   replyDel();
+	            	   getReplyList(); /* 댓글 조회 */		   
+	            	   $('#commentArea').html("");
+	               }
+	            }
+	        }); 
+		};
+		 function getReplyList(){
+	         var SG_ID = ${board.SG_ID};
+	         
+	         $.ajax({
+	            url: "replyList.bo",
+	            data: {SG_ID:SG_ID},
+	            dataType: "json",
+	            success: function(data){
+	               $tableBody = $('#commentArea');
+	               $tableBody.html("");
+	               	var t1;
+	            	var t2;
+	            	var t3;
+	            	var t4;
+	               if(data.length > 0){
+	                  for(var i in data){
+			               if(data[i].REPLY_ADD<=0){
+			               t1='<div name="'+ data[i].REPLY_ID+'" class="comment"><div style=" width: 95%;"><div><span style="width: 20px; height: 20px; background: white;">아이콘</span><span>';
+			               t2='</span></div><div><span>';
+			               t3='</span></div><div style="height: 20px;"><button class="replyAddForm" onclick="replyAdd(this);" value=';
+			               t4='>답글</button><button class="replyAddForm" onclick="replyDelete(this);" value="'+data[i].REPLY_ID+'">삭제</button><div style="float: right;">좋아요<span>0</span></div></div></div></div>';
+			               }
+	                	  if(data[i].REPLY_ADD<=0){
+		                	 $tableBody.append(t1+decodeURIComponent(data[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data[i].REPLY_INFO.replace(/\+/g, " "))+t2+data[i].REPLY_UPDATE_DATE+t3+data[i].REPLY_ID+t4);
+	                	  }
+	                  }
+	                  for(var i in data){
+	                	  if(data[i].REPLY_ADD>0){
+				            	t1='<div name="'+ data[i].REPLY_ID+'" class="comment" style="background: gray;"><div class="comment2"></div><div style="padding-left: 60px; width: 90%;"><div><span style="width: 20px; height: 20px; background: white;">아이콘</span><span>';
+				            	t2='</span></div><div><span>';
+				            	t3='</span></div><button onclick="replyDelete(this);" value="'+data[i].REPLY_ID+'">삭제</button></div></div>';
+	                		  $('div[name='+data[i].REPLY_ADD+']').after(t1+decodeURIComponent(data[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data[i].REPLY_INFO.replace(/\+/g, " "))+t2+data[i].REPLY_UPDATE_DATE+t3);
+		                  }
+	                  }
+	                  
+	               }
+	            }
+	         });
+	      } 
 	</script>
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
