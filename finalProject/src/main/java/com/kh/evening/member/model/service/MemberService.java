@@ -19,11 +19,7 @@ public interface MemberService {
 
 	Member enrollView(Member m);
 
-	// Member searchId(Member m);
-
 	String getPw(Map<String, Object> paramMap);
-
-	Member searchId(Member m);
 
 	int memberUpdate(Member m);
 
@@ -35,7 +31,8 @@ public interface MemberService {
 
 	ArrayList<Gesipan> selectMyPost(PageInfo pi, Map<String, String> map);
 
-	// Object searchId(HttpServletResponse response, String user_name, String
-	// user_email);
+	String searchId(Member m);
 
+
+	
 }

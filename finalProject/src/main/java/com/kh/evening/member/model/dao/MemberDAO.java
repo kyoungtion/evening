@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.gesipan.model.vo.Gesipan;
@@ -13,6 +16,11 @@ import com.kh.evening.member.model.vo.Member;
 
 @Repository("mDAO")
 public class MemberDAO {
+	
+	@Autowired
+	SqlSession sqlsession = null;
+
+
 
 	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.insert("memberMapper.insertMember", m);
@@ -25,11 +33,7 @@ public class MemberDAO {
 	public Member memberLogin(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("memberMapper.selectOne", m);
 	}
-
-	public Member searchId(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.selectOne("memberMapper.searchId", m);
-	}
-
+	
 	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.updateMember", m);
 	}
@@ -53,12 +57,34 @@ public class MemberDAO {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectMyPost", map, rb);
 	}
 
-//   public Member searchId(SqlSessionTemplate sqlSession, String user_name,String user_email) {
-//      return (Member) sqlSession.selectMap("memberMapper.searchId",user_name,user_email);
-//   }
+	public String searchId(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.searchId",m);
+	}
 
-//   public String getPw(SqlSessionTemplate sqlSession, Map<String, Object> paramMap) {
-//      return sqlSession.selectOne("memberMapper.getPw", paramMap);
-//   }
+	public int check_id(String user_id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void update_pw(Member m) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public Object login(String user_email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	// 비밀번호 변경
+		@Transactional
+		public int searchPwd(Member m ) throws Exception{
+			return sqlsession.update("member.update_pw",m);
+		}
+	
+
+
+
+
 
 }

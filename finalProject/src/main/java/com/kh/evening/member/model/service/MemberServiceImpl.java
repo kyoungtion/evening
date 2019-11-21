@@ -50,11 +50,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member searchId(Member m) {
-		return mDAO.searchId(sqlSession, m);
-	}
-
-	@Override
 	public String getPw(Map<String, Object> paramMap) {
 		return null;
 	}
@@ -83,5 +78,12 @@ public class MemberServiceImpl implements MemberService {
 	public ArrayList<Gesipan> selectMyPost(PageInfo pi, Map<String, String> map) {
 		return mDAO.selectMyPost(sqlSession, map, pi);
 	}
+
+	@Override
+	public String searchId(Member m) {
+		return mDAO.searchId(sqlSession,m);
+	}
+
+
 
 }

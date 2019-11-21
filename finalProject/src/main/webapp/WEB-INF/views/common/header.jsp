@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="resources/css/bootstrap.css">
 
 <!-- Magnific Popup -->
-<link rel="stylesheet" href="resources/css/magnific-popup.css">
+<!-- <link rel="stylesheet" href="resources/css/magnific-popup.css"> -->
 
 <!-- Flexslider  -->
 <link rel="stylesheet" href="resources/css/flexslider.css">
@@ -63,6 +63,8 @@
 	src="https://use.fontawesome.com/releases/v5.11.2/js/all.js"></script>
 <script defer
 	src="https://use.fontawesome.com/releases/v5.11.2/js/v4-shims.js"></script>
+	<!--카카오  -->
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <style>
 * {
 	font-family: 'Noto Sans KR', sans-serif !important;
@@ -86,6 +88,9 @@
 				</div>
 				<!-- 로그인 전 -->
 				<c:if test="${ empty sessionScope.loginUser }">
+				
+				
+				
 				<div id="navTag">
 					<ul id="hNav">
 						<li><a href="auctionList.bo">경매</a></li>
@@ -209,8 +214,8 @@
 	<!-- Owl carousel -->
 	<script src="resources/js/owl.carousel.min.js"></script>
 	<!-- Magnific Popup -->
-	<script src="resources/js/jquery.magnific-popup.min.js"></script>
-	<script src="resources/js/magnific-popup-options.js"></script>
+	<!-- <script src="resources/js/jquery.magnific-popup.min.js"></script>
+	<script src="resources/js/magnific-popup-options.js"></script> -->
 	<!-- Date Picker -->
 	<script src="resources/js/bootstrap-datepicker.js"></script>
 	<!-- Stellar Parallax -->

@@ -5,13 +5,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 //import org.apache.catalina.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
 //import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +32,9 @@ import com.kh.evening.common.Pageination;
 import com.kh.evening.gesipan.model.vo.Gesipan;
 //import com.kh.evening.member.email.EmailSender;
 import com.kh.evening.member.model.exception.MemberException;
+import com.kh.evening.member.model.service.EmailService;
+import com.kh.evening.member.model.service.EmailServiceImpl;
+import com.kh.evening.member.model.service.KakaoAPI;
 import com.kh.evening.member.model.service.MemberService;
 import com.kh.evening.member.model.vo.Member;
 
@@ -38,7 +46,14 @@ public class MemberController {
    private MemberService mService;
    
    @Autowired
+   private EmailServiceImpl service;
+   
+   
+   @Autowired
    private BCryptPasswordEncoder bcryptPasswordEncoder;
+   
+   @Autowired
+   private KakaoAPI kakao;
    
    // 이메일 보내기 Autowired
    /*@Autowired
@@ -226,12 +241,14 @@ public class MemberController {
    
    // 로그인용 컨트롤러
    @RequestMapping("loginView.me")
-   public String login() {
+   public String login(@RequestParam("code") String code) {
+	   String access_Token = kakao.getAccessToken(code);
       return "login";
    }
    
    // 암호화 후 로그인
-   @RequestMapping(value="login.me", method=RequestMethod.POST)
+   @SuppressWarnings("unused")
+@RequestMapping(value="login.me", method=RequestMethod.POST)
    public String memberLogin(@ModelAttribute Member m ,Model model) {
       Member loginUser = mService.memberLogin(m);
    
@@ -251,6 +268,14 @@ public class MemberController {
       }
       
    }
+   // 유효성 검사
+   @RequestMapping("dupid.me")
+   public void idDuplicataCheck(HttpServletResponse response, String user_id) throws IOException {
+	   boolean isUsable = mService.checkIdDup(user_id) == 0 ? true : false;
+	   
+	   response.getWriter().print(isUsable);
+   }
+
    
    // 로그아웃 컨트롤러
    @RequestMapping("logout.me")
@@ -259,47 +284,59 @@ public class MemberController {
 		return "redirect:home.do";
 	}
    
-   @RequestMapping(value="searchId.me", method=RequestMethod.POST)
-   public String searchId(@ModelAttribute Member m, Model model) {
-      
-      Member searchId = mService.searchId(m);
-      
-      if((m.getUser_name().equals(searchId.getUser_name()) && m.getPhone().equals(searchId.getPhone()))) {
-         // 이름과 전화 번호 정보가 같으면 이제 내가 찾는 아이디를 출력 해야 한다. 어떻게?
-         // 어떻게 출력을 할까 말까 ㅁㅇ민 ㅕㅎ레 ㅑㄴㅇ ㅗㅎㄴ 오히ㅓ ㅌ ㅍㄴ윺 ㅓㅎㄴㅍㄹ치.ㄴㅌㅇㅎㄿ늌ㅇ ㅍ토ㅓ
-         // ajax 로 할수 잇는지 , 아니면 팝업창 또는 alert 창으로 띄어야 하는지
-          model.addAttribute("searchId",searchId);
-         
-         
-         
-      }else {
-         throw new MemberException("아이디 찾기에 실패하였습니다.");
-      }
-      return "login";
-   }
    
-   
-   
-   
-   
-   @RequestMapping("dupid.me")
-   public void idDuplicataCheck(HttpServletResponse response, String user_id) throws IOException {
-   boolean isUsable = mService.checkIdDup(user_id) == 0 ? true : false;
-   
-   response.getWriter().print(isUsable);
-   }
-   
-   
-   
-   
-   
-   
-   // 아이디 비밀번호 찾기 컨트롤러
+   // 아이디, 비밀번호 찾기 컨트롤러
    @RequestMapping("search.me")
    public String Search(){
       
       return "SearchIdPwd";
    }
+   
+   // 아이디 찾기
+   @RequestMapping(value="searchId.me", method=RequestMethod.POST)
+   @ResponseBody
+   public String searchId(@RequestParam("user_name") String user_name,
+		   				  @RequestParam("phone") String phone, 
+		   				  Model model,
+		   				  HttpServletResponse response) throws IOException {
+      
+	  Member m = new Member();
+	  m.setUser_name(user_name);
+	  m.setPhone(phone);
+
+	  String searchId = mService.searchId(m);
+	  
+	 
+      return searchId;
+   }
+   
+   
+   // 비밀번호 찾기
+   @RequestMapping(value="searchPwd", method = RequestMethod.POST)
+   public void searchPwd(	
+		   					@RequestParam("user_id") String user_id,
+		   					@RequestParam("user_email")String user_email,
+		   					Model model,
+		   					HttpServletResponse response) throws Exception {
+	   
+	   Member m = new Member();
+	   m.setUser_id(user_id);
+	   m.setUser_email(user_email);
+	  service.searchPwd(response,m);
+	
+	
+	   
+	   
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+  
 
 
    

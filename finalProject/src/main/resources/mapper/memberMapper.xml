@@ -96,7 +96,13 @@
 		order by g_type desc, g_ref desc, g_order asc
 	</select>
 
-
+	<!-- 비밀번호 변경 -->
+	<update id="update_pw" parameterType="_int">
+		update member 
+			set user_pwd = #{user_pwd} 
+			where user_id = #{user_id}
+				and user_email = #{user_email}
+	</update>
 
 
 
