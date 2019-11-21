@@ -15,6 +15,6 @@ public class GoodLike {
 
   private int Gl_Id;        // 좋아요 번호
   private String User_Id;   // 유저 아이디
-  private int Sg_Id;        // 게시판 번호
-  private int Gl_Check;     // 좋아요 여부 ( 1이면 좋아요 0이면 아니요 )
+  private int sg_Id;        // 게시판 번호
+  private int gl_Check;     // 좋아요 여부 ( 1이면 좋아요 0이면 아니요 )
 }

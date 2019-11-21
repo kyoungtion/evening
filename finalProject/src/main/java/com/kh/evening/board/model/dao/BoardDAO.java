@@ -71,6 +71,10 @@ public class BoardDAO {
     return sqlSession.update("boardMapper.updateBoardLike",user);
   }
 
+  public ArrayList<Board> boardAllList(SqlSession sqlSession, String bCategory) {
+    return (ArrayList)sqlSession.selectList("boardMapper.boardAllList",bCategory);
+  }
+
 
 
 

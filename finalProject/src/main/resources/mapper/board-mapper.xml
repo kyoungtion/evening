@@ -2,11 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
 
-	<select id="boardList" resultType="Board"
-		parameterType="BoardMode">
-		select * from second_goods
-		where SG_STATUS='N'
-
+	<select id="boardList" resultType="Board" parameterType="BoardMode">
+		select SG.* from second_goods SG
+		WHERE SG_STATUS='N'
 		<choose>
 			<when test='B_category == "A" '>
 				AND B_CATEGORY='A'
@@ -33,7 +31,19 @@
 				ORDER BY SG_COUNT DESC
 			</when>
 		</choose>
-
+	</select>
+	
+	<select id="boardAllList" parameterType="string" resultType="Board">
+		SELECT * FROM SECOND_GOODS
+		WHERE SG_STATUS='N'
+		<choose>
+			<when test="bCategory == 'A'">
+				AND B_CATEGORY='A'
+			</when>
+			<when test="bCategory == 'SG'">
+				AND B_CATEGORY='SG'
+			</when>
+		</choose>
 	</select>
 
 	<select id="getAuctionListCount" resultType="_int">

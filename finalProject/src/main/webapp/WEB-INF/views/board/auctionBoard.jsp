@@ -273,6 +273,15 @@
 							<div class="side">
 							<!-- 최근에 본 상품들 : 쿠키기능 이용 , 시간설정 5분(유통기한), 회원만 가능, 비회원은 이용불가 기능 -->
 								<h2>최근에 본 물건</h2>
+								<script>
+								$(function(){
+								  
+								  setTimeout(function(){
+								   location.reload(); 
+								  },5000);
+								  
+								});
+								</script>
 								<%
 									Cookie[] cookies = request.getCookies();
 								
@@ -282,18 +291,18 @@
 									    <c:forTokens var="coo" items="<%= co.getName() %>" delims="_"  varStatus="Status">
 									    	<c:if test="${ coo eq loginUser.user_id }">
 									    		<c:set var="coValue" value="<%= co.getValue() %>"/>
-									    		<!-- 이미지 셋팅 -->
+									    		<!-- 이미지 셋팅(게시판 테이블, 이미지테이블) -->
 									    		<c:forEach var="j" items="${ af }" begin="0" end="${ fn:length(af) }">
 									    			<c:if test="${ j.SG_ID eq coValue }">
-									    				<c:forEach var="i" items="${ alist }" begin="0" end="${ fn:length(alist) }">
+									    				<c:forEach var="i" items="${ allList }" begin="0" end="${ fn:length(allList) }">
 															<c:if test="${ j.SG_ID eq i.SG_ID }">										    					
-												    		<div>
-												    		<c:url var="detailView" value="selectOne.bo">
-							                                    <c:param name="sgId" value="${ i.SG_ID }"/>
-							                                </c:url>
-												    		<img src="/evening/resources/thumbnail/${ j.RENAMEFILENAME }" style="width: 50px; height: 50px;">
-												    			<a href="${ detailView }" style="cursor: pointer;"> ${ i.SG_BNAME }</a> 
-												    		</div>
+													    		<div>
+														    		<c:url var="detailView" value="selectOne.bo">
+									                                    <c:param name="sgId" value="${ i.SG_ID }"/>
+									                                </c:url>
+														    		<img src="/evening/resources/thumbnail/${ j.RENAMEFILENAME }" style="width: 50px; height: 50px;">
+														    		<a href="${ detailView }" style="cursor: pointer;"> ${ i.SG_BNAME }</a> 
+													    		</div>
 												    		<br>
 												    		</c:if>
 									    				</c:forEach>

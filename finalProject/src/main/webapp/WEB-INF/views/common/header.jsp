@@ -76,7 +76,6 @@
 
 </head>
 <body>
-
 	<!-- 메뉴바는 어느 페이지든 포함하고 있을 테니 여기서 contextPath 변수 값 만들어주자 -->
 	<c:set var="contextPath"
 		value="${ pageContext.servletContext.contextPath }"

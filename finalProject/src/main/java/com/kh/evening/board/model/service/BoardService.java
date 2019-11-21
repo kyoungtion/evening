@@ -37,4 +37,6 @@ public interface BoardService {
 
   int updateBoardLike(GoodLike user);
 
+  ArrayList<Board> boardAllList(String bCategory);
+
 }

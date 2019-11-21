@@ -47,11 +47,16 @@ public class BoardController {
     ArrayList<Board> alist = bService.boardList(pi,bMode);
     ArrayList<Attachment> af = bService.boardFileList();
     
+    // 페이징 처리 되지않은 모든 리스트 조회용 필요
+    String bCategory = null;
+    ArrayList<Board> allList = bService.boardAllList(bCategory);
+    
     if (alist != null) {
       mv.addObject("alist", alist);
       mv.addObject("pi",pi);
       mv.addObject("modeSet",modeSet);
       mv.addObject("af", af);
+      mv.addObject("allList",allList);
       mv.setViewName("auctionBoard");
     } else {
       throw new BoardException("경매 게시판 조회 실패.");

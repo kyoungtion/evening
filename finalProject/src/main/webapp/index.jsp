@@ -15,12 +15,22 @@
 	
 	<!-- 리스트 불러오기 (ajax 대용) -->
 	<c:if test="${ empty alist }">
-						<script>
+			<script>
               $(function() {
                 location.href = "home.do";
               });
             </script>
-					</c:if>
+	</c:if>
+	
+	<script>
+	$(function(){
+	  // 5마다 갱신 (최신화)
+	  setTimeout(function(){
+	   location.reload(); 
+	  },5000);
+	  
+	});
+	</script>
 	
 	<div class="page">
 		<aside id="colorlib-hero">
@@ -92,138 +102,11 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-3 text-center">
-						<div class="product-entry">
-							<div class="product-img"
-								style="background-image: url(resources/images/item-5.jpg);">
-								<p class="tag">
-									<span class="new">New</span>
-								</p>
-								<div class="cart">
-									<p>
-										<span class="addtocart"><a href="cart.html"><i
-												class="icon-shopping-cart"></i></a></span> <span><a
-											href="product-detail.html"><i class="icon-eye"></i></a></span> <span><a
-											href="#"><i class="icon-heart3"></i></a></span> <span><a
-											href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span>
-									</p>
-								</div>
-							</div>
-							<div class="desc">
-								<h3>
-									<a href="shop.html">Floral Dress</a>
-								</h3>
-								<p class="price">
-									<span>$300.00</span>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 text-center">
-						<div class="product-entry">
-							<div class="product-img"
-								style="background-image: url(resources/images/item-6.jpg);">
-								<p class="tag">
-									<span class="new">New</span>
-								</p>
-								<div class="cart">
-									<p>
-										<span class="addtocart"><a href="cart.html"><i
-												class="icon-shopping-cart"></i></a></span> <span><a
-											href="product-detail.html"><i class="icon-eye"></i></a></span> <span><a
-											href="#"><i class="icon-heart3"></i></a></span> <span><a
-											href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span>
-									</p>
-								</div>
-							</div>
-							<div class="desc">
-								<h3>
-									<a href="shop.html">Floral Dress</a>
-								</h3>
-								<p class="price">
-									<span>$300.00</span>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 text-center">
-						<div class="product-entry">
-							<div class="product-img"
-								style="background-image: url(resources/images/item-7.jpg);">
-								<p class="tag">
-									<span class="new">New</span>
-								</p>
-								<div class="cart">
-									<p>
-										<span class="addtocart"><a href="cart.html"><i
-												class="icon-shopping-cart"></i></a></span> <span><a
-											href="product-detail.html"><i class="icon-eye"></i></a></span> <span><a
-											href="#"><i class="icon-heart3"></i></a></span> <span><a
-											href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span>
-									</p>
-								</div>
-							</div>
-							<div class="desc">
-								<h3>
-									<a href="shop.html">Floral Dress</a>
-								</h3>
-								<p class="price">
-									<span>$300.00</span>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 text-center">
-						<div class="product-entry">
-							<div class="product-img"
-								style="background-image: url(resources/images/item-8.jpg);">
-								<p class="tag">
-									<span class="new">New</span>
-								</p>
-								<div class="cart">
-									<p>
-										<span class="addtocart"><a href="cart.html"><i
-												class="icon-shopping-cart"></i></a></span> <span><a
-											href="product-detail.html"><i class="icon-eye"></i></a></span> <span><a
-											href="#"><i class="icon-heart3"></i></a></span> <span><a
-											href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span>
-									</p>
-								</div>
-							</div>
-							<div class="desc">
-								<h3>
-									<a href="shop.html">Floral Dress</a>
-								</h3>
-								<p class="price">
-									<span>$300.00</span>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 여기까지 실시간 품목 라인-->
-
-		<!-- 신규등록 품목-->
-		<div class="colorlib-shop">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-md-offset-3 text-center colorlib-heading">
-						<h2>
-							<span style="font-size: 50px;">신규 등록된 품목</span>
-						</h2>
-						<p>올라온지 일주일도 안된 품목들</p>
-					</div>
-				</div>
-				<div class="row">
-
-					<c:if test="${ fn:length(alist) > 0 }">
-						<c:forEach var="i" items="${ alist }" begin="0"
-							end="${ fn:length(alist) }">
+				
+				<c:if test="${ fn:length(clist) > 0 }">
+						<c:forEach var="i" items="${ clist }" begin="0" end="${ fn:length(clist) }">
 							<div class="col-md-4 text-center">
 								<div class="product-entry">
-
 									<!-- 이미지 삽입 : 이미지 파일이 여러개일시 첫번째 이름을 등록 -->
 									<c:forEach var="j" items="${ af }" begin="0"
 										end="${ fn:length(af) }">
@@ -231,16 +114,16 @@
 											<c:forTokens items="${ j.RENAMEFILENAME }" delims=","
 												varStatus="jStatus">
 												<c:if test="${ jStatus.first }">
-													<c:set var="k" value="${ jStatus.current }" />
+													<c:set var="l" value="${ jStatus.current }" />
 												</c:if>
 											</c:forTokens>
 										</c:if>
 									</c:forEach>
 									<div class="product-img"
-										style="background-image: url(resources/images/${ k })">
+										style="background-image: url(resources/thumbnail/${ l })">
 
 										<!-- 사진이 없을시 나타날 공백표시 -->
-										<c:remove var="k" />
+										<c:remove var="l" />
 
 										<!-- 테스트용 ( 날짜 계산 )  -->
 										<jsp:useBean id="now" class="java.util.Date" />
@@ -271,20 +154,70 @@
 										</p>
 
 										<div class="cart">
-											<p>
-												<span class="addtocart"><a href="cart.html"><i
-														class="icon-shopping-cart"></i></a></span>
-
-												<c:url var="boardDetail" value="selectOne.ud">
-													<c:param name="SG_ID" value="${ i.SG_ID }" />
-												</c:url>
-												<span><a href="selectOne.ud"><i class="icon-eye"></i></a></span>
-
-												<span><a href="#"><i class="icon-heart3"></i></a></span>
-												<!-- <span><a href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span> -->
-												<!-- 필요없을꺼같아서 대기중 (삭제대기중) -->
-											</p>
-										</div>
+													<p> <!-- 좋아요 부분 -->
+														<span><a onclick="return false;" id="clickLike${ i.SG_ID }"><i class="" id="clickTest${ i.SG_ID }"></i><span id="likeCount${ i.SG_ID }">${ i.SG_LIKE }</span></a></span>
+														<input type="text" id="Check${ i.SG_ID }" value="false" hidden="hidden" >
+														<input type="text" id="CountCheck${ i.SG_ID }" value="false" hidden="hidden" >
+														<script>
+														
+														$(function(){
+														  $.ajax({
+														    url:"selectLikeCheck.bo",
+														    data:{
+														      user_Id : "${ loginUser.user_id}",
+														      sgId : "${ i.SG_ID}"
+														    },success: function(data){
+														      if(data.result == 1){
+														        $('#clickTest${ i.SG_ID }').attr('class','icon-heart3');
+														        $('#clickTest${ i.SG_ID }').css('font-size','16px');
+														        $('#Check${ i.SG_ID }').val(true);
+														        $('#CountCheck${ i.SG_ID }').val(true);
+														      }else if(data.result == 0){
+														        $('#clickTest${ i.SG_ID }').attr('class','icon-heart2');
+														        $('#clickTest${ i.SG_ID }').css('font-size','13px');
+														        $('#Check${ i.SG_ID }').val(data.check);
+														        $('#CountCheck${ i.SG_ID }').val(false);
+														      }
+														    }
+														  });
+														});
+														// 좋아요 눌렀을시 이벤트
+															$('#clickLike${ i.SG_ID }').on('click',function(){
+															  var userCheck = "${loginUser.user_id}";
+															  
+															  if(userCheck.length > 0){
+																  $.ajax({
+																    url: "selectLike.bo",
+																    data: {
+																      user_Id : "${ loginUser.user_id }",
+																      sgId : "${ i.SG_ID }",
+																      likeCheck : $('#Check${ i.SG_ID }').val()
+																    },
+																    success: function(data){
+																      if(data == 1){
+																        $('#clickTest${ i.SG_ID }').attr('class','icon-heart3');
+																        $('#clickTest${ i.SG_ID }').css('font-size','16px');
+																        if( $('#CountCheck${ i.SG_ID}').val() == 'false' ){
+																	    	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE + 1}");
+																        }else{
+																        	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE}");
+																        }
+																      }else if(data == 0){
+																        $('#clickTest${ i.SG_ID }').attr('class','icon-heart2');
+																        $('#clickTest${ i.SG_ID }').css('font-size','13px');
+																        if( $('#CountCheck${ i.SG_ID}').val() == 'true' ){
+																        	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE - 1}");
+																        }else{
+																	        $('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE }");
+																        }
+																      }
+																    }
+																  });
+															  }
+															});
+														</script>
+													</p>
+												</div>
 
 									</div>
 
@@ -322,7 +255,177 @@
 							</div>
 						</c:forEach>
 					</c:if>
+					
+				</div>
+			</div>
+		</div>
+		<!-- 여기까지 실시간 품목 라인-->
 
+		<!-- 신규등록 품목-->
+		<div class="colorlib-shop">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3 text-center colorlib-heading">
+						<h2>
+							<span style="font-size: 50px;">신규 등록된 품목</span>
+						</h2>
+						<p>올라온지 일주일도 안된 품목들</p>
+					</div>
+				</div>
+				<div class="row">
+
+					<c:if test="${ fn:length(alist) > 0 }">
+						<c:forEach var="i" items="${ alist }" begin="0"
+							end="${ fn:length(alist) }">
+							<div class="col-md-4 text-center">
+								<div class="product-entry">
+									<!-- 이미지 삽입 : 이미지 파일이 여러개일시 첫번째 이름을 등록 -->
+									<c:forEach var="j" items="${ af }" begin="0"
+										end="${ fn:length(af) }">
+										<c:if test="${ j.SG_ID eq i.SG_ID }">
+											<c:forTokens items="${ j.RENAMEFILENAME }" delims=","
+												varStatus="jStatus">
+												<c:if test="${ jStatus.first }">
+													<c:set var="k" value="${ jStatus.current }" />
+												</c:if>
+											</c:forTokens>
+										</c:if>
+									</c:forEach>
+									<div class="product-img"
+										style="background-image: url(resources/thumbnail/${ k })">
+
+										<!-- 사진이 없을시 나타날 공백표시 -->
+										<c:remove var="k" />
+
+										<!-- 테스트용 ( 날짜 계산 )  -->
+										<jsp:useBean id="now2" class="java.util.Date" />
+										<fmt:parseDate var="enroll" value="${ i.SG_ENROLL_DATE }"
+											pattern="yyyy-MM-dd" />
+										<fmt:parseDate var="end" value="${ i.SG_END_DATE }"
+											pattern="yyyy-MM-dd" />
+
+										<fmt:parseNumber value="${ now2.time / (1000*60*60*24) }"
+											integerOnly="true" var="nowDays" />
+										<fmt:parseNumber value="${ enroll.time / (1000*60*60*24) }"
+											integerOnly="true" var="enrollDays" />
+										<fmt:parseNumber value="${ end.time / (1000*60*60*24) }"
+											integerOnly="true" var="endDays" />
+
+										<p class="tag">
+											<c:if test="${ ( nowDays - enrollDays ) <= 7 }">
+												<span class="new">New</span>
+											</c:if>
+											<c:if test="${ i.b_Category eq 'A' }">
+												<c:if test="${ (endDays - nowDays) >= 0 }">
+													<span class="sale">D - ${ endDays - nowDays }</span>
+												</c:if>
+												<c:if test="${ (endDays - nowDays) < 0 }">
+													<span class="sale">경매 종료</span>
+												</c:if>
+											</c:if>
+										</p>
+
+										<div class="cart">
+													<p> <!-- 좋아요 부분 -->
+														<span><a onclick="return false;" id="clickLike${ i.SG_ID }"><i class="" id="clickTest${ i.SG_ID }"></i><span id="likeCount${ i.SG_ID }">${ i.SG_LIKE }</span></a></span>
+														<input type="text" id="Check${ i.SG_ID }" value="false" hidden="hidden" >
+														<input type="text" id="CountCheck${ i.SG_ID }" value="false" hidden="hidden" >
+														<script>
+														
+														$(function(){
+														  $.ajax({
+														    url:"selectLikeCheck.bo",
+														    data:{
+														      user_Id : "${ loginUser.user_id}",
+														      sgId : "${ i.SG_ID}"
+														    },success: function(data){
+														      if(data.result == 1){
+														        $('#clickTest${ i.SG_ID }').attr('class','icon-heart3');
+														        $('#clickTest${ i.SG_ID }').css('font-size','16px');
+														        $('#Check${ i.SG_ID }').val(true);
+														        $('#CountCheck${ i.SG_ID }').val(true);
+														      }else if(data.result == 0){
+														        $('#clickTest${ i.SG_ID }').attr('class','icon-heart2');
+														        $('#clickTest${ i.SG_ID }').css('font-size','13px');
+														        $('#Check${ i.SG_ID }').val(data.check);
+														        $('#CountCheck${ i.SG_ID }').val(false);
+														      }
+														    }
+														  });
+														});
+														// 좋아요 눌렀을시 이벤트
+															$('#clickLike${ i.SG_ID }').on('click',function(){
+															  var userCheck = "${loginUser.user_id}";
+															  
+															  if(userCheck.length > 0){
+																  $.ajax({
+																    url: "selectLike.bo",
+																    data: {
+																      user_Id : "${ loginUser.user_id }",
+																      sgId : "${ i.SG_ID }",
+																      likeCheck : $('#Check${ i.SG_ID }').val()
+																    },
+																    success: function(data){
+																      if(data == 1){
+																        $('#clickTest${ i.SG_ID }').attr('class','icon-heart3');
+																        $('#clickTest${ i.SG_ID }').css('font-size','16px');
+																        if( $('#CountCheck${ i.SG_ID}').val() == 'false' ){
+																	    	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE + 1}");
+																        }else{
+																        	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE}");
+																        }
+																      }else if(data == 0){
+																        $('#clickTest${ i.SG_ID }').attr('class','icon-heart2');
+																        $('#clickTest${ i.SG_ID }').css('font-size','13px');
+																        if( $('#CountCheck${ i.SG_ID}').val() == 'true' ){
+																        	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE - 1}");
+																        }else{
+																	        $('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE }");
+																        }
+																      }
+																    }
+																  });
+															  }
+															});
+														</script>
+													</p>
+												</div>
+									</div>
+
+									<div class="desc">
+										<h3>
+											<a href="product-detail.html">${ i.SG_BNAME }</a>
+										</h3>
+										<p class="price">
+											<c:choose>
+												<c:when test="${ i.b_Category eq 'A' }">
+												급매가
+										 	</c:when>
+												<c:when test="${ i.b_Category eq 'SG' }">
+										 		가격
+										 	</c:when>
+											</c:choose>
+											<span> <br> <fmt:formatNumber
+													value="${i.SG_PRICE }" type="currency" /></span>
+										</p>
+
+										<p class="price">
+											<c:if test="${ i.b_Category eq 'A' }">
+												경매시작가<span> <br>
+													<fmt:formatNumber value="${i.SG_SPRICE }" type="currency" />
+												</span>
+											</c:if>
+											<c:if test="${ i.b_Category eq 'SG' }">
+												&nbsp;<span> <br> &nbsp; </span>
+											</c:if> 
+										</p>
+
+									</div>
+
+								</div>
+							</div>
+						</c:forEach>
+					</c:if>
 				</div>
 			</div>
 		</div>

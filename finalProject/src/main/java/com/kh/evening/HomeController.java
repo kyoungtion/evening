@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.kh.evening.board.model.service.BoardServiceImp;
+import com.kh.evening.board.model.vo.Attachment;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.BoardMode;
 import com.kh.evening.board.model.vo.PageInfo;
@@ -41,16 +42,23 @@ public class HomeController {
 //		model.addAttribute("serverTime", formattedDate );
 	  
 	  String modeSet = "recent";
+	  String modeSet2= "CountList";
 	  String boardCategory = null;
 	  int currentPage = 1;
 	  
 	  int listCount = bService.getBoardListCount(boardCategory);
 	  PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
 	  BoardMode bMode = new BoardMode(modeSet, boardCategory);
+	  BoardMode bMode2 = new BoardMode(modeSet2, boardCategory);
 	  
 	  ArrayList<Board> alist = bService.boardList(pi, bMode);
+	  ArrayList<Board> clist = bService.boardList(pi, bMode2);
+	  ArrayList<Attachment> af = bService.boardFileList();
 	  
 	  model.addAttribute("alist", alist);
+	  model.addAttribute("clist", clist);
+	  model.addAttribute("af",af);
+	  
 
 		return "index";
 	}

@@ -87,6 +87,12 @@ public class BoardServiceImp implements BoardService {
     return bDAO.updateBoardLike(sqlSession,user);
   }
 
+  @Override
+  public ArrayList<Board> boardAllList(String bCategory) {
+    return bDAO.boardAllList(sqlSession,bCategory);
+  }
+
+
 
 
 }
