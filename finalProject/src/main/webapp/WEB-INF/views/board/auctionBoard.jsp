@@ -281,7 +281,7 @@
 									    %>
 									    <c:forTokens var="coo" items="<%= co.getName() %>" delims="_"  varStatus="Status">
 									    	<c:if test="${ coo eq loginUser.user_id }">
-									    		<c:set var="coValue" v alue="<%= co.getValue() %>"/>
+									    		<c:set var="coValue" value="<%= co.getValue() %>"/>
 									    		<!-- 이미지 셋팅 -->
 									    		<c:forEach var="j" items="${ af }" begin="0" end="${ fn:length(af) }">
 									    			<c:if test="${ j.SG_ID eq coValue }">
