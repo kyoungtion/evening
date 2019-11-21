@@ -94,13 +94,18 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public int insertReply(Reply r) {
-		return bDAO.insertReply(sqlSession,r);
+	public int insertReply(Reply r, boolean add) {
+		return bDAO.insertReply(sqlSession,r,add);
 	}
 
 	@Override
 	public ArrayList<Reply> selectReplyList(int sgId) {
 		return bDAO.selectReplyList(sqlSession,sgId);
+	}
+
+	@Override
+	public int deleteReply(Reply r) {
+		return bDAO.deleteReply(sqlSession,r);
 	}
 
 }

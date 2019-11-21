@@ -79,6 +79,9 @@
 	<insert id="insertReply" parameterType="Reply">
 		INSERT INTO REPLY VALUES(SEQ_G_REPLY.nextval,#{USER_ID},#{NICKNAME},#{SG_ID},#{REPLY_INFO},default,SYSDATE,SYSDATE,default)
 	</insert>
+	<insert id="insertReplyAdd" parameterType="Reply">
+		INSERT INTO REPLY VALUES(SEQ_G_REPLY.nextval,#{USER_ID},#{NICKNAME},#{SG_ID},#{REPLY_INFO},#{REPLY_ID},SYSDATE,SYSDATE,default)
+	</insert>
 	
 	<update id="boardViewCount" parameterType="_int">
 		UPDATE SECOND_GOODS
@@ -128,8 +131,13 @@
   		select * 
   		from reply
   		where SG_ID = #{sgId} and REPLY_STATUS = 'N'
-  		order by REPLY_ID desc
+  		order by REPLY_ID asc
   	</select>
+  	<update id="deleteReply">
+		UPDATE REPLY
+		SET REPLY_STATUS='Y'
+		WHERE REPLY_ID=#{REPLY_ID}
+	</update>
 
   	
 

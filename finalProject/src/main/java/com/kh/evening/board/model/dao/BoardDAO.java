@@ -81,12 +81,21 @@ public int deleteBoard(SqlSession sqlSession, int sgId) {
 	return sqlSession.update("boardMapper.deleteBoard",sgId);
 }
 
-public int insertReply(SqlSession sqlSession, Reply r) {
-	return sqlSession.insert("boardMapper.insertReply",r);
+public int insertReply(SqlSession sqlSession, Reply r, boolean add) {
+	System.out.println(add);
+	if(add) {
+		return sqlSession.insert("boardMapper.insertReplyAdd",r);
+	}else {
+		return sqlSession.insert("boardMapper.insertReply",r);
+	}
 }
 
 public ArrayList<Reply> selectReplyList(SqlSession sqlSession, int sgId) {
 	return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList",sgId);
+}
+
+public int deleteReply(SqlSession sqlSession, Reply r) {
+	return sqlSession.update("boardMapper.deleteReply",r);
 }
 
 

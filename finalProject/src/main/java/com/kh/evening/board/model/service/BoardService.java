@@ -39,8 +39,10 @@ public interface BoardService {
 
 	int deleteBoard(int sgId);
 
-	int insertReply(Reply r);
-
 	ArrayList<Reply> selectReplyList(int sgId);
+
+	int insertReply(Reply r, boolean add);
+
+	int deleteReply(Reply r);
 
 }

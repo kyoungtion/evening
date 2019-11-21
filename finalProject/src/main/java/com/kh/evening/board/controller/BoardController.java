@@ -189,14 +189,27 @@ public class BoardController {
 	
 	@RequestMapping("addReply.bo")
 	@ResponseBody
-	public String addReply(Reply r,HttpSession session) {
+	public String addReply(Reply r,HttpSession session,HttpServletRequest request) {
 //		Member loginUser = (Member)session.getAttribute("loginUser");
 //		String rWriter = loginUser.getId();
 		
 		r.setNICKNAME("testUser");
 		r.setUSER_ID("testId");
+		int result=0;
+		boolean add = Boolean.parseBoolean(request.getParameter("add"));
 		
-		int result = bService.insertReply(r);
+		result= bService.insertReply(r,add);			
+		
+		if(result >0) {
+			return "success";
+		}else {
+			throw new BoardException("댓글 등록에 실패하였습니다.");
+		}
+	}
+	@RequestMapping("deleteReply.bo")
+	@ResponseBody
+	public String deleteReply(Reply r,HttpSession session) {
+		int result=bService.deleteReply(r);
 		
 		if(result >0) {
 			return "success";
@@ -397,7 +410,6 @@ public class BoardController {
 	
 	@RequestMapping("deleteBoard.bo")
 	public String deleteBoard(@RequestParam("sgId") int sgId,@RequestParam("type") int type) {
-		System.out.println("test");
 		int result = bService.deleteBoard(sgId);
 		if(result>0) {
 			if(type==1) return "redirect:secondgoodList.bo";
