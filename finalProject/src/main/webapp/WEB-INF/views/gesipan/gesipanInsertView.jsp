@@ -16,7 +16,7 @@
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
 	<div class="my-panel" style="height:1000px;">
 		<div class="col-md-10 col-md-offset-1"  style="margin: 0; width: 100%;">
-			<div class="contact-wrap" style="height:100%;">
+			<div class="contact-wrap" style="height:100%; background:whitesmoke !important;">
 				<form style="height: 100%;" action="gInsert.ge" id="insertForm" method="post" enctype="multipart/form-data">
 					<div class="container">
 						<div class="row content" style="background:whitesmoke;">

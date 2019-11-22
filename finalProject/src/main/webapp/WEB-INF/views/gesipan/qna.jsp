@@ -62,7 +62,7 @@
 		<c:set var="cate" value="QNA"/>
 	<div class="my-panel gesipan" style="height:1200px;">
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 100%;">
-			<div class="contact-wrap">
+			<div class="contact-wrap" style="height:1000px;">
 				<form style="height: 100%;">
 					<div class="container">
 
@@ -284,12 +284,12 @@
 		// 게시글 상세정보 조회
 		$(function(){
 			var index = ${fn:length(list)};
-			
+			var cate = '${cate}';
 			for(var i = 0; i < index; i++){
 				if('${sessionScope.loginUser.user_id}' == 'admin'){
 					$('#subject'+i).click(function(){
 						var g_id = $(this).prev().prev().text();
-						location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage}+"&category=${cate}";
+						location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage}+"&g_category="+cate;
 					});
 				} else {
 					$('#subject'+i).click(function(){
@@ -299,14 +299,14 @@
 							var g_id = $(this).prev().prev().text();
 							
 							if(g_pwd == ""){
-								location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage}+"&category=${cate}";
+								location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage}+"&g_category="+cate;
 							} else {
 								$('#modal').attr("style","display:block");
 								$('#modal_input_btn').click(function(){
 									var pwd = $('#g_pwdInput').val();
 									console.log(pwd);
 									if(g_pwd == pwd){
-										location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
+										location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage}+"&g_category="+cate;
 									} else {
 										$('.modal_text1').text("");
 										$('.modal_text2').text("");

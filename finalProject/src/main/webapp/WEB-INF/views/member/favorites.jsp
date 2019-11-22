@@ -42,34 +42,32 @@
 			<div class="contact-wrap" style="height: 900px;">
 				<form style="height: 100%;">
 					<div class="container form-field ">
-						<!-- <ul class="tabs no-drag">
-							<li class="tab-link current " data-tab="tab-1">상품목록</li>
-						</ul>
-						<div id="tab-1" class="tab-content current"> -->
 						
+					
+						<select id="people" class="form-control sidebar colorlib-form-2">
+							<option value="">중고제품</option>
+							<option value="">경매제품</option>
+						</select><br>
+							
 						<!-- 여기안에 상품 리스트 넣으면 됨 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  -->
-							<select id="people" class="form-control sidebar colorlib-form-2">
-								<option>중고제품</option>
-								<option>경매제품</option>
-							</select><br>
-							<br>
-							<div class="product-container">상품</div>
-							<div class="product-container">상품</div>
-							<div class="product-container">상품</div>
-							<div class="product-container">상품</div>
-							<div class="product-container">상품</div>
-							<div class="product-container">상품</div>
-							<div class="page-container">
-								<ul class="pagination">
-									<li class="disabled"><a href="#">&laquo;</a></li>
-									<li class="active"><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">&raquo;</a></li>
-								</ul>
-							</div>
-						<!-- </div> -->
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
 					</div>
 				</form>
 			</div>

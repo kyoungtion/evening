@@ -41,7 +41,7 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 			<li class="my-tab"><a href="mypost.me?category=Community">내가 쓴 글</a></li>
 		</ul>
 		<div class="col-md-10 col-md-offset-1 mypage" style="margin: 0; width: 80%; padding: 0;">
-			<div class="contact-wrap">
+			<div class="contact-wrap" style="height: 900px;">
 				<div class="container">
 					<ul class="tabs no-drag">
 						<li class="tab-link current" data-tab="tab-1">내 정보 수정</li>
@@ -126,33 +126,37 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 					
 					<!-- 내가 등록한 상품 화면 -->
 					<div id="tab-2" class="tab-content">
-						<div class="contact-wrap"  style="margin:0 !important;">
-							<form action="#">
-								<div class="container">
+						<div class="contact-wrap"  style="margin:0;">
+							<form action="#" style="height:100%;">
+								<div class="containe form-field">
 								
 								<!-- 여기안에 상품 리스트 넣으면 됨 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  -->
 									
-									<select>
-										<option>중고제품</option>
-										<option>경매제품</option>
-									</select><br>
-									<br>
-									<div class="product-container">상품</div>
-									<div class="product-container">상품</div>
-									<div class="product-container">상품</div>
-									<div class="product-container">상품</div>
-									<div class="product-container">상품</div>
-									<div class="product-container">상품</div>
-									<div class="page-container">
-										<ul class="pagination">
-											<li class="disabled"><a href="#">&laquo;</a></li>
-											<li class="active"><a href="#">1</a></li>
-											<li><a href="#">2</a></li>
-											<li><a href="#">3</a></li>
-											<li><a href="#">4</a></li>
-											<li><a href="#">&raquo;</a></li>
-										</ul>
-									</div>
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
 								</div>
 							</form>
 						</div>

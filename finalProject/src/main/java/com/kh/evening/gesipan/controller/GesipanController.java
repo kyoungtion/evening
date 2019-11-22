@@ -387,6 +387,8 @@ public class GesipanController {
 					mv.setViewName("redirect:qna.ad");
 				} else if(viewName.equals("adminNotice")) {
 					mv.setViewName("redirect:adminNoticeView.ad");
+				} else if(viewName.equals("mypost")) {
+					mv.setViewName("redirect:mypost.me?category"+category);
 				}
 			} else if(viewName == null) {
 				mv.setViewName("redirect:gList.ge");

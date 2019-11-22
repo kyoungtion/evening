@@ -194,11 +194,35 @@ tbody td {
 									<c:param name="viewName" value="${ viewName }"/>
 									<c:param name="page" value="${ page }"/>
 								</c:url>
+								<c:if test="${ viewName == 'mypost' }">
+									<c:url var="glist" value="mypost.me">
+										<c:param name="page" value="${ page }"/>
+										<c:param name="category" value="${ category }"/>
+										<%-- <c:param name="viewName" value="mypost"/> --%>
+									</c:url>
+									<c:url var="gUpdateView" value="gUpdateView.ge">
+										<c:param name="g_id" value="${ g.g_id }"/>
+										<c:param name="page" value="${ page }"/>
+										<c:param name="viewName" value="mypost"/>
+									</c:url>
+									<c:url var="gDelete" value="gDelete.ge">
+										<c:param name="page" value="${ page }"/>
+										<c:param name="g_id" value="${ g.g_id }"/>
+										<c:param name="viewName"  value="mypost"/>
+										<c:param name="category" value="${ category }"/>
+									</c:url>
+								</c:if>
+								<c:url var="reInsert" value="gesipanReInsertView.ge">
+									<c:param name="g_id" value="${ g.g_id }"/>
+									<c:param name="g_category" value="${ g.g_category }"/>
+									<c:param name="viewName" value="${ viewName }"/>
+									<c:param name="page" value="${ page }"/>
+								</c:url>
 							</c:if>
 							<c:if test="${ viewName == null }">
 								<c:url var="glist" value="gList.ge">
 									<c:param name="page" value="${ page }"/>
-									<c:param name="category" value="${ category }"/>
+									<c:param name="category" value="${ g.g_category }"/>
 								</c:url>
 								<c:url var="reInsert" value="gesipanReInsertView.ge">
 									<c:param name="g_id" value="${ g.g_id }"/>
@@ -207,14 +231,16 @@ tbody td {
 								<c:url var="gUpdateView" value="gUpdateView.ge">
 									<c:param name="g_id" value="${ g.g_id }"/>
 									<c:param name="page" value="${ page }"/>
+									<c:param name="category" value="${ g.g_category }"/>
 								</c:url>
 								<c:url var="gDelete" value="gDelete.ge">
 									<c:param name="page" value="${ page }"/>
 									<c:param name="g_id" value="${ g.g_id }"/>
 									<c:param name="category" value="${ cate }"/>
 								</c:url>
+								<%-- <c:set var="glist" value="document.referrer"/> --%>
 							</c:if>
-							<button class="btn btn-default" onclick="location.href=document.referrer" style="font-size:12px; display:inline-block;">목록으로 돌아가기</button>
+							<button class="btn btn-default" onclick="location.href='${ glist }'" style="font-size:12px; display:inline-block;">목록으로 돌아가기</button>
 							<c:if test="${ loginUser.user_id == 'admin' && g.g_category == 'QNA' }">
 								<button class="btn btn-default" id="reGesipan" onclick="location.href='${reInsert}'">답글<i class="fas fa-pencil-alt"></i></button>
 							</c:if>
@@ -244,8 +270,10 @@ tbody td {
 	</div>
 	<script>
 		$(function(){
-			var cate = '${category}';
+			var cate = '${g.g_category}';
 			console.log(cate);
+			var locked = '${g.locked}';
+			console.log(locked);
 		});
 		
 	

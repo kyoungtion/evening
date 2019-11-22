@@ -88,15 +88,20 @@
 												<tr style="background-color: #FFFFFF; color: #333333;">
 													<td id="g_id${st.index }" class="g_id" name="gId">${ g.g_id }</td>
 													<td class="displaynone"></td>
-													<td class="subject" id="subject"><span class="gTitle">${ g.g_title }</span>
+													<td class="subject" id="subject">
+														<c:if test="${ g.g_order eq 1 }">
+															<i class="fas fa-angle-right"></i>
+														</c:if>
+														<c:if test="${ g.locked eq 'Y' }">
+															<i class="fas fa-lock"></i>
+														</c:if> 
+														<span class="gTitle">${ g.g_title }</span>
 														<c:if test="${fn:contains(g.g_content, '<img src')}">
 															<!-- <img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_img.gif"
 															alt="파일첨부" class="ec-common-rwd-image"> -->
 															<i class="fas fa-image"></i>
 														</c:if> <%-- rCount 추가 나중에 --%>
-														<c:if test="${ g.locked eq 'Y' }">
-															<i class="fas fa-lock"></i>
-														</c:if> <span
+														<span
 														class="rWrap Before ${st.index}">[</span><span><font
 															id="rCount${st.index}"></font></span><span
 														class="rWrap After ${st.index}">]</span></td>

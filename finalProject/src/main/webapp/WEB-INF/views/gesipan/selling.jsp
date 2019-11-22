@@ -195,7 +195,7 @@
 			$('.subject').click(function(){
 				if(${sessionScope.loginUser != null}){
 					var g_id = $(this).prev().text();
-					location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage}+"&category=${cate}";
+					location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage}+"&g_category=${cate}";
 				} else {
 					alert('회원만 조회가능합니다.');
 				}
