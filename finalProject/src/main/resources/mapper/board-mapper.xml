@@ -103,7 +103,7 @@
 
 	<insert id="insertBoard" parameterType="Board">
 		INSERT INTO SECOND_GOODS
-		VALUES(SEQ_SG.NEXTVAL,'admin','SG',#{SG_BNAME},'운영자','TEST태그3',DEFAULT,#{SG_PRICE},default,#{SG_INFO},DEFAULT,SYSDATE,SYSDATE,DEFAULT,SYSDATE,#{SG_DEAL},#{SG_AREA},#{SG_DELIVERY})
+		VALUES(SEQ_SG.NEXTVAL,'admin',#{b_Category},#{SG_BNAME},'운영자',#{TAG_NAME},DEFAULT,#{SG_PRICE},#{SG_SPRICE},#{SG_INFO},DEFAULT,SYSDATE,SYSDATE,DEFAULT,SYSDATE,#{SG_DEAL},#{SG_AREA},#{SG_DELIVERY},DEFAULT)
 	</insert>
 
 	<insert id="attachmentInsert" parameterType="Attachment">
@@ -111,14 +111,21 @@
 		SECOND_GOODS), #{ORIGINALFILENAME}, #{RENAMEFILENAME},
 		sysdate,sysdate,default)
 	</insert>
+	
+	<insert id="insertReply" parameterType="Reply">
+		INSERT INTO REPLY VALUES(SEQ_G_REPLY.nextval,#{USER_ID},#{NICKNAME},#{SG_ID},#{REPLY_INFO},default,SYSDATE,SYSDATE,default)
+	</insert>
+	<insert id="insertReplyAdd" parameterType="Reply">
+		INSERT INTO REPLY VALUES(SEQ_G_REPLY.nextval,#{USER_ID},#{NICKNAME},#{SG_ID},#{REPLY_INFO},#{REPLY_ID},SYSDATE,SYSDATE,default)
+	</insert>
+	
 	<update id="boardViewCount" parameterType="_int">
 		UPDATE SECOND_GOODS
 		SET SG_COUNT = SG_COUNT+1 
 		WHERE SG_ID=#{sg_id}
 	</update>
 	
-	<select id="boardSelectOne" parameterType="_int"
-		resultType="Board">
+	<select id="boardSelectOne" parameterType="_int" resultType="Board">
 		SELECT * FROM SECOND_GOODS WHERE SG_ID=#{sg_id}
 	</select>
 	
@@ -130,7 +137,44 @@
 	<select id="category" resultType="string">
 		SELECT * FROM GOODS_TAG
 	</select>
+	
+	
+	<update id="uUpdateBoard" parameterType="Board">
+		UPDATE SECOND_GOODS 
+		SET SG_BNAME = #{SG_BNAME},TAG_NAME = #{TAG_NAME},SG_PRICE=#{SG_PRICE},SG_INFO=#{SG_INFO},SG_DEAL=#{SG_DEAL},SG_AREA=#{SG_AREA},SG_DELIVERY=#{SG_DELIVERY}
+		WHERE SG_ID=#{SG_ID}
+	</update>
+	
+	<update id="aUpdateBoard" parameterType="Board">
+		UPDATE SECOND_GOODS 
+		SET SG_BNAME = #{SG_BNAME},TAG_NAME = #{TAG_NAME},SG_SPRICE=#{SG_SPRICE},SG_INFO=#{SG_INFO},SG_DEAL=#{SG_DEAL},SG_AREA=#{SG_AREA},SG_DELIVERY=#{SG_DELIVERY}
+		WHERE SG_ID=#{SG_ID}
+	</update>
 
+	<update id="attachmentUpdate">
+		UPDATE ADD_FILE
+		SET ORIGINALFILENAME=#{ORIGINALFILENAME},RENAMEFILENAME=#{RENAMEFILENAME},FILE_UPDATE_DATE=SYSDATE
+		WHERE SG_ID=#{SG_ID}
+	</update>
+	
+	<update id="deleteBoard">
+		UPDATE SECOND_GOODS
+		SET SG_STATUS='Y'
+		WHERE SG_ID=#{sgId}
+	</update>
+	
+	<select id="selectReplyList" parameterType="Reply" resultType="Reply">
+  		select * 
+  		from reply
+  		where SG_ID = #{sgId} and REPLY_STATUS = 'N'
+  		order by REPLY_ID asc
+  	</select>
+  	<update id="deleteReply">
+		UPDATE REPLY
+		SET REPLY_STATUS='Y'
+		WHERE REPLY_ID=#{REPLY_ID}
+	</update>
 
+  	
 
 </mapper>

@@ -20,7 +20,6 @@ public class textToolbar {
 	public void textInsertImg(@RequestParam("trImgFile") MultipartFile uploadFile,
 								HttpServletRequest request,HttpServletResponse response) throws IOException {
 		String imgrename= saveImg(uploadFile,request,response);
-		System.out.println("test");
 	}
 	
 	public String saveImg(MultipartFile file,HttpServletRequest request,HttpServletResponse response) throws IOException {

@@ -11,7 +11,7 @@ import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.BoardMode;
 import com.kh.evening.board.model.vo.GoodLike;
 import com.kh.evening.board.model.vo.PageInfo;
-import com.kh.evening.member.model.vo.Member;
+import com.kh.evening.board.model.vo.Reply;
 
 @Service("bService")
 public class BoardServiceImp implements BoardService {
@@ -92,7 +92,46 @@ public class BoardServiceImp implements BoardService {
     return bDAO.boardAllList(sqlSession,bCategory);
   }
 
+	@Override
+	public int insertBoard(Board b) {
+		return bDAO.insertBoard(sqlSession, b);
 
+	}
 
+	@Override
+	public int insertAttachment(Attachment atm) {
+		return bDAO.insertAttachment(sqlSession, atm);
+
+	}
+
+	@Override
+	public int updateBoard(Board b,int type) {
+		return bDAO.updateBoard(sqlSession, b,type);
+	}
+
+	@Override
+	public int updateAttachment(Attachment atm) {
+		return bDAO.updateAttachment(sqlSession, atm);
+	}
+
+	@Override
+	public int deleteBoard(int sgId) {
+		return bDAO.deleteBoard(sqlSession,sgId);
+	}
+
+	@Override
+	public int insertReply(Reply r, boolean add) {
+		return bDAO.insertReply(sqlSession,r,add);
+	}
+
+	@Override
+	public ArrayList<Reply> selectReplyList(int sgId) {
+		return bDAO.selectReplyList(sqlSession,sgId);
+	}
+
+	@Override
+	public int deleteReply(Reply r) {
+		return bDAO.deleteReply(sqlSession,r);
+	}
 
 }

@@ -34,6 +34,7 @@ public class Board {
   private String SG_AREA;		// 거래지역
   private String SG_DELIVERY;	// 무료배송여부
   
+  private Reply reply;
   
 
 }

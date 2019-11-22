@@ -7,6 +7,7 @@ import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.BoardMode;
 import com.kh.evening.board.model.vo.GoodLike;
 import com.kh.evening.board.model.vo.PageInfo;
+import com.kh.evening.board.model.vo.Reply;
 import com.kh.evening.member.model.vo.Member;
 
 public interface BoardService {
@@ -38,5 +39,21 @@ public interface BoardService {
   int updateBoardLike(GoodLike user);
 
   ArrayList<Board> boardAllList(String bCategory);
+  
+	int insertBoard(Board b);
+
+	int insertAttachment(Attachment atm);
+
+	int updateBoard(Board b,int type);
+
+	int updateAttachment(Attachment atm);
+
+	int deleteBoard(int sgId);
+
+	ArrayList<Reply> selectReplyList(int sgId);
+
+	int insertReply(Reply r, boolean add);
+
+	int deleteReply(Reply r);
 
 }
