@@ -50,10 +50,12 @@ public interface BoardService {
 
 	int deleteBoard(int sgId);
 
-	ArrayList<Reply> selectReplyList(int sgId);
+	ArrayList<Reply> selectReplyList(int sgId, PageInfo pi);
 
 	int insertReply(Reply r, boolean add);
 
 	int deleteReply(Reply r);
+
+	int getReplyListCount(int sG_ID);
 
 }

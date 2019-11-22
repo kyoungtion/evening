@@ -169,6 +169,13 @@
   		where SG_ID = #{sgId} and REPLY_STATUS = 'N'
   		order by REPLY_ID asc
   	</select>
+  	
+  	<select id="selectReplyCount" resultType="_int">
+   		select count(*) 
+  		from reply
+  		where SG_ID = #{sgId} and REPLY_STATUS = 'N'
+  	</select>
+  	
   	<update id="deleteReply">
 		UPDATE REPLY
 		SET REPLY_STATUS='Y'

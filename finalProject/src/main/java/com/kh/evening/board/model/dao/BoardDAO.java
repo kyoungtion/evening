@@ -111,12 +111,21 @@ public int insertReply(SqlSession sqlSession, Reply r, boolean add) {
 	}
 }
 
-public ArrayList<Reply> selectReplyList(SqlSession sqlSession, int sgId) {
-	return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList",sgId);
+public ArrayList<Reply> selectReplyList(SqlSession sqlSession, int sgId,PageInfo pi) {
+	
+	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 건너띄기
+	System.out.println(offset);
+    RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit()); // 건너띄고, ~만큼 읽기
+	
+	return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList",sgId,rowBounds);
 }
 
 public int deleteReply(SqlSession sqlSession, Reply r) {
 	return sqlSession.update("boardMapper.deleteReply",r);
+}
+
+public int geyReplyListCount(SqlSession sqlSession, int sgid) {
+	return sqlSession.selectOne("boardMapper.selectReplyCount", sgid);
 }
 
 

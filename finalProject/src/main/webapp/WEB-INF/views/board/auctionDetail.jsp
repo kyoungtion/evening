@@ -193,12 +193,7 @@
 										</div>
 									</div>
 								</div>
-								<c:if test="${board.SG_DEAL eq 'DIRECT' }">
-									<div style="float: left;">
-								</c:if>
-								<c:if test="${board.SG_DEAL eq 'DELIVERY' }">
-									<div style="float: left; opacity: 0;">
-								</c:if>
+								<div style="float: left;">								
 								<label for="companyname">거래 지역</label> <input type="text"
 									name="sgArea" id="towncity" class="form-control"
 									placeholder="판매자에게 연락해주세요." style="width: 280px;"
