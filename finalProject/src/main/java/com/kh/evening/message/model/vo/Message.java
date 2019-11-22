@@ -7,19 +7,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import oracle.sql.DATE;
+
 
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class Message {
-	private int M_NO;
-	private String M_SEND;
-	private String M_RECEIVE; 
-	private String M_TITLE;
-	private String M_CONTENT;
-	private DATE M_ENROLL_DATE;
+	private int m_NO;
+	private String m_SEND;
+	private String m_RECEIVE; 
+	private String m_TITLE;
+	private String m_CONTENT;
+	private Date m_ENROLL_DATE;
+	private String m_STATUS;
 
 
 }

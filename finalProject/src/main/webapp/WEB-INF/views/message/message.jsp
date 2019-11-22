@@ -36,7 +36,8 @@
 					</ul>
 					<div id="tab-1" class="tab-content current">
 						<div class="container">
-
+							<button onclick="write();" class="btn btn-primary ">글쓰기</button>
+							<button onclick="write();" class="btn btn-primary ">삭제</button>
 							<div id="hs" class="row content" style="height: 600px;">
 								<table border="1" summary="" class="content-table">
 									<colgroup id=""
@@ -56,20 +57,18 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr style="background-color: #FFFFFF; color: #333333;"
-											class="">
-											<c:when test="${!empty list}">
-											<c:forEach items="${list}" var="list" if>
-												<td><c:out value="${list.M_NO}" /></td>
+										<c:forEach items="${rlist}" var="list">
+											<tr style="background-color: #FFFFFF; color: #333333;">
+												<%-- <td><c:out value="${list.M_NO}" /></td>
 												<td><c:out value="${list.M_SEND}" /></td>
 												<td><c:out value="${list.M_TITLE}" /></td>
-												<td><c:out value="${list.M_ENROLL_DATE}" /></td>
-											</c:forEach>
-											</c:when>
-											<c:otherwise>
-												받은 쪽지가 없습니다.
-											</c:otherwise>
-										</tr>
+												<td><c:out value="${list.M_ENROLL_DATE}" /></td> --%>
+												<td><c:out value="${list.m_NO}" /></td>
+												<td><c:out value="${list.m_SEND}" /></td>
+												<td><c:out value="${list.m_TITLE}" /></td>
+												<td><c:out value="${list.m_ENROLL_DATE}" /></td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -77,13 +76,14 @@
 								<div class="col-md-8"
 									style="text-align: center; left: 27%; width: 350px;"></div>
 							</div>
+
 						</div>
 
 					</div>
 					<script>
-						function updateAuc() {
-							var url = "updateAucView.me";
-							var name = "입찰내역 수정";
+						function write() {
+							var url = "write.sr";
+							var name = "쪽지 쓰기";
 
 							var option = "width=620px, height=450px, top=100, left=200, resizable=0, location=0, scrollbars=0, tollbars=0, status=0";
 							window.open(url, name, option);
@@ -92,7 +92,7 @@
 					<div id="tab-2" class="tab-content">
 						<div class="container">
 
-							<div class="row content" style="height: 600px;">
+							<div id="hs" class="row content" style="height: 600px;">
 								<table border="1" summary="" class="content-table">
 									<colgroup id=""
 										class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 ">
@@ -111,14 +111,18 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr style="background-color: #FFFFFF; color: #333333;"
-											class="">
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
+										<c:forEach items="${slist}" var="list">
+											<tr style="background-color: #FFFFFF; color: #333333;">
+												<%-- <td><c:out value="${list.M_NO}" /></td>
+												<td><c:out value="${list.M_SEND}" /></td>
+												<td><c:out value="${list.M_TITLE}" /></td>
+												<td><c:out value="${list.M_ENROLL_DATE}" /></td> --%>
+												<td><c:out value="${list.m_NO}" /></td>
+												<td><c:out value="${list.m_SEND}" /></td>
+												<td><c:out value="${list.m_TITLE}" /></td>
+												<td><c:out value="${list.m_ENROLL_DATE}" /></td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>

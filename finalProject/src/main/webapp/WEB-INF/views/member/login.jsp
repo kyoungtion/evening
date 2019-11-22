@@ -540,9 +540,9 @@
         
       </article>  
         
-        
+    <!--     
 
-    <!-- 우측 카카오 로그인 및 구글 로그인 화면 만들기 -->
+    <!-- 우측 카카오 로그인 및 구글 로그인 화면 만들기
     <div class="half bg">
 
       <br><br><br><br><br><br><br><br>
@@ -582,8 +582,8 @@
 
     </div>
   </section>
-
-
+ -->
+ -->
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script type="text/javascript">

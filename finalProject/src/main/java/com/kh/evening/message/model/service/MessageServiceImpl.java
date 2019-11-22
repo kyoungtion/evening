@@ -2,7 +2,6 @@ package com.kh.evening.message.model.service;
 
 import java.util.ArrayList;
 
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +15,16 @@ public class MessageServiceImpl implements MessageService{
 	@Autowired
 	private MessageDAO messageDAO;
 	@Autowired
-	private SqlSession sqlSession;
+	private SqlSessionTemplate sqlSession;
+	
 	@Override
-	public ArrayList<Message> receiveList() {
-		return messageDAO.receiveList(sqlSession);
+	public ArrayList<Message> receiveList(String user_ID) {
+		return messageDAO.receiveList(sqlSession,user_ID);
+	}
+
+	@Override
+	public ArrayList<Message> sendList(String user_ID) {
+		return messageDAO.sendList(sqlSession,user_ID);
 	}
 
 
