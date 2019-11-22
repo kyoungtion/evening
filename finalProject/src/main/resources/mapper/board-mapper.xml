@@ -79,21 +79,21 @@
 	</insert>
 	
 	<update id="updateGoodLike" parameterType="GoodLike">
-		UPDATE GOOD_LIKE SET GL_CHECK=#{Gl_Check} WHERE GL_ID=#{Gl_Id}
+		UPDATE GOOD_LIKE SET GL_CHECK=#{Gl_check} WHERE GL_ID=#{Gl_Id}
 	</update>
 	
 	<update id="updateBoardLike" parameterType="GoodLike">
 		UPDATE SECOND_GOODS 
 		SET 
 		<choose>
-			<when test="Gl_Check == 1">
+			<when test="Gl_check == 1">
 				SG_LIKE=SG_LIKE+1
 			</when>
-			<when test="Gl_Check == 0">
+			<when test="Gl_check == 0">
 				SG_LIKE=SG_LIKE-1
 			</when>
 		</choose>
-		WHERE SG_ID=#{Sg_Id}
+		WHERE SG_ID=#{Sg_id}
 	</update>
 
 	<select id="boardFileList" resultType="Attachment">

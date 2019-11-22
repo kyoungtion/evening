@@ -289,14 +289,14 @@ public class BoardController {
 	public int selectLike(@RequestParam("user_Id") String userId, @RequestParam("sgId") int sgId,@RequestParam("likeCheck") Boolean Check) {
 	  // 리턴할 값 더미
 	  GoodLike num = new GoodLike();
-	  num.setGl_Check(0);
+	  num.setGl_check(0);
 	  
 	  // 좋아요 있는지 확인 ( 유저 아이디로 전체 조회 )
 	  ArrayList<GoodLike> likeList = bService.selectGoodLike(userId);
 	  
 	  GoodLike user = new GoodLike();
 	  user.setUser_Id(userId);
-	  user.setSg_Id(sgId);
+	  user.setSg_id(sgId);
 	  
 	  // 좋아요가 안되어있을경우
 	  if(Check == false) {
@@ -304,10 +304,10 @@ public class BoardController {
 	    
 	    if(result > 0) {
 	      // 게시판 테이블도 좋아요 반영
-	      user.setGl_Check(1);
+	      user.setGl_check(1);
 	      int boardLike = bService.updateBoardLike(user);
 	      if(boardLike > 0) {
-	        num.setGl_Check(1);
+	        num.setGl_check(1);
 	      }else {
 	        throw new BoardException("게시판 좋아요 최신화 실패");
 	      }
@@ -317,14 +317,14 @@ public class BoardController {
 	  }
 	    
 	  for(GoodLike gl: likeList) {
-	    if(gl.getSg_Id() == sgId) {
+	    if(gl.getSg_id() == sgId) {
 	      // 있으면 수정
-	      if(gl.getGl_Check() == 1) {
-	        gl.setGl_Check(0);
-	        user.setGl_Check(0);
+	      if(gl.getGl_check() == 1) {
+	        gl.setGl_check(0);
+	        user.setGl_check(0);
 	      }else {
-	        gl.setGl_Check(1);
-	        user.setGl_Check(1);
+	        gl.setGl_check(1);
+	        user.setGl_check(1);
 	      }
 	      // 좋아요값을 반대로 넣기(DB에 업데이트하는 과정)
 	      int changeCheck = bService.updateGoodLike(gl);
@@ -332,7 +332,7 @@ public class BoardController {
 	        // 성공시 게시판에도 좋아요 갯수 반영
 	        int boardLike = bService.updateBoardLike(user);
 	        if(boardLike > 0) {
-	          num.setGl_Check(gl.getGl_Check());
+	          num.setGl_check(gl.getGl_check());
             }else {
               throw new BoardException("게시판 좋아요 최신화 실패");
             }
@@ -341,7 +341,7 @@ public class BoardController {
 	      }
 	    }
 	  }
-	  return num.getGl_Check();
+	  return num.getGl_check();
 	}
 	
 	@RequestMapping("selectLikeCheck.bo")
@@ -359,8 +359,8 @@ public class BoardController {
 	  }
 	  
 	  for(GoodLike gl : list) {
-	    if(gl.getSg_Id() == sgId) {
-	      rlist.put("result", gl.getGl_Check());
+	    if(gl.getSg_id() == sgId) {
+	      rlist.put("result", gl.getGl_check());
 	      rlist.put("check", true);
 	      return rlist;
 	    }

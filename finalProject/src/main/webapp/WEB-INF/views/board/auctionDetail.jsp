@@ -521,6 +521,7 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 	         });
 	      } 
 	</script>
+	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
