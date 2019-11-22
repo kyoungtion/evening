@@ -87,8 +87,8 @@
 					<img src="resources/images/eve-logo.png">
 				</div>
 				<!-- 로그인 전 -->
-				<c:if test="${ empty sessionScope.loginUser }">
-				
+				<c:if test="${ empty sessionScope.loginUser || empty sessionScope.account_email}">
+				<%-- <c:if test="${ empty sessionScope.account_email}"> --%>
 				
 				
 				<div id="navTag">

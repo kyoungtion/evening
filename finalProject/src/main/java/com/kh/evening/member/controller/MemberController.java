@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 //import org.apache.catalina.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -241,10 +242,27 @@ public class MemberController {
    
    // 로그인용 컨트롤러
    @RequestMapping("loginView.me")
-   public String login(@RequestParam("code") String code) {
-	   String access_Token = kakao.getAccessToken(code);
+   public String login() {
       return "login";
    }
+   
+   @RequestMapping("kakao")
+   public String kakao(@RequestParam("code")String code,
+		   				HttpSession session) {
+	   String access_Token = kakao.getAccessToken(code);
+	    HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+	    System.out.println("login Controller : " + userInfo);
+	    
+	    //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
+	    if (userInfo.get("email") != null) {
+	        session.setAttribute("userId", userInfo.get("email"));
+	        session.setAttribute("access_Token", access_Token);
+	    }
+	   
+	   return "login";
+   }
+   
+   
    
    // 암호화 후 로그인
    @SuppressWarnings("unused")
