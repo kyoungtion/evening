@@ -54,8 +54,10 @@ public interface BoardService {
 
 	int insertReply(Reply r, boolean add);
 
-	int deleteReply(Reply r);
+	int deleteReply(Reply r, boolean b);
 
 	int getReplyListCount(int sG_ID);
+
+	int replyUpdate(Reply r);
 
 }

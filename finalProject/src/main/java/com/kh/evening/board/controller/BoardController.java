@@ -180,9 +180,8 @@ public class BoardController {
 	    if (list != null) {
 	    	result.put("pi", pi);
 	    	result.put("rlist", list);	
-	    	System.out.println("성공");
 	    }
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		gson.toJson(result,response.getWriter());
 	}
 	
@@ -206,10 +205,31 @@ public class BoardController {
 			throw new BoardException("댓글 등록에 실패하였습니다.");
 		}
 	}
+	@RequestMapping("replyUpdate.bo")
+	@ResponseBody
+	public String replyUpdate(Reply r,HttpSession session) {
+		int result=bService.replyUpdate(r);
+		if(result >0) {
+			return "success";
+		}else {
+			throw new BoardException("댓글 등록에 실패하였습니다.");
+		}
+	}
 	@RequestMapping("deleteReply.bo")
 	@ResponseBody
 	public String deleteReply(Reply r,HttpSession session) {
-		int result=bService.deleteReply(r);
+		int result=bService.deleteReply(r,true);
+		
+		if(result >0) {
+			return "success";
+		}else {
+			throw new BoardException("댓글 등록에 실패하였습니다.");
+		}
+	}
+	@RequestMapping("deleteReplyAdd.bo")
+	@ResponseBody
+	public String deleteReplyAdd(Reply r,HttpSession session) {
+		int result=bService.deleteReply(r,false);
 		
 		if(result >0) {
 			return "success";

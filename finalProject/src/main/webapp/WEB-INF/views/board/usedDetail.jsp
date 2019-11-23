@@ -69,13 +69,14 @@
 }
 
 #replyTag {
-	width: 1000px;
+	width: 90%;
+	min-width:900px;
 	height: 70px;
 	background: whitesmoke;
 	display: inline-block;
 	overflow: hidden;
 }
-#replyArea,#replyArea2{
+#replyArea,#replyArea2,#replyUpArea{
 height: 95px; width: 80%; resize: none;
 }
 .replyAddForm{
@@ -251,38 +252,9 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 		<br>
 		<div style="width: 100%; text-align: center;">
 			<div id="pageingArea" style="width: 200px; height: 30px; display: inline-block;">
-							<%-- <ul class="pagination">
-									<c:if test="${ pi.currentPage <= 1 }">
-										<li class="disabled"><a>&laquo;</a></li>
-									</c:if>
-									<c:if test="${ pi.currentPage > 1 }">
-										<c:url var="before" value="replyList.bo">	
-											<c:param name="page" value="${ pi.currentPage - 1 }"/>
-										</c:url>
-										<li><a href="${ before }">&laquo;</a></li>
-									</c:if>
-									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-										<c:if test="${ p eq pi.currentPage }">
-											<li class="active"><a>${ p }</a></li>
-										</c:if>
-										
-										<c:if test="${ p ne pi.currentPage }">
-											<c:url var="pagination" value="replyList.bo">
-												<c:param name="page" value="${ p }"/>
-											</c:url>
-											<li><a href="${ pagination }">${ p }</a></li>
-										</c:if>
-									</c:forEach>
-									<c:if test="${ pi.currentPage >= pi.maxPage }">
-										<li class="disabled"><a href="#">&raquo;</a></li>
-									</c:if>
-									<c:if test="${ pi.currentPage < pi.maxPage }">
-										<c:url var="after" value="replyList.bo">
-											<c:param name="page" value="${ pi.currentPage + 1 }"/>
-										</c:url>
-										<li><a href="${ after }">&raquo;</a></li>
-									</c:if>
-								</ul> --%>
+							<ul class="pagination">
+									
+							</ul> 
 			</div>
 		</div>
 		<br>
@@ -298,7 +270,6 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 		};
 	</script>
 	<script>
-	var pageing ='<ul class="pagination"><c:if test="${ pi.currentPage <= 1 }"><li class="disabled"><a>&laquo;</a></li></c:if><c:if test="${ pi.currentPage > 1 }"><c:url var="before" value="replyList.bo"><c:param name="page" value="${ pi.currentPage - 1 }"/></c:url><li><a href="${ before }">&laquo;</a></li></c:if><c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }"><c:if test="${ p eq pi.currentPage }"><li class="active"><a>${ p }</a></li></c:if><c:if test="${ p ne pi.currentPage }"><c:url var="pagination" value="replyList.bo"><c:param name="page" value="${ p }"/></c:url><li><a href="${ pagination }">${ p }</a></li></c:if></c:forEach><c:if test="${ pi.currentPage >= pi.maxPage }"><li class="disabled"><a href="#">&raquo;</a></li></c:if><c:if test="${ pi.currentPage < pi.maxPage }"><c:url var="after" value="replyList.bo"><c:param name="page" value="${ pi.currentPage + 1 }"/></c:url><li><a href="${ after }">&raquo;</a></li></c:if></ul>';
 	var replyA='<div id="replyAdd" class="comment" style="background: gray;"><div class="comment2"></div><div style="padding-left: 60px; "><textarea id="replyArea2"></textarea><button class="replyAddBtn" onclick="test(this);" value=';
 	var replyA2='>댓글쓰기</button></div></div>';
 	var replyB=1;	
@@ -306,7 +277,6 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 			var click = 0;
 			$("#replyOpen").on("click", function() {
 				if (click == 0) {
-				$('')
 				$('#replyOpen').html("댓글 닫기");
 				$('#replyTag').css("height", "auto");
 				getReplyList();
@@ -317,26 +287,6 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 					click = 0;			
 				}
 			});
-			/* 대댓글 입력 */
-			/* $('.replyAddBtn').on("click",function(){
-				console.log("테스트");
-				console.log($(this).val());
-				var REPLY_INFO=$('#replyArea2').val().replace(/\n/gi,"<br>");
-				var REPLY_ID=$(this).val();
-				var SG_ID=${board.SG_ID};
-				
-				$.ajax({
-		            url: "addReply.bo",
-		            data: {REPLY_INFO:REPLY_INFO, SG_ID:SG_ID,add:true,REPLY_ID:REPLY_ID},
-		            type:"post",
-		            success: function(data){
-		               if(data=="success"){
-		            	   replyDel();
-		            	   getReplyList(); // 댓글 조회             	   
-		               }
-		            }
-		        }); 
-			}); */
 			/* 댓글 입력 */
 			$('.replyBtn').on("click",function(){
 				var REPLY_INFO=$('#replyArea').val().replace(/\n/gi,"<br>");
@@ -355,7 +305,6 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 		        }); 
 			});
 			
-
 			if ($('input[name="dealType"]').val() == "DELIVERY") {
 				$('#delivery').css("opacity", 1);
 			} else {
@@ -380,7 +329,7 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
                }
             }
         }); 
-	}
+	};
 	
 		function replyAdd(a){
 			$('.replyAddForm').text("답글");
@@ -395,7 +344,7 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 			$('.replyAddForm').text("답글");
 			$('.replyAddForm').attr("onclick","replyAdd(this)");
 			$('#replyAdd').remove();
-		}
+		};
 		function replyDelete(a){
 			var REPLY_ID=$(a).val();
 			
@@ -412,17 +361,54 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 	            }
 	        }); 
 		};
-		 function getReplyList(){
+		function replyDeleteAdd(a){
+			var REPLY_ID=$(a).val();			
+			$.ajax({
+	            url: "deleteReplyAdd.bo",
+	            data: {REPLY_ID:REPLY_ID},
+	            type:"post",
+	            success: function(data){
+	               if(data=="success"){
+	            	   replyDel();
+	            	   getReplyList(); /* 댓글 조회 */		   
+	            	   $('#commentArea').html("");
+	               }
+	            }
+	        }); 
+		};
+		function replyUpdate(id){
+			$('#replyAdd').remove();
+			var UpText=$('#'+$(id).val()).html();
+			var UpId=$(id).val();
+			 replyDel();
+			$(id).parent("div").html('<textarea id="replyUpArea">'+UpText+'</textarea><button class="replyAddBtn" onclick="replyUpdateAjax(this);" value='+UpId+'>댓글쓰기</button>');
+		};
+		
+		function replyUpdateAjax(id){
+			var REPLY_INFO=$('#replyUpArea').val().replace(/\n/gi,"<br>");
+			var REPLY_ID=$(id).val();
+			var SG_ID=${board.SG_ID};
+			var page=$('.active').val();
+			
+			$.ajax({
+	            url: "replyUpdate.bo",
+	            data: {REPLY_INFO:REPLY_INFO,REPLY_ID:REPLY_ID},
+	            type:"post",
+	            success: function(data){
+	               if(data=="success"){
+	            	   getReplyList(page); /* 댓글 조회 */		            	   
+	               }
+	            }
+	        }); 
+		}
+		
+		 function getReplyList(page){
 	         var SG_ID = ${board.SG_ID};
-	         
 	         $.ajax({
 	            url: "replyList.bo",
-	            data: {SG_ID:SG_ID},
+	            data: {SG_ID:SG_ID,page:page},
 	            dataType: "json",
-	            success: function(data){	         
-	            	console.log(data.pi);
-	            	console.log(data.rlist.length);
-	            	
+	            success: function(data){         
 	               $tableBody = $('#commentArea');
 	               $tableBody.html("");
 	               	var t1;
@@ -431,29 +417,63 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 	            	var t4;
 	               if(data.rlist.length > 0){
 	                  for(var i in data.rlist){
-			               if(data.rlist[i].REPLY_ADD<=0){
-			               t1='<div name="'+ data.rlist[i].REPLY_ID+'" class="comment"><div style=" width: 95%;"><div><span style="width: 20px; height: 20px; background: white;">아이콘</span><span>';
-			               t2='</span></div><div><span>';
-			               t3='</span></div><div style="height: 20px;"><button class="replyAddForm" onclick="replyAdd(this);" value=';
-			               t4='>답글</button><button class="replyAddForm" onclick="replyDelete(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button><div style="float: right;">좋아요<span>0</span></div></div></div></div>';
-			            
-		                	 $tableBody.append(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t2+data.rlist[i].REPLY_UPDATE_DATE+t3+data.rlist[i].REPLY_ID+t4);
+		                i=parseInt(i);
+		                i2=parseInt(i)-1;
+		                if(i>0){
+				               if(data.rlist[i].REPLY_ADD!=data.rlist[i2].REPLY_ADD){
+				               t1='<div name="'+ data.rlist[i].REPLY_ID+'" class="comment"><div style=" width: 95%;"><div><span style="width: 20px; height: 20px; background: white;">아이콘</span><span>';
+				               t2='</span></div><div><span id="'+data.rlist[i].REPLY_ID+'">';
+				               t3='</span></div><div><span>';
+				               t4='</span></div><div style="height: 20px;"><button class="replyAddForm" onclick="replyAdd(this);" value=';
+				               t5='>답글</button><button onclick="replyUpdate(this);" value="'+data.rlist[i].REPLY_ID+'">수정</button><button onclick="replyDelete(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button><div style="float: right;">좋아요<span>0</span></div></div></div></div>';
+				            
+			                	 $tableBody.append(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+data.rlist[i].REPLY_UPDATE_DATE+t4+data.rlist[i].REPLY_ID+t5);
+		                	  }	                 
+				               if(data.rlist[i].REPLY_ADD==data.rlist[i2].REPLY_ADD){
+					            	t1='<div name="'+ data.rlist[i].REPLY_ID+'" class="comment" style="background: gray;"><div class="comment2"></div><div style="padding-left: 60px; width: 90%;"><div><span style="width: 20px; height: 20px; background: white;">아이콘</span><span>';
+					            	t2='</span></div><div><span id="'+data.rlist[i].REPLY_ID+'">';
+					            	t3='</span></div><div><span>';
+					            	t4='</span></div><button onclick="replyUpdate(this);" value="'+data.rlist[i].REPLY_ID+'">수정</button><button onclick="replyDeleteAdd(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button></div></div>';
+		                		  $('div[name='+data.rlist[i].REPLY_ADD+']').after(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+data.rlist[i].REPLY_UPDATE_DATE+t4);
+			                  }
+	                	  }else{
+	                		   t1='<div name="'+ data.rlist[i].REPLY_ID+'" class="comment"><div style=" width: 95%;"><div><span style="width: 20px; height: 20px; background: white;">아이콘</span><span>';
+				               t2='</span></div><div><span id="'+data.rlist[i].REPLY_ID+'">';
+				               t3='</span></div><div><span>';
+				               t4='</span></div><div style="height: 20px;"><button class="replyAddForm" onclick="replyAdd(this);" value=';
+				               t5='>답글</button><button onclick="replyUpdate(this);" value="'+data.rlist[i].REPLY_ID+'">수정</button><button onclick="replyDelete(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button><div style="float: right;">좋아요<span>0</span></div></div></div></div>';
+				            
+			                	 $tableBody.append(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+data.rlist[i].REPLY_UPDATE_DATE+t4+data.rlist[i].REPLY_ID+t5);
 	                	  }
+	                	  
 	                  }
-	                  for(var i in data.rlist){
-	                	  if(data.rlist[i].REPLY_ADD>0){
-				            	t1='<div name="'+ data.rlist[i].REPLY_ID+'" class="comment" style="background: gray;"><div class="comment2"></div><div style="padding-left: 60px; width: 90%;"><div><span style="width: 20px; height: 20px; background: white;">아이콘</span><span>';
-				            	t2='</span></div><div><span>';
-				            	t3='</span></div><button onclick="replyDelete(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button></div></div>';
-	                		  $('div[name='+data.rlist[i].REPLY_ADD+']').after(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t2+data.rlist[i].REPLY_UPDATE_DATE+t3);
-		                  }
-	                  }
-	                  
 	               }
-	               $('#pageingArea').html(pageing);
+	               
+	               $('.pagination').html("");
+	               if(data.pi.currentPage<=1){
+	               $('.pagination').append('<li class="disabled"><a>&laquo;</a></li>');	            	 
+	               }
+					if(data.pi.currentPage>1){
+						$('.pagination').append('<li><a onclick="getReplyList('+(data.pi.currentPage-1)+')">&laquo;</a></li>');
+					}
+					for(var p=data.pi.startPage; p<=data.pi.endPage; p++){
+						if(p == data.pi.currentPage){
+							$('.pagination').append('<li class="active" value='+p+'><a>'+ p +'</a></li>');
+						}
+						if(p != data.pi.currentPage){							
+							$('.pagination').append('<li><a onclick="getReplyList('+p+')">'+ p +'</a></li>');
+						}
+					}
+					if(data.pi.currentPage >= data.pi.maxPage){
+						$('.pagination').append('<li class="disabled"><a href="#">&raquo;</a></li>');
+					}
+					if(data.pi.currentPage < data.pi.maxPage){
+						$('.pagination').append('<li><a onclick="getReplyList('+(data.pi.currentPage+1)+')">&raquo;</a></li>');
+					}
+	               
 	            }
 	         });
-	      } 
+	      };
 		 
 	</script>
 

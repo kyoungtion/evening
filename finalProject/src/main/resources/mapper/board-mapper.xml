@@ -113,7 +113,7 @@
 	</insert>
 	
 	<insert id="insertReply" parameterType="Reply">
-		INSERT INTO REPLY VALUES(SEQ_G_REPLY.nextval,#{USER_ID},#{NICKNAME},#{SG_ID},#{REPLY_INFO},default,SYSDATE,SYSDATE,default)
+		INSERT INTO REPLY VALUES(SEQ_G_REPLY.nextval,#{USER_ID},#{NICKNAME},#{SG_ID},#{REPLY_INFO},(select max(reply_id) from reply)+1,SYSDATE,SYSDATE,default)
 	</insert>
 	<insert id="insertReplyAdd" parameterType="Reply">
 		INSERT INTO REPLY VALUES(SEQ_G_REPLY.nextval,#{USER_ID},#{NICKNAME},#{SG_ID},#{REPLY_INFO},#{REPLY_ID},SYSDATE,SYSDATE,default)
@@ -167,7 +167,7 @@
   		select * 
   		from reply
   		where SG_ID = #{sgId} and REPLY_STATUS = 'N'
-  		order by REPLY_ID asc
+  		order by REPLY_ADD asc,REPLY_ID
   	</select>
   	
   	<select id="selectReplyCount" resultType="_int">
@@ -179,6 +179,18 @@
   	<update id="deleteReply">
 		UPDATE REPLY
 		SET REPLY_STATUS='Y'
+		WHERE REPLY_ADD=#{REPLY_ID}
+	</update>
+	
+  	<update id="deleteReplyAdd">
+		UPDATE REPLY
+		SET REPLY_STATUS='Y'
+		WHERE REPLY_ID=#{REPLY_ID}
+	</update>
+	
+  	<update id="replyUpdate">
+		UPDATE REPLY
+		SET REPLY_INFO=#{REPLY_INFO},REPLY_UPDATE_DATE=SYSDATE
 		WHERE REPLY_ID=#{REPLY_ID}
 	</update>
 
