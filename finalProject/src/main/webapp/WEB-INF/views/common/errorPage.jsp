@@ -28,7 +28,6 @@
 						<h6>${ requestScope['javax.servlet.error.message'] }</h6>
 						<h6>${ requestScope['javax.servlet.error.request_uri'] }</h6>
 						<button class="btn btn-default" onclick="location.href='home.do'">시작페이지로 돌아가기</button>
-						<h2 style="color:red;">${ requestScope['javax.servlet.error.status_code'] }</h2>
 					</div>
 				</div>
 

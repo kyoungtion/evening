@@ -21,6 +21,8 @@
 			<ul class="my-tabs1">
 				<li class="my-tab"><button class="btn active" id="adminView"
 						onclick="location.href='adminView.ad'">회원 관리</button></li>
+				<li class="my-tab"><button class="btn" id="manageSeller"
+						onclick="location.href='manageSeller.ad'">판매자 전환</button></li>
 				<c:url var="qnaList" value="qna.ad">
 					<c:param name="category" value="QNA" />
 					<c:param name="viewName" value="adminQnaView" />
@@ -32,8 +34,6 @@
 				</c:url>
 				<li class="my-tab"><button class="btn" id="insertNotice"
 						onclick="location.href='${adminNotice}'">공지사항 관리</button></li>
-				<li class="my-tab"><button class="btn" id="manageSeller"
-						onclick="location.href='manageSeller.ad'">판매자 전환</button></li>
 			</ul>
 		</div>
 		<div class="col-md-10 col-md-offset-1"
@@ -43,6 +43,11 @@
 					<div class="container">
 						<div class="row content" style="height: 800px;">
 							<div class="row content table" style="height: 600px;">
+								<select>
+									<option>일반회원</option>
+									<option>판매자회원</option>
+								</select>
+								<hr>
 								<c:if test="${ !empty list }">
 									<button type="button" class=" btn btn-default" onclick="location.href='deactivatedMember.ad'" style="float:right;">비활성된 회원 모두 보기</button><br>
 								</c:if>

@@ -406,11 +406,31 @@ public class MemberController {
    }
    
    @RequestMapping("manageSeller.ad")
-   public String manageSellerView() {
-	   return "manageSeller";
+   public ModelAndView manageSellerView(@RequestParam(value="page", required=false) Integer page,
+		   								ModelAndView mv) {
+	   
+	   int currentPage = 1;
+	   if(page != null) {
+		   currentPage = page;
+	   }
+	   
+	   int listCount = mService.getSellerRequestListCount();
+	   PageInfo pi = Pageination.getGesipanPageInfo(currentPage, listCount);
+	   
+	   ArrayList<Member> list = mService.getSellerRequestListCount(pi);
+	   
+	   if(list != null) {
+		   mv.addObject("list", list);
+		   mv.addObject("pi", pi);
+		   mv.setViewName("manageSeller");
+	   } else {
+		   throw new MemberException("판매자 신청 회원 조회에 실패하였습니다.");
+	   }
+	   return mv;
    }
    
    // 판매자 전환 신청
+   @ResponseBody
    @RequestMapping("sellerRequest.me")
    public String sellerRequest(Model model) {
 	   Member m = (Member)model.getAttribute("loginUser");
@@ -419,13 +439,37 @@ public class MemberController {
 	   
 	   if(result > 0) {
 		   Member loginUSer = mService.memberLogin(m);
-		   model.addAttribute("loginUser", m);
-		   return "myinfo.me";
+		   model.addAttribute("loginUser", loginUSer);
+		   return "success";
 	   } else {
 		   throw new MemberException("판매자 전환 신청에 실패하였습니다.");
 	   }
    }
    
+   @RequestMapping("memberAccept.ad")
+   public String memberAccept(@RequestParam("user_id") String user_id) {
+	   Member m = new Member();
+	   m.setUser_id(user_id);
+	   
+	   int result = mService.acceptMember(m);
+	   
+	   if(result > 0) {
+		   return "redirect:manageSeller.ad";
+	   } else {
+		   throw new MemberException("등급 조정에 실패하였습니다.");
+	   }
+   }
+   
+   @RequestMapping("memberAcceptAll.ad")
+   public String memberAcceptAll(@RequestParam("ids") String ids) {
+	   String[] idArray = ids.split(",");
+	   int result = mService.acceptAllMember(idArray);
+	   if(result > 0) {
+		   return "redirect:manageSeller.ad";
+	   } else {
+		   throw new MemberException("선택한 회원 등급 조정에 실패하였습니다.");
+	   }
+   }
    
    // ********************************************끝
    

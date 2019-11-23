@@ -133,8 +133,8 @@
 		<result property="penalty_point" column="penalty_point"/>
 		<result property="penalty_date" column="penalty_date"/>
 		<result property="penalty_stack" column="penalty_stack"/>
-		<result property="m_type" column="m_type"/>
 		<result property="seller_request" column="seller_request"/>
+		<result property="seller_request_date" column="seller_request_date"/>
 		<association property="rankCode" javaType="RankCode">
 			<result property = "rank_code" column="rank_code"/>
 			<result property = "rank_name" column="rank_name"/>
@@ -222,8 +222,38 @@
 	
 	<update id="requestSeller" parameterType="Member">
 		update member
-		set seller_request = 'Y'
+		set seller_request = 'Y' and seller_requset_date = default
 		where user_id = #{user_id}
 	</update>
+	
+	<select id="getSellerRequestListCount" resultType="_int">
+		select count(*)
+		from member
+		where rank_code = 'NM' and seller_request = 'Y'
+	</select>
 
+	<select id="getSellerRequestList" resultMap="MemberResultSet">
+		select m.*, r.*
+		from member m
+		join user_rank r on(m.rank_code = r.rank_code)
+		where m.rank_code = 'NM' and m.seller_request = 'Y'
+		order by seller_request_date desc
+	</select>
+	
+	<update id="acceptMember" parameterType="Member">
+		update member
+		set rank_code = 'HM', seller_request = 'N'
+		where user_id = #{user_id}
+	</update>
+	
+	<update id="acceptAllMember" parameterType="string">
+		update member
+		set rank_code = 'HM', seller_request = 'N'
+		<trim prefix="where" prefixOverrides="and|or">
+			user_id in
+			<foreach collection="array" item="item" index="index" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</trim>
+	</update>
 </mapper>

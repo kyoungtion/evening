@@ -104,6 +104,24 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.requestSeller", m);
 	}
 
+	public int getSellerRequestListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.getSellerRequestListCount");
+	}
+
+	public ArrayList<Member> getSellerRequestList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.getSellerRequestList", null, rb);
+	}
+
+	public int acceptMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.acceptMember", m);
+	}
+
+	public int acceptAllMember(SqlSessionTemplate sqlSession, String[] idArray) {
+		return sqlSession.update("memberMapper.acceptAllMember", idArray);
+	}
+
 
 //   public Member searchId(SqlSessionTemplate sqlSession, String user_name,String user_email) {
 //      return (Member) sqlSession.selectMap("memberMapper.searchId",user_name,user_email);

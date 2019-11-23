@@ -139,5 +139,25 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.requestSeller(sqlSession, m);
 	}
 
+	@Override
+	public int getSellerRequestListCount() {
+		return mDAO.getSellerRequestListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Member> getSellerRequestListCount(PageInfo pi) {
+		return mDAO.getSellerRequestList(sqlSession, pi);
+	}
+
+	@Override
+	public int acceptMember(Member m) {
+		return mDAO.acceptMember(sqlSession, m);
+	}
+
+	@Override
+	public int acceptAllMember(String[] idArray) {
+		return mDAO.acceptAllMember(sqlSession, idArray);
+	}
+
 
 }

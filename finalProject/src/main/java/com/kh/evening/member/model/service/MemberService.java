@@ -57,6 +57,14 @@ public interface MemberService {
 
 	int requestSeller(Member m);
 
+	int getSellerRequestListCount();
+
+	ArrayList<Member> getSellerRequestListCount(PageInfo pi);
+
+	int acceptMember(Member m);
+
+	int acceptAllMember(String[] idArray);
+
 
 	// Object searchId(HttpServletResponse response, String user_name, String
 	// user_email);

@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    $('ul.tabs li').click(function(){
+   /* $('ul.tabs li').click(function(){
         var tab_id = $(this).attr('data-tab');
 
         $('ul.tabs li').removeClass('current');
@@ -11,10 +11,27 @@ $(document).ready(function(){
         
     })
 
-    /*$('.subject').on('click', function(){
+    $('.subject').on('click', function(){
     	location.href="#";
     });*/
 });
+
+//마이페이지 클릭 리프레시
+function clickRefresh(){
+	$('#tabs').tabs();
+	var tabs = $('#tabs').tabs({
+		activate: function(event, ui){
+			var active = $('#tabs').tabs('option', 'active');
+			$.cookie('activeTabIndex', active);
+		}
+	});
+	
+	var activeTabIndex = $.cookie('activeTabIndex');
+	
+	if(activeTabIndex != undefined){
+		tabs.tabs('option','active',0);
+	}
+}
 
 // 게시글 검색
 $(function(){

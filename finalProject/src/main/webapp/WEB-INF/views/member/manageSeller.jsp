@@ -40,13 +40,10 @@
 		<div class="col-md-10 col-md-offset-1"
 			style="margin: 0; width: 100%; background: whitesmoke;">
 			<div class="contact-wrap" style="height: 900px; padding: 0;">
-				<form style="height: 100%;">
+				<!-- <form style="height: 100%;"> -->
 					<div class="container">
 						<div class="row content" style="height: 800px;">
 							<div class="row content table" style="height: 600px;">
-								<c:if test="${ empty list }">
-									<button type="button" class=" btn btn-default" onclick="location.href='adminView.ad'" style="float:right;">활성 회원 모두 보기</button><br>
-								</c:if>
 								<input type="checkbox" id="selectAll"> <label
 									for="selectAll">전체선택</label>
 								<script>
@@ -86,47 +83,29 @@
 											<th scope="col">연락처</th>
 											<th scope="col">이메일</th>
 											<th scope="col">주소</th>
-											<th scope="col">가입일</th>
-											<th scope="col">등급</th>
-											<th scope="col" style="text-align: center;">설정</th>
+											<th scope="col">신청 날짜</th>
+											<th scope="col">패널티 점수</th>
+											<th scope="col" style="text-align: center;">승인</th>
 										</tr>
 									</thead>
 									<tbody>
-										
-										<c:if test="${ !empty list  }">
-											<c:forEach var="m" items="${list}" varStatus="st">
-												<tr style="background-color: #FFFFFF; color: #333333;">
-													<td class="displaynone" id="listLength">${fn:length(list)}</td>
-													<td><input class="chk" id="chk" name="chk"
-														type="checkbox" value="${ m.user_id }"></td>
-													<td id="user_id${st.index}">${ m.user_id }</td>
-													<td>${ m.user_name }(${m.nickName })</td>
-													<td>${ m.phone }</td>
-													<td>${ m.user_email }</td>
-													<td>${ m.address }</td>
-													<td>${ m.enroll_date }</td>
-													<td>${ m.rankCode.rank_name }( ${ m.rankCode.rank_img }
-														)</td>
-													<td style="text-align: center;">
-														<ul class="nav navbar panel_toolbox">
-															<li class="dropdown"><a href=""
-																class="dropdown-toggle" data-toggle="dropdown"
-																role="button" aria-haspopup="true" aria-expanded="false"><i
-																	class="fas fa-cog"></i></a>
-																<ul class="dropdown-menu" role="menu"
-																	x-placement="bottom-start"
-																	style="position: absolute; transform: translate3d(-5px, 30px, 0px); top: 0px; left: 0px; will-change: transform;">
-																	<li><a class="dropdown-item memberLevel"
-																		id="memberLevel.${st.index }">등급 조정</a></li>
-																	<li><a class="dropdown-item memberDelete"
-																		id="memberDelete.${st.index }">회원 삭제</a></li>
-																</ul>
-															</li>
-														</ul>
-													</td>
-												</tr>
-											</c:forEach>
-										</c:if>
+										<c:forEach var="m" items="${list}" varStatus="st">
+											<tr style="background-color: #FFFFFF; color: #333333;">
+												<td class="displaynone" id="listLength">${fn:length(list)}</td>
+												<td><input class="chk" id="chk" name="chk"
+													type="checkbox" value="${ m.user_id }"></td>
+												<td id="user_id${st.index}">${ m.user_id }</td>
+												<td>${ m.user_name }(${m.nickName })</td>
+												<td>${ m.phone }</td>
+												<td>${ m.user_email }</td>
+												<td>${ m.address }</td>
+												<td>${ m.seller_request_date }</td>
+												<td>${ m.penalty_point }</td>
+												<td style="text-align: center;">
+													<button id="memberAccept.${st.index}" class="btn-info memberAccept">승인</button>
+												</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -135,7 +114,7 @@
 								<div class="row">
 									<div style="text-align:right; margin-right:20px;">
 										<!-- <button class="btn-primary">등급변경</button> -->
-										<button type="button" class="btn-danger" id="deleteAllMember">선택회원 전부 비활성화</button>
+										<button type="button" class="btn-primary" id="acceptAllMember">선택회원 전부 승인</button>
 									</div>
 					
 									<div class="col-md-5" style="text-align: center; width: 100%;">
@@ -154,7 +133,7 @@
 												<li class="disabled"><a>&laquo;</a></li>
 											</c:if>
 											<c:if test="${ pi.currentPage > 1 }">
-												<c:url var="before" value="adminView.ad">
+												<c:url var="before" value="manageSeller.ad">
 													<c:param name="page" value="${ pi.currentPage - 1 } " />
 												</c:url>
 												<li><a href="${ before }">«</a></li>
@@ -166,7 +145,7 @@
 													<li class="active"><a>${ p }</a></li>
 												</c:if>
 												<c:if test="${ p ne pi.currentPage }">
-													<c:url var="pagination" value="adminView.ad">
+													<c:url var="pagination" value="manageSeller.ad">
 														<c:param name="page" value="${ p } " />
 													</c:url>
 													<li><a href="${ pagination }">${ p }</a></li>
@@ -177,7 +156,7 @@
 												<li class="disabled"><a href="#">»</a></li>
 											</c:if>
 											<c:if test="${ pi.currentPage < pi.maxPage }">
-												<c:url var="after" value="adminView.ad">
+												<c:url var="after" value="manageSeller.ad">
 													<c:param name="page" value="${ pi.currentPage + 1 } " />
 												</c:url>
 												<li><a href="${ after }">»</a></li>
@@ -190,11 +169,56 @@
 						</div>
 						<br>
 					</div>
-				</form>
+				<!-- </form> -->
 			</div>
 		</div>
 	</div>
+	<script>
+		$(function(){
+			$('.memberAccept').on('click', function(){
+				var user_id = $(this).attr('id');
+				var indexof = user_id.indexOf('.');
+				var i = user_id.substring(indexof + 1);
 	
+				user_id = $('#user_id' + i).text();
+	
+				if (confirm('해당 회원을 판매자회원으로 승인하시겠습니까?')) {
+					location.href = "memberAccept.ad?user_id=" + user_id;
+				}
+			});
+		});
+		
+		/* $('#acceptAllMember').on('click', function(){
+			if(confirm('선택한 회원 모두 판매자회원으로 승인하시겠습니까?')){
+				var ids = "";
+				$('input:checkbox:checked').each(funcion(index){
+					if(index != 0){
+						ids += "," + $(this).val();
+					} else {
+						ids += $(this).val();
+					}
+					
+					location.href="memberAcceptAll.ad?ids="+ids;
+				})
+			}
+		}); */
+		
+		$('#acceptAllMember').on('click', function(){
+			if(confirm("선택한 회원 모두 판매자 회원으로 승인하시겠습니까?")){
+				var ids = "";
+				$('input:checkbox:checked').each(function(index) {
+					if (index != 0) {
+						ids += "," + $(this).val();
+					} else {
+						ids += $(this).val();
+					}
+
+					location.href = "memberAcceptAll.ad?ids=" + ids;
+				});
+			}
+		});
+	
+	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
