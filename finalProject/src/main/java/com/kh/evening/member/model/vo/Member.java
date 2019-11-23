@@ -26,6 +26,8 @@ public class Member {
    private int penalty_point;
    private Date penalty_date;
    private int penalty_stack;
+   private String m_type;
+   private String seller_request;
    
    // rank_code
    private RankCode rankCode;

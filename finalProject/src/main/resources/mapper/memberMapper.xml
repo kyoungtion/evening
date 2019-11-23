@@ -58,7 +58,7 @@
 	
 	<update id="deleteMember" parameterType="Member">
 		update member
-		set status='Y'
+		set status='Y' and update_date = sysdate
 		where user_id=#{user_id}
 	</update>
 
@@ -105,6 +105,7 @@
 	<select id="getMemberListCount" resultType="_int">
 		select count(*)
 		from member
+		where status = 'N'
 	</select>
 	
 	<select id="getMembers" resultMap="MemberResultSet">
@@ -132,6 +133,8 @@
 		<result property="penalty_point" column="penalty_point"/>
 		<result property="penalty_date" column="penalty_date"/>
 		<result property="penalty_stack" column="penalty_stack"/>
+		<result property="m_type" column="m_type"/>
+		<result property="seller_request" column="seller_request"/>
 		<association property="rankCode" javaType="RankCode">
 			<result property = "rank_code" column="rank_code"/>
 			<result property = "rank_name" column="rank_name"/>
@@ -148,7 +151,7 @@
 	
 	<update id="deleteAllMember" parameterType="string">
 		update member
-		set status = 'Y'
+		set status = 'Y' and update_date = sysdate
 		<trim prefix="where" prefixOverrides="and|or">
 			user_id in
 			<foreach collection="array" item="item" index="index" open="(" separator="," close=")">
@@ -185,7 +188,42 @@
 			</when>
 		</choose>
 	</select>
-
-
+	
+	<select id="getDeActiMemberListCount" resultType="_int">
+		select count(*)
+		from member
+		where status='Y'
+	</select>
+	
+	<select id="getDeActiMemberList" resultMap="MemberResultSet">
+		select m.*, r.*
+		from member m
+		join user_rank r on(m.rank_code = r.rank_code)
+		where status = 'Y'
+		order by user_id asc
+	</select>
+	
+	<update id="activateMember" parameterType="Member">
+		update member
+		set status = 'N'
+		where user_id = #{user_id}
+	</update>
+	
+	<update id="activateAllMember" parameterType="string">
+		update member
+		set status = 'N'
+		<trim prefix="where" prefixOverrides="and|or">
+			user_id in
+			<foreach collection="array" item="item" index="index" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</trim>
+	</update>
+	
+	<update id="requestSeller" parameterType="Member">
+		update member
+		set seller_request = 'Y'
+		where user_id = #{user_id}
+	</update>
 
 </mapper>

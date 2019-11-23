@@ -144,9 +144,9 @@
 
 
 								<ul class="pagination">
-									<!-- 이전 -->
-									<c:if test="${ pi.currentPage <= 1} ">
-										<li class="disabled"><a href="#">«</a></li>
+									<!-- 이전 페이지 -->
+									<c:if test="${ pi.currentPage <= 1 }">
+										<li class="disabled"><a>&laquo;</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage > 1 }">
 										<c:url var="before" value="gList.ge">

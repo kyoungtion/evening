@@ -82,6 +82,28 @@ public class MemberDAO {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectSearchMemberList", parameters, rb);
 	}
 
+	public int getDeActiMemberListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.getDeActiMemberListCount");
+	}
+
+	public ArrayList<Member> getDeActiMemberList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.getDeActiMemberList", null, rb);
+	}
+
+	public int activateMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.activateMember", m);
+	}
+
+	public int activateAllMember(SqlSessionTemplate sqlSession, String[] idArray) {
+		return sqlSession.update("memberMapper.activateAllMember", idArray);
+	}
+
+	public int requestSeller(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.requestSeller", m);
+	}
+
 
 //   public Member searchId(SqlSessionTemplate sqlSession, String user_name,String user_email) {
 //      return (Member) sqlSession.selectMap("memberMapper.searchId",user_name,user_email);

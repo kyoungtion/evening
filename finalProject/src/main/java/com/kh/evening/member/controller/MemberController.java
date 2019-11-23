@@ -185,6 +185,8 @@ public class MemberController {
 	   }
    }
    
+   
+   // 관리자 화면 회원보기
    @RequestMapping("adminView.ad")
    public ModelAndView adminView(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
 	   int currentPage = 1;
@@ -203,6 +205,27 @@ public class MemberController {
 		   mv.addObject("list", list).addObject("pi", pi).setViewName("manageMember");
 	   }
 	   return mv;
+   }
+   
+   @RequestMapping("deactivatedMember.ad")
+   public ModelAndView deactivatedMember(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+	  int currentPage = 1;
+	  if(page != null) {
+		  currentPage = page;
+	  }
+	  
+	  int listCount = mService.getDeActiMemberListCount();
+	  
+	  PageInfo pi = null;
+	  pi = Pageination.getGesipanPageInfo(currentPage, listCount);
+	  
+	  ArrayList<Member> list = mService.getDeActiMemberList(pi);
+	  
+	  if(list != null) {
+		  mv.addObject("dList", list).addObject("pi", pi).setViewName("manageMember");
+	  }
+	  
+	  return mv;
    }
    
    @RequestMapping("memberLevelView.ad")
@@ -249,6 +272,21 @@ public class MemberController {
 	   }
    }
    
+   @RequestMapping("memberActivate.ad")
+   public String memberActivate(@RequestParam("user_id") String user_id) {
+	   Member m = new Member();
+	   m.setUser_id(user_id);
+	   
+	   int result = mService.activateMember(m);
+	   
+	   if(result > 0) {
+		   return "redirect:deactivatedMember.ad";
+	   } else {
+		   throw new MemberException("회원 활성화에 실패했습니다.");
+	   }
+			   
+   }
+   
    @RequestMapping("deleteAllMember.ad")
    public String memberDeleteAll(@RequestParam("ids") String ids) {
 	   String[] idArray = ids.split(",");
@@ -259,6 +297,19 @@ public class MemberController {
 		   return "redirect:adminView.ad";
 	   } else {
 		   throw new MemberException("선택한 회원 삭제에 실패했습니다.");
+	   }
+   }
+   
+   @RequestMapping("activateAllMember.ad")
+   public String activateAllMember(@RequestParam("ids") String ids) {
+	   String[] idArray = ids.split(",");
+	   
+	   int result = mService.activateAllMember(idArray);
+	   
+	   if(result > 0) {
+		   return "redirect:deactivatedMember.ad";
+	   } else {
+		   throw new MemberException("선택한 회원 활성화에 실패했습니다.");
 	   }
    }
    
@@ -353,6 +404,28 @@ public class MemberController {
 	   }
 	   return mv;
    }
+   
+   @RequestMapping("manageSeller.ad")
+   public String manageSellerView() {
+	   return "manageSeller";
+   }
+   
+   // 판매자 전환 신청
+   @RequestMapping("sellerRequest.me")
+   public String sellerRequest(Model model) {
+	   Member m = (Member)model.getAttribute("loginUser");
+	   
+	   int result = mService.requestSeller(m);
+	   
+	   if(result > 0) {
+		   Member loginUSer = mService.memberLogin(m);
+		   model.addAttribute("loginUser", m);
+		   return "myinfo.me";
+	   } else {
+		   throw new MemberException("판매자 전환 신청에 실패하였습니다.");
+	   }
+   }
+   
    
    // ********************************************끝
    

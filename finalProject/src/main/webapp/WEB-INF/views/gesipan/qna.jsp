@@ -69,12 +69,12 @@
 						<!-- 자주 묻는 질문 -->
 						<div class="faqContainer">
 							<div class="panel-group" id="accordion">
-								<span id="titlespan1">자주 묻는 질문</span>
+								<span id="titlespan1">자주 묻는 질문</span>&nbsp;<i class="fas fa-search"></i>
 								<div class="panel">
 									<div class="panel-heading">
 										<h4 class="panel-title">
 											<a data-toggle="collapse" data-parent="#accordion"
-												href="#collapse1"> <i class="fas fa-check"></i> 제품에 하자가
+												href="#collapse1"><!--  <i class="fas fa-check"></i> --> 제품에 하자가
 												있는 경우에는 보상받을 수 있나요?
 											</a>
 										</h4>
@@ -90,7 +90,7 @@
 									<div class="panel-heading">
 										<h4 class="panel-title">
 											<a data-toggle="collapse" data-parent="#accordion"
-												href="#collapse2"> <i class="fas fa-check"></i> 등급이
+												href="#collapse2"> <!-- <i class="fas fa-check"></i> --> 등급이
 												내려갔어요. 왜 내려 간 것인가요?
 											</a>
 										</h4>
@@ -104,7 +104,7 @@
 									<div class="panel-heading">
 										<h4 class="panel-title">
 											<a data-toggle="collapse" data-parent="#accordion"
-												href="#collapse3"> <i class="fas fa-check"></i> 입찰중간에는
+												href="#collapse3"> <!-- <i class="fas fa-check"></i> --> 입찰중간에는
 												입찰가 수정을 할 수 없나요?
 											</a>
 										</h4>
@@ -235,9 +235,9 @@
 								
 							<!-- </div> -->
 								<ul class="pagination">
-									<!-- 이전 -->
-									<c:if test="${ pi.currentPage <= 1} ">
-										<li class="disabled"><a href="#">«</a></li>
+									<!-- 이전 페이지 -->
+									<c:if test="${ pi.currentPage <= 1 }">
+										<li class="disabled"><a>&laquo;</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage > 1 }">
 										<c:url var="before" value="gList.ge">

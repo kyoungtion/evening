@@ -21,7 +21,7 @@
 		from g1
 		join gesipan g on (g1.g_ref = g.g_id)
 		join member m on(g1.g_writer = m.user_id)
-		where g.g_category = #{category} and g.g_status = 'N' 
+		where (g.g_category = #{category} or g.g_category = 'Notice') and g.g_status = 'N' 
 		order by g1.g_type desc, g1.g_ref desc, g1.g_order asc
 	</select>
 
@@ -34,7 +34,7 @@
 		from g1
 		join gesipan g on (g1.g_ref = g.g_id)
 		join member m on(g1.g_writer = m.user_id)
-		where g.g_category = #{category} and g.g_status = 'N'
+		where (g.g_category = #{category} or g.g_category = 'Notice') and g.g_status = 'N'
 		order by g1.g_type desc, g1.g_ref desc, g1.g_order asc
 	</select>
 

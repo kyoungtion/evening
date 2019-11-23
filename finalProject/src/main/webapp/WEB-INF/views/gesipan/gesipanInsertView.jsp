@@ -100,6 +100,19 @@
 				} else if('${g.g_id}' != ""){
 					$('.locked').css('visibility','hidden');
 				}
+				
+				$('#lockedCheck').change(function(){
+					if($('#lockedCheck').is(':checked') != true){
+						$('#locked').val('N');
+						$('#g_pwd').val("");
+						$('#g_pwd').removeAttr('required');
+						console.log($('#g_pwd').prop('required'));	
+					} else if($('#lockedCheck').is(':checked') == true) {
+						$('#locked').val('Y');
+						$('#g_pwd').prop("required", true);
+						console.log($('#g_pwd').prop('required'));	
+					}
+				});
 			} else {
 				$('.locked').css('visibility','hidden');
 			}
@@ -118,9 +131,15 @@
 		});
 		
 		function submitGesipan() {
-
-			$('#contentInput').val(document.getElementById("insertField").innerHTML);
-			$('#insertForm').submit();
+			
+			if($('#lockedCheck').prop('checked') == true && $('#g_pwd').val() == ""){
+				alert('비밀번호를 입력해주세요.');				
+			} else if($('#lockedCheck').prop('checked') == false && $('#g_pwd').val() != ""){
+				alert('비밀글 설정이 체크되어 있지 않습니다.');
+			} else {
+				$('#contentInput').val(document.getElementById("insertField").innerHTML);
+				$('#insertForm').submit();
+			}
 		
 		}
 	

@@ -65,6 +65,8 @@
 			<ul class="my-tabs1">
 				<li class="my-tab"><button class="btn" id="adminView"
 						onclick="location.href='adminView.ad'">회원 관리</button></li>
+				<li class="my-tab"><button class="btn" id="manageSeller"
+						onclick="location.href='manageSeller.ad'">판매자 전환</button></li>
 				<c:url var="qnaList" value="qna.ad">
 					<c:param name="category" value="QNA"/>
 					<c:param name="viewName" value="adminQnaView"/>
@@ -159,9 +161,9 @@
 
 										<!-- </div> -->
 										<ul class="pagination">
-											<!-- 이전 -->
-											<c:if test="${ pi.currentPage <= 1} ">
-												<li class="disabled"><a href="#">«</a></li>
+											<!-- 이전 페이지 -->
+											<c:if test="${ pi.currentPage <= 1 }">
+												<li class="disabled"><a>&laquo;</a></li>
 											</c:if>
 											<c:if test="${ pi.currentPage > 1 }">
 												<c:url var="before" value="qna.ad">

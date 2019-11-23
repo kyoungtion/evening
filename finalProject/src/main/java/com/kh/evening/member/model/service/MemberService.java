@@ -47,6 +47,16 @@ public interface MemberService {
 
 	ArrayList<Member> getSearchMemberList(PageInfo pi, Map<String, String> parameters);
 
+	int getDeActiMemberListCount();
+
+	ArrayList<Member> getDeActiMemberList(PageInfo pi);
+
+	int activateMember(Member m);
+
+	int activateAllMember(String[] idArray);
+
+	int requestSeller(Member m);
+
 
 	// Object searchId(HttpServletResponse response, String user_name, String
 	// user_email);

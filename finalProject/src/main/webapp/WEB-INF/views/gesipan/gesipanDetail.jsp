@@ -240,7 +240,12 @@ tbody td {
 								</c:url>
 								<%-- <c:set var="glist" value="document.referrer"/> --%>
 							</c:if>
-							<button class="btn btn-default" onclick="location.href='${ glist }'" style="font-size:12px; display:inline-block;">목록으로 돌아가기</button>
+							<c:if test="${ g.g_category ne 'Notice' }">
+								<button class="btn btn-default" onclick="location.href='${ glist }'" style="font-size:12px; display:inline-block;">목록으로 돌아가기</button>
+							</c:if>
+							<c:if test="${ g.g_category eq 'Notice' }">
+								<button class="btn btn-default" onclick="location.href=document.referrer" style="font-size:12px; display:inline-block;">목록으로 돌아가기</button>
+							</c:if>
 							<c:if test="${ loginUser.user_id == 'admin' && g.g_category == 'QNA' }">
 								<button class="btn btn-default" id="reGesipan" onclick="location.href='${reInsert}'">답글<i class="fas fa-pencil-alt"></i></button>
 							</c:if>

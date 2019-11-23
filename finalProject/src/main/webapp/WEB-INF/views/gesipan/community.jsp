@@ -127,16 +127,16 @@
 
 								<!-- </div> -->
 								<ul class="pagination">
-									<!-- 이전 -->
-									<c:if test="${ pi.currentPage <= 1} ">
-										<li class="disabled"><a href="#">«</a></li>
+									<!-- 이전 페이지 -->
+									<c:if test="${ pi.currentPage <= 1 }">
+										<li class="disabled"><a>&laquo;</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage > 1 }">
 										<c:url var="before" value="gList.ge">
 											<c:param name="page" value="${ pi.currentPage - 1 } " />
 											<c:param name="category" value="${ cate }" />
 										</c:url>
-										<li><a href="${ before }">«</a></li>
+										<li><a href="${ before }">&laquo;</a></li>
 									</c:if>
 									<!-- 페이지 -->
 									<c:forEach var="p" begin="${ pi.startPage }"
@@ -161,7 +161,7 @@
 											<c:param name="page" value="${ pi.currentPage + 1 } " />
 											<c:param name="category" value="${ cate }" />
 										</c:url>
-										<li><a href="${ after }">»</a></li>
+										<li><a href="${ after }">&raquo;</a></li>
 									</c:if>
 								</ul>
 							</div>
@@ -173,6 +173,7 @@
 
 	</div>
 	<script>
+	
 		// 게시글 상세정보 조회
 		$(function(){
 			$('.subject').click(function(){

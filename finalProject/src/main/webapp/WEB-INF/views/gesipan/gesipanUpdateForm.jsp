@@ -26,7 +26,7 @@
 					<div class="container">
 						<div class="row content" style="background:whitesmoke;">
 							<span id="titlespan1" style="font-weight:bold">게시글 수정</span>&nbsp;
-							<span id="titlespan" class="locked" style="visibility:hidden; font-size:12px;">문의사항 게시글은 비밀글 설정이 가능합니다  [비밀글 설정]</span><input class="locked" id="lockedCheck" type="checkbox" style="visibility:hidden;">
+							<span id="titlespan1" class="locked" style="visibility:hidden; font-size:12px;">문의사항 게시글은 비밀글 설정이 가능합니다  [비밀글 설정] </span><input class="locked" id="lockedCheck" type="checkbox" style="visibility:hidden;">
 							<input type="number" id="g_pwd" name="g_pwd" class="locked" style="visibility:hidden; height:18px;">
 							<script>
 							</script>
@@ -149,7 +149,9 @@
 		function updateGesipan() {
 			if($('#lockedCheck').prop('checked') == true && $('#g_pwd').val() == ""){
 				alert('비밀번호를 입력해주세요.');				
-			} else{
+			} else if($('#lockedCheck').prop('checked') == false && $('#g_pwd').val() != ""){
+				alert('비밀글 설정이 체크되어 있지 않습니다.');
+			} else {
 				$('#contentInput').val(document.getElementById("insertField").innerHTML);
 				$('#insertForm').submit();
 			}

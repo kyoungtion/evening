@@ -114,5 +114,30 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.selectSearchMemberList(sqlSession,pi, parameters);
 	}
 
+	@Override
+	public int getDeActiMemberListCount() {
+		return mDAO.getDeActiMemberListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Member> getDeActiMemberList(PageInfo pi) {
+		return mDAO.getDeActiMemberList(sqlSession, pi);
+	}
+
+	@Override
+	public int activateMember(Member m) {
+		return mDAO.activateMember(sqlSession, m);
+	}
+
+	@Override
+	public int activateAllMember(String[] idArray) {
+		return mDAO.activateAllMember(sqlSession, idArray);
+	}
+
+	@Override
+	public int requestSeller(Member m) {
+		return mDAO.requestSeller(sqlSession, m);
+	}
+
 
 }

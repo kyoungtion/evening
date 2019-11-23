@@ -16,6 +16,7 @@
 	margin: 0 auto;
 }
 
+
 ul.tabs {
 	margin: auto;
 	padding: 0px;
@@ -24,7 +25,7 @@ ul.tabs {
 }
 
 ul.tabs li {
-	width: 45%;
+	width: 33%;
 	background: #fdf8f4;
 	color: #222;
 	display: inline-block;

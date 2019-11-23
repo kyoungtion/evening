@@ -120,7 +120,6 @@
 									<div class="col-md-5"
 										style="text-align: center; left: 24%; width: 350px;">
 										<c:set var="cate" value="${category }"/>
-										<!-- </div> -->
 										<ul class="pagination">
 											<!-- 이전 -->
 											<c:if test="${ pi.currentPage <= 1} ">
