@@ -11,7 +11,20 @@
 		where user_id=#{user_id} and 
         status = 'N'
    </select>
-   
+	
+	<!-- 카카오 로그인  -->
+	<select id="kakaoId" parameterType="Member" resultType="Member" >
+	select * from member
+		where status='Y'
+		<if test="user_email != null"> 
+		and user_email=#{user_email}
+		</if>
+		<if test="user_id != null"> 
+		and user_id=#{user_id}
+		</if>
+	</select>
+
+
    <resultMap type="Member" id="memberResultSet">
       <id property="user_id" column="USER_ID"/>
       <result property="rank_code" column="RANK_CODE"/>
@@ -24,7 +37,6 @@
       <result property="address" column="ADDRESS"/>
       <result property="enroll_date" column="ENROLL_DATE"/>
       <result property="update_date" column="UPDATE_DATE"/>
-      <result property="bookmark" column="BOOKMARK"/>
       <result property="status" column="STATUS"/>
       <result property="penalty_point" column="PENALTY_POINT"/>
       <result property="panalty_date" column="PENALTY_DATE"/>
@@ -35,8 +47,8 @@
    <insert id="insertMember" parameterType="Member">
       insert into member
       values(#{user_id}, default,#{user_pwd}, #{nickName},#{user_name},
-            #{phone},#{user_residentNumber},#{user_email}, #{address},
-                sysdate,sysdate,default,default,default,sysdate,default)
+            #{phone},#{user_residentNumber},#{user_email}, #{address}, 
+                sysdate,sysdate,default,default,sysdate,default)
    </insert>
 
    <select id="idCheck" parameterType="string" resultType="_int">
@@ -105,8 +117,7 @@
 	</update>
 
 
-
-
+	
 
 
 

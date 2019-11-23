@@ -33,6 +33,8 @@ public interface MemberService {
 
 	String searchId(Member m);
 
+	Member kakaoLogin(Member m);
+
 
 	
 }

@@ -84,6 +84,13 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.searchId(sqlSession,m);
 	}
 
+	@Override
+	public Member kakaoLogin(Member m) {
+		return mDAO.kakaoId(sqlSession,m);
+	}
+
+	
+
 
 
 }

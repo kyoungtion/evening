@@ -225,6 +225,37 @@
 	    	<artifactId>lombok</artifactId>
 	    	<version>1.18.10</version>
 	    </dependency>
+	    
+	    <!-- https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core -->
+			<dependency>
+			    <groupId>org.apache.tomcat.embed</groupId>
+			    <artifactId>tomcat-embed-core</artifactId>
+			    <version>9.0.29</version>
+			</dependency>
+
+		<dependency>
+		    <groupId>jstl</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+		</dependency>
+			    
+	    <dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.5</version>
+		</dependency>
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 	</dependencies>
     <build>
         <plugins>

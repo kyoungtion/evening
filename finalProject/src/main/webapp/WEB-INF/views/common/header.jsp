@@ -87,7 +87,7 @@
 					<img src="resources/images/eve-logo.png">
 				</div>
 				<!-- 로그인 전 -->
-				<c:if test="${ empty sessionScope.loginUser || empty sessionScope.account_email}">
+				<c:if test="${ empty sessionScope.loginUser}">
 				<%-- <c:if test="${ empty sessionScope.account_email}"> --%>
 				
 				
@@ -213,9 +213,9 @@
 	<script src="resources/js/jquery.flexslider-min.js"></script>
 	<!-- Owl carousel -->
 	<script src="resources/js/owl.carousel.min.js"></script>
-	<!-- Magnific Popup -->
-	<!-- <script src="resources/js/jquery.magnific-popup.min.js"></script>
-	<script src="resources/js/magnific-popup-options.js"></script> -->
+		<!-- Magnific Popup -->
+		<!-- <script src="resources/js/jquery.magnific-popup.min.js"></script>
+				<script src="resources/js/magnific-popup-options.js"></script> -->
 	<!-- Date Picker -->
 	<script src="resources/js/bootstrap-datepicker.js"></script>
 	<!-- Stellar Parallax -->

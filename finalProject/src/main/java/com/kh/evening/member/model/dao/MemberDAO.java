@@ -81,6 +81,10 @@ public class MemberDAO {
 		public int searchPwd(Member m ) throws Exception{
 			return sqlsession.update("member.update_pw",m);
 		}
+
+		public Member kakaoId(SqlSessionTemplate sqlSession, Member m) {
+			return sqlsession.selectOne("member.kakaoId",m);
+		}
 	
 
 

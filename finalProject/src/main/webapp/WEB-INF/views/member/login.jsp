@@ -553,13 +553,33 @@
 
       <br>
       
-      <a id="kakao-login-btn"></a>
+      <div class="margin-top-20" id="kakao_id_login" style="text-align: center">
+       <a href="https://kauth.kakao.com/oauth/authorize?client_id=f84407b67579371cbd836e35e16b6627&redirect_uri=http://localhost:9000/evening/kakaoCallback.me&response_type=code">
+      	
+      	<img width="223"
+      		src="${contextPath }/resources/images/kakao_account_login_btn_medium_narrow.png"/>
+      	</a> 
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <!-- <a id="kakao-login-btn"></a>
       <a href="http://developers.kakao.com/logout"></a>
-       <!-- <a href="https://kauth.kakao.com/oauth/authorize
+       <a href="https://kauth.kakao.com/oauth/authorize
 		            ?client_id=f84407b67579371cbd836e35e16b6627
 		            &redirect_uri=http://http:localhost:9000/kakao
 		            &response_type=code">
-      </a>  -->
+      </a> 
       <script type='text/javascript'>
         //<![CDATA[
         // 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -571,7 +591,7 @@
              	  
         	  Kakao.API.request({
 
-        	       url: '/v1/user/me',
+        	       url: ,
 
         	       success: function(res) {
 	    	    	   
@@ -597,7 +617,7 @@
             alert(JSON.stringify(err));
           }
         });
-           // ]]>
+           // ]]> -->
       </script>
       <div id="searchIdDiv"></div>
         

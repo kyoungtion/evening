@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 //import org.apache.catalina.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
+/*import org.springframework.mail.MailSender;*/
 //import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -38,6 +38,7 @@ import com.kh.evening.member.model.service.EmailServiceImpl;
 import com.kh.evening.member.model.service.KakaoAPI;
 import com.kh.evening.member.model.service.MemberService;
 import com.kh.evening.member.model.vo.Member;
+
 
 @SessionAttributes("loginUser")
 @Controller
@@ -246,20 +247,40 @@ public class MemberController {
       return "login";
    }
    
-   @RequestMapping("kakao")
-   public String kakao(@RequestParam("code")String code,
-		   				HttpSession session) {
+   @RequestMapping(value="kakaoCallback.me" ,method = { RequestMethod.GET, RequestMethod.POST })
+   public ModelAndView kakao(@RequestParam("code")String code,
+		   					 HttpSession session,
+		   					 HttpServletResponse response,
+		   					 ModelAndView mv,
+		   					 Model model) {
 	   String access_Token = kakao.getAccessToken(code);
-	    HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+	   System.out.println("code : " + code);
+	    HashMap<String, String> userInfo = kakao.getUserInfo(access_Token);
 	    System.out.println("login Controller : " + userInfo);
 	    
 	    //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
 	    if (userInfo.get("email") != null) {
-	        session.setAttribute("userId", userInfo.get("email"));
-	        session.setAttribute("access_Token", access_Token);
+	    	
+	    	// 맴버 객체 생성 후 kakaoId 값 들고 디비로 넘어가서 가입된 멤버인지 확인하기
+	    	
+	    	Member m = new Member();
+	    	//m.setKakaoId(userInfo.get("kakaoId"));
+	    	m.setUser_email(userInfo.get("email"));
+	    	Member loginUser = mService.kakaoLogin(m);
+	    	System.out.println("kakaoLoing : " +loginUser );
+	    	if(loginUser != null ) {
+	    		model.addAttribute("loginUser", loginUser);
+	    		mv.setViewName("redirect:home.do");
+	    		
+
+	    	}
+	    	
+	        /*session.setAttribute("userId", userInfo.get("email"));
+	        session.setAttribute("access_Token", access_Token);*/
 	    }
+		return mv;
 	   
-	   return "login";
+	  
    }
    
    

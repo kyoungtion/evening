@@ -17,7 +17,10 @@ import com.google.gson.JsonParser;
 @Service
 public class KakaoAPI {
     
-    public String getAccessToken (String authorize_code) {
+    private String kakaoId;
+
+
+	public String getAccessToken (String authorize_code) {
         String access_Token = "";
         String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -35,7 +38,7 @@ public class KakaoAPI {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=f84407b67579371cbd836e35e16b6627");
-            sb.append("&redirect_uri=http://localhost:9000/evening/loginview.me");
+            sb.append("&redirect_uri=http://localhost:9000/evening/kakaoCallback.me");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
@@ -75,10 +78,10 @@ public class KakaoAPI {
     }
     
     
-    public HashMap<String, Object> getUserInfo (String access_Token) {
+    public HashMap<String, String> getUserInfo (String access_Token) {
         
         //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
-        HashMap<String, Object> userInfo = new HashMap<>();
+        HashMap<String, String> userInfo = new HashMap<>();
         String reqURL = "https://kapi.kakao.com/v2/user/me";
         try {
             URL url = new URL(reqURL);
