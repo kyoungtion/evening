@@ -12,7 +12,7 @@
 
     <!-- 암호화 후 로그인  -->
    <select id="selectOne" parameterType="Member" resultType="Member"
-      resultMap="memberResultSet">
+      resultMap="MemberResultSet">
       
       select *
       from member
