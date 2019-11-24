@@ -15,6 +15,7 @@ import lombok.ToString;
 public class Reply {
 
 	private int REPLY_ID; 			// 댓글 번호
+	private int REPLY_NUM; 			// 댓글 번호2
 	private String USER_ID;			// 유저 아이디
 	private String NICKNAME;		// 별명
 	private int SG_ID;				// 게시판 번호

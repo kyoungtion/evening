@@ -6,10 +6,14 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
+
 import com.kh.evening.board.model.exception.BoardException;
 import com.kh.evening.board.model.service.BoardService;
 import com.kh.evening.board.model.vo.Attachment;
@@ -143,9 +148,9 @@ public class BoardController {
      // 게시판 타입에 따른 뷰화면 전환
      if(board != null) {
        if(board.getB_Category().equals("A")) {
-         mv.addObject("board",board).addObject("at",at).setViewName("auctionDetail");
+         mv.addObject("board",board).addObject("at",at).addObject("pi",new PageInfo()).setViewName("auctionDetail");
        }else {
-         mv.addObject("board",board).addObject("at",at).setViewName("usedDetail");
+         mv.addObject("board",board).addObject("at",at).addObject("pi",new PageInfo()).setViewName("usedDetail");
        }
      }else {
         throw new BoardException("게시글 읽기를 실패하였습니다.");
@@ -155,17 +160,31 @@ public class BoardController {
   }
 	
 	@RequestMapping("replyList.bo")
-	public void replyList(HttpServletResponse response,int SG_ID) throws JsonIOException, IOException   {
-		ArrayList<Reply> list= bService.selectReplyList(SG_ID);
+	public void replyList(@RequestParam(value="page",required=false) Integer page,HttpServletResponse response,int SG_ID) throws JsonIOException, IOException   {
+		int currentPage = 1;
+	    if (page != null) {
+	      currentPage = page;
+	    }
+	    
+	    int listCount = bService.getReplyListCount(SG_ID);
+	    
+	    PageInfo pi = Pageination.getReplyInfo(currentPage, listCount);
+	    
+	    ArrayList<Reply> list= bService.selectReplyList(SG_ID,pi);
 		
 		for(Reply r : list) {
 			r.setREPLY_INFO(URLEncoder.encode(r.getREPLY_INFO(),"UTF-8"));
 			r.setNICKNAME(URLEncoder.encode(r.getNICKNAME(),"UTF-8"));
-		
 		}
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		gson.toJson(list,response.getWriter());
+		HashMap<String, Object> result = new HashMap<String, Object>();
+	    if (list != null) {
+	    	result.put("pi", pi);
+	    	result.put("rlist", list);	
+	    }
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		gson.toJson(result,response.getWriter());
 	}
+	
 	
 	@RequestMapping("addReply.bo")
 	@ResponseBody
@@ -175,6 +194,7 @@ public class BoardController {
 		
 		r.setNICKNAME("testUser");
 		r.setUSER_ID("testId");
+		
 		int result=0;
 		boolean add = Boolean.parseBoolean(request.getParameter("add"));
 		
@@ -186,10 +206,31 @@ public class BoardController {
 			throw new BoardException("댓글 등록에 실패하였습니다.");
 		}
 	}
+	@RequestMapping("replyUpdate.bo")
+	@ResponseBody
+	public String replyUpdate(Reply r,HttpSession session) {
+		int result=bService.replyUpdate(r);
+		if(result >0) {
+			return "success";
+		}else {
+			throw new BoardException("댓글 등록에 실패하였습니다.");
+		}
+	}
 	@RequestMapping("deleteReply.bo")
 	@ResponseBody
 	public String deleteReply(Reply r,HttpSession session) {
-		int result=bService.deleteReply(r);
+		int result=bService.deleteReply(r,true);
+		
+		if(result >0) {
+			return "success";
+		}else {
+			throw new BoardException("댓글 등록에 실패하였습니다.");
+		}
+	}
+	@RequestMapping("deleteReplyAdd.bo")
+	@ResponseBody
+	public String deleteReplyAdd(Reply r,HttpSession session) {
+		int result=bService.deleteReply(r,false);
 		
 		if(result >0) {
 			return "success";

@@ -125,13 +125,23 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public ArrayList<Reply> selectReplyList(int sgId) {
-		return bDAO.selectReplyList(sqlSession,sgId);
+	public ArrayList<Reply> selectReplyList(int sgId,PageInfo pi) {
+		return bDAO.selectReplyList(sqlSession,sgId,pi);
 	}
 
 	@Override
-	public int deleteReply(Reply r) {
-		return bDAO.deleteReply(sqlSession,r);
+	public int deleteReply(Reply r,boolean type) {
+		return bDAO.deleteReply(sqlSession,r,type);
+	}
+
+	@Override
+	public int getReplyListCount(int sG_ID) {
+		return bDAO.geyReplyListCount(sqlSession,sG_ID);
+	}
+
+	@Override
+	public int replyUpdate(Reply r) {
+		return bDAO.replyUpdate(sqlSession,r);
 	}
 
 }
