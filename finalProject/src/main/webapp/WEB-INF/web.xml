@@ -67,6 +67,21 @@
 		<servlet-name>boardServlet</servlet-name>
 		<url-pattern>*.bo</url-pattern>
 	</servlet-mapping>
+	
+	<!-- messageServlet -->
+	<servlet>
+		<servlet-name>messageServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/message-context.xml</param-value>
+		</init-param>
+	</servlet>	
+	
+	<servlet-mapping>
+		<servlet-name>messageServlet</servlet-name>
+		<url-pattern>*.sr</url-pattern>
+	</servlet-mapping>	
 		
 	<!-- usedServlet -->
 	<servlet>
