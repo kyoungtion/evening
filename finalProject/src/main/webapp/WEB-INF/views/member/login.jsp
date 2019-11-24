@@ -9,20 +9,22 @@
   <meta name="viewport"
     content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
     
-    <!-- 다음 주소 api -->
+   <!-- 다음 주소 api -->
    <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
-  <!-- 카카오 로그인 관련  -->
-  <!-- <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script> -->
+   
+   <!-- 카카오 로그인 관련  -->
+   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+   
   
-   <!--구글 로그인 관련  -->
-  <!-- <script src="https://ajax.googleleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-
-  <!-- <script src="colors.js"></script> -->
+     
+   <!-- 구글 로그인 관련 --> 
+  <script src="https://ajax.googleleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="colors.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <meta name="google-signin-client_id"
     content="771961646010-vn99g36mbkraddshtf6brr57s94n7ivg.apps.googleusercontent.com">
 
-   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
    <script language="javascript">
 
     
@@ -33,7 +35,7 @@
          console.log('Image URL: ' + profile.getImageUrl());
          console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
        }
-  </script>
+  </script> 
        
 
      
@@ -422,11 +424,11 @@
       <div class="content">
         <div class="signin-cont cont">
           <form action="login.me" method="post" enctype="multipart/form-data">
-            <input type="text" name="user_id" id="user_id" class="inpt" required="required" placeholder="회원 아이디">
+            <input type="text" name="user_id" id="user_id" class="inpt" required="required" placeholder="Your id">
             <label for="ID">Your id</label>
             
             <input type="password" name="user_pwd" id="user_pwd" class="inpt" required="required"
-              placeholder="비밀번호">
+              placeholder="Your password">
             <label for="user_pwd">Your Password</label>
             
             <input type="checkbox" id="remember" class="checkbox" checked>
@@ -445,46 +447,46 @@
         <div class="content">
         <div class="signup-cont cont">
           <form action="ebinsert.me" method="post" enctype="multipart/form-data">
-            <input type="text" name="user_id" id="ID" class="inpt" required="required" placeholder="회원 아이디">
+            <input type="text" name="user_id" id="ID" class="inpt" required="required" placeholder="Your id">
             <label for="ID">Your id</label>
             <span class="guide ok"> 이 아이디는 사용 가능합니다.</span>
             <span class="guide error">이 아이디는 사용할 수 없습니다.</span>
             <input type="hidden" name="idDuplicateCheck" id="idDuplicateCheck" value="0">
          
          
-            <input type="text" name="user_name" id="name" class="inpt" required="required" placeholder="이름">
+            <input type="text" name="user_name" id="name" class="inpt" required="required" placeholder="Your name">
             <label for="name">Your name</label>
           
-         <input type="text" name="nickName" id="nickname" class="inpt" required="required" placeholder="별명">
+         <input type="text" name="nickName" id="nickname" class="inpt" required="required" placeholder="Your nickname">
             <label for="nickname">Your nickname</label>
              
-            <input type="email" name="user_email" id="email" class="inpt" required="required" placeholder="이메일주소">
+            <input type="email" name="user_email" id="email" class="inpt" required="required" placeholder="Your email">
             <label for="email">Your email</label>
 
             <input type="password" name="user_pwd" id="password" class="inpt" required="required"
-              placeholder="비밀번호">
+              placeholder="Your password">
             <label for="password">Your password</label>
          
             <input type="Password" name="Confirm Password" id="Confirm Password" class="inpt"
-              required="required" placeholder="비밀번호 확인">
+              required="required" placeholder="Confirm Password">
             <label for="Confirm Password">Confirm password</label>
          
          
          <!-- 주민등록 번호 ( - ) 포함할껀지 말껀지? ( - ) 포함할꺼면 자동으로 - 입력하게 만들기  -->
             <input type="text" maxlength="14" name="user_residentNumber" id="registration" class="inpt" required="required"
-              placeholder="주민등록번호(-포함)" pattern = "\d{6}\-\d{7}" 
+              placeholder="Resident registration number(-포함)" pattern = "\d{6}\-\d{7}" 
                               title = "123456-1234567 형식으로 입력해주세요" >
             <label for="registration">Resident registration number</label>
          
          <!-- 다음 도로명주소 사용해보기  -->
-         <input type="text" name="zipcode1"  class="postcodify_postcode5 inpt2" value="" placeholder="우편번호" id="postalCode">
-         <input type="button"  id="address" class="inpt3"  onclick="mapsearch();" value="Search" placeholder="검색" style="line-height: 0em; font-size: 12px;">
-            <input type="text" name="addr"  class="postcodify_address inpt" required="required" placeholder="주소" >
+         <input type="text" name="zipcode1"  class="postcodify_postcode5 inpt2" value="" placeholder="Postal Code" id="postalCode">
+         <input type="button"  id="address" class="inpt3"  onclick="mapsearch();" value="Search" placeholder="Search">
+            <input type="text" name="addr"  class="postcodify_address inpt" required="required" placeholder="Address" >
             
-            <input type="text" name="addrDtl"  class="postcodify_extra_info inpt" required="required" placeholder="상세 주소" >
+            <input type="text" name="addrDtl"  class="postcodify_extra_info inpt" required="required" placeholder="Address1" >
             <label for="addr">Address</label>
       
-            <input type="text" name="phone" id="Phone" class="inpt" required="required" placeholder="연락처">
+            <input type="text" name="phone" id="Phone" class="inpt" required="required" placeholder="Phone">
             <label for="Phone">Phone</label>
             <!-- <input type="Confirm Phone" name="Confirm Phone" id="Confirm Phone" class="inpt3" required="required" placeholder="Confirm"> -->
 
@@ -545,40 +547,82 @@
     <!-- 우측 카카오 로그인 및 구글 로그인 화면 만들기 -->
     <div class="half bg">
 
-      <br><br><br><br><br><br><br><br>
+     <br><br><br><br><br><br><br><br>
 
-      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  <div class="g-signin2" data-onsuccess="onSignIn"></div> 
 
       <br>
-
-
-
-
-      <a id="kakao-login-btn"></a>
+      
+      <div class="margin-top-20" id="kakao_id_login" style="text-align: center">
+       <a href="https://kauth.kakao.com/oauth/authorize?client_id=f84407b67579371cbd836e35e16b6627&redirect_uri=http://localhost:9000/evening/kakaoCallback.me&response_type=code">
+         
+         <img width="223"
+            src="${contextPath }/resources/images/kakao_account_login_btn_medium_narrow.png"/>
+         </a> 
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <!-- <a id="kakao-login-btn"></a>
       <a href="http://developers.kakao.com/logout"></a>
+       <a href="https://kauth.kakao.com/oauth/authorize
+                  ?client_id=f84407b67579371cbd836e35e16b6627
+                  &redirect_uri=http://http:localhost:9000/kakao
+                  &response_type=code">
+      </a> 
       <script type='text/javascript'>
         //<![CDATA[
         // 사용할 앱의 JavaScript 키를 설정해 주세요.
         Kakao.init('f64ed07cd2c0fe7ce2b8eb13280efeda');
         // 카카오 로그인 버튼을 생성합니다.
         Kakao.Auth.createLoginButton({
-          containerSe: '#kakao-login-btn',
+          container: '#kakao-login-btn',
           success: function (authObj) {
-            alert(JSON.stringify(authObj));
+                  
+             Kakao.API.request({
+
+                  url: ,
+
+                  success: function(res) {
+                    
+                        alert(JSON.stringify(res)); //<---- kakao.api.request 에서 불러온 결과값 json형태로 출력
+
+                        alert(JSON.stringify(authObj)); //<----Kakao.Auth.createLoginButton에서 불러온 결과값 json형태로 출력
+
+                        console.log(res.id);//<---- 콘솔 로그에 id 정보 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
+
+                        console.log(res.kaccount_email);//<---- 콘솔 로그에 email 정보 출력 (어딨는지 알겠죠?)
+
+                        console.log(res.properties['nickname']);//<---- 콘솔 로그에 닉네임 출력(properties에 있는 nickname 접근 
+
+                    // res.properties.nickname으로도 접근 가능 )
+ 
+                        console.log(authObj.access_token);//<---- 콘솔 로그에 토큰값 출력
+
+                      }
+
+                    })
           },
           fail: function (err) {
             alert(JSON.stringify(err));
           }
         });
-                      //]]>
+           // ]]> -->
       </script>
+      <div id="searchIdDiv"></div>
+        
 
-
-
-
-
-
-
+      
 
     </div>
   </section>

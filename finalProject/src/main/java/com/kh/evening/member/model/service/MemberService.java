@@ -10,63 +10,64 @@ import com.kh.evening.gesipan.model.vo.Gesipan;
 import com.kh.evening.member.model.vo.Member;
 
 public interface MemberService {
+   
+   int insertMember(Member m);
 
-	int insertMember(Member m);
+   int checkIdDup(String user_id);
 
-	int checkIdDup(String user_id);
+   Member memberLogin(Member m);
 
-	Member memberLogin(Member m);
+   Member enrollView(Member m);
 
-	Member enrollView(Member m);
+   String searchId(Member m);
 
-	// Member searchId(Member m);
+   Member kakaoLogin(Member m);
+   
+   
+   //경희
+   
+   String getPw(Map<String, Object> paramMap);
 
-	String getPw(Map<String, Object> paramMap);
+   int memberUpdate(Member m);
 
-	Member searchId(Member m);
+   int updatePwd(Member loginUser);
 
-	int memberUpdate(Member m);
+   int deleteMember(Member m);
 
-	int updatePwd(Member loginUser);
+   int getMyPostListCount(Map<String, String> map);
 
-	int deleteMember(Member m);
+   ArrayList<Gesipan> selectMyPost(PageInfo pi, Map<String, String> map);
 
-	int getMyPostListCount(Map<String, String> map);
+   int getMemberListCount();
 
-	ArrayList<Gesipan> selectMyPost(PageInfo pi, Map<String, String> map);
+   ArrayList<Member> getMembers(PageInfo pi);
 
-	int getMemberListCount();
+   int updateRankCode(Member m);
 
-	ArrayList<Member> getMembers(PageInfo pi);
+   int deleteAllMember(String[] idArray);
 
-	int updateRankCode(Member m);
+   int getSearchMemberListCount(Map<String, String> parameters);
 
-	int deleteAllMember(String[] idArray);
+   ArrayList<Member> getSearchMemberList(PageInfo pi, Map<String, String> parameters);
 
-	int getSearchMemberListCount(Map<String, String> parameters);
+   int getDeActiMemberListCount();
 
-	ArrayList<Member> getSearchMemberList(PageInfo pi, Map<String, String> parameters);
+   ArrayList<Member> getDeActiMemberList(PageInfo pi);
 
-	int getDeActiMemberListCount();
+   int activateMember(Member m);
 
-	ArrayList<Member> getDeActiMemberList(PageInfo pi);
+   int activateAllMember(String[] idArray);
 
-	int activateMember(Member m);
+   int requestSeller(Member m);
 
-	int activateAllMember(String[] idArray);
+   int getSellerRequestListCount();
 
-	int requestSeller(Member m);
+   ArrayList<Member> getSellerRequestListCount(PageInfo pi);
 
-	int getSellerRequestListCount();
+   int acceptMember(Member m);
 
-	ArrayList<Member> getSellerRequestListCount(PageInfo pi);
-
-	int acceptMember(Member m);
-
-	int acceptAllMember(String[] idArray);
+   int acceptAllMember(String[] idArray);
 
 
-	// Object searchId(HttpServletResponse response, String user_name, String
-	// user_email);
 
 }
