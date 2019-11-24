@@ -194,6 +194,7 @@ public class BoardController {
 		
 		r.setNICKNAME("testUser");
 		r.setUSER_ID("testId");
+		
 		int result=0;
 		boolean add = Boolean.parseBoolean(request.getParameter("add"));
 		
