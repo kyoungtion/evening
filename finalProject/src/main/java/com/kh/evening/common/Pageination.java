@@ -32,15 +32,15 @@ public class Pageination {
 
 		PageInfo pi = null;
 
-		int pageLimit = 10;
+		int pageLimit = 5;
 		int maxPage;
 		int startPage;
 		int endPage;
 		int boardLimit = 20;
 
-		maxPage = (int) ((double) listCount / boardLimit + 0.9);
+		maxPage = (int) ((double) listCount / boardLimit + 1);
 
-		startPage = (((int) ((double) currentPage / pageLimit + 0.9)) - 1) * pageLimit + 1;
+		startPage = (((int) ((double) currentPage / pageLimit + 1)) - 1) * pageLimit + 1;
 
 		endPage = startPage + pageLimit - 1;
 
@@ -56,15 +56,15 @@ public class Pageination {
 
 		PageInfo pi = null;
 
-		int pageLimit = 10;
+		int pageLimit = 5;
 		int maxPage;
 		int startPage;
 		int endPage;
 		int boardLimit = 15;
 
-		maxPage = (int) ((double) listCount / boardLimit + 0.9);
+		maxPage = (int) ((double) listCount / boardLimit + 1);
 
-		startPage = (((int) ((double) currentPage / pageLimit + 0.9)) - 1) * pageLimit + 1;
+		startPage = (((int) ((double) currentPage / pageLimit + 1)) - 1) * pageLimit + 1;
 
 		endPage = startPage + pageLimit - 1;
 

@@ -4,7 +4,7 @@
 
 	<insert id="insertGesipan" parameterType="Gesipan">
 		insert into Gesipan
-		values(seq_gesipan.nextval, #{g_category}, #{g_title}, #{g_content}, #{g_writer}, #{g_count}, default, default, seq_gesipan.nextval, default, #{locked}, #{g_pwd}, default, default)
+		values(seq_gesipan.nextval, #{g_category}, #{g_title}, #{g_content}, #{g_writer}, #{g_count}, default, default, seq_gesipan.nextval, default, #{locked}, #{g_pwd}, default, #{g_type})
 	</insert>
 	
 	<insert id="reInsert" parameterType="Gesipan">
@@ -13,24 +13,56 @@
 	</insert>
 	
 	<select id="selectListCount" resultType="_int" parameterType="String">
+		with g1 as (
+			select g_id, g_title, g_writer, g_enroll_date, g_count, g_order, g_type, g_ref
+			from gesipan 
+		)
 		select count(*)
-		from gesipan
-		where g_status='N' and g_category=#{category}
+		from g1
+		join gesipan g on (g1.g_ref = g.g_id)
+		join member m on(g1.g_writer = m.user_id)
+		where (g.g_category = #{category} or g.g_category = 'Notice') and g.g_status = 'N' 
+		order by g1.g_type desc, g1.g_ref desc, g1.g_order asc
 	</select>
 
 	<select id="selectGesipanList" resultType="Gesipan" parameterType="String">
-		select g.*, m.nickname
-		from gesipan g
-		join member m on(g.g_writer = m.user_id)
-		where g_status='N' and g_category = #{category}
-		order by g_type desc, g_ref desc, g_order asc
+		with g1 as (
+			select g_id, g_category, g_title, g_content, g_writer, g_count, g_enroll_date, g_update_date, g_ref, g_status, locked, g_pwd, g_order, g_type
+			from gesipan 
+		)
+		select g1.*, m.nickname
+		from g1
+		join gesipan g on (g1.g_ref = g.g_id)
+		join member m on(g1.g_writer = m.user_id)
+		where (g.g_category = #{category} or g.g_category = 'Notice') and g.g_status = 'N'
+		order by g1.g_type desc, g1.g_ref desc, g1.g_order asc
 	</select>
 
 	<select id="selectSearchListCount" resultType="_int" parameterType="map">
+	
+		with g1 as (
+			select g_id, g_title, g_writer, g_enroll_date, g_count, g_order, g_type, g_ref
+			from gesipan
+		)
 		select count(*)
+		from g1
+		join gesipan g on (g1.g_ref = g.g_id)
+		join member m on(g1.g_writer = m.user_id)
+		where g.g_category = #{category} and g.g_status = 'N' 
+		<choose>
+			<when test="searchfor.equals('title')">
+				and g.g_title like '%' || #{keyword} || '%'
+			</when>
+			<when test="searchfor.equals('writer')">
+				and m.nickname like '%' || #{keyword} || '%'
+			</when>
+		</choose>
+		order by g1.g_type desc, g1.g_ref desc, g1.g_order asc
+		
+		<!-- select count(*)
 		from gesipan g
 		join member m on(g.g_writer = m.user_id)
-		where g_status='N' and g_category= #{category}
+		where g_status='N' and (g_category = #{category} or g_category = 'Notice')
 		<choose>
 			<when test="searchfor.equals('title')">
 				and g_title like '%' || #{keyword} || '%'
@@ -39,14 +71,32 @@
 				and nickname like '%' || #{keyword} || '%'
 			</when>
 		</choose>
-		order by g_id desc
+		order by g_id desc -->
 	</select>
 	
 	<select id="selectSearchList" resultType="Gesipan" parameterType="map">
-		select g.*, m.nickname
+		with g1 as (
+			select g_id, g_category, g_title, g_content, g_writer, g_count, g_enroll_date, g_update_date, g_ref, g_status, locked, g_pwd, g_order, g_type
+			from gesipan
+		)
+		select g1.*, m.nickname
+		from g1
+		join gesipan g on (g1.g_ref = g.g_id)
+		join member m on(g1.g_writer = m.user_id)
+		where g.g_category = #{category} and g.g_status = 'N'
+		<choose>
+			<when test="searchfor.equals('title')">
+				and g.g_title like '%' || #{keyword} || '%'
+			</when>
+			<when test="searchfor.equals('writer')">
+				and m.nickname like '%' || #{keyword} || '%'
+			</when>
+		</choose>
+		order by g1.g_type desc, g1.g_ref desc, g1.g_order asc
+		<!-- select g.*, m.nickname
 		from gesipan g
 		join member m on(g.g_writer = m.user_id)
-		where g_status='N' and g_category=#{category}
+		where g_status='N' and (g_category = #{category} or g_category = 'Notice')
 		<choose>
 			<when test="searchfor.equals('title')">
 				and g_title like '%' || #{keyword} || '%'
@@ -55,7 +105,21 @@
 				and nickname like '%' || #{keyword} || '%'
 			</when>
 		</choose>
-		order by g_type desc, g_ref desc, g_order asc
+		order by g_type desc, g_ref desc, g_order asc -->
+	</select>
+	
+	<select resultType="_int" id="getListCountByType">
+		select count(*)
+		from gesipan
+		where g_status='Y' and g_type = #{ type }
+	</select>
+	
+	<select id="selectNoticeList" resultType="Gesipan">
+		select g.*, m.nickname
+		from gesipan g
+		join member m on(g.g_writer = m.user_id)
+		where g_status='N' and g_type = #{ type }
+		order by g_id desc
 	</select>
 	
 	<select id="selectGesipan" resultType="Gesipan" parameterType="_int">
@@ -121,5 +185,47 @@
 		set g_status='Y'
 		where g_id = #{g_id}
 	</update>
+	
+	<update id="deleteAllNotice" parameterType="string">
+		update gesipan
+		set g_status='Y'
+		<trim prefix="where" prefixOverrides="and|or">
+			g_id in
+			<foreach collection="array" item="item" index="index" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</trim>
+	</update>
 
+	<select id="getQnaListCount" resultType="_int" parameterType="string">
+		with g1 as (
+			select g_id, g_title, g_writer, g_enroll_date, g_count, g_order, g_type, g_ref
+			from gesipan 
+		)
+		select count(*)
+		from g1
+		join gesipan g on (g1.g_ref = g.g_id)
+		join member m on(g1.g_writer = m.user_id)
+		where g.g_category = #{category} and g.g_status = 'N' 
+		order by g1.g_type desc, g1.g_ref desc, g1.g_order asc
+	</select>
+	
+	<select id="selectQnaList" resultType="Gesipan" parameterType="string">
+		with g1 as (
+			select g_id, g_category, g_title, g_content, g_writer, g_count, g_enroll_date, g_update_date, g_ref, g_status, locked, g_pwd, g_order, g_type
+			from gesipan 
+		)
+		select g1.*, m.nickname
+		from g1
+		join gesipan g on (g1.g_ref = g.g_id)
+		join member m on(g1.g_writer = m.user_id)
+		where g.g_category = #{category} and g.g_status = 'N'
+		order by g1.g_type desc, g1.g_ref desc, g1.g_order asc
+		
+		<!-- select g.*, m.nickname 
+		from gesipan g
+		join member m on(g.g_writer = m.user_id)
+		where g_category=#{category} and g_type='G' and g_status='N'
+		order by g_ref desc, g_order asc -->
+	</select>
 </mapper>

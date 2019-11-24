@@ -16,16 +16,18 @@
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
 	<div class="my-panel" style="height:1000px;">
 		<div class="col-md-10 col-md-offset-1"  style="margin: 0; width: 100%;">
-			<div class="contact-wrap" style="height:100%;">
+			<div class="contact-wrap" style="height:100%; background:whitesmoke!important">
 				<form style="height: 100%;" action="gUpdate.ge" id="insertForm" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="page" value="${ page }">
 					<input type="hidden" name="g_id" value="${ g.g_id }">
-					
+					<c:if test="${ !empty viewName  }">
+						<input type="hidden" name="viewName" value="${ viewName }">
+					</c:if>
 					<div class="container">
 						<div class="row content" style="background:whitesmoke;">
-							<span id="titlespan" style="font-weight:bold">게시글작성</span>&nbsp;
-							<span id="titlespan" class="locked" style="visibility:hidden; font-size:12px;">문의사항 게시글은 비밀글 설정이 가능합니다  [비밀글 설정]</span><input class="locked" id="lockedCheck" type="checkbox" style="visibility:hidden;">
-							<input type="number" id="g_pwd" name="g_pwd" style="visibility:hidden; height:18px;" placeholder="숫자만 입력해주세요.">
+							<span id="titlespan1" style="font-weight:bold">게시글 수정</span>&nbsp;
+							<span id="titlespan1" class="locked" style="visibility:hidden; font-size:12px;">문의사항 게시글은 비밀글 설정이 가능합니다  [비밀글 설정] </span><input class="locked" id="lockedCheck" type="checkbox" style="visibility:hidden;">
+							<input type="number" id="g_pwd" name="g_pwd" class="locked" style="visibility:hidden; height:18px;">
 							<script>
 							</script>
 							<div class="category" style="float:right;">
@@ -92,14 +94,16 @@
 			var cateVal = '${g.g_category}';
 			$('#category').val(cateVal).prop("selected", true);
 			
-			/* input g_category값 넣기 */
 			$('#g_category').val(cateVal);
 			
 			if($('#category').val() == 'QNA'){
 				$('.locked').css('visibility','visible');
-			} else {
+				
+			} else if($('#category').val() != 'QNA'){
 				$('.locked').css('visibility','hidden');
+				
 			}
+			console.log($('#g_category').val());
 			
 			$('#category').change(function(){
 				
@@ -108,52 +112,51 @@
 				} else {
 					$('.locked').css('visibility','hidden');
 				}
-				
 				$('#g_category').val($('#category').val());
 				console.log($('#g_category').val());
 			});
 			
+			//잠금인 경우
+			if('${g.locked}' == 'Y'){
+				$('#lockedCheck').prop('checked', true);
+			} else {
+				$('#lockedCheck').prop('checked', false);
+			}
+			
+			// 비번 있는 경우
+			if('${g.g_pwd}' != ""){
+				$('#g_pwd').val('${g.g_pwd}');
+			} else {
+				$('#g_pwd').val($('#g_pwd_value').val());
+			}
+			
+			$('#lockedCheck').change(function(){
+				if($('#lockedCheck').is(':checked') != true){
+					$('#locked').val('N');
+					$('#g_pwd').val("");
+					$('#g_pwd').removeAttr('required');
+					console.log($('#g_pwd').prop('required'));	
+				} else if($('#lockedCheck').is(':checked') == true) {
+					$('#locked').val('Y');
+					$('#g_pwd').prop("required", true);
+					console.log($('#g_pwd').prop('required'));	
+				}
+			});
+			
 		});
 		
+		
 		function updateGesipan() {
-			$('#g_pwd').val($('#g_pwd_value').val());
-			
-			$('#contentInput').val(document.getElementById("insertField").innerHTML);
-			$('#insertForm').submit();
-		}
-	
-/* 		
-		$('#locked').val('N');
-		console.log($("input:checkbox[id='lockedCheck']").is(":checked"));
-		$('#lockedCheck').change(function(){
-			if($("input:checkbox[id='lockedCheck']").is(':checked')){
-				$('#locked').val('Y');
+			if($('#lockedCheck').prop('checked') == true && $('#g_pwd').val() == ""){
+				alert('비밀번호를 입력해주세요.');				
+			} else if($('#lockedCheck').prop('checked') == false && $('#g_pwd').val() != ""){
+				alert('비밀글 설정이 체크되어 있지 않습니다.');
 			} else {
-				$('#locked').val('N');
+				$('#contentInput').val(document.getElementById("insertField").innerHTML);
+				$('#insertForm').submit();
 			}
-		});
-		console.log($('#locked').val()); */
-
-		$(document).ready(function(){
-			$('#lockedCheck').change(function(){
-				if($("input:checkbox[id='lockedCheck']").is(":checked")){
-					//alert("체크박스 체크");
-					$('#locked').val('Y');
-				} else {
-					//alert("체크박스 해제!");
-					$('#locked').val('N');
-				}
-			})
-			$('#lockedCheck').click(function(){
-				if($('#lockedCheck').prop('checked')){
-					$('#g_pwd').css("visibility", "visible");
-				} else {
-					$('#g_pwd').css("visibility", "hidden");
-					/* $('#g_pwd').val(""); */
-				}
-				
-			});
-		});
+			
+		}
 		
 		$(function(){
 			var gtext = $('#gtext').html().replace(/<(\/span|span)([^>]*)>/gi,"");

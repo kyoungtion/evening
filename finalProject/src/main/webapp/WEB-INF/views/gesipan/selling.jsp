@@ -26,7 +26,7 @@
 <body onload="getReplyList();">
 	<c:import url="/WEB-INF/views/common/header.jsp" />
 	<c:set var="cate" value="Selling" />
-	<div class="my-panel">
+	<div class="my-panel gesipan" style="height:1200px;">
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 100%;">
 			<div class="contact-wrap">
 				<form style="height: 100%;">
@@ -70,7 +70,43 @@
 								</thead>
 								<tbody>
 									<c:forEach var="g" items="${list}" varStatus="st">
-										<tr style="background-color: #FFFFFF; color: #333333;">
+										<c:if test="${ g.g_type == 'N' }">
+											<tr style="background-color: #FFFFFF; color: #333333; font-weight:bold;">
+												<td>&nbsp;<i class="fas fa-thumbtack"></i></td>
+												<td id="g_id${st.index }" class="hidden g_id" name="gId">${ g.g_id }</td>
+												<td class="subject" id="subject"><span class="gTitle">${ g.g_title }</span>
+												<c:if test="${fn:contains(g.g_content, '<img src')}">
+													
+													<i class="fas fa-image"></i>
+												</c:if> <%-- rCount 추가 나중에 --%> <span
+												class="rWrap Before ${st.index}">[</span><span><font
+													id="rCount${st.index}"></font></span><span
+												class="rWrap After ${st.index}">]</span></td>
+												<td>${ g.nickname }</td>
+												<td>${ g.g_enroll_date }</td>
+												<td>${ g.g_count }</td>
+											</tr>
+										</c:if>
+									</c:forEach>
+									<c:forEach var="g" items="${list}" varStatus="st">
+										<c:if test="${ g.g_type != 'N' }">
+											<tr style="background-color: #FFFFFF; color: #333333;">
+												<td id="g_id${st.index }" class="g_id" name="gId">${ g.g_id }</td>
+												<td class="subject" id="subject"><span class="gTitle">${ g.g_title }</span>
+												<c:if test="${fn:contains(g.g_content, '<img src')}">
+													
+													<i class="fas fa-image"></i>
+												</c:if> <%-- rCount 추가 나중에 --%> <span
+												class="rWrap Before ${st.index}">[</span><span><font
+													id="rCount${st.index}"></font></span><span
+												class="rWrap After ${st.index}">]</span></td>
+												<td>${ g.nickname }</td>
+												<td>${ g.g_enroll_date }</td>
+												<td>${ g.g_count }</td>
+											</tr>
+										</c:if>
+									</c:forEach>
+										<%-- <tr style="background-color: #FFFFFF; color: #333333;">
 											<td id="g_id${st.index }" class="g_id" name="gId">${ g.g_id }</td>
 											<td class="displaynone"></td>
 											<td class="subject" id="subject"><span class="gTitle">${ g.g_title }</span>
@@ -78,15 +114,14 @@
 													<!-- <img src="//img0001.echosting.cafe24.com/front/type_b/image/common/icon_img.gif"
 													alt="파일첨부" class="ec-common-rwd-image"> -->
 													<i class="fas fa-image"></i>
-												</c:if> <%-- rCount 추가 나중에 --%> <span
+												</c:if> rCount 추가 나중에 <span
 												class="rWrap Before ${st.index}">[</span><span><font
 													id="rCount${st.index}"></font></span><span
 												class="rWrap After ${st.index}">]</span></td>
 											<td>${ g.nickname }</td>
 											<td>${ g.g_enroll_date }</td>
 											<td>${ g.g_count }</td>
-										</tr>
-									</c:forEach>
+										</tr> --%>
 								</tbody>
 							</table>
 						</div>
@@ -95,7 +130,7 @@
 						<br>
 						<div class="row">
 							<div class="col-md-5"
-								style="text-align: center; left: 35%; width: 350px;">
+								style="text-align: center; left:30%; width: 350px;">
 								<!-- <div class="col-md-5" id="searchbox"> -->
 								<select id="searchfor" name="searchfor">
 									<option value="title">제목</option>
@@ -109,9 +144,9 @@
 
 
 								<ul class="pagination">
-									<!-- 이전 -->
-									<c:if test="${ pi.currentPage <= 1} ">
-										<li class="disabled"><a href="#">«</a></li>
+									<!-- 이전 페이지 -->
+									<c:if test="${ pi.currentPage <= 1 }">
+										<li class="disabled"><a>&laquo;</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage > 1 }">
 										<c:url var="before" value="gList.ge">
@@ -159,8 +194,8 @@
 		$(function(){
 			$('.subject').click(function(){
 				if(${sessionScope.loginUser != null}){
-					var g_id = $(this).prev().prev().text();
-					location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
+					var g_id = $(this).prev().text();
+					location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage}+"&g_category=${cate}";
 				} else {
 					alert('회원만 조회가능합니다.');
 				}

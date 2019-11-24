@@ -96,6 +96,31 @@ public class GesipanServiceImpl implements GesipanService{
 		return gDAO.reGesipan(sqlSession, g);
 	}
 
+	@Override
+	public int getListCountByType(String type) {
+		return gDAO.getListCountByType(sqlSession, type);
+	}
+
+	@Override
+	public ArrayList<Gesipan> selectNoticeList(PageInfo pi, String type) {
+		return gDAO.selectNoticeList(sqlSession, pi, type);
+	}
+
+	@Override
+	public int deleteAllNotice(String[] idArray) {
+		return gDAO.deleteAllNotice(sqlSession, idArray);
+	}
+
+	@Override
+	public int getQnaListCount(String category) {
+		return gDAO.getQnaListCount(sqlSession, category);
+	}
+
+	@Override
+	public ArrayList<Gesipan> selectQnaList(PageInfo pi, String category) {
+		return gDAO.getQnaList(sqlSession, pi, category);
+	}
+
 	
 
 	/*@Override

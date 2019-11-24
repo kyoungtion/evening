@@ -39,9 +39,32 @@ public interface MemberService {
 
 	ArrayList<Member> getMembers(PageInfo pi);
 
-	int updateRankCode(Map<String, String> map);
+	int updateRankCode(Member m);
 
 	int deleteAllMember(String[] idArray);
+
+	int getSearchMemberListCount(Map<String, String> parameters);
+
+	ArrayList<Member> getSearchMemberList(PageInfo pi, Map<String, String> parameters);
+
+	int getDeActiMemberListCount();
+
+	ArrayList<Member> getDeActiMemberList(PageInfo pi);
+
+	int activateMember(Member m);
+
+	int activateAllMember(String[] idArray);
+
+	int requestSeller(Member m);
+
+	int getSellerRequestListCount();
+
+	ArrayList<Member> getSellerRequestListCount(PageInfo pi);
+
+	int acceptMember(Member m);
+
+	int acceptAllMember(String[] idArray);
+
 
 	// Object searchId(HttpServletResponse response, String user_name, String
 	// user_email);

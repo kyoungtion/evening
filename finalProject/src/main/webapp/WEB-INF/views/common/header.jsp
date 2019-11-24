@@ -63,6 +63,8 @@
 	src="https://use.fontawesome.com/releases/v5.11.2/js/all.js"></script>
 <script defer
 	src="https://use.fontawesome.com/releases/v5.11.2/js/v4-shims.js"></script>
+	
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 <style>
 * {
 	font-family: 'Noto Sans KR', sans-serif !important;
@@ -141,7 +143,7 @@
 							<li class="nav_sub"><a>마이페이지</a>
 								<div style="position: fixed;">
 									<ul id="test">
-										<li><a href="myinfo.me">내정보보기</a></li>
+										<li onclick="clickRefresh();"><a href="myinfo.me">내정보보기</a></li>
 										<li><a href="favorites.me">관심 목록</a></li>
 										<li><a href="dealDetail.me">거래 내역</a></li>
 										<li><a href="mypost.me">내가 쓴 글</a></li>
@@ -233,5 +235,15 @@
 	<script src="resources/js/header.js"></script>
 
 	<script src="resources/js/mypage.js"></script>
+	
+	
+	<!-- jquery ui -->
+	<!-- <script src="//code.jquery.com/jquery-1.10.2.js"></script> -->
+	<script
+		src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+		integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+		crossorigin="anonymous"></script>
+	<!-- jquery cookie -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 </body>
 </html>

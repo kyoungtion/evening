@@ -95,13 +95,69 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int updateRankCode(Map<String, String> map) {
-		return mDAO.updateRankCode(sqlSession, map);
+	public int updateRankCode(Member m) {
+		return mDAO.updateRankCode(sqlSession, m);
 	}
 
 	@Override
 	public int deleteAllMember(String[] idArray) {
 		return mDAO.deleteAllMember(sqlSession, idArray);
 	}
+
+	@Override
+	public int getSearchMemberListCount(Map<String, String> parameters) {
+		return mDAO.selectSearchMemberListCount(sqlSession, parameters);
+	}
+
+	@Override
+	public ArrayList<Member> getSearchMemberList(PageInfo pi, Map<String, String> parameters) {
+		return mDAO.selectSearchMemberList(sqlSession,pi, parameters);
+	}
+
+	@Override
+	public int getDeActiMemberListCount() {
+		return mDAO.getDeActiMemberListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Member> getDeActiMemberList(PageInfo pi) {
+		return mDAO.getDeActiMemberList(sqlSession, pi);
+	}
+
+	@Override
+	public int activateMember(Member m) {
+		return mDAO.activateMember(sqlSession, m);
+	}
+
+	@Override
+	public int activateAllMember(String[] idArray) {
+		return mDAO.activateAllMember(sqlSession, idArray);
+	}
+
+	@Override
+	public int requestSeller(Member m) {
+		return mDAO.requestSeller(sqlSession, m);
+	}
+
+	@Override
+	public int getSellerRequestListCount() {
+		return mDAO.getSellerRequestListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Member> getSellerRequestListCount(PageInfo pi) {
+		return mDAO.getSellerRequestList(sqlSession, pi);
+	}
+
+	@Override
+	public int acceptMember(Member m) {
+		return mDAO.acceptMember(sqlSession, m);
+	}
+
+	@Override
+	public int acceptAllMember(String[] idArray) {
+		return mDAO.acceptAllMember(sqlSession, idArray);
+	}
+
 
 }

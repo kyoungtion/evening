@@ -16,7 +16,7 @@
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
 	<div class="my-panel" style="height:1000px;">
 		<div class="col-md-10 col-md-offset-1"  style="margin: 0; width: 100%;">
-			<div class="contact-wrap" style="height:100%;">
+			<div class="contact-wrap" style="height:100%; background:whitesmoke !important;">
 				<form style="height: 100%;" action="gInsert.ge" id="insertForm" method="post" enctype="multipart/form-data">
 					<div class="container">
 						<div class="row content" style="background:whitesmoke;">
@@ -33,6 +33,9 @@
 									<option value="Community">커뮤니티</option>
 									<option value="Selling">삽니다</option>
 									<option value="QNA">문의사항</option>
+									<c:if test="${loginUser.user_id == 'admin' }">
+										<option value="Notice">공지사항</option>
+									</c:if>
 								</select><br>
 							</div>
 							<br><br>
@@ -63,6 +66,13 @@
 							<input type="hidden" id="contentInput" name="g_content">
 							<input type="hidden" id="g_category" name="g_category">
 							<input type="hidden" id="locked" name="locked" value="N">
+							<c:if test="${ viewName == null }">
+								<input type="hidden" id="g_type" name="g_type" value="G">
+							</c:if>
+							<c:if test="${ viewName != null }">
+								<input type="hidden" id="viewName" name="viewName" value="${ viewName }">
+								<input type="hidden" id="g_type" name="g_type" value="N">
+							</c:if>
 						</div>
 					</div>
 				</form>
@@ -90,6 +100,19 @@
 				} else if('${g.g_id}' != ""){
 					$('.locked').css('visibility','hidden');
 				}
+				
+				$('#lockedCheck').change(function(){
+					if($('#lockedCheck').is(':checked') != true){
+						$('#locked').val('N');
+						$('#g_pwd').val("");
+						$('#g_pwd').removeAttr('required');
+						console.log($('#g_pwd').prop('required'));	
+					} else if($('#lockedCheck').is(':checked') == true) {
+						$('#locked').val('Y');
+						$('#g_pwd').prop("required", true);
+						console.log($('#g_pwd').prop('required'));	
+					}
+				});
 			} else {
 				$('.locked').css('visibility','hidden');
 			}
@@ -108,9 +131,15 @@
 		});
 		
 		function submitGesipan() {
-
-			$('#contentInput').val(document.getElementById("insertField").innerHTML);
-			$('#insertForm').submit();
+			
+			if($('#lockedCheck').prop('checked') == true && $('#g_pwd').val() == ""){
+				alert('비밀번호를 입력해주세요.');				
+			} else if($('#lockedCheck').prop('checked') == false && $('#g_pwd').val() != ""){
+				alert('비밀글 설정이 체크되어 있지 않습니다.');
+			} else {
+				$('#contentInput').val(document.getElementById("insertField").innerHTML);
+				$('#insertForm').submit();
+			}
 		
 		}
 	

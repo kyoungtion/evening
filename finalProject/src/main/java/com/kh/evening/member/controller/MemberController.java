@@ -1,6 +1,8 @@
 package com.kh.evening.member.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.common.Pageination;
+import com.kh.evening.gesipan.model.service.GesipanService;
 import com.kh.evening.gesipan.model.vo.Gesipan;
 //import com.kh.evening.member.email.EmailSender;
 import com.kh.evening.member.model.exception.MemberException;
@@ -36,6 +39,9 @@ public class MemberController {
    
    @Autowired
    private MemberService mService;
+   
+   @Autowired
+   private GesipanService gService;
    
    @Autowired
    private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -92,7 +98,7 @@ public class MemberController {
 	   int listCount = mService.getMyPostListCount(map);
 	   
 	   PageInfo pi = null;
-	   pi = Pageination.getGesipanPageInfo(currentPage, listCount);
+	   pi = Pageination.getQnaPageInfo(currentPage, listCount);
 	   
 	   ArrayList<Gesipan> list = mService.selectMyPost(pi, map);
 	   
@@ -179,6 +185,8 @@ public class MemberController {
 	   }
    }
    
+   
+   // 관리자 화면 회원보기
    @RequestMapping("adminView.ad")
    public ModelAndView adminView(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
 	   int currentPage = 1;
@@ -192,7 +200,6 @@ public class MemberController {
 	   pi = Pageination.getGesipanPageInfo(currentPage, listCount);
 	   
 	   ArrayList<Member> list = mService.getMembers(pi);
-	   System.out.println(list);
 	   
 	   if(list != null) {
 		   mv.addObject("list", list).addObject("pi", pi).setViewName("manageMember");
@@ -200,10 +207,33 @@ public class MemberController {
 	   return mv;
    }
    
+   @RequestMapping("deactivatedMember.ad")
+   public ModelAndView deactivatedMember(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+	  int currentPage = 1;
+	  if(page != null) {
+		  currentPage = page;
+	  }
+	  
+	  int listCount = mService.getDeActiMemberListCount();
+	  
+	  PageInfo pi = null;
+	  pi = Pageination.getGesipanPageInfo(currentPage, listCount);
+	  
+	  ArrayList<Member> list = mService.getDeActiMemberList(pi);
+	  
+	  if(list != null) {
+		  mv.addObject("dList", list).addObject("pi", pi).setViewName("manageMember");
+	  }
+	  
+	  return mv;
+   }
+   
    @RequestMapping("memberLevelView.ad")
    public String memberLevelView(Model model, @RequestParam("user_id") String user_id) {
+	   
 	   Member m = new Member();
 	   m.setUser_id(user_id);
+	   
 	   Member result = mService.memberLogin(m);
 	   model.addAttribute("m", result);
 	   return "MemberLevelView";
@@ -213,11 +243,9 @@ public class MemberController {
    public String updateRackCode(@RequestParam("user_id") String user_id, @RequestParam("rank_code") String rank_code, Model model) {
 	   Member m = new Member();
 	   m.setUser_id(user_id);
+	   m.setRank_code(rank_code);
 	   
-	   Map<String, String> map = new HashMap<>();
-	   map.put("user_id", user_id);
-	   map.put("rank_code", rank_code);
-	   int result = mService.updateRankCode(map);
+	   int result = mService.updateRankCode(m);
 	   
 	   if(result > 0) {
 		   Member resultMember = mService.memberLogin(m);
@@ -244,9 +272,23 @@ public class MemberController {
 	   }
    }
    
+   @RequestMapping("memberActivate.ad")
+   public String memberActivate(@RequestParam("user_id") String user_id) {
+	   Member m = new Member();
+	   m.setUser_id(user_id);
+	   
+	   int result = mService.activateMember(m);
+	   
+	   if(result > 0) {
+		   return "redirect:deactivatedMember.ad";
+	   } else {
+		   throw new MemberException("회원 활성화에 실패했습니다.");
+	   }
+			   
+   }
+   
    @RequestMapping("deleteAllMember.ad")
    public String memberDeleteAll(@RequestParam("ids") String ids) {
-	   
 	   String[] idArray = ids.split(",");
 	   
 	   int result = mService.deleteAllMember(idArray);
@@ -258,6 +300,176 @@ public class MemberController {
 	   }
    }
    
+   @RequestMapping("activateAllMember.ad")
+   public String activateAllMember(@RequestParam("ids") String ids) {
+	   String[] idArray = ids.split(",");
+	   
+	   int result = mService.activateAllMember(idArray);
+	   
+	   if(result > 0) {
+		   return "redirect:deactivatedMember.ad";
+	   } else {
+		   throw new MemberException("선택한 회원 활성화에 실패했습니다.");
+	   }
+   }
+   
+   @RequestMapping("deleteAllNotice.ad")
+   public String noticeDeleteAll(@RequestParam("ids") String ids, Model model) {
+	   String[] idArray = ids.split(",");
+	   
+	   int result = gService.deleteAllNotice(idArray);
+	   
+	   if(result > 0) {
+		   model.addAttribute("viewName", "adminNotice");
+		   return "redirect:adminNoticeView.ad";
+	   } else {
+		   throw new MemberException("선택한 공지글 삭제에 실패했습니다.");
+	   }
+   }
+   
+   @RequestMapping("qna.ad")
+   public ModelAndView adminQnaView(@RequestParam(value="category", required=false) String category, @RequestParam(value="page", required=false) Integer page, 
+		   							ModelAndView mv, @RequestParam(value="viewName", required=false) String viewName)  {
+	   int currentPage = 1;
+	   if(page != null) {
+		   currentPage = page;
+	   }
+	   
+	   int listCount = gService.getQnaListCount(category);	
+	   
+	   PageInfo pi = null;
+	   pi = Pageination.getQnaPageInfo(currentPage, listCount);
+	   
+	   ArrayList<Gesipan> list = gService.selectQnaList(pi, category);
+	   
+	   if(list != null) {
+		   mv.addObject("list", list);
+		   mv.addObject("pi", pi);
+		   mv.setViewName("adminQnaView");
+	   }
+	   return mv;
+   }
+   
+   @RequestMapping("adminNoticeView.ad")
+   public ModelAndView adminNoticeView(@RequestParam(value="page", required=false) Integer page, ModelAndView mv,
+		   								@RequestParam(value="viewName", required=false) String viewName){
+	   String type = "N";
+	   int currentPage = 1;
+	   if(page != null) {
+		   currentPage = page;
+	   }
+	   
+	   int listCount = gService.getListCountByType(type);
+	   
+	   PageInfo pi = null;
+	   pi = Pageination.getQnaPageInfo(currentPage, listCount);
+	   
+	   ArrayList<Gesipan> list = gService.selectNoticeList(pi, type);
+	   
+	   
+	   if(list != null) {
+		   mv.addObject("pi", pi);
+		   mv.addObject("list", list);
+		   mv.setViewName(viewName);
+	   }
+	   return mv;
+   }
+   
+   @RequestMapping("memberSearch.ad")
+   public ModelAndView memberSearch(@RequestParam(value="page", required=false) Integer page,
+		   					@RequestParam("searchfor") String searchfor,
+		   					@RequestParam("keyword") String keyword,
+		   					ModelAndView mv) throws UnsupportedEncodingException {
+	   
+	   Map<String, String> parameters = new HashMap<>();
+	   parameters.put("searchfor", URLDecoder.decode(searchfor, "UTF-8"));
+	   parameters.put("keyword", URLDecoder.decode(keyword, "UTF-8"));
+	   
+	   int currentPage = 1;
+	   if(page != null) {
+		   currentPage = page;
+	   }
+	   
+	   int listCount = mService.getSearchMemberListCount(parameters);
+	   PageInfo pi = Pageination.getGesipanPageInfo(currentPage, listCount);
+	   
+	   ArrayList<Member> list = mService.getSearchMemberList(pi, parameters);
+	   
+	   if(list != null) {
+		   mv.addObject("list", list);
+		   mv.addObject("pi", pi);
+		   mv.setViewName("manageMember");
+	   } else {
+		   throw new MemberException("검색한 멤버 조회에 실패하였습니다.");
+	   }
+	   return mv;
+   }
+   
+   @RequestMapping("manageSeller.ad")
+   public ModelAndView manageSellerView(@RequestParam(value="page", required=false) Integer page,
+		   								ModelAndView mv) {
+	   
+	   int currentPage = 1;
+	   if(page != null) {
+		   currentPage = page;
+	   }
+	   
+	   int listCount = mService.getSellerRequestListCount();
+	   PageInfo pi = Pageination.getGesipanPageInfo(currentPage, listCount);
+	   
+	   ArrayList<Member> list = mService.getSellerRequestListCount(pi);
+	   
+	   if(list != null) {
+		   mv.addObject("list", list);
+		   mv.addObject("pi", pi);
+		   mv.setViewName("manageSeller");
+	   } else {
+		   throw new MemberException("판매자 신청 회원 조회에 실패하였습니다.");
+	   }
+	   return mv;
+   }
+   
+   // 판매자 전환 신청
+   @ResponseBody
+   @RequestMapping("sellerRequest.me")
+   public String sellerRequest(Model model) {
+	   Member m = (Member)model.getAttribute("loginUser");
+	   
+	   int result = mService.requestSeller(m);
+	   
+	   if(result > 0) {
+		   Member loginUSer = mService.memberLogin(m);
+		   model.addAttribute("loginUser", loginUSer);
+		   return "success";
+	   } else {
+		   throw new MemberException("판매자 전환 신청에 실패하였습니다.");
+	   }
+   }
+   
+   @RequestMapping("memberAccept.ad")
+   public String memberAccept(@RequestParam("user_id") String user_id) {
+	   Member m = new Member();
+	   m.setUser_id(user_id);
+	   
+	   int result = mService.acceptMember(m);
+	   
+	   if(result > 0) {
+		   return "redirect:manageSeller.ad";
+	   } else {
+		   throw new MemberException("등급 조정에 실패하였습니다.");
+	   }
+   }
+   
+   @RequestMapping("memberAcceptAll.ad")
+   public String memberAcceptAll(@RequestParam("ids") String ids) {
+	   String[] idArray = ids.split(",");
+	   int result = mService.acceptAllMember(idArray);
+	   if(result > 0) {
+		   return "redirect:manageSeller.ad";
+	   } else {
+		   throw new MemberException("선택한 회원 등급 조정에 실패하였습니다.");
+	   }
+   }
    
    // ********************************************끝
    

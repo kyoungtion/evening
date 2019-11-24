@@ -59,22 +59,22 @@
 </head>
 <body onload="getReplyList();">
 	<c:import url="/WEB-INF/views/common/header.jsp" />
-	<c:set var="cate" value="QNA"/>
-	<div class="my-panel">
+		<c:set var="cate" value="QNA"/>
+	<div class="my-panel gesipan" style="height:1200px;">
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 100%;">
-			<div class="contact-wrap">
+			<div class="contact-wrap" style="height:1000px;">
 				<form style="height: 100%;">
 					<div class="container">
 
 						<!-- 자주 묻는 질문 -->
 						<div class="faqContainer">
 							<div class="panel-group" id="accordion">
-								<span id="titlespan1">자주 묻는 질문</span>
-								<div class="panel panel-default">
+								<span id="titlespan1">자주 묻는 질문</span>&nbsp;<i class="fas fa-search"></i>
+								<div class="panel">
 									<div class="panel-heading">
 										<h4 class="panel-title">
 											<a data-toggle="collapse" data-parent="#accordion"
-												href="#collapse1"> <i class="fas fa-check"></i> 제품에 하자가
+												href="#collapse1"><!--  <i class="fas fa-check"></i> --> 제품에 하자가
 												있는 경우에는 보상받을 수 있나요?
 											</a>
 										</h4>
@@ -86,11 +86,11 @@
 										</div>
 									</div>
 								</div>
-								<div class="panel panel-default">
+								<div class="panel">
 									<div class="panel-heading">
 										<h4 class="panel-title">
 											<a data-toggle="collapse" data-parent="#accordion"
-												href="#collapse2"> <i class="fas fa-check"></i> 등급이
+												href="#collapse2"> <!-- <i class="fas fa-check"></i> --> 등급이
 												내려갔어요. 왜 내려 간 것인가요?
 											</a>
 										</h4>
@@ -100,11 +100,11 @@
 											내려갈 수 있습니다.</div>
 									</div>
 								</div>
-								<div class="panel panel-default">
+								<div class="panel">
 									<div class="panel-heading">
 										<h4 class="panel-title">
 											<a data-toggle="collapse" data-parent="#accordion"
-												href="#collapse3"> <i class="fas fa-check"></i> 입찰중간에는
+												href="#collapse3"> <!-- <i class="fas fa-check"></i> --> 입찰중간에는
 												입찰가 수정을 할 수 없나요?
 											</a>
 										</h4>
@@ -155,11 +155,32 @@
 									</tr>
 								</thead>
 								<tbody>
+								<c:forEach var="g" items="${list}" varStatus="st">
+										<c:if test="${ g.g_type == 'N' }">
+											<tr style="background-color: #FFFFFF; color: #333333; font-weight:bold;">
+												<td>&nbsp;<i class="fas fa-thumbtack"></i></td>
+												<td id="g_id${st.index }" class="hidden g_id" name="gId">${ g.g_id }</td>
+												<td class="displaynone" id="g_pwd">${ g.g_pwd }</td>
+												<td class="subject" id="subject${st.index }"><span class="gTitle">${ g.g_title }</span>
+												<c:if test="${fn:contains(g.g_content, '<img src')}">
+													
+													<i class="fas fa-image"></i>
+												</c:if> <%-- rCount 추가 나중에 --%> <span
+												class="rWrap Before ${st.index}">[</span><span><font
+													id="rCount${st.index}"></font></span><span
+												class="rWrap After ${st.index}">]</span></td>
+												<td>${ g.nickname }</td>
+												<td>${ g.g_enroll_date }</td>
+												<td>${ g.g_count }</td>
+											</tr>
+										</c:if>
+									</c:forEach>
 									<c:forEach var="g" items="${list}" varStatus="st">
-										<tr style="background-color: #FFFFFF; color: #333333;">
-											<td id="g_id${st.index }" class="g_id" name="gId">${ g.g_id }</td>
-											<td class="displaynone" id="g_pwd">${ g.g_pwd }</td>
-											<td class="subject" id="subject${st.index }">
+										<c:if test="${ g.g_type != 'N' }">
+											<tr style="background-color: #FFFFFF; color: #333333;">
+												<td id="g_id${st.index }" class="g_id" name="gId">${ g.g_id }</td>
+												<td class="displaynone" id="g_pwd">${ g.g_pwd }</td>
+												<td class="subject" id="subject${st.index }">
 												<c:if test="${ g.g_order eq 1 }">
 													<i class="fas fa-angle-right"></i>
 												</c:if>
@@ -175,11 +196,14 @@
 												class="rWrap Before ${st.index}">[</span><span><font
 													id="rCount${st.index}"></font></span><span
 												class="rWrap After ${st.index}">]</span></td>
-											<td>${ g.nickname }</td>
-											<td>${ g.g_enroll_date }</td>
-											<td>${ g.g_count }</td>
-										</tr>
+												<td>${ g.nickname }</td>
+												<td>${ g.g_enroll_date }</td>
+												<td>${ g.g_count }</td>
+											</tr>
+										</c:if>
 									</c:forEach>
+									
+									
 								</tbody>
 							</table>
 						</div>
@@ -197,7 +221,7 @@
 						</div>
 						<br>
 						<div class="row" >
-							<div class="col-md-5" style="text-align: center; left:35%; width: 350px;">
+							<div class="col-md-5" style="text-align: center; left:30%; width: 350px;">
 							<!-- <div class="col-md-5" id="searchbox"> -->
 								<select id="searchfor" name="searchfor">
 									<option value="title">제목</option>
@@ -211,9 +235,9 @@
 								
 							<!-- </div> -->
 								<ul class="pagination">
-									<!-- 이전 -->
-									<c:if test="${ pi.currentPage <= 1} ">
-										<li class="disabled"><a href="#">«</a></li>
+									<!-- 이전 페이지 -->
+									<c:if test="${ pi.currentPage <= 1 }">
+										<li class="disabled"><a>&laquo;</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage > 1 }">
 										<c:url var="before" value="gList.ge">
@@ -260,9 +284,14 @@
 		// 게시글 상세정보 조회
 		$(function(){
 			var index = ${fn:length(list)};
-			
+			var cate = '${cate}';
 			for(var i = 0; i < index; i++){
-					
+				if('${sessionScope.loginUser.user_id}' == 'admin'){
+					$('#subject'+i).click(function(){
+						var g_id = $(this).prev().prev().text();
+						location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage}+"&g_category="+cate;
+					});
+				} else {
 					$('#subject'+i).click(function(){
 						if(${sessionScope.loginUser != null}){
 							var g_pwd = $(this).prev().text();
@@ -270,14 +299,14 @@
 							var g_id = $(this).prev().prev().text();
 							
 							if(g_pwd == ""){
-								location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
+								location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage}+"&g_category="+cate;
 							} else {
 								$('#modal').attr("style","display:block");
 								$('#modal_input_btn').click(function(){
 									var pwd = $('#g_pwdInput').val();
 									console.log(pwd);
 									if(g_pwd == pwd){
-										location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage};
+										location.href = "gDetail.ge?g_id="+g_id+"&page="+${pi.currentPage}+"&g_category="+cate;
 									} else {
 										$('.modal_text1').text("");
 										$('.modal_text2').text("");
@@ -291,6 +320,7 @@
 							alert('회원만 조회가능합니다.');
 						}
 					});
+				}
 			}
 			
 			$('#modal_close_btn').click(function(){

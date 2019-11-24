@@ -37,6 +37,16 @@ public interface GesipanService {
 
 	int reGesipan(Gesipan g);
 
+	int getListCountByType(String type);
+
+	ArrayList<Gesipan> selectNoticeList(PageInfo pi, String type);
+
+	int deleteAllNotice(String[] idArray);
+
+	int getQnaListCount(String category);
+
+	ArrayList<Gesipan> selectQnaList(PageInfo pi, String category);
+
 	/*Integer getReplyCount(Integer r);*/
 
 	

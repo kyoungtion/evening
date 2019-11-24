@@ -44,7 +44,9 @@ tbody td {
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
-	<c:set var="cate" value="${ g.g_category }" />
+	<c:if test="${ g.g_category != 'Notice'}">
+		<c:set var="cate" value="${ category }" />
+	</c:if>
 	<!-- 목록으로 돌아가기 버튼 url -->
 	<c:url var="gList" value="gList.ge">
 		<c:param name="category" value="${ cate }" />
@@ -107,8 +109,8 @@ tbody td {
 									</tbody>
 								</table>
 							</div>
+							<c:if test="${ g.g_type != 'N' }">
 							<div class="row reply">
-							<!-- 댓글수 -->
 								<b id="rCount"></b>
 								<b class="data_count"><em id="messagebyte">0</em>/300자</b>
 								<table class="replyTable" style="width:100%; height:100px;">
@@ -143,42 +145,143 @@ tbody td {
 							      <tbody></tbody>
 							   </table>
 							</div>
+						</c:if>
 						</div>
 						<input type="hidden" id="user_id" name="user_id" value="${ sessionScope.loginUser.user_id }">
 						<input type="hidden" id="nickname" name="nickname" value="${ sessionScope.loginUser.nickName }">
 						
 						<div style="float:left; margin-top:10px; display:inline-block;" >
-							<c:url var="glist" value="gList.ge">
-								<c:param name="page" value="${ page }"/>
-								<c:param name="category" value="${ cate }"/>
-							</c:url>
-							<c:url var="reInsert" value="gesipanReInsertView.ge">
-								<c:param name="g_id" value="${ g.g_id }"/>
-								<c:param name="g_category" value="${ g.g_category }"/>
-							</c:url>
-							<button class="btn btn-default" onclick="location.href='${ glist }'" style="font-size:12px; display:inline-block;">목록으로 돌아가기</button>
-							<button class="btn btn-default" id="reGesipan" style="display:none;" onclick="location.href='${reInsert}'">답글<i class="fas fa-pencil-alt"></i></button>
+							<c:if test="${ viewName != null }">
+								<c:if test="${ viewName == 'adminQnaView' }">
+									<c:url var="glist" value="qna.ad">
+										<c:param name="page" value="${ page }"/>
+										<c:param name="category" value="QNA"/>
+										<c:param name="viewName" value="adminQnaView"/>
+									</c:url>
+									<c:url var="gUpdateView" value="gUpdateView.ge">
+										<c:param name="g_id" value="${ g.g_id }"/>
+										<c:param name="page" value="${ page }"/>
+										<c:param name="viewName" value="adminQnaView"/>
+									</c:url>
+									<c:url var="gDelete" value="gDelete.ge">
+										<c:param name="page" value="${ page }"/>
+										<c:param name="g_id" value="${ g.g_id }"/>
+										<c:param name="viewName"  value="adminQnaView"/>
+										<c:param name="category" value="QNA"/>
+									</c:url>
+								</c:if>
+								<c:if test="${ viewName == 'adminNotice' }">
+									<c:url var="glist" value="adminNoticeView.ad">
+										<c:param name="page" value="${ page }"/>
+										<c:param name="category" value="${ category }"/>
+										<c:param name="viewName" value="adminNotice"/>
+									</c:url>
+									<c:url var="gUpdateView" value="gUpdateView.ge">
+										<c:param name="g_id" value="${ g.g_id }"/>
+										<c:param name="page" value="${ page }"/>
+										<c:param name="viewName" value="adminNotice"/>
+									</c:url>
+									<c:url var="gDelete" value="gDelete.ge">
+										<c:param name="page" value="${ page }"/>
+										<c:param name="g_id" value="${ g.g_id }"/>
+										<c:param name="viewName"  value="adminNotice"/>
+										<c:param name="category" value="Notice"/>
+									</c:url>
+								</c:if>
+								<c:url var="reInsert" value="gesipanReInsertView.ge">
+									<c:param name="g_id" value="${ g.g_id }"/>
+									<c:param name="g_category" value="${ g.g_category }"/>
+									<c:param name="viewName" value="${ viewName }"/>
+									<c:param name="page" value="${ page }"/>
+								</c:url>
+								<c:if test="${ viewName == 'mypost' }">
+									<c:url var="glist" value="mypost.me">
+										<c:param name="page" value="${ page }"/>
+										<c:param name="category" value="${ category }"/>
+										<%-- <c:param name="viewName" value="mypost"/> --%>
+									</c:url>
+									<c:url var="gUpdateView" value="gUpdateView.ge">
+										<c:param name="g_id" value="${ g.g_id }"/>
+										<c:param name="page" value="${ page }"/>
+										<c:param name="viewName" value="mypost"/>
+									</c:url>
+									<c:url var="gDelete" value="gDelete.ge">
+										<c:param name="page" value="${ page }"/>
+										<c:param name="g_id" value="${ g.g_id }"/>
+										<c:param name="viewName"  value="mypost"/>
+										<c:param name="category" value="${ category }"/>
+									</c:url>
+								</c:if>
+								<c:url var="reInsert" value="gesipanReInsertView.ge">
+									<c:param name="g_id" value="${ g.g_id }"/>
+									<c:param name="g_category" value="${ g.g_category }"/>
+									<c:param name="viewName" value="${ viewName }"/>
+									<c:param name="page" value="${ page }"/>
+								</c:url>
+							</c:if>
+							<c:if test="${ viewName == null }">
+								<c:url var="glist" value="gList.ge">
+									<c:param name="page" value="${ page }"/>
+									<c:param name="category" value="${ g.g_category }"/>
+								</c:url>
+								<c:url var="reInsert" value="gesipanReInsertView.ge">
+									<c:param name="g_id" value="${ g.g_id }"/>
+									<c:param name="g_category" value="${ g.g_category }"/>
+								</c:url>
+								<c:url var="gUpdateView" value="gUpdateView.ge">
+									<c:param name="g_id" value="${ g.g_id }"/>
+									<c:param name="page" value="${ page }"/>
+									<c:param name="category" value="${ g.g_category }"/>
+								</c:url>
+								<c:url var="gDelete" value="gDelete.ge">
+									<c:param name="page" value="${ page }"/>
+									<c:param name="g_id" value="${ g.g_id }"/>
+									<c:param name="category" value="${ cate }"/>
+								</c:url>
+								<%-- <c:set var="glist" value="document.referrer"/> --%>
+							</c:if>
+							<c:if test="${ g.g_category ne 'Notice' }">
+								<button class="btn btn-default" onclick="location.href='${ glist }'" style="font-size:12px; display:inline-block;">목록으로 돌아가기</button>
+							</c:if>
+							<c:if test="${ g.g_category eq 'Notice' }">
+								<button class="btn btn-default" onclick="location.href=document.referrer" style="font-size:12px; display:inline-block;">목록으로 돌아가기</button>
+							</c:if>
+							<c:if test="${ loginUser.user_id == 'admin' && g.g_category == 'QNA' }">
+								<button class="btn btn-default" id="reGesipan" onclick="location.href='${reInsert}'">답글<i class="fas fa-pencil-alt"></i></button>
+							</c:if>
 						</div>
-						<c:if test="${ g.g_writer == sessionScope.loginUser.user_id }">
 						<div style="float:right; margin-top:10px; display:inline-block;">
-							<c:url var="gUpdateView" value="gUpdateView.ge">
-								<c:param name="g_id" value="${ g.g_id }"/>
-								<c:param name="page" value="${ page }"/>
-							</c:url>
-							<c:url var="gDelete" value="gDelete.ge">
-								<c:param name="g_id" value="${ g.g_id }"/>
-							</c:url>
-							<button class="btn btn-primary" style="font-size:12px;" onclick="location.href='${ gUpdateView }'">수정하기</button>
-							<button class="btn btn-danger" style="font-size:12px;" onclick="checkDelete();">삭제하기</button>
-							<input id="g_id" type="hidden" value="${ g.g_id }">
+							<!-- 관리자가 아닐 때 수정 -->
+							<c:if test="${loginUser.user_id == g.g_writer && g.g_writer != 'admin'}">
+								<button class="btn btn-primary" style="font-size:12px;" onclick="location.href='${ gUpdateView }'">수정하기</button>
+							</c:if>
+							<!-- 관리자일때 관리자글(공지글)만 수정 -->
+							<c:if test="${ g.g_writer == 'admin' && loginUser.user_id == 'admin'}">
+								<button class="btn btn-primary" style="font-size:12px;" onclick="location.href='${ gUpdateView }'">수정하기</button>
+							</c:if>
+							<!-- 관리자 외 유저일 때 삭제-->
+							<c:if test="${ g.g_writer == sessionScope.loginUser.user_id && g.g_order == 0 && g.g_type != 'N' && g.g_writer != 'admin'}">
+								<a href="${ gDelete }" class="btn btn-danger" style="font-size:12px;" onclick="return confirm('삭제하시겠습니까?')">삭제하기</a>
+							</c:if>
+							<!-- 관리자일 때 삭제-->
+							<c:if test="${(g.g_type == 'N' || g.g_type=='G') && loginUser.user_id == 'admin'}">
+								<a href="${ gDelete }" class="btn btn-danger" style="font-size:12px;" onclick="return confirm('삭제하시겠습니까?')">삭제하기</a>
+							</c:if>
 						</div>
-						</c:if>
 					</div>
 				<!-- </form> -->
 			</div>
 		</div>
 	</div>
 	<script>
+		$(function(){
+			var cate = '${g.g_category}';
+			console.log(cate);
+			var locked = '${g.locked}';
+			console.log(locked);
+		});
+		
+	
 		function callback(){
 			getReplyList();
 		}
@@ -337,20 +440,19 @@ tbody td {
 			});
 		});
 		
-		function checkDelete(){
+		/* function checkDelete(){
 			if(confirm("정말 삭제하시겠습니까?") == true){
-				console.log("???")
-				location.href="gDelete.ge?g_id="+$('#g_id').val()+"&category="+'${cate}';
+				if('${viewName}' == null){
+					location.href="gDelete.ge?g_id="+$('#g_id').val()+"&category="+'${cate}';
+				} else {
+					location.href="gDelete.ge?g_id="+$('#g_id').val()+"&viewName=adminViewName";
+				}
 			} else {
 				return;
 			}
-		}
+		} */
 		
 		$(function(){
-			/* 관리자 조건넣기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-			if('${cate}' =='QNA' ){
-				$('#reGesipan').attr("style", "display:inline-block;");
-			}
 			
 			if('${g.g_order}' != 0){
 				$('#reGesipan').attr("style", "display:none");
