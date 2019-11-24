@@ -154,8 +154,11 @@ public class GesipanController {
 				mv.addObject("category", cate);
 			}
 			mv.addObject("list", list);
+			System.out.println(list);
 			mv.addObject("pi", pi);
+			System.out.println(pi);
 			mv.setViewName(cate);
+			System.out.println(mv);
 		} else {
 			throw new GesipanException("게시글 조회에 실패하였습니다.");
 		}

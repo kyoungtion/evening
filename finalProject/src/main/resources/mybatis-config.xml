@@ -13,6 +13,7 @@
 		<typeAlias type="com.kh.evening.board.model.vo.BoardMode" alias="BoardMode"/>
 		<typeAlias type="com.kh.evening.gesipan.model.vo.GesipanReply" alias="gReply"/>
 		<typeAlias type="com.kh.evening.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.evening.payment.model.vo.Payment" alias="Payment"/>
 		<typeAlias type="com.kh.evening.board.model.vo.AuctionHistory" alias="AuctionHistory"/>
 		<typeAlias type="com.kh.evening.board.model.vo.GoodLike" alias="GoodLike"/>
 		<typeAlias type="com.kh.evening.member.model.vo.RankCode" alias="RankCode"/>
@@ -22,5 +23,6 @@
       	<mapper resource="mapper/board-mapper.xml"/>
 		<mapper resource="mapper/gesipan-mapper.xml"/>
 		<mapper resource="mapper/memberMapper.xml" />
+		<mapper resource="mapper/pay-mapper.xml"/>
 	</mappers>
 </configuration>

@@ -73,6 +73,23 @@ $(function(){
 		var category = $('#category').val();
 		location.href="gList.ge?category="+category;
 	})
-})
+});
+
+// 결제 내역 검색
+$(function(){
+	
+	$('#searchBtn2').click(function(){
+		var keyword = encodeURIComponent($('#searchText').val());
+		var searchfor = encodeURIComponent($('#searchfor').val());
+		if(keyword == ""){
+			alert('검색어를 입력해주세요.');
+		} else {
+			var uri = "paylistSearch.py?searchfor="+searchfor+"&keyword="+keyword;
+			var enc = encodeURI(uri);
+			//location.href="gesipanSearch.ge?searchfor="+searchfor+"&keyword="+keyword+"&category="+category;
+			location.href=enc;
+		}
+	});
+});
 
 

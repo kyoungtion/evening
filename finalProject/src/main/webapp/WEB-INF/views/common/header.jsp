@@ -50,6 +50,7 @@
 
 <!-- Mypage style (경희) -->
 <link rel="stylesheet" href="resources/css/mypage.css">
+<!-- Mypage style -->
 <!-- header css -->
 <link rel="stylesheet" href="resources/css/header.css">
 <!-- Modernizr JS -->
@@ -97,6 +98,7 @@
 					<ul id="hNav">
 						<li><a href="auctionList.bo">경매</a></li>
 						<li><a href="usedListAll.ud">중고거래</a></li>
+						<li><a href="pList.py">결제 내역</a></li>
 						<li class="nav_sub"><a href="gList.ge?category=Community">게시판</a>
 							<div style="position: fixed;">
 								<ul id="test" style="height:75px !important;">
@@ -225,6 +227,7 @@
 	<!-- Magnific Popup -->
 	<script src="resources/js/jquery.magnific-popup.min.js"></script>
 	<script src="resources/js/magnific-popup-options.js"></script>
+<!-- 	<script src="resources/js/jquery.magnific-popup.min.js"></script>
 	<!-- Date Picker -->
 	<script src="resources/js/bootstrap-datepicker.js"></script>
 	<!-- Stellar Parallax -->
