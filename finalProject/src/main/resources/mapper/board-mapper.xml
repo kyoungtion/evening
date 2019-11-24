@@ -75,7 +75,7 @@
 	</select>
 	
 	<insert id="insertGoodLike" parameterType="GoodLike">
-		INSERT INTO GOOD_LIKE VALUES(SEQ_GL.NEXTVAL,#{User_Id},#{Sg_Id},1)
+		INSERT INTO GOOD_LIKE VALUES(SEQ_GL.NEXTVAL,#{User_Id},#{Sg_id},1)
 	</insert>
 	
 	<update id="updateGoodLike" parameterType="GoodLike">
