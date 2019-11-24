@@ -1,6 +1,7 @@
 package com.kh.evening.payment.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -25,6 +26,21 @@ public class PaymentDAO {
 		int offset = (pi.getCurrentPage() -1) * pi.getPageLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getPageLimit());
 		return (ArrayList)sqlSession.selectList("payMapper.selectPaymentList", null, rowBounds);
+	}
+
+	public int deletePayment(SqlSessionTemplate sqlSession, Payment p) {
+		return sqlSession.update("payMapper.deletePayment", p);
+	}
+
+	public int selectSearchListCount(SqlSessionTemplate sqlSession, Map<String, String> parameters) {
+		return sqlSession.selectOne("payMapper.selectSearchListCount", parameters);
+	}
+
+	public ArrayList<Payment> selectSearchList(SqlSessionTemplate sqlSession, PageInfo pi,
+			Map<String, String> parameters) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("payMapper.selectSearchList", parameters, rb);
 	}
 	
 

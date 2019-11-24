@@ -1,6 +1,7 @@
 package com.kh.evening.payment.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,21 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public ArrayList<Payment> selectPaymentList(PageInfo pi) {
 		return pDao.selectPaymentList(sqlSession, pi);
+	}
+
+	@Override
+	public int deletePayment(Payment p) {
+		return pDao.deletePayment(sqlSession, p);
+	}
+
+	@Override
+	public int getSearchListCount(Map<String, String> parameters) {
+		return pDao.selectSearchListCount(sqlSession, parameters);
+	}
+
+	@Override
+	public ArrayList<Payment> selectSearchList(PageInfo pi, Map<String, String> parameters) {
+		return pDao.selectSearchList(sqlSession, pi, parameters);
 	}
 	
 }

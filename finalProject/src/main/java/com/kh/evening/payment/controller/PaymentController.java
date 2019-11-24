@@ -1,6 +1,10 @@
 package com.kh.evening.payment.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.evening.board.model.service.BoardService;
@@ -57,7 +62,7 @@ public class PaymentController {
 			throw new PaymentException("배송지 정보 입력에 실패하셨습니다.");
 		}
 	}
-	
+	// 결제 목록
 	@RequestMapping("pList.py")
 	public ModelAndView pList(@RequestParam(value="page", required=false) Integer page,
 						ModelAndView mv)	{
@@ -83,6 +88,52 @@ public class PaymentController {
 		return mv;
 		
 		
+	}
+	
+	// 결제 내역 검색
+	@RequestMapping("paylistSearch.py")
+	public ModelAndView pSearch(@RequestParam(value="page", required=false) Integer page,
+							@RequestParam("searchfor") String searchfor,
+							@RequestParam("keyword") String keyword,
+							ModelAndView mv) throws UnsupportedEncodingException{
+		
+		Map<String, String> parameters = new HashMap<>();
+		parameters.put("searchfor", URLDecoder.decode(searchfor, "UTF-8"));
+		parameters.put("keyword", URLDecoder.decode(keyword, "UTF-8"));
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = pService.getSearchListCount(parameters);
+		PageInfo pi = Pageination.getPayPageInfo(currentPage, listCount);
+		
+		ArrayList<Payment> list = pService.selectSearchList(pi, parameters);
+		if(list != null) {
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			mv.setViewName("paylist");
+			System.out.println("list : " + list);
+			System.out.println("pi : " + pi);
+		}else {
+			throw new PaymentException("결제 내역 조회에 실패하였습니다.");
+		}
+		
+		return mv;
+	}
+	
+	// 결제 취소 요청
+	@RequestMapping("pdelete.py")
+	public String deletePayment(@ModelAttribute Payment p, SessionStatus status) {
+		int result = pService.deletePayment(p);
+		
+		if(result > 0) {
+			status.setComplete();
+			return "redirect:home.do";
+		}else {
+			throw new PaymentException("결제 취소 요청을 실패하였습니다.");
+		}
 	}
 	
 }

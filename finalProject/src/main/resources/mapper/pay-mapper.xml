@@ -12,16 +12,51 @@
 		select count(*)
 		from payment
 		where P_STATUS='Y'
+		
 	</select>
 	
 	<select id="selectPaymentList" resultType="Payment">
 		select *
-		from payment
-		where P_STATUS='Y'
+		from paymentr
 		order by P_NO desc
 	</select>
 	
+	<update id="deletePayment" parameterType="Payment">
+		update payment set p_status='N' p_update_date=sysdate where p_=#{p_ID}
+	</update>
 	
+	<select id="selectSearchListCount" resultType="_int" parameterType="map">
+		select count(*)
+		from payment
+		<choose>
+			<when test="searchfor.equals('p_ID')">
+				where  p_id like '%' || #{keyword} || '%'
+			</when>
+			<when test="searchfor.equals('p_NICKNAME')">
+				where p_nickname like '%' || #{keyword} || '%'
+			</when>
+			<when test="searchfor.equals('p_STATUS')">
+				where P_STATUS='N'
+			</when>
+		</choose>
+		order by p_no desc
+	</select>
+	
+	<select id="selectSearchList" resultType="Payment" parameterType="map">
+		select * from payment
+		<choose>
+			<when test="searchfor.equals('p_ID')">
+				where p_id like '%' || #{keyword} || '%'
+			</when>
+			<when test="searchfor.equals('p_NICKNAME')">
+				where p_nickname like '%' || #{keyword} || '%'
+			</when>
+			<when test="searchfor.equals('p_STATUS')">
+				where p_status='N'
+			</when>
+		</choose>
+		order by p_no desc
+	</select>
 	
 	
 </mapper>

@@ -1,6 +1,7 @@
 package com.kh.evening.payment.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -15,5 +16,12 @@ public interface PaymentService {
 	int getListCount();
 
 	ArrayList<Payment> selectPaymentList(PageInfo pi);
+
+	int deletePayment(Payment p);
+
+	int getSearchListCount(Map<String, String> parameters);
+
+	ArrayList<Payment> selectSearchList(PageInfo pi, Map<String, String> parameters);
+
 
 }

@@ -50,6 +50,7 @@
 
 <!-- Mypage style (경희) -->
 <link rel="stylesheet" href="resources/css/mypage.css">
+<!-- Mypage style -->
 <!-- header css -->
 <link rel="stylesheet" href="resources/css/header.css">
 <!-- Modernizr JS -->

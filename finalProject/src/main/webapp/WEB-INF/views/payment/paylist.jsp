@@ -10,13 +10,10 @@
 	<style type="text/css">
 	</style>
 	</head>
-	<body><!-- <body onload="getPayInfoList();"> -->
-		<c:import url="/WEB-INF/views/common/header.jsp"/>
-	<%-- 	<c:url var="pList" value="pList.py">
-			<c:param name=""></c:param>
+	<body>
+		<c:import url="/WEB-INF/views/common/header.jsp" />
+<%-- 		<c:url var="pList" value="paylistSearch.py">	
 		</c:url> --%>
-		
-		
 		<div class="my-panel" style="width:80%;">
 			<div class="col-md-10 col-md-offset-1" style="margin:0; width:100%;">
 				<div class="contact-wrap">
@@ -31,12 +28,14 @@
 						<table border="1" summary="" class="content-table">
 						<colgroup class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 ">
 							<col style="width:50px;">
-							<col style="width:100px;" >
+							<col style="width:120px;" >
+							<col style="width: 120px;">
+							<col style="width: 200px;">
 							<col style="width: 100px;">
-							<col style="width: 200px;">
-							<col style="width: 200px;">
-							<col style="width: 300px;">
+							<col style="width: 100px;">
 							<%-- <col style="width: 100px;" class=""> --%>
+							<col style="width: 100px;">
+							<col style="width: 60px;">
 							<col style="width: 55px;">
 						</colgroup>
 							<thead>
@@ -47,8 +46,10 @@
 									<th scope="col">상품명</th>
 									<th scope="col">금액</th>
 									<th scope="col">결제 날짜</th>
+									<th scope="col">수정 날짜</th>
 									<!-- <th cope="col">결제 update date</th> -->
-									<th scope="col">결제 상태</th>
+									<th scope="col">결제상태</th>
+									<th scope="col">선택</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -67,7 +68,9 @@
 										<td >${p.gp_ID}</td>
 										<td>${p.MONEY}</td>
 										<td>${p.PAYDAY}</td>
+										<td>${p.p_UPDATE_DATE }</td>
 										<td style="text-align:center;">${p.p_STATUS}</td>
+										<td><input type="checkbox" style="margin-left:10%;"></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -77,15 +80,30 @@
 					<br>
 					<div class="row">
 						<div class="col-md-5" style="text-align: center; left: 35%; width: 350px;">
+						
+<%-- 						<input type="submit" value="검색" formaction="paylistSearch.py">
+						<select name="search_option">
+							<option value="p_ID" 
+							<c:if test="${map.search_option == 'p_ID' }">selected</c:if>>아이디</option>
+							<option value="p_NICKNAME" 
+							<c:if test="${map.search_option == 'p_NICKNAME' }">selected</c:if>>닉네임</option>
+							<option value="p_STATUS" 
+							<c:if test="${map.search_option == 'p_STATUS' }">selected</c:if>>결제상태</option>						
+						</select>
+						<input name="keyword" value="${map.keyword }>
+						<input type="submit" value="조회"> --%>
+					
 						<select id="searchfor" name="searchfor">
-							<option value="P_ID">아이디</option>
-							<option value="P_NICKNAME">닉네임</option>
-						</select> <input id="searchText" name="searchText" type="search"/><input
+							<option value="p_ID">아이디</option>
+							<option value="p_NICKNAME">닉네임</option>
+							<option value="p_STATUS">결제 상태</option>
+						</select> <input id="searchText" name="searchText" type="search"/> <input
 							type="hidden">
-						<button type="button" id="searchBtn" style="background: none; border: 0;">
+						<button type="button" id="searchBtn2"
+							style="background: none; border: 0;">
 							<i class="fas fa-search"></i>
 						</button>
-						
+											
 						<ul class="pagination">
 							<!-- 이전 -->
 							<c:if test="${ pi.currentPage <= 1 }">
@@ -120,40 +138,22 @@
 								</c:url>
 								<li><a href="${ after }">▷</a></li>
 							</c:if>
-						</ul>
+						</ul>						
 					</div>
+						
+					<div class="col-md-5" style="text-align:center; left:35%;">
+						<button type="button" onclick="location.href='${pdelete}'" class="btn btn-outline-dark">결제 취소 요청</button>
+					</div>
+									
 				</div>
 				
 				</form>
-				<button onclick="cancelPay()">환불하기</button>
+				
 			</div>
 		</div>
 	</div>
 	
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>
-	
-<!-- 	<script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>jQuery CDN - -->
-<!--   	<script>
-    function cancelPay() {
-      jQuery.ajax({
-        "url": "http://www.myservice.com/payments/cancel",
-        "type": "POST",
-        "contentType": "application/json",
-        "data": JSON.stringify({
-          "merchant_uid": "mid_" + new Date().getTime(), // 주문번호
-          "cancel_request_amount": , // 환불금액
-          "reason": "테스트 결제 환불" // 환불사유
-          "refund_holder": "홍길동", // [가상계좌 환불시 필수입력] 환불 가상계좌 예금주
-          "refund_bank": "88" // [가상계좌 환불시 필수입력] 환불 가상계좌 은행코드(ex. KG이니시스의 경우 신한은행은 88번)
-          "refund_account": "56211105948400" // [가상계좌 환불시 필수입력] 환불 가상계좌 번호
-        }),
-        "dataType": "json"
-      });
-    }
-  </script> -->
 	
 	</body>
 	</html>
