@@ -212,7 +212,10 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 			<c:url value="boardupdateForm.bo?type=1" var="bUpdate">
 				<c:param name="sgId" value="${board.SG_ID }" />
 			</c:url>
-			<button class="btn btn-primary">구매</button>
+			<c:url value="shipInfo.py" var="shipInfo">
+				<c:param name="sgId" value="${ board.SG_ID }"/>
+			</c:url>
+			<button class="btn btn-primary" onclick="location.href='${ shipInfo }'">구매 </button>
 			<button class="btn btn-primary" onclick="location.href='${bUpdate}';">수정</button>
 			<button class="btn btn-primary" onclick="deleteBtn();">글삭제</button>
 			<button class="btn btn-primary" onclick="location.href = document.referrer;">뒤로가기</button>
