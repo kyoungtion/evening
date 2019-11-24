@@ -189,24 +189,31 @@ public class MemberController {
       }
    }
    
-   
+   //기본이 일반회원 조회
    // 관리자 화면 회원보기
    @RequestMapping("adminView.ad")
-   public ModelAndView adminView(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+   public ModelAndView adminView(@RequestParam(value="page", required=false) Integer page, ModelAndView mv, @RequestParam(value="mType", required=false) String mType) {
+	  
+	  String memberType = "NM";
+	  
+	  if(mType != null) {
+		  memberType = mType; 
+	  }
+	  
       int currentPage = 1;
       if(page != null) {
          currentPage = page;
       }
       
-      int listCount = mService.getMemberListCount();
+      int listCount = mService.getMemberListCount(memberType);
       
       PageInfo pi = null;
       pi = Pageination.getGesipanPageInfo(currentPage, listCount);
       
-      ArrayList<Member> list = mService.getMembers(pi);
+      ArrayList<Member> list = mService.getMembers(pi, memberType);
       
       if(list != null) {
-         mv.addObject("list", list).addObject("pi", pi).setViewName("manageMember");
+         mv.addObject("list", list).addObject("memberType", memberType).addObject("pi", pi).setViewName("manageMember");
       }
       return mv;
    }
@@ -354,6 +361,8 @@ public class MemberController {
       return mv;
    }
    
+   
+   
    @RequestMapping("adminNoticeView.ad")
    public ModelAndView adminNoticeView(@RequestParam(value="page", required=false) Integer page, ModelAndView mv,
                                  @RequestParam(value="viewName", required=false) String viewName){
@@ -378,6 +387,8 @@ public class MemberController {
       }
       return mv;
    }
+   
+
    
    @RequestMapping("memberSearch.ad")
    public ModelAndView memberSearch(@RequestParam(value="page", required=false) Integer page,
@@ -618,7 +629,7 @@ public class MemberController {
       
      Member m = new Member();
      m.setUser_name(user_name);
-     m.setPhone(콜);
+     m.setPhone(phone);
 
      String searchId = mService.searchId(m);
      

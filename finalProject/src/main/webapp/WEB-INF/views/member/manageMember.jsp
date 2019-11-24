@@ -43,15 +43,29 @@
 					<div class="container">
 						<div class="row content" style="height: 800px;">
 							<div class="row content table" style="height: 600px;">
-								<select>
-									<option>일반회원</option>
-									<option>판매자회원</option>
+								<div style="float:left; width:150px;">
+								<select id="memberType">
+									<option value="NM">일반회원</option>
+									<option value="HM">판매자회원</option>
 								</select>
+								</div>
+								<div style="float:right;">
+									<select id="searchfor" name="searchfor">
+											<option value="user_id">아이디</option>
+											<option value="user_name">이름</option>
+										</select> <input id="searchText" name="searchText" type="search" placeholder="전체 회원대상 검색" onkeyup="enterkey();" /> 
+										<input type="hidden" id="category" value="${ cate }">
+										<button type="button" id="searchMemberBtn" style="background: none; border: 0;">
+											<i class="fas fa-search"></i>
+									</button><br>
+								</div>
+								<br>
 								<hr>
-								<c:if test="${ !empty list }">
+								<br>
+								<c:if test="${ list != null && dList == null }">
 									<button type="button" class=" btn btn-default" onclick="location.href='deactivatedMember.ad'" style="float:right;">비활성된 회원 모두 보기</button><br>
 								</c:if>
-								<c:if test="${ empty list }">
+								<c:if test="${ list == null && dList != null}">
 									<button type="button" class=" btn btn-default" onclick="location.href='adminView.ad'" style="float:right;">활성 회원 모두 보기</button><br>
 								</c:if>
 								<input type="checkbox" id="selectAll"> <label
@@ -189,14 +203,7 @@
 										</div>
 									</c:if>
 									<div class="col-md-5" style="text-align: center; width: 100%;">
-										<select id="searchfor" name="searchfor">
-											<option value="user_id">아이디</option>
-											<option value="user_name">이름</option>
-										</select> <input id="searchText" name="searchText" type="search" onkeyup="enterkey();" /> 
-										<input type="hidden" id="category" value="${ cate }">
-										<button type="button" id="searchMemberBtn" style="background: none; border: 0;">
-											<i class="fas fa-search"></i>
-										</button><br>
+										
 										<!-- </div> -->
 										<ul class="pagination">
 											<!-- 이전 페이지 -->
@@ -271,24 +278,21 @@
 			});
 		});
 		$(function() {
-			$('.memberLevel')
-					.on(
-							'click',
-							function() {
-								var user_id = $(this).attr('id');
-								var indexof = ($(this).attr('id')).indexOf('.');
-								var i = user_id.substring(indexof + 1);
+			$('.memberLevel').on('click',function() {
+				var user_id = $(this).attr('id');
+				var indexof = ($(this).attr('id')).indexOf('.');
+				var i = user_id.substring(indexof + 1);
 
-								user_id = $('#user_id' + i).text();
+				user_id = $('#user_id' + i).text();
 
-								var url = "memberLevelView.ad?user_id="
-										+ user_id;
-								var name = "회원등급 조정";
+				var url = "memberLevelView.ad?user_id="
+						+ user_id;
+				var name = "회원등급 조정";
 
-								console.log(url);
-								var option = "width=620px, height=450px, top=100, left=200, resizable=0, location=0, scrollbars=0, tollbars=0, status=0";
-								window.open(url, name, option);
-							});
+				console.log(url);
+				var option = "width=620px, height=450px, top=100, left=200, resizable=0, location=0, scrollbars=0, tollbars=0, status=0";
+				window.open(url, name, option);
+			});
 		});
 
 		$('#deleteAllMember').on('click', function() {
@@ -321,6 +325,24 @@
 				});
 			}
 		});
+		
+		/* $(function(){
+			var memberType = ${memberType};
+			console.log(memberType);
+			$('#memberType').val(memberType).prop('selected', true);
+		}); */
+		
+		$(function(){
+			
+			$('#memberType').val('${memberType}').prop('selected', true);
+
+			$('#memberType').change(function(){
+				var memberType = $('#memberType').val();
+				console.log(memberType);
+				location.href="adminView.ad?mType="+memberType;
+			});
+		});
+		
 	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />

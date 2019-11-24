@@ -11,6 +11,8 @@
 .update {font-size:10px !important; padding:5px !important;}
 #cancel{text-align:center !important;}
 .my-panel{display:flex;}
+ul.tabs li{width:48% !important;}
+.ui-tabs .ui-tabs-nav li{width: 48.5% !important;}
 </style>
 </head>
 <body>
@@ -30,17 +32,17 @@
 			</ul>
 		</div> -->
 			<ul class="my-tabs">
-				<li class="my-tab"><a href="myinfo.me">내 정보 보기</a></li>
+				<li class="my-tab" onclick="clickRefresh();"><a href="myinfo.me">내 정보 보기</a></li>
 				<li class="my-tab"><a href="favorites.me">관심상품목록</a></li>
-				<li class="my-tab active"><a href="dealDetail.me">거래내역</a></li>
+				<li class="my-tab active"  onclick="clickRefresh();"><a href="dealDetail.me">거래내역</a></li>
 				<li class="my-tab"><a href="mypost.me?category=Community">내가 쓴 글</a></li>
 			</ul>
-		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 80%; padding: 0;">
+		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 80%; padding: 0;" id="tabs">
 			<div class="contact-wrap" style="height: 900px;">
 				<div class="container">
 					<ul class="tabs no-drag">
-						<li class="tab-link current" data-tab="tab-1">입찰중인 상품</li>
-						<li class="tab-link" data-tab="tab-2">결제완료내역</li>
+						<li class="tab-link" data-tab="tab-1"><a href="#tab-1">입찰중인 상품</a></li>
+						<li class="tab-link" data-tab="tab-2"><a href="#tab-2">결제완료내역</a></li>
 					</ul>
 					<div id="tab-1" class="tab-content current">
 						<div class="contact-wrap" style="margin:0 !important;">
@@ -102,12 +104,6 @@
 							if(confirm("입찰 취소하시겠습니까? 취소하시면 패널티가 부여되며, 등급이 하락될 수 있습니다.")){
 								
 							};
-							
-							/* var url = "updateAucView.me";
-							var name = "입찰내역 수정";
-
-							var option = "width=620px, height=450px, top=100, left=200, resizable=0, location=0, scrollbars=0, tollbars=0, status=0";
-							window.open(url, name, option); */
 						}
 					</script>
 					<div id="tab-2" class="tab-content">
@@ -168,6 +164,43 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+		$(function(){
+			
+			$('#tabs').tabs();
+			var tabs = $('#tabs').tabs({
+				activate: function(event, ui){
+					var active = $('#tabs').tabs('option', 'active');
+					$.cookie('activeTabIndex', active);
+				}
+			});
+			
+			var activeTabIndex = $.cookie('activeTabIndex');
+			
+			if(activeTabIndex != undefined){
+				tabs.tabs('option','active',activeTabIndex);
+			}
+			
+			
+			
+			/* if (location.hash == "#tab-1"){         
+				$('.tabs').find('li').eq(0).addClass('current').siblings().removeClass('current');        
+				
+			} else if(location.hash == "#tab-2"){         
+				$('.tabs').find('li').eq(1).addClass('current').siblings().removeClass('current');         
+				
+			} else if(location.hash == "#tab-3"){         
+				$('.tabs').find('li').eq(2).addClass('current').siblings().removeClass('current');         
+			}
+			
+			$('ul.tabs li').click(function(){
+		        $('ul.tabs li').removeClass('current');
+	
+		        $(this).addClass('current');
+			}); */
+		});
+	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
