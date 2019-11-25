@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>중고물품 경매, 거래는 이브닝 : 내 정보 보기</title>
 <style>
 
 @media (max-width: 700px){
@@ -27,11 +27,17 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 	border-radius: 150px;
 	width:300px;
 	height:300px;
-	color:white;
+	color:black;
 	/* background: #f2d7c6; */
-	background: whitesmoke;
+	/* background: whitesmoke; */
 	text-align:center;
 	margin:auto;
+}
+
+.seller {
+	background: white !important;
+	width: 300px !important;	
+	color: black !important;
 }
 </style>
 <!-- jQuery -->
@@ -45,7 +51,7 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 	<div class="my-panel">
 		<ul class="my-tabs">
 			<li class="my-tab active" onclick="clickRefresh();"><a href="myinfo.me">내 정보 보기</a></li>
-			<li class="my-tab"><a href="favorites.me">관심상품목록</a></li>
+			<li class="my-tab" onclick="clickRefresh();"><a href="favorites.me">관심상품목록</a></li>
 			<li class="my-tab"><a href="dealDetail.me">거래내역</a></li>
 			<li class="my-tab"><a href="mypost.me?category=Community">내가
 					쓴 글</a></li>
@@ -158,7 +164,6 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 										test="${ loginUser.rankCode.rank_code eq 'NM' && loginUser.seller_request == 'N' }">
 										<div id="seller">
 											<br>
-											<br>
 											<br> <img src="resources/images/eve-logo.png"><br>
 											<h5>판매자가 되어</h5>
 											<h6>여러 사람들과 중고 물품을 거래해보세요!</h6>
@@ -173,12 +178,24 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 										</div> -->
 										<div id="seller" class="no-drag">
 											<br>
-											<br>
 											<br> <i class="fas fa-user-check fa-3x"></i><br>
 											<br>
-											<h5>판매자 전환 신청이 완료되었습니다!</h5>
+											<h4>판매자 전환 신청이 완료되었습니다!</h4>
 											<h6>사이트 관리자의 승인이 필요합니다</h6>
 											<h6>최대한 빠른 시일 내에 처리해드리겠습니다</h6>
+										</div>
+									</c:if>
+									<c:if test="${ loginUser.rank_code eq 'HM' }">
+										<div id="seller" class="no-drag">
+											<br>
+											<br> <img src="resources/images/eve-logo.png"><br>
+											<br>
+											<h4>이미 판매자 회원입니다</h4>
+											<h6>여러 회원들에게 당신의 중고제품을 판매할 수 있습니다</h6>
+											<h6>경매로도 거래가 가능해요<i class="far fa-smile"></i></h6>
+											<br><br>
+											<button type="button" class="btn btn-primary seller" onclick="location.href='secondgoodList.bo'">중고거래 하러가기&nbsp;<i class="fas fa-long-arrow-alt-right"></i></button>
+											<button type="button" class="btn btn-primary seller" onclick="location.href='auctionList.bo'">경매거래 하러가기&nbsp;<i class="fas fa-long-arrow-alt-right"></i></button>
 										</div>
 									</c:if>
 								</div>
@@ -191,11 +208,11 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 						<div class="contact-wrap" style="margin: 0;">
 							<form action="sellerRequest.me" style="height: 100%;">
 								<div class="containe form-field">
-									<c:if test="${ loginUser.m_type ne 'seller'}">
+									<c:if test="${ loginUser.rank_code eq 'NM'}">
 										<div id="seller">
-											<br> <br> <img src="resources/images/eve-logo.png"><br>
-											<h6>아직 판매자가 아니시네요..</h6>
-											<h5>판매자가 되면</h5>
+											<br><img src="resources/images/eve-logo.png"><br>
+											<h4>아직 판매자가 아니시네요..</h4>
+											<h6>판매자가 되면</h6>
 											<h6>여러 사람들과 중고 물품을 거래할 수 있습니다</h6>
 											<button class="btn btn-primary" type="button" id="seller_request"
 												style="font-size: 12px !important;">판매자 전환신청하러 가기</button>
