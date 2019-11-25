@@ -175,6 +175,8 @@
 		 ">
 				<br>
 				<input type="hidden" name="b_Category" value="SG">
+				<input type="hidden" name="USER_ID" value="${ loginUser.user_id }">
+				<input type="hidden" name="SG_NAME" value="${ loginUser.nickName }">
 				<div style="height: auto;width: 150px;">
 					<h2>상품 등록</h2>
 				</div>

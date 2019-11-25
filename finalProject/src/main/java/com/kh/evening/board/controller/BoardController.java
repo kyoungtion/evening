@@ -439,10 +439,8 @@ public class BoardController {
 		} else {
 			b.setSG_AREA("");
 		}
-		System.out.println(b.getB_Category());
 
 		Attachment atm = new Attachment();
-//		b.setSG_PRICE(Integer.parseInt(b.getSG_PRICE()));
 		String renameFileName = "";
 		if (uploadFile != null && !uploadFile.isEmpty()) {
 
@@ -456,7 +454,6 @@ public class BoardController {
 				e.printStackTrace();
 			}
 		}
-//		request.getParameter("imgNames");
 
 		String[] allName = request.getParameter("imgNames").split(",");
 		String[] saveName = request.getParameter("deletImg").split(",");
