@@ -235,6 +235,7 @@
 			                     <c:if test="${ modeSet eq 'CountList' }">
 				                     <div style="background-color: orange; padding-left: 10px;"><a href="${ CountList }" style="color: white;">조회순</a></div>
 			                     </c:if>
+			                     
 			                     <c:if test="${ modeSet ne 'CountList' }">
 			                     	<div><a href="${ CountList }">조회순</a></div>
 			                     </c:if>
