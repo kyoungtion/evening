@@ -159,10 +159,15 @@ public class BoardServiceImp implements BoardService {
 		return bDAO.myBoardList(sqlSession, pi, map);
 	}
 
+
 	@Override
-	public ArrayList<Board> myBoardList(PageInfo pi, String bc) {
-		// TODO Auto-generated method stub
-		return null;
+	public int getAuctionHistoryCount(String user_id) {
+		return bDAO.getAuctionHistoryCount(sqlSession, user_id);
+	}
+
+	@Override
+	public ArrayList<AuctionHistory> getAuctionHistoryList(PageInfo pi, String user_id) {
+		return bDAO.getAuctionHistoryList(sqlSession, pi, user_id);
 	}
 
 }

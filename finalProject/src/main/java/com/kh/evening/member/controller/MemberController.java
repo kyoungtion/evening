@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.evening.board.model.service.BoardService;
 import com.kh.evening.board.model.vo.Attachment;
+import com.kh.evening.board.model.vo.AuctionHistory;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.common.Pageination;
@@ -93,7 +94,6 @@ public class MemberController {
 		int listCount = bService.getBoardListCount(map);
 		PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
 		ArrayList<Board> alist = bService.myBoardList(pi, map);
-		System.out.println(alist);
 		if(alist != null) {
 			mv.addObject("alist", alist).addObject("pi", pi).addObject("af", af).addObject("bc",bc).setViewName("myinfo");
 		}
@@ -107,8 +107,27 @@ public class MemberController {
 	}
 
 	@RequestMapping("dealDetail.me")
-	public String dealDetail() {
-		return "dealDetail";
+	public ModelAndView dealDetail(Model model,@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+		Member m = (Member)model.getAttribute("loginUser");
+		String user_id = m.getUser_id();
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = bService.getAuctionHistoryCount(user_id);
+		PageInfo pi = Pageination.getQnaPageInfo(currentPage, listCount);
+		
+		ArrayList<AuctionHistory> list = bService.getAuctionHistoryList(pi, user_id);
+		System.out.println(list);
+		if(list != null) {
+			mv.addObject("pi", pi).addObject("list", list).setViewName("dealDetail");
+		} else {
+			throw new MemberException("해당 회원이 입찰중인 상품 리스트 조회에 실패하였습니다.");
+		}
+		
+		
+		return mv;
 	}
 
 	@RequestMapping("mypost.me")

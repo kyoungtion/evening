@@ -18,6 +18,17 @@
 #down {
 	visibility: hidden;
 }
+
+.product-list {
+	width:100%;
+	bakcground: white;
+}
+
+.product-entry .product-img{
+	height: 200px !important;
+}
+
+
 .tab-content, .tab-content.current, .tab-content.contact-wrap, .tab-content.current .contact-wrap {background:white !important;}
 .tab-content.current input[type=text], .tab-content.current input[type=email], .tab-content.current input[type=tel]
 {background: whitesmoke !important;padding:10px !important; height:40px !important;}
@@ -60,7 +71,7 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 		</ul>
 		<div class="col-md-10 col-md-offset-1 mypage"
 			style="margin: 0; width: 80%; padding: 0;" id="tabs">
-			<div class="contact-wrap" style="height: 900px;">
+			<div class="contact-wrap" id="bigContainer" style="height: 950px;">
 				<div class="container">
 					<ul class="tabs no-drag">
 						<li class="tab-link" data-tab="tab-1"><a href="#tab-1">내 정보 수정</a></li>
@@ -244,17 +255,18 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 												
 							<!-- 내가 올린 상품 -->					
 							<c:if test="${ loginUser.rankCode.rank_code eq 'HM' }">
-								<div class="contact-wrap" style="margin: 0; margin-top:10px !important;">
+								<div class="contact-wrap" style="margin: 0; margin-top:10px !important; padding:0 !important;">
 									<form style="height: 100%;">
 										<select id="boardType" class="form-control sidebar colorlib-form-2">
 											<option value="SG">중고제품</option>
 											<option value="A">경매제품</option>
-										</select>
+										</select><br>
 										<!-- 여기안에 상품 리스트 넣으면 됨 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  -->
 										
 										
 										
 										<!-- 중고 리스트 -->
+										<div class="product-list">
 										<c:if test="${ alist != null && bc == 'SG' }">
 											<c:forEach var="i" items="${ alist }" begin="0" end="${ fn:length(alist) }">
 												<div class="col-md-4 text-center">
@@ -309,9 +321,11 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 												</div>
 											</c:forEach>
 										</c:if>
+										</div>
 										
 										
 										<!-- 옥션 리스트 -->
+										<div class="product-list">
 										<c:if test="${ alist != null && bc == 'A' }">
 											<c:forEach var="i1" items="${ alist }" begin="0" end="${ fn:length(alist) }">
 												<div class="col-md-4 text-center">
@@ -434,6 +448,7 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 												</div>
 											</c:forEach>
 										</c:if>
+										</div>
 									</form>
 								</div>
 							</c:if>
@@ -632,6 +647,16 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 			
 		});
 	
+		$(function(){
+			var activeTabIndex = $.cookie('activeTabIndex');
+			if('${ bc }' == 'A' && activeTabIndex == 2){
+				$('#bigContainer').attr('style',"");
+				$('#bigContainer').attr('style',"height: 1100px");
+			} else {
+				$('#bigContainer').attr('style',"");
+				$('#bigContainer').attr('style',"height: 950px");
+			}
+		});
 	</script>
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,11 +14,25 @@
 .my-panel{display:flex;}
 ul.tabs li{width:48% !important;}
 .ui-tabs .ui-tabs-nav li{width: 48.5% !important;}
+.sale {
+	font-size: 11px;
+        background: #DD3E3E;
+        color: #fff;
+        padding: .3em .5em;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        -ms-border-radius: 2px;
+        border-radius: 2px;
+}
 </style>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
-
+	<script>
+		$(function(){
+			console.log('${list}');
+		})
+	</script>
 	<div class="my-panel" >
 		<!-- <div style="width: 100%; text-align: center !important; padding: 10px;">
 			<ul class="my-tabs1">
@@ -46,20 +61,21 @@ ul.tabs li{width:48% !important;}
 					</ul>
 					<div id="tab-1" class="tab-content current">
 						<div class="contact-wrap" style="margin:0 !important;">
-
-							<div class="row content" style="height: 620px;">
+							<div class="row content" style="height: 620px; padding:0;">
 								<table border="1" summary="" class="content-table">
 									<colgroup
 										class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 ">
+										<col style="width: 80px;">
 										<col style="width: 50px;">
 										<col style="width: 50px;" class="displaynone">
-										<col style="width: 450px;">
+										<col style="width: 200px;">
 										<col style="width: 100px;">
 										<col style="width: 100px;" class="">
 										<col style="width: 100px;">
 									</colgroup>
 									<thead>
-										<tr style="">
+										<tr style="" class="no-drag">
+											<th scope="col"></th>
 											<th scope="col">번호</th>
 											<th scope="col" class="displaynone">카테고리</th>
 											<th scope="col">상품 이름</th>
@@ -69,29 +85,79 @@ ul.tabs li{width:48% !important;}
 										</tr>
 									</thead>
 									<tbody>
+										<c:forEach var="a" items="${ list }">
 										<tr style="background-color: #FFFFFF; color: #333333;"
 											class="xans-record-">
-											<td>324</td>
+											
+											<!-- 진행중 여부 -->
+											<jsp:useBean id="now" class="java.util.Date"/>
+											<fmt:parseDate var="enroll" value="${ a.board.SG_ENROLL_DATE }" pattern="yyyy-MM-dd"/>
+											<fmt:parseDate var="end" value="${ a.board.SG_END_DATE }" pattern="yyyy-MM-dd"/>
+											
+											<fmt:parseNumber value="${ now.time / (1000*60*60*24) }" integerOnly="true" var="nowDays"/>
+											<fmt:parseNumber value="${ enroll.time / (1000*60*60*24) }" integerOnly="true" var="enrollDays"/>
+											<fmt:parseNumber value="${ end.time / (1000*60*60*24) }" integerOnly="true" var="endDays"/>
+											<c:if test="${ (endDays - nowDays) >= 0 }">
+												<td><span class="sale">D - ${ endDays - nowDays }</span></td>
+											</c:if>
+											<c:if test="${ (endDays - nowDays) < 0 }">
+												<td><span class="sale">경매 종료</span></td>
+											</c:if>
+											<td>${ a.sg_Id }</td>
 											<td class="displaynone"></td>
-											<td>상품 이름</td>
-											<td>10,000</td>
-											<td>8,000</td>
-											<td id="cancel"><button onclick="deleteAuc();"
-													class="btn btn-danger update">취소</button></td>
+											<td>${ a.board.SG_NAME }</td>
+											<td>${ a.board.SG_PRICE }</td>
+											<td>${ a.a_Price }</td>
+											<c:if test="${ a.a_Check == 'N'}">
+												<td id="cancel"><button onclick="deleteAuc();"
+														class="btn btn-danger update">취소</button></td>
+											</c:if>
+											<c:if test="${ a.a_Check == 'Y' }">
+												<td><span>취소완료</span></td>
+											</c:if>
 										</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
-							<div class="row">
-								<div class="col-md-8"
-									style="text-align: center; left: 27%; width: 350px;">
+							<div class="row"> <!-- 페이지 이동 바(페이징 처리) -->
+								<div class="col-md-12">
 									<ul class="pagination">
-										<li class="disabled"><a href="#">«</a></li>
-										<li class="active"><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">»</a></li>
+										<!-- 이전 페이지 -->
+										<c:if test="${ pi.currentPage <= 1 }">
+											<li class="disabled"><a>&laquo;</a></li>
+										</c:if>
+										<c:if test="${ pi.currentPage > 1 }">
+											<c:url var="before" value="dealDetail.me">	
+												<c:param name="page" value="${ pi.currentPage - 1 }"/>
+											</c:url>
+											<li><a href="${ before }">&laquo;</a></li>
+										</c:if>
+										
+										<!-- 페이지 -->
+										<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+											<c:if test="${ p eq pi.currentPage }">
+												<li class="active"><a>${ p }</a></li>
+											</c:if>
+											
+											<c:if test="${ p ne pi.currentPage }">
+												<c:url var="pagination" value="dealDetail.me">
+													<c:param name="page" value="${ p }"/>
+												</c:url>
+												<li><a href="${ pagination }">${ p }</a></li>
+											</c:if>
+										</c:forEach>
+										
+										<!-- 다음 페이지 -->
+										<c:if test="${ pi.currentPage >= pi.maxPage }">
+											<li class="disabled"><a href="#">&raquo;</a></li>
+										</c:if>
+										<c:if test="${ pi.currentPage < pi.maxPage }">
+											<c:url var="after" value="dealDetail.me">
+												<c:param name="page" value="${ pi.currentPage + 1 }"/>
+											</c:url>
+											<li><a href="${ after }">&raquo;</a></li>
+										</c:if>
 									</ul>
 								</div>
 							</div>
@@ -106,6 +172,9 @@ ul.tabs li{width:48% !important;}
 							};
 						}
 					</script>
+					
+					
+					<!-- 결제 내역 -->
 					<div id="tab-2" class="tab-content">
 						<div class="contact-wrap"  style="margin:0 !important;">
 							<div class="row content" style="height: 620px;">
@@ -130,9 +199,10 @@ ul.tabs li{width:48% !important;}
 										</tr>
 									</thead>
 									<tbody>
+										<c:forEach items="${ list }" var="a">
 										<tr style="background-color: #FFFFFF; color: #333333;"
 											class="xans-record-">
-											<td>324</td>
+											<td>${ a.sg_Id }</td>
 											<td class="displaynone"></td>
 											<td>상품 이름</td>
 											<td>10,000</td>
@@ -140,7 +210,9 @@ ul.tabs li{width:48% !important;}
 											<td  id="cancel"><button onclick="updateAuc();"
 													class="btn btn-info update">보기</button></td>
 										</tr>
+										</c:forEach>
 									</tbody>
+									
 								</table>
 							</div>
 							<div class="row">

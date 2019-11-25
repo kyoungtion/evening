@@ -174,9 +174,6 @@
 			location.href = "home.do";
 		});
 
-		$(function(){
-			console.log("관리자 등급 : "+'${ loginUser}');
-		});
 	</script>
 	<div class="catalog no-drag">
 		<div style="text-align: center; display: inline-block;">

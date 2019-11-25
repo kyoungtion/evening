@@ -62,10 +62,12 @@ public interface BoardService {
 
 	int replyUpdate(Reply r);
 
-	ArrayList<Board> myBoardList(PageInfo pi, String bc);
-
 	int getBoardListCount(Map<String, String> map);
 
 	ArrayList<Board> myBoardList(PageInfo pi, Map<String, String> map);
+
+	int getAuctionHistoryCount(String user_id);
+
+	ArrayList<AuctionHistory> getAuctionHistoryList(PageInfo pi, String user_id);
 
 }
