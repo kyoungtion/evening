@@ -74,4 +74,10 @@ ArrayList<Member> getSellerList(PageInfo pi);
 
 
 
+
+Member memberSearchPwd(Map<String, String> map);
+
+int  changePwd(Map<String, String> map);
+
+
 }

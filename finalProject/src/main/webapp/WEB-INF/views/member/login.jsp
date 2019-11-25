@@ -18,7 +18,7 @@
   
      
    <!-- 구글 로그인 관련 --> 
-  <script src="https://ajax.googleleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <!--  <script src="https://ajax.googleleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="colors.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <meta name="google-signin-client_id"
@@ -35,12 +35,10 @@
          console.log('Image URL: ' + profile.getImageUrl());
          console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
        }
-  </script> 
+  </script>  -->
        
 
      
-        
-</script>
  
   <style rel="stylesheet">
     @charset "UTF-8";
@@ -549,7 +547,7 @@
 
      <br><br><br><br><br><br><br><br>
 
-  <div class="g-signin2" data-onsuccess="onSignIn"></div> 
+  <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> --> 
 
       <br>
       

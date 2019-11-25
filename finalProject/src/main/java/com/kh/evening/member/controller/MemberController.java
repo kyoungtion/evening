@@ -29,6 +29,8 @@ import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.common.Pageination;
 import com.kh.evening.gesipan.model.service.GesipanService;
 import com.kh.evening.gesipan.model.vo.Gesipan;
+import com.kh.evening.member.email.FindUtil;
+import com.kh.evening.member.email.MailUtil;
 //import com.kh.evening.member.email.EmailSender;
 import com.kh.evening.member.model.exception.MemberException;
 import com.kh.evening.member.model.service.KakaoAPI;
@@ -638,49 +640,92 @@ public class MemberController {
    }
    
    
+   // 비밀번호 찾기 새로운 비밀번호 발급
+   
+   
+   
    // 비밀번호 찾기
-   /*@RequestMapping(value="searchPwd", method = RequestMethod.POST)
-   public void searchPwd(   
-                        @RequestParam("user_id") String user_id,
-                        @RequestParam("user_email")String user_email,
-                        Model model,
-                        HttpServletResponse response) throws Exception {
-      
-      Member m = new Member();
-      m.setUser_id(user_id);
-      m.setUser_email(user_email);
-     service.searchPwd(response,m);
-         
-      
-   }*/
+   @RequestMapping(value="searchPwdView.me")
+   public ModelAndView memberSearchPwd(ModelAndView mv) {
+	   int check =1;
+	   mv.addObject("checkSep",check);
+	   mv.setViewName("redirect:home.do");
+	   System.out.println(mv);
+	   return mv; 
+	   
+   }
    
-   
-   
-   
-   
-   
-   
-   
-  
+   @RequestMapping(value="searchPwd.me")
+   public ModelAndView memberSearchPwd2(@RequestParam("user_id")String user_id,
+		   								@RequestParam("user_email")String user_email,
+		   								ModelAndView mv) throws Exception {
+	   Map<String,String> map = new HashMap<String,String>();
+	   
+	   map.put("user_id", user_id);
+	   map.put("user_email", user_email);
+	   
+	   System.out.println("11들어와라 제발 : " + map);
+	   
+	   Member m = mService.memberSearchPwd(map);
+	   
+	  	   
+	   if(m != null) {
+		   String newPwd = FindUtil.getNewPwd();
+		   
+		   System.out.println("newPwd : " + newPwd);
+		   
+		   Map<String ,String> map2 = new HashMap<>();
+		   
+		   map2.put("user_id", user_id);
+		   map2.put("newPwd",newPwd);
+		   
+		   System.out.println("22제발 되라..: " +map2);
+		   
+		   mService.changePwd(map2);
+		   
+		   String subject = "[Evening] 임시 비밀번호 입니다.";
+           
+           String msg = "";
+           msg += "<br> <br> <div align='center' style='border:1px solid black;'>";
+           msg += "<h3 style='color: blue';><strong>" + user_id + "<br>";
+           msg += "님</strong>의 임시 비밀번호 입니다. 로그인 후 비밀번호를 변경하세요.</h3>";
+           msg += "<p> 임시 비밀번호 : <strong>" + newPwd + "<br> <br> </strong></p></div> ";
+           
+           MailUtil.sendMail(user_email, subject, msg);
+           
+           mv.setViewName("updatePwd");
+           return mv;
+        } else {
+           int check = 0;
+           mv.addObject("checkSep", check);
+           mv.setViewName("SearchIdPwd");
+           return mv;
+        }
+
+     } 
+		   
+		   
+	   
+   }
 
 
    
-/*   @RequestMapping(value="searchId", method=RequestMethod.POST)
-   public String searchId(HttpServletResponse response,
-                     @RequestParam("user_name")String user_name,
-                     @RequestParam("user_email")String user_email,
-                     Model model)   {
-      
-      model.addAttribute("user_id", mService.searchId(response,user_email, user_name));
-      
-      response.setContentType("text/html; charset=UTF-8");
-      PrintWriter out = response.getWriter();
-      
-      
-      String user_id = Manager.searchId(user_name,user_email);
-      
-      
-      
-      return "login";
-      }*/
-}
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
