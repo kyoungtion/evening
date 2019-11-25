@@ -38,6 +38,7 @@ import com.kh.evening.member.model.exception.MemberException;
 import com.kh.evening.member.model.service.KakaoAPI;
 import com.kh.evening.member.model.service.MemberService;
 import com.kh.evening.member.model.vo.Member;
+import com.kh.evening.payment.model.service.PaymentService;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -51,6 +52,9 @@ public class MemberController {
 
 	@Autowired
 	private BoardService bService;
+	
+	@Autowired
+	private PaymentService pService;
 
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;

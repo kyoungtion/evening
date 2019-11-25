@@ -34,31 +34,20 @@ ul.tabs li{width:48% !important;}
 		})
 	</script>
 	<div class="my-panel" >
-		<!-- <div style="width: 100%; text-align: center !important; padding: 10px;">
-			<ul class="my-tabs1">
-				<li class="my-tab"><button class="btn"
-						onclick="location.href='myinfo.me'">내 정보 보기</button></li>
-				<li class="my-tab"><button class="btn"
-						onclick="location.href='favorites.me'">관심상품목록</button></li>
-				<li class="my-tab"><button class="btn active"
-						onclick="location.href='dealDetail.me'">거래내역</button></li>
-				<li class="my-tab"><button class="btn"
-						onclick="location.href='mypost.me'">내가 쓴 글</button></li>
-			</ul>
-		</div> -->
 			<ul class="my-tabs">
 				<li class="my-tab" onclick="clickRefresh();"><a href="myinfo.me">내 정보 보기</a></li>
 				<li class="my-tab"><a href="favorites.me">관심상품목록</a></li>
-				<li class="my-tab active"  onclick="clickRefresh();"><a href="dealDetail.me">거래내역</a></li>
+				<li class="my-tab active"><a href="dealDetail.me">입찰내역</a></li>
+				<li class="my-tab"><a href="pList.py">결제내역</a></li>
 				<li class="my-tab"><a href="mypost.me?category=Community">내가 쓴 글</a></li>
 			</ul>
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 80%; padding: 0;" id="tabs">
 			<div class="contact-wrap" style="height: 900px;">
 				<div class="container">
-					<ul class="tabs no-drag">
+					<!-- <ul class="tabs no-drag">
 						<li class="tab-link" data-tab="tab-1"><a href="#tab-1">입찰중인 상품</a></li>
 						<li class="tab-link" data-tab="tab-2"><a href="#tab-2">결제완료내역</a></li>
-					</ul>
+					</ul> -->
 					<div id="tab-1" class="tab-content current">
 						<div class="contact-wrap" style="margin:0 !important;">
 							<div class="row content" style="height: 620px; padding:0;">
@@ -175,7 +164,7 @@ ul.tabs li{width:48% !important;}
 					
 					
 					<!-- 결제 내역 -->
-					<div id="tab-2" class="tab-content">
+					<%-- <div id="tab-2" class="tab-content">
 						<div class="contact-wrap"  style="margin:0 !important;">
 							<div class="row content" style="height: 620px;">
 								<table border="1" summary="" class="content-table">
@@ -229,7 +218,7 @@ ul.tabs li{width:48% !important;}
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> --%>
 
 				</div>
 
@@ -240,7 +229,7 @@ ul.tabs li{width:48% !important;}
 	<script>
 		$(function(){
 			
-			$('#tabs').tabs();
+			/* $('#tabs').tabs();
 			var tabs = $('#tabs').tabs({
 				activate: function(event, ui){
 					var active = $('#tabs').tabs('option', 'active');
@@ -252,7 +241,7 @@ ul.tabs li{width:48% !important;}
 			
 			if(activeTabIndex != undefined){
 				tabs.tabs('option','active',activeTabIndex);
-			}
+			} */
 			
 			
 			
@@ -264,13 +253,19 @@ ul.tabs li{width:48% !important;}
 				
 			} else if(location.hash == "#tab-3"){         
 				$('.tabs').find('li').eq(2).addClass('current').siblings().removeClass('current');         
-			}
+			}거래내역
 			
 			$('ul.tabs li').click(function(){
 		        $('ul.tabs li').removeClass('current');
 	
 		        $(this).addClass('current');
 			}); */
+		});
+		
+		$(function(){
+			$('#tab-1').on('click', function(){
+				location.href="dealDetail.me";
+			});
 		});
 	</script>
 
