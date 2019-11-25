@@ -2,278 +2,311 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
 
-   <!-- 상은 -->
-   <insert id="insertMember" parameterType="Member">
-      insert into member
-      values(#{user_id}, default,#{user_pwd}, #{nickName},#{user_name},
-            #{phone},#{user_residentNumber},#{user_email}, #{address},
-                sysdate,sysdate,default,default,default,sysdate,default,default,default)
-   </insert>
+	<!-- 상은 -->
+	<insert id="insertMember" parameterType="Member">
+		insert into member
+		values(#{user_id}, default,#{user_pwd}, #{nickName},#{user_name},
+		#{phone},#{user_residentNumber},#{user_email}, #{address},
+		sysdate,sysdate,default,default,default,sysdate,default,default,default)
+	</insert>
 
-    <!-- 암호화 후 로그인  -->
-   <select id="selectOne" parameterType="Member" resultType="Member"
-      resultMap="MemberResultSet">
-      
-      select *
-      from member
-      where user_id=#{user_id} and 
-        status = 'N'
-   </select>
-   
-   <!-- 카카오 로그인  -->
-   <select id="kakaoId" parameterType="Member" resultType="Member" >
-   select * from member
-      where status='Y'
-      <if test="user_email != null"> 
-      and user_email=#{user_email}
-      </if>
-      <if test="user_id != null"> 
-      and user_id=#{user_id}
-      </if>
-   </select>
+	<!-- 암호화 후 로그인 -->
+	<select id="selectOne" parameterType="Member"
+		resultType="Member" resultMap="MemberResultSet">
 
+		select *
+		from member
+		where user_id=#{user_id} and
+		status = 'N'
+	</select>
 
-<!-- 아이디 유효성 검사  -->
-   <select id="idCheck" parameterType="string" resultType="_int">
-      select count(*)
-      from member
-      where user_id=#{user_id}
-   </select>
+	<!-- 카카오 로그인 -->
+	<select id="kakaoId" parameterType="Member" resultType="Member">
+		select * from member
+		where status='Y'
+		<if test="user_email != null">
+			and user_email=#{user_email}
+		</if>
+		<if test="user_id != null">
+			and user_id=#{user_id}
+		</if>
+	</select>
 
 
-   <!-- 아이디 찾기 -->  
-   <select id="searchId" parameterType="String" resultType="String">
-      select user_id 
-        from member 
-         where user_name= #{user_name}
-          and phone= #{phone}
-   </select>
+	<!-- 아이디 유효성 검사 -->
+	<select id="idCheck" parameterType="string" resultType="_int">
+		select count(*)
+		from member
+		where user_id=#{user_id}
+	</select>
 
-   <!-- 비밀번호 찾기  -->
-   <!-- <select id="searchPwd" parameterType="String" resultType="String">
-      select user_pwd
-       from Member
-        where user_id = #{user_id}
-           and user_email = #{user_email}
-   </select> -->
 
-   <!-- <select id="getPw" parameterType="java.util.Map" resultType="java.lang.String">
-      select user_pwd
-       from Member
-        where user_id = #{user_id}
-           and user_email = #{user_email}
-   </select> -->
+	<!-- 아이디 찾기 -->
+	<select id="searchId" parameterType="String" resultType="String">
+		select user_id
+		from member
+		where user_name= #{user_name}
+		and phone= #{phone}
+	</select>
 
-   <update id="updateMember" parameterType="Member">
-      update member 
-      set nickname = #{nickName}, phone=#{phone}, user_email=#{user_email}, address=#{address}
-      where user_id=#{user_id}
-   </update>
+	<!-- 비밀번호 찾기 -->
+	<!-- <select id="searchPwd" parameterType="String" resultType="String"> 
+		select user_pwd from Member where user_id = #{user_id} and user_email = #{user_email} 
+		</select> -->
 
-   <update id="updatePwd" parameterType="Member">
-      update member
-      set user_pwd = #{user_pwd}
-      where user_id=#{user_id}
-   </update>
-   
-   <update id="deleteMember" parameterType="Member">
-      update member
-      set status='Y' and update_date = sysdate
-      where user_id=#{user_id}
-   </update>
+	<!-- <select id="getPw" parameterType="java.util.Map" resultType="java.lang.String"> 
+		select user_pwd from Member where user_id = #{user_id} and user_email = #{user_email} 
+		</select> -->
 
-   <select id="getMyPostListCount" parameterType="map" resultType="_int">
-      with g1 as (
-         select g_id, g_title, g_writer, g_enroll_date, g_count, g_order, g_type, g_ref
-         from gesipan
-         where (g_writer = #{user_id} or g_writer = 'admin') 
-      )
-      select count(*)
-      from g1
-      join gesipan g on (g1.g_ref = g.g_id)
-      join member m on(g1.g_writer = m.user_id)
-      where g.g_writer = #{user_id} and g.g_category = #{category} and g.g_status = 'N' 
-      order by g1.g_type desc, g1.g_ref desc, g1.g_order asc
-   
-      <!-- select count(*)
-      from gesipan 
-      where g_writer = #{user_id}
-      and g_category = #{category}
-      and g_status='N' -->
-   </select>
-   
-   <select id="selectMyPost" parameterType="map" resultType="Gesipan">
-      with g1 as (
-         select g_id, g_category, g_title, g_content, g_writer, g_count, g_enroll_date, g_update_date, g_ref, g_status, locked, g_pwd, g_order, g_type
-         from gesipan
-         where (g_writer = #{user_id} or g_writer = 'admin') 
-      )
-      select g1.*, m.nickname
-      from g1
-      join gesipan g on (g1.g_ref = g.g_id)
-      join member m on(g1.g_writer = m.user_id)
-      where g.g_writer = #{user_id} and g.g_category = #{category} and g.g_status = 'N'
-      order by g1.g_type desc, g1.g_ref desc, g1.g_order asc
-      
-      <!-- select g.*, m.nickname
-      from gesipan g
-      join member m on(g.g_writer = m.user_id)
-      where g_writer = #{user_id} and g_category = #{category} and g_status='N'
-      order by g_type desc, g_ref desc, g_order asc -->
-   </select>
+	<update id="updateMember" parameterType="Member">
+		update member
+		set nickname = #{nickName}, phone=#{phone}, user_email=#{user_email},
+		address=#{address}
+		where user_id=#{user_id}
+	</update>
 
-   <select id="getMemberListCount" resultType="_int">
-      select count(*)
-      from member
-      where status = 'N'
-   </select>
-   
-   <select id="getMembers" resultMap="MemberResultSet">
-      select m.*, r.*
-      from member m
-      join user_rank r on(m.rank_code = r.rank_code)
-      where m.status='N' and user_id != 'admin'
-      order by user_id asc
-   </select>
-   
-   <resultMap type="Member" id="MemberResultSet">
-      <id property="user_id" column="user_id"/>
-      <result property="rank_code" column="rank_code"/>
-      <result property="user_pwd" column="user_pwd"/>
-      <result property="nickName" column="nickname"/>
-      <result property="user_name" column="user_name"/>
-      <result property="phone" column="phone"/>
-      <result property="user_residentNumber" column="user_residentNumber"/>
-      <result property="user_email" column="user_email"/>
-      <result property="address" column="address"/>
-      <result property="enroll_date" column="enroll_date"/>
-      <result property="update_date" column="update_date"/>
-      <result property="bookmark" column="bookmark"/>
-      <result property="status" column="status"/>
-      <result property="penalty_point" column="penalty_point"/>
-      <result property="penalty_date" column="penalty_date"/>
-      <result property="penalty_stack" column="penalty_stack"/>
-      <result property="seller_request" column="seller_request"/>
-      <result property="seller_request_date" column="seller_request_date"/>
-      <association property="rankCode" javaType="RankCode">
-         <result property = "rank_code" column="rank_code"/>
-         <result property = "rank_name" column="rank_name"/>
-         <result property = "rank_ename" column="rank_ename"/>
-         <result property = "rank_img" column="rank_img"/>
-      </association>
-   </resultMap>
-   
-   <update id="updateRankCode" parameterType="Member">
-      update member
-      set rank_code = #{rank_code}
-      where user_id = #{user_id}
-   </update>
-   
-   <update id="deleteAllMember" parameterType="string">
-      update member
-      set status = 'Y' and update_date = sysdate
-      <trim prefix="where" prefixOverrides="and|or">
-         user_id in
-         <foreach collection="array" item="item" index="index" open="(" separator="," close=")">
-            #{item}
-         </foreach>
-      </trim>
-   </update>
-   
-   <select id="selectSearchMemberListCount" resultType="_int" parameterType="map">   
-      select count(*)
-      from member
-      where status='N'
-      <choose>
-         <when test="searchfor.equals('user_id')">
-            and user_id = #{ keyword }
-         </when>
-         <when test="searchfor.equals('user_name')">
-            and user_name like '%' || #{ keyword } || '%'
-         </when>
-      </choose>
-   </select>
-   
-   <select id="selectSearchMemberList" resultMap="MemberResultSet">
-      select m.*, r.*
-      from member m
-      join user_rank r on(m.rank_code = r.rank_code)
-      where status='N'
-      <choose>
-         <when test="searchfor.equals('user_id')">
-            and user_id = #{ keyword }
-         </when>
-         <when test="searchfor.equals('user_name')">
-            and user_name like '%' || #{ keyword } || '%'
-         </when>
-      </choose>
-   </select>
-   
-   <select id="getDeActiMemberListCount" resultType="_int">
-      select count(*)
-      from member
-      where status='Y'
-   </select>
-   
-   <select id="getDeActiMemberList" resultMap="MemberResultSet">
-      select m.*, r.*
-      from member m
-      join user_rank r on(m.rank_code = r.rank_code)
-      where status = 'Y'
-      order by user_id asc
-   </select>
-   
-   <update id="activateMember" parameterType="Member">
-      update member
-      set status = 'N'
-      where user_id = #{user_id}
-   </update>
-   
-   <update id="activateAllMember" parameterType="string">
-      update member
-      set status = 'N'
-      <trim prefix="where" prefixOverrides="and|or">
-         user_id in
-         <foreach collection="array" item="item" index="index" open="(" separator="," close=")">
-            #{item}
-         </foreach>
-      </trim>
-   </update>
-   
-   <update id="requestSeller" parameterType="Member">
-      update member
-      set seller_request = 'Y' and seller_requset_date = default
-      where user_id = #{user_id}
-   </update>
-   
-   <select id="getSellerRequestListCount" resultType="_int">
-      select count(*)
-      from member
-      where rank_code = 'NM' and seller_request = 'Y'
-   </select>
+	<update id="updatePwd" parameterType="Member">
+		update member
+		set user_pwd = #{user_pwd}
+		where user_id=#{user_id}
+	</update>
 
-   <select id="getSellerRequestList" resultMap="MemberResultSet">
-      select m.*, r.*
-      from member m
-      join user_rank r on(m.rank_code = r.rank_code)
-      where m.rank_code = 'NM' and m.seller_request = 'Y'
-      order by seller_request_date desc
-   </select>
-   
-   <update id="acceptMember" parameterType="Member">
-      update member
-      set rank_code = 'HM', seller_request = 'N'
-      where user_id = #{user_id}
-   </update>
-   
-   <update id="acceptAllMember" parameterType="string">
-      update member
-      set rank_code = 'HM', seller_request = 'N'
-      <trim prefix="where" prefixOverrides="and|or">
-         user_id in
-         <foreach collection="array" item="item" index="index" open="(" separator="," close=")">
-            #{item}
-         </foreach>
-      </trim>
-   </update>
+	<update id="deleteMember" parameterType="Member">
+		update member
+		set status='Y', update_date = sysdate
+		where user_id=#{user_id}
+	</update>
+
+	<select id="getMyPostListCount" parameterType="map"
+		resultType="_int">
+		with g1 as (
+		select g_id, g_title, g_writer, g_enroll_date, g_count, g_order, g_type,
+		g_ref
+		from gesipan
+		where (g_writer = #{user_id} or g_writer = 'admin')
+		)
+		select count(*)
+		from g1
+		join gesipan g on (g1.g_ref = g.g_id)
+		join member m on(g1.g_writer = m.user_id)
+		where g.g_writer = #{user_id} and g.g_category = #{category} and g.g_status
+		= 'N'
+		order by g1.g_type desc, g1.g_ref desc, g1.g_order asc
+
+		<!-- select count(*) from gesipan where g_writer = #{user_id} and g_category 
+			= #{category} and g_status='N' -->
+	</select>
+
+	<select id="selectMyPost" parameterType="map"
+		resultType="Gesipan">
+		with g1 as (
+		select g_id, g_category, g_title, g_content, g_writer, g_count,
+		g_enroll_date, g_update_date, g_ref, g_status, locked, g_pwd, g_order,
+		g_type
+		from gesipan
+		where (g_writer = #{user_id} or g_writer = 'admin')
+		)
+		select g1.*, m.nickname
+		from g1
+		join gesipan g on (g1.g_ref = g.g_id)
+		join member m on(g1.g_writer = m.user_id)
+		where g.g_writer = #{user_id} and g.g_category = #{category} and g.g_status
+		= 'N'
+		order by g1.g_type desc, g1.g_ref desc, g1.g_order asc
+
+		<!-- select g.*, m.nickname from gesipan g join member m on(g.g_writer 
+			= m.user_id) where g_writer = #{user_id} and g_category = #{category} and 
+			g_status='N' order by g_type desc, g_ref desc, g_order asc -->
+	</select>
+
+	<select id="getMemberListCount" resultType="_int" parameterType="string">
+		select count(*)
+		from member
+		where status = 'N' and user_id != 'admin'
+		<choose>
+			<when test="mType eq NM">
+				and rank_code = 'NM'
+			</when>
+			<when test="mType eq HM">
+				and rank_code = 'HM'
+			</when>
+		</choose>
+	</select>
+
+	<select id="getMembers" resultMap="MemberResultSet" parameterType="string">
+		select m.*, r.*
+		from member m
+		join user_rank r on(m.rank_code = r.rank_code)
+		where m.status='N' and m.user_id != 'admin'
+		<choose>
+			<when test="mType.equals('NM')">
+				and m.rank_code = 'NM'
+			</when>
+			<when test="mType.equals('HM')">
+				and m.rank_code = 'HM'
+			</when>
+		</choose>
+		order by user_id asc
+	</select>
+
+	<!-- <select id="getSellerListCount" resultType="_int">
+		select count(*)
+		from member
+		where status = 'N' and user_id != 'admin' and rank_code = 'HM' 
+	</select>
+	
+	<select id="getSellerList" resultMap="MemberResultSet">
+		select m.*, r.*
+		from member m
+		join user_rank r on(m.rank_code = r.rank_code)
+		where m.status = 'N' and m.user_id != 'admin' and m.rank_code = 'HM'
+		order by user_id asc
+	</select>
+ -->
+	<resultMap type="Member" id="MemberResultSet">
+		<id property="user_id" column="user_id" />
+		<result property="rank_code" column="rank_code" />
+		<result property="user_pwd" column="user_pwd" />
+		<result property="nickName" column="nickname" />
+		<result property="user_name" column="user_name" />
+		<result property="phone" column="phone" />
+		<result property="user_residentNumber"
+			column="user_residentNumber" />
+		<result property="user_email" column="user_email" />
+		<result property="address" column="address" />
+		<result property="enroll_date" column="enroll_date" />
+		<result property="update_date" column="update_date" />
+		<result property="bookmark" column="bookmark" />
+		<result property="status" column="status" />
+		<result property="penalty_point" column="penalty_point" />
+		<result property="penalty_date" column="penalty_date" />
+		<result property="penalty_stack" column="penalty_stack" />
+		<result property="seller_request" column="seller_request" />
+		<result property="seller_request_date"
+			column="seller_request_date" />
+		<association property="rankCode" javaType="RankCode">
+			<result property="rank_code" column="rank_code" />
+			<result property="rank_name" column="rank_name" />
+			<result property="rank_ename" column="rank_ename" />
+			<result property="rank_img" column="rank_img" />
+		</association>
+	</resultMap>
+
+	<update id="updateRankCode" parameterType="Member">
+		update member
+		set rank_code = #{rank_code}
+		where user_id = #{user_id}
+	</update>
+
+	<update id="deleteAllMember" parameterType="string">
+		update member
+		set status = 'Y', update_date = sysdate
+		<trim prefix="where" prefixOverrides="and|or">
+			user_id in
+			<foreach collection="array" item="item" index="index"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</trim>
+	</update>
+
+	<select id="selectSearchMemberListCount" resultType="_int"
+		parameterType="map">
+		select count(*)
+		from member
+		where status='N'
+		<choose>
+			<when test="searchfor.equals('user_id')">
+				and user_id = #{ keyword }
+			</when>
+			<when test="searchfor.equals('user_name')">
+				and user_name like '%' || #{ keyword } || '%'
+			</when>
+		</choose>
+	</select>
+
+	<select id="selectSearchMemberList" resultMap="MemberResultSet">
+		select m.*, r.*
+		from member m
+		join user_rank r on(m.rank_code = r.rank_code)
+		where status='N'
+		<choose>
+			<when test="searchfor.equals('user_id')">
+				and user_id = #{ keyword }
+			</when>
+			<when test="searchfor.equals('user_name')">
+				and user_name like '%' || #{ keyword } || '%'
+			</when>
+		</choose>
+	</select>
+
+	<select id="getDeActiMemberListCount" resultType="_int">
+		select count(*)
+		from member
+		where status='Y'
+	</select>
+
+	<select id="getDeActiMemberList" resultMap="MemberResultSet">
+		select m.*, r.*
+		from member m
+		join user_rank r on(m.rank_code = r.rank_code)
+		where status = 'Y'
+		order by user_id asc
+	</select>
+
+	<update id="activateMember" parameterType="Member">
+		update member
+		set status = 'N'
+		where user_id = #{user_id}
+	</update>
+
+	<update id="activateAllMember" parameterType="string">
+		update member
+		set status = 'N'
+		<trim prefix="where" prefixOverrides="and|or">
+			user_id in
+			<foreach collection="array" item="item" index="index"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</trim>
+	</update>
+
+	<update id="requestSeller" parameterType="Member">
+		update member
+		set seller_request = 'Y', seller_request_date = default
+		where user_id = #{user_id}
+	</update>
+
+	<select id="getSellerRequestListCount" resultType="_int">
+		select count(*)
+		from member
+		where rank_code = 'NM' and seller_request = 'Y'
+	</select>
+
+	<select id="getSellerRequestList" resultMap="MemberResultSet">
+		select m.*, r.*
+		from member m
+		join user_rank r on(m.rank_code = r.rank_code)
+		where m.rank_code = 'NM' and m.seller_request = 'Y'
+		order by seller_request_date desc
+	</select>
+
+	<update id="acceptMember" parameterType="Member">
+		update member
+		set rank_code = 'HM', seller_request = 'N'
+		where user_id = #{user_id}
+	</update>
+
+	<update id="acceptAllMember" parameterType="string">
+		update member
+		set rank_code = 'HM', seller_request = 'N'
+		<trim prefix="where" prefixOverrides="and|or">
+			user_id in
+			<foreach collection="array" item="item" index="index"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</trim>
+	</update>
 </mapper>
