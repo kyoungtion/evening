@@ -82,7 +82,7 @@ height: 95px; width: 80%; resize: none;
 .replyAddForm{
 	float: left;
 }
-.replyAddBtn,.replyBtn{
+.replyAddBtn,.replyBtn,.replyUpBtn{
 width: 15%; height: 100px; float: right; margin-right: 15px;
 }
 .r_id{
@@ -244,7 +244,6 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 			<div class="comment">
 				<div style="padding-left: 60px;">
 					<textarea id="replyArea"></textarea>
-					<input type="hidden" id="replyInput">
 					<button class="replyBtn" type="button" >댓글 등록</button>
 				</div>
 			</div>
@@ -275,7 +274,22 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 	<script>
 	var replyA='<div id="replyAdd" class="comment" style="background: gray;"><div class="comment2"></div><div style="padding-left: 60px; "><textarea id="replyArea2"></textarea><button class="replyAddBtn" onclick="test(this);" value=';
 	var replyA2='>댓글쓰기</button></div></div>';
-	var replyB=1;	
+	var replyB=1;
+	var replyUpNum=0;
+	var replyUplb="";
+	var replyUpTag="";
+	
+	$('#replyTag').click(function (e) {		
+		if(replyUpNum!=0){
+		if (!$(e.target).is('div[name='+replyUpNum+'],div[name="'+replyUpNum+'"] *,div[name='+replyUpNum+'] button' ) && e.target.value!=replyUpNum) {
+			replyUpTag.html(replyUplb);
+			replyUpNum=0;
+			replyUplb="";
+			replyUpTag="";
+		}
+		}
+
+	}); 
 	$(document).ready(function() {
 			var click = 0;
 			$("#replyOpen").on("click", function() {
@@ -294,10 +308,13 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 			$('.replyBtn').on("click",function(){
 				var REPLY_INFO=$('#replyArea').val().replace(/\n/gi,"<br>");
 				var SG_ID=${board.SG_ID};
+				if(${!empty loginUser}){
+				var USER_ID="${loginUser.user_id}"; 
+				var NICKNAME="${loginUser.nickName}";
 				
 				$.ajax({
 		            url: "addReply.bo",
-		            data: {REPLY_INFO:REPLY_INFO, SG_ID:SG_ID,add:false},
+		            data: {REPLY_INFO:REPLY_INFO, SG_ID:SG_ID,add:false,USER_ID:USER_ID,NICKNAME:NICKNAME},
 		            type:"post",
 		            success: function(data){
 		               if(data=="success"){
@@ -306,6 +323,9 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 		               }
 		            }
 		        }); 
+				}else{
+					alert("로그인 후 이용해주세요.")
+				}
 			});
 			
 			if ($('input[name="dealType"]').val() == "DELIVERY") {
@@ -320,10 +340,11 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 		var REPLY_INFO=$('#replyArea2').val().replace(/\n/gi,"<br>");
 		var REPLY_ID=$(a).val();
 		var SG_ID=${board.SG_ID};
-		
+		var USER_ID="${loginUser.user_id}"; 
+		var NICKNAME="${loginUser.nickName}";
 		$.ajax({
             url: "addReply.bo",
-            data: {REPLY_INFO:REPLY_INFO, SG_ID:SG_ID,add:true,REPLY_ID:REPLY_ID},
+            data: {REPLY_INFO:REPLY_INFO, SG_ID:SG_ID,add:true,REPLY_ID:REPLY_ID,USER_ID:USER_ID,NICKNAME:NICKNAME},
             type:"post",
             success: function(data){
                if(data=="success"){
@@ -379,18 +400,34 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 	            }
 	        }); 
 		};
-		function replyUpdate(id){
+		function replyAddUpdate(id){
 			$('#replyAdd').remove();
-			var UpText=$('#'+$(id).val()).html();
+			var UpText=$('#'+$(id).val()).html().replace(/<br>/gi,"\n");
 			var UpId=$(id).val();
+			
+			replyUpTag=$(id).parent("div");
+			replyUpNum=$(id).parent("div").parent("div").attr('name');
+			replyUplb=$(id).parent("div").html();
+			
 			 replyDel();
-			$(id).parent("div").html('<textarea id="replyUpArea">'+UpText+'</textarea><button class="replyAddBtn" onclick="replyUpdateAjax(this);" value='+UpId+'>댓글쓰기</button>');
+			$(id).parent("div").html('<textarea id="replyUpArea">'+UpText+'</textarea><button class="replyAddBtn" onclick="replyUpdateAjax(this);" value='+UpId+'>댓글 수정</button><div></div>');
+		};
+		function replyUpdate(id){
+			var UpText=$('#'+$(id).val()).html().replace(/<br>/gi,"\n");
+			var UpId=$(id).val();
+			
+			replyUpTag=$(id).parent("div").parent("div").parent("div");
+			replyUpNum=$(id).parent("div").parent("div").parent("div").attr('name'); 
+			replyUplb=$(id).parent("div").parent("div").parent("div").html();
+			
+			replyDel();
+			$(id).parent("div").parent("div").parent("div").html('<div style="padding-left: 60px;"><textarea id="replyUpArea">'+UpText+'</textarea><button class="replyUpBtn" onclick="replyUpdateAjax(this); value='+UpId+'">댓글 수정</button></div>');
+			
 		};
 		
 		function replyUpdateAjax(id){
 			var REPLY_INFO=$('#replyUpArea').val().replace(/\n/gi,"<br>");
 			var REPLY_ID=$(id).val();
-			var SG_ID=${board.SG_ID};
 			var page=$('.active').val();
 			
 			$.ajax({
@@ -403,7 +440,7 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 	               }
 	            }
 	        }); 
-		}
+		};
 		
 		 function getReplyList(page){
 	         var SG_ID = ${board.SG_ID};
@@ -418,6 +455,9 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 	            	var t2;
 	            	var t3;
 	            	var t4;
+	            	var t5;
+	            	var t6;
+	            	var t7;
 	               if(data.rlist.length > 0){
 	                  for(var i in data.rlist){
 		                i=parseInt(i);
@@ -434,21 +474,30 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 					               t2='</span></div><div><span id="'+data.rlist[i].REPLY_ID+'">';
 					               t3='</span></div><div><span>'+data.rlist[i].REPLY_UPDATE_DATE+'</span></div><div style="height: 20px;">';
 					               t4='<button class="replyAddForm" onclick="replyAdd(this);" value=';
-					               t5='>답글</button><button onclick="replyUpdate(this);" value="'+data.rlist[i].REPLY_ID+'">수정</button><button onclick="replyDelete(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button>';
-					               t6='<div style="float: right;">좋아요<span>0</span></div></div></div></div>';
-					            if(${data.rlist[i].REPLY_ID eq loginUser.user_id}){
-				                	 $tableBody.append(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+t4+data.rlist[i].REPLY_ID+t5+t6);				            	
-					            }else{
-				                	 $tableBody.append(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+t6);
-				            	} 
+					               t5='>답글</button>';
+					               t6='<button onclick="replyUpdate(this);" value="'+data.rlist[i].REPLY_ID+'">수정</button><button onclick="replyDelete(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button>';
+					               t7='<div style="float: right;">좋아요<span>0</span></div></div></div></div>';
+					            //if(${data.rlist[i].REPLY_ID eq loginUser.user_id && !empty loginUser}){
+					           if((data.rlist[i].USER_ID)=="${ loginUser.user_id}" && ${!empty loginUser}){
+				                	 $tableBody.append(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+t4+data.rlist[i].REPLY_ID+t5+t6+t7);				            	
+					            }else if((data.rlist[i].USER_ID)!="${ loginUser.user_id}" && ${!empty loginUser}){
+				                	 $tableBody.append(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+t4+data.rlist[i].REPLY_ID+t5+t7);
+				            	}else{
+				                	 $tableBody.append(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+t7);
+				            	}
 				               }	                 
 				               if(data.rlist[i].REPLY_ADD==data.rlist[i2].REPLY_ADD){
 					            	t1='<div name="'+ data.rlist[i].REPLY_ID+'" class="comment" style="background: gray;"><div class="comment2"></div><div style="padding-left: 60px; width: 90%;"><div><span style="width: 20px; height: 20px; background: white;">아이콘</span><span>';
 					            	t2='</span></div><div><span id="'+data.rlist[i].REPLY_ID+'">';
-					            	t3='</span></div><div><span>';
-					            	t4='</span></div><button onclick="replyUpdate(this);" value="'+data.rlist[i].REPLY_ID+'">수정</button><button onclick="replyDeleteAdd(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button></div></div>';
-		                		  $('div[name='+data.rlist[i].REPLY_ADD+']').after(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+data.rlist[i].REPLY_UPDATE_DATE+t4);
-			                  }
+					            	t3='</span></div><div><span>'+data.rlist[i].REPLY_UPDATE_DATE+'</span></div>';
+					            	t4='<button type="button" onclick="replyAddUpdate(this);" value="'+data.rlist[i].REPLY_ID+'">수정</button><button onclick="replyDeleteAdd(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button>';
+					            	t5='</div></div>';
+		                		  if((data.rlist[i].USER_ID)=="${ loginUser.user_id}" && ${!empty loginUser}){
+		                		  $('div[name='+data.rlist[i].REPLY_ADD+']').after(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+t4+t5);
+						            }else{
+		                		  $('div[name='+data.rlist[i].REPLY_ADD+']').after(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+t5);
+					            	}
+				               }
 	                	  }else{
 	                		  /*  t1='<div name="'+ data.rlist[i].REPLY_ID+'" class="comment"><div style=" width: 95%;"><div><span style="width: 20px; height: 20px; background: white;">아이콘</span><span>';
 				               t2='</span></div><div><span id="'+data.rlist[i].REPLY_ID+'">';
@@ -461,13 +510,18 @@ width: 15%; height: 100px; float: right; margin-right: 15px;
 				               t2='</span></div><div><span id="'+data.rlist[i].REPLY_ID+'">';
 				               t3='</span></div><div><span>'+data.rlist[i].REPLY_UPDATE_DATE+'</span></div><div style="height: 20px;">';
 				               t4='<button class="replyAddForm" onclick="replyAdd(this);" value=';
-				               t5='>답글</button><button onclick="replyUpdate(this);" value="'+data.rlist[i].REPLY_ID+'">수정</button><button onclick="replyDelete(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button>';
-				               t6='<div style="float: right;">좋아요<span>0</span></div></div></div></div>';
-				            if(${data.rlist[i].REPLY_ID eq loginUser.user_id}){
-			                	 $tableBody.append(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+t4+data.rlist[i].REPLY_ID+t5+t6);				            	
-				            }else{
-			                	 $tableBody.append(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+t6);
-				            }
+				               t5='>답글</button>';
+				               t6='<button onclick="replyUpdate(this);" value="'+data.rlist[i].REPLY_ID+'">수정</button><button onclick="replyDelete(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button>';
+				               t7='<div style="float: right;">좋아요<span>0</span></div></div></div></div>';
+				               if((data.rlist[i].USER_ID)=="${ loginUser.user_id}" && ${!empty loginUser}){
+			                	 $tableBody.append(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+t4+data.rlist[i].REPLY_ID+t5+t6+t7);				            	
+
+				               }else if((data.rlist[i].USER_ID)!="${ loginUser.user_id}" && ${!empty loginUser}){
+				            	   $tableBody.append(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+t4+data.rlist[i].REPLY_ID+t5+t7);
+				               }else{
+				            	   $tableBody.append(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+t7);
+			            	}
+				           
 	                	  }
 	                  }
 	               }

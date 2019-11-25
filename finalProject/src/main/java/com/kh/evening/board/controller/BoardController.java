@@ -179,7 +179,7 @@ public class BoardController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 	    if (list != null) {
 	    	result.put("pi", pi);
-	    	result.put("rlist", list);	
+	    	result.put("rlist", list);
 	    }
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		gson.toJson(result,response.getWriter());
@@ -191,10 +191,7 @@ public class BoardController {
 	public String addReply(Reply r,HttpSession session,HttpServletRequest request) {
 //		Member loginUser = (Member)session.getAttribute("loginUser");
 //		String rWriter = loginUser.getId();
-		
-		r.setNICKNAME("testUser");
-		r.setUSER_ID("testId");
-		
+		System.out.println(r.getUSER_ID());
 		int result=0;
 		boolean add = Boolean.parseBoolean(request.getParameter("add"));
 		
