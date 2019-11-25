@@ -7,7 +7,7 @@
 		insert into member
 		values(#{user_id}, default,#{user_pwd}, #{nickName},#{user_name},
 		#{phone},#{user_residentNumber},#{user_email}, #{address},
-		sysdate,sysdate,default,default,default,sysdate,default,default,default)
+		sysdate,sysdate,default,default,sysdate,default,default,default)
 	</insert>
 
 	<!-- 암호화 후 로그인 -->
