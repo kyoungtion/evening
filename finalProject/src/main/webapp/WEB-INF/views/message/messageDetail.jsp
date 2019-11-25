@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -284,36 +286,37 @@ input[type=submit]:active, input[type=submit]:focus {
 </head>
 <body>
 <div id="content">
-    <h1>상세보기</h1>
+    <h1>받은 쪽지 상세보기</h1>
 
-    <form action="" method=POST autocomplete="on" id="form">
+
+	<c:forEach var="list" items="${rlist}">
+    <form>
         <p>
-            <label for="username" class="icon-user" id="username"> 받는 사람
+            <label for="username" class="icon-user" id="username"> 보낸 사람
                
             </label>
-            
+            <input type="text" name="username" id="username" readonly="readonly" value="${list.M_SEND}" />
         </p>
+
+     
         <p>
             <label for="title" class="icon-bullhorn"> 제목
             	
             </label>
-           
+            <input type="text" name="title" id="title"   readonly="readonly" value="${list.M_TITLE}"/>
         </p>
 
         <p>
             <label for="message" class="icon-comment"> 내용
-              
+               
             </label>
-            <textarea placeholder="내용" required="required" id="subject" name="subject"></textarea>
+            <input type="text" name="subject" id="subject" readonly="readonly" value="${list.M_CONTENT}"/>
+        
         </p>
-        <p class="indication" style="float: right;">
-      
-       
-
     </form>
+    </c:forEach>
 </div>
-<script type="text/javascript">
 
-</script>
+
 </body>
 </html>

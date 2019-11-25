@@ -22,4 +22,15 @@
 		INSERT INTO message 
 		VALUES(SEQ_MESSAGE.NEXTVAL,#{loginUser},#{username},#{title},#{subject},DEFAULT,DEFAULT,DEFAULT)
 	</insert>
+	
+	<!-- 상세보기 -->
+	<select id="rmessageDetail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		
+			SELECT * FROM MESSAGE WHERE M_NO = #{m_NO} AND M_STATUS='N'
+	</select>
+	
+	<!-- 상세보기 -->
+	<select id="smessageDetail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT * FROM MESSAGE WHERE M_NO = #{m_NO} AND M_STATUS='N' 
+	</select>
 </mapper>

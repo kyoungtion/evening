@@ -1,6 +1,7 @@
 package com.kh.evening.message.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -21,6 +22,15 @@ public class MessageDAO {
 
 	public void insertMessage(SqlSessionTemplate sqlSession, Map param) {
 		sqlSession.insert("messageMapper.insertBoard",param);
+	}
+
+	public List<Map<String, Object>> rmessageDetail(SqlSessionTemplate sqlSession, Map rparam) {
+		return sqlSession.selectList("messageMapper.rmessageDetail",rparam);
+		
+	}
+
+	public List<Map<String, Object>> smessageDetail(SqlSessionTemplate sqlSession, Map sparam) {
+		return sqlSession.selectList("messageMapper.smessageDetail",sparam);
 	}
 
 

@@ -1,7 +1,10 @@
 package com.kh.evening.message.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,18 @@ public class MessageServiceImpl implements MessageService{
 		messageDAO.insertMessage(sqlSession,param);
 		
 	}
+
+	@Override
+	public List<Map<String, Object>> rmessageDetail(Map rparam) {
+		return messageDAO.rmessageDetail(sqlSession,rparam);
+	}
+
+	@Override
+	public List<Map<String, Object>> smessageDetail(Map sparam) {
+		return messageDAO.smessageDetail(sqlSession,sparam);
+	}
+
+	
 
 
 

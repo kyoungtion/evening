@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,6 @@
 #hs {
 	text-align: center;
 }
-
 </style>
 </head>
 <body>
@@ -29,16 +29,20 @@
 				<li class="my-tab active"><a href="message.sr">쪽지함</a></li>
 			</ul>
 		</div>
-		<div class="col-md-10 col-md-offset-1" id="tabs" style="margin: 0; width: 80%; padding: 0;">
+		<div class="col-md-10 col-md-offset-1" id="tabs"
+			style="margin: 0; width: 80%; padding: 0;">
 			<div class="contact-wrap" style="height: 900px;">
 				<div class="container">
 					<ul class="tabs no-drag">
-						<li class="tab-link current" data-tab="tab-1"><a href="#tab-1">받은쪽지함</a></li>
+						<li class="tab-link current" data-tab="tab-1"><a
+							href="#tab-1">받은쪽지함</a></li>
 						<li class="tab-link" data-tab="tab-2"><a href="#tab-2">보낸쪽지함</a></li>
 					</ul>
 					<div id="tab-1" class="tab-content current">
 						<div class="container">
-							<button onclick="window.open('write.sr', '글쓰기', 'top=10, left=10, width=555, height=670, status=no, menubar=no, toolbar=no, resizable=no');" class="btn btn-primary ">글쓰기</button>
+							<button
+								onclick="window.open('write.sr', '글쓰기', 'top=10, left=10, width=555, height=670, status=no, menubar=no, toolbar=no, resizable=no');"
+								class="btn btn-primary ">글쓰기</button>
 							<button onclick="write();" class="btn btn-primary ">삭제</button>
 							<div id="hs" class="row content" style="height: 650px;">
 								<table border="1" summary="" class="content-table">
@@ -59,19 +63,31 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${rlist}" var="list" varStatus="status">
-										
-											<tr style="background-color: #FFFFFF; color: #333333;">
-												<%-- <td><c:out value="${list.M_NO}" /></td>
+										<c:choose>
+											<c:when test="${fn:length(rlist) > 0}">
+
+												<c:forEach items="${rlist}" var="list" varStatus="status">
+
+													<tr style="background-color: #FFFFFF; color: #333333;"
+														class="rMessage" id="${list.m_NO}">
+														<%-- <td><c:out value="${list.M_NO}" /></td>
 												<td><c:out value="${list.M_SEND}" /></td>
 												<td><c:out value="${list.M_TITLE}" /></td>
 												<td><c:out value="${list.M_ENROLL_DATE}" /></td> --%>
-												<td><c:out value="${status.count}" /></td>
-												<td><c:out value="${list.m_SEND}" /></td>
-												<td><c:out value="${list.m_TITLE}" /></td>
-												<td><c:out value="${list.m_ENROLL_DATE}" /></td>
-											</tr>
-										</c:forEach>
+														<td><c:out value="${status.count}" /></td>
+														<td><c:out value="${list.m_SEND}" /></td>
+														<td><c:out value="${list.m_TITLE}" /></td>
+														<td><c:out value="${list.m_ENROLL_DATE}" /></td>
+													</tr>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<tr>
+													<td colspan="3">받은 메일이 없습니다.</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
+
 									</tbody>
 								</table>
 							</div>
@@ -108,16 +124,27 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${slist}" var="list" varStatus="status">
-											<tr style="background-color: #FFFFFF; color: #333333;" >
-											
-												
-												<td><c:out value="${status.count}" /></td>
-												<td><c:out value="${list.m_SEND}" /></td>
-												<td><c:out value="${list.m_TITLE}" /></td>
-												<td><c:out value="${list.m_ENROLL_DATE}" /></td>
-											</tr>
-										</c:forEach>
+																			
+										<c:choose>
+											<c:when test="${fn:length(slist) > 0}">
+
+												<c:forEach items="${slist}" var="list" varStatus="status">
+
+													<tr style="background-color: #FFFFFF; color: #333333;"
+														class="sMessage" id="${list.m_NO}">
+														<td><c:out value="${status.count}" /></td>
+														<td><c:out value="${list.m_RECEIVE}" /></td>
+														<td><c:out value="${list.m_TITLE}" /></td>
+														<td><c:out value="${list.m_ENROLL_DATE}" /></td>
+													</tr>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<tr>
+													<td colspan="3">보낸 메일이 없습니다.</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
 									</tbody>
 								</table>
 							</div>
@@ -134,7 +161,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<script>
 	/* 탭 메뉴 새로고침시 고정 스크립트 */
 	$(function(){
@@ -171,6 +198,24 @@
 	        $(this).addClass('current');
 		}); */
 	});
+	$(document).ready(function(){ 
+		$('.rMessage').on('click',function(){
+			var popUrl = "/evening/rDetail.sr?m_NO="+$(this).attr('id'); 
+			//팝업창에 출력될 페이지 URL 
+			var popOption = "top=10, left=10, width=555, height=670, status=no, menubar=no, toolbar=no, resizable=no;"; 
+			//팝업창 옵션(optoin)
+			window.open(popUrl,"",popOption); 
+			}); 
+		
+		$('.sMessage').on('click',function(){
+			var popUrl = "/evening/sDetail.sr?m_NO="+$(this).attr('id'); 
+			//팝업창에 출력될 페이지 URL 
+			var popOption = "top=10, left=10, width=555, height=670, status=no, menubar=no, toolbar=no, resizable=no;"; 
+			//팝업창 옵션(optoin)
+			window.open(popUrl,"",popOption); 
+			}); 
+	});
+
 	</script>
 
 

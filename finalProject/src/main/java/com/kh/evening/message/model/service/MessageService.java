@@ -1,7 +1,10 @@
 package com.kh.evening.message.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.kh.evening.message.model.vo.Message;
 
@@ -16,6 +19,25 @@ public interface MessageService {
 
 
 	void insertMessage(Map param);
+
+
+
+	List<Map<String, Object>> rmessageDetail(Map rparam);
+
+
+
+	List<Map<String, Object>> smessageDetail(Map sparam);
+
+
+
+
+
+
+
+
+
+
+
 
 
 

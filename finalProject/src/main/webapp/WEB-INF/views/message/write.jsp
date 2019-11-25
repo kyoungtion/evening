@@ -294,19 +294,7 @@ input[type=submit]:active, input[type=submit]:focus {
             <input type="text" name="username" id="username" required="required" placeholder="받는 사람"  />
         </p>
 
-       <!--  <p>
-            <label for="usermail" class="icon-envelope"> E-mail address
-                <span class="required">*</span>
-            </label>
-            <input type="email" name="usermail" id="usermail" placeholder="I promise I hate spam too!" required="required" />
-        </p>
-
-        <p>
-            <label for="usersite" class="icon-link"> Website</label>
-            <input type="url" name="usersite" id="usersite" placeholder="eg: http://www.example.com" />
-        </p>
-
-        <p> -->
+     
         <p>
             <label for="title" class="icon-bullhorn"> 제목
             	<span class="required">*</span>

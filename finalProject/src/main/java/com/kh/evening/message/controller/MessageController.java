@@ -2,6 +2,7 @@ package com.kh.evening.message.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.activation.CommandMap;
@@ -10,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,8 +43,7 @@ public class MessageController {
 		mv.setViewName("message");
 		mv.addObject("rlist", rlist);
 		mv.addObject("slist", slist);
-		mv.addObject("rlistCount", rlistCount);
-		mv.addObject("slistCount", slistCount);
+		
 		return mv;
 
 	}
@@ -62,6 +65,33 @@ public class MessageController {
 		messageService.insertMessage(param);
 		return null;
 	}
-
-
+	@RequestMapping("rDetail.sr")
+	public ModelAndView rmessageDetail(Model model, ModelAndView mv,HttpServletRequest req) {
+		Member loginUser = (Member) model.getAttribute("loginUser");
+		Map rparam=new HashMap();
+		rparam.put("m_NO", Integer.parseInt(req.getParameter("m_NO")) );
+		rparam.put("loginUser", loginUser.getUser_id());
+		List<Map<String,Object>> rlist = messageService.rmessageDetail(rparam);
+		System.out.println("rlist     :"+rlist);
+		System.out.println("rlist.toString()     :"+rlist.toString());
+		mv.addObject("rlist", rlist);
+		mv.setViewName("messageDetail");
+		return mv;
+		
+	}
+	@RequestMapping("sDetail.sr")
+	public ModelAndView smessageDetail(Model model, ModelAndView mv,HttpServletRequest req) {
+		Member loginUser = (Member) model.getAttribute("loginUser");
+		Map sparam=new HashMap();
+		sparam.put("m_NO", Integer.parseInt(req.getParameter("m_NO")) );
+		sparam.put("loginUser", loginUser.getUser_id());
+		List<Map<String,Object>> slist = messageService.smessageDetail(sparam);
+		System.out.println("slist     :"+slist);
+		System.out.println("slist.toString()     :"+slist.toString());
+		mv.addObject("slist", slist);
+		mv.setViewName("messageDetail");
+		return mv;
+		
+	}
+	
 }
