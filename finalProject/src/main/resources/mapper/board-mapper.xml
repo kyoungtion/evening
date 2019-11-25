@@ -113,7 +113,7 @@
 	</insert>
 	
 	<insert id="insertReply" parameterType="Reply">
-		INSERT INTO REPLY VALUES(SEQ_G_REPLY.nextval,#{USER_ID},#{NICKNAME},#{SG_ID},#{REPLY_INFO},(select max(reply_id) from reply)+1,SYSDATE,SYSDATE,default)
+		INSERT INTO REPLY VALUES(SEQ_G_REPLY.nextval,#{USER_ID},#{NICKNAME},#{SG_ID},#{REPLY_INFO},SEQ_G_REPLY.nextval,SYSDATE,SYSDATE,default)
 	</insert>
 	<insert id="insertReplyAdd" parameterType="Reply">
 		INSERT INTO REPLY VALUES(SEQ_G_REPLY.nextval,#{USER_ID},#{NICKNAME},#{SG_ID},#{REPLY_INFO},#{REPLY_ID},SYSDATE,SYSDATE,default)

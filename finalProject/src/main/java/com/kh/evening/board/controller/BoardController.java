@@ -200,7 +200,6 @@ public class BoardController {
 	public String addReply(Reply r,HttpSession session,HttpServletRequest request) {
 //		Member loginUser = (Member)session.getAttribute("loginUser");
 //		String rWriter = loginUser.getId();
-		System.out.println(r.getUSER_ID());
 		int result=0;
 		boolean add = Boolean.parseBoolean(request.getParameter("add"));
 		
