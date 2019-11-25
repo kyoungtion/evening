@@ -18,13 +18,13 @@
   
      
    <!-- 구글 로그인 관련 --> 
-  <script src="https://ajax.googleleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- <script src="https://ajax.googleleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="colors.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <meta name="google-signin-client_id"
     content="771961646010-vn99g36mbkraddshtf6brr57s94n7ivg.apps.googleusercontent.com">
 
-   
+    -->
    <script language="javascript">
 
     
@@ -545,7 +545,7 @@
         
 
     <!-- 우측 카카오 로그인 및 구글 로그인 화면 만들기 -->
-    <div class="half bg">
+   <%--  <div class="half bg">
 
      <br><br><br><br><br><br><br><br>
 
@@ -560,7 +560,7 @@
             src="${contextPath }/resources/images/kakao_account_login_btn_medium_narrow.png"/>
          </a> 
       
-      
+       --%>
       
       
       
@@ -628,8 +628,8 @@
   </section>
 
 
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
   <script type="text/javascript">
     $('.tabs .tab').click(function () {
       if ($(this).hasClass('signin')) {

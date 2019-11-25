@@ -39,9 +39,7 @@
 			console.log("window 세로 사이즈 강제 조절")
 		}
 	}
-
 	var wsocket;
-
 	function connect() {
 		
 		wsocket = new WebSocket("ws://localhost:8989/evening/chat-ws.ch");
@@ -49,18 +47,14 @@
 		//서버로부터 메시지를 받으면 호출되는 함수 지정
 		wsocket.onmessage = onMessage;
 		wsocket.onclose = onClose;
-
 		$('#message').attr('disabled', false);
 	}
-
 	function onOpen(evt) {
 		
 		var msg = 'msg:[' + $('#nickname').val() + '님 등장!]';
 		wsocket.send(msg);
 	
-
 	}
-
 	function onMessage(evt) {
 		var data = evt.data;
 	
@@ -70,20 +64,17 @@
 			
 		}
 	}
-
 	function onClose(evt) {
 		//퇴장 한 이후 부과적인 작업이 있을 경우 명시
 		$('#nickname').val("");
 		$('#message').attr('disabled', true);
 	}
-
 	function send() {
 		var nickname = $('#nickname').val();
 		var msg = $('#message').val();
 		wsocket.send("msg:" + nickname + ':' + msg);
 		$('#message').val('');
 	}
-
 	function appendMessage(msg) {
 		
 		var $chatArea = $('#chatArea');
@@ -109,7 +100,10 @@
 					$chatArea.append("<br clear='all'>");
 				}else{
 					//$('#anotherCMA').append('<div class="msg">'+context + '<br>'+'</div>');
+					$name =$("<div class='name'><br>").text(checkname);
 					$you = $("<div class='msg youMsg'>").text(context);
+					$chatArea.append($name);
+					$chatArea.append("<br clear='all'>");
 					$chatArea.append($you);
 					$chatArea.append("<br clear='all'>");
 					}
@@ -117,7 +111,6 @@
 		var maxScroll = $('#chatArea').height();
 		$('#chatArea').scrollTop(maxScroll);
 	}
-
 	$(document).ready(function() {
 		$('#message').keypress(function(event) {
 			var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -134,7 +127,6 @@
 			var nickLength = (nick).length
 			var messageLength = (message).length
 			
-
 			send();
 		});
 		$('#enterBtn').click(function() {
@@ -147,12 +139,10 @@
 			window.resizeTo(430, 520)
 			connect();
 		});
-
 	});
 </script>
 <style type="text/css">
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-
 #chatArea {
 	width: auto;
 	height: 400px;
@@ -161,11 +151,16 @@
 	background-color: #6884b3;
 	border: 1px solid #ddd;
 }
-
 div {
 	font-family: 'Noto Sans KR', sans-serif;
 }
 .enterMsg{margin-left: 42%; color: white;}
+.name{
+	float: left;
+	text-align: center;
+		margin-bottom: 7px;
+	color: white;
+}
 .meMsg{
 	float: right;
 	overflow-y: auto;
@@ -188,7 +183,6 @@ div {
 	background-color: #fdf01b;
 	font-size: 1.3rem;
 }
-
 /* section {
 	display: inline-block;
 	
@@ -196,12 +190,10 @@ div {
 	margin-bottom: 10px;
 	margin-top: 5px;
 } */
-
 #message {
 	width: 350px;
 	height: 30px;
 }
-
 ::-webkit-scrollbar {
 	display: none;
 }
@@ -211,22 +203,18 @@ div {
 	overflow-y: auto;
 	text-align: center;
 }
-
 #MiddleCMA {
 	margin-left: auto;
 	text-align: center;
 	color: lightgray;
 	
 }
-
 #anotherCMA {
 	float: left;
 	overflow-y: auto;
 	text-align: center;
 }*/
  
-
-
 </style>
 </head>
 
@@ -244,7 +232,6 @@ div {
 		<!-- <section id="chatMessageArea" class="msg"></section>
 		
 		<br clear="all">
-
 		<section id="MiddleCMA" class="middle"></section>
 		<section id="anotherCMA" class="msg"></section> -->
 

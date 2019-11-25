@@ -49,6 +49,7 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 			<li class="my-tab"><a href="dealDetail.me">거래내역</a></li>
 			<li class="my-tab"><a href="mypost.me?category=Community">내가
 					쓴 글</a></li>
+			<li class="my-tab"><a href="message.sr">쪽지함</a></li>
 		</ul>
 		<div class="col-md-10 col-md-offset-1 mypage"
 			style="margin: 0; width: 80%; padding: 0;" id="tabs">

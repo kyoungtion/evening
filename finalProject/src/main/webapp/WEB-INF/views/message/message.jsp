@@ -6,10 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style type="text/css">
 #hs {
 	text-align: center;
 }
+
 </style>
 </head>
 <body>
@@ -24,10 +26,10 @@
 				<li class="my-tab"><a href="favorites.me">관심상품목록</a></li>
 				<li class="my-tab"><a href="dealDetail.me">거래내역</a></li>
 				<li class="my-tab"><a href="mypost.me">내가 쓴 글</a></li>
-				<li class="my-tab"><a href="message.sr">쪽지함</a></li>
+				<li class="my-tab active"><a href="message.sr">쪽지함</a></li>
 			</ul>
 		</div>
-		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 80%;">
+		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 80%; padding: 0;">
 			<div class="contact-wrap" style="height: 900px;">
 				<div class="container">
 					<ul class="tabs no-drag">
@@ -36,9 +38,9 @@
 					</ul>
 					<div id="tab-1" class="tab-content current">
 						<div class="container">
-							<button onclick="write();" class="btn btn-primary ">글쓰기</button>
+							<button onclick="window.open('write.sr', '글쓰기', 'top=10, left=10, width=555, height=670, status=no, menubar=no, toolbar=no, resizable=no');" class="btn btn-primary ">글쓰기</button>
 							<button onclick="write();" class="btn btn-primary ">삭제</button>
-							<div id="hs" class="row content" style="height: 600px;">
+							<div id="hs" class="row content" style="height: 650px;">
 								<table border="1" summary="" class="content-table">
 									<colgroup id=""
 										class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 ">
@@ -57,13 +59,14 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${rlist}" var="list">
+										<c:forEach items="${rlist}" var="list" varStatus="status">
+										
 											<tr style="background-color: #FFFFFF; color: #333333;">
 												<%-- <td><c:out value="${list.M_NO}" /></td>
 												<td><c:out value="${list.M_SEND}" /></td>
 												<td><c:out value="${list.M_TITLE}" /></td>
 												<td><c:out value="${list.M_ENROLL_DATE}" /></td> --%>
-												<td><c:out value="${list.m_NO}" /></td>
+												<td><c:out value="${status.index+1}" /></td>
 												<td><c:out value="${list.m_SEND}" /></td>
 												<td><c:out value="${list.m_TITLE}" /></td>
 												<td><c:out value="${list.m_ENROLL_DATE}" /></td>
@@ -81,13 +84,7 @@
 
 					</div>
 					<script>
-						function write() {
-							var url = "write.sr";
-							var name = "쪽지 쓰기";
-
-							var option = "width=620px, height=450px, top=100, left=200, resizable=0, location=0, scrollbars=0, tollbars=0, status=0";
-							window.open(url, name, option);
-						}
+					
 					</script>
 					<div id="tab-2" class="tab-content">
 						<div class="container">
@@ -111,13 +108,13 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${slist}" var="list">
+										<c:forEach items="${slist}" var="list" varStatus="status">
 											<tr style="background-color: #FFFFFF; color: #333333;">
 												<%-- <td><c:out value="${list.M_NO}" /></td>
 												<td><c:out value="${list.M_SEND}" /></td>
 												<td><c:out value="${list.M_TITLE}" /></td>
 												<td><c:out value="${list.M_ENROLL_DATE}" /></td> --%>
-												<td><c:out value="${list.m_NO}" /></td>
+												<td><c:out value="${status.index+1}" /></td>
 												<td><c:out value="${list.m_SEND}" /></td>
 												<td><c:out value="${list.m_TITLE}" /></td>
 												<td><c:out value="${list.m_ENROLL_DATE}" /></td>

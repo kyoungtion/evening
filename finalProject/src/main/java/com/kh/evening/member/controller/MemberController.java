@@ -618,7 +618,7 @@ public class MemberController {
       
      Member m = new Member();
      m.setUser_name(user_name);
-     m.setPhone(콜);
+     m.setPhone(phone);
 
      String searchId = mService.searchId(m);
      

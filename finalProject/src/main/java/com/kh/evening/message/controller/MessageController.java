@@ -24,14 +24,27 @@ public class MessageController {
 	public ModelAndView rList(Model model, 
 				ModelAndView mv)  {
 		Member loginUser = (Member)model.getAttribute("loginUser");
-		ArrayList<Message> list = messageService.receiveList(loginUser.getUser_id());
+		ArrayList<Message> rlist = messageService.receiveList(loginUser.getUser_id());
 		ArrayList<Message> slist = messageService.sendList(loginUser.getUser_id());
-		
+		System.out.println("rlist.toString	 :"+rlist.toString());
+		System.out.println("slist.toString	 :"+slist.toString());
+		System.out.println("rlist.size()	 :"+rlist.size());
+		System.out.println("slist.size()	 :"+slist.size());
+		int rlistCount = rlist.size();
+		int slistCount = slist.size();
 		mv.setViewName("message");
-		mv.addObject("rlist",list);
+		mv.addObject("rlist",rlist);
 		mv.addObject("slist",slist);
+		mv.addObject("rlistCount",rlistCount);
+		mv.addObject("slistCount",slistCount);
 		return mv;
 		
+	}
+	
+	@RequestMapping("write.sr")
+	public String write() {
+		System.out.println("글쓰기 function");
+		return "write";
 	}
 	
 }
