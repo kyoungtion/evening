@@ -19,7 +19,7 @@
 	<div class="my-panel" style="width: 100%; height: 1000px;">
 		<div style="width: 100%; text-align: center !important; padding: 10px;">
 			<ul class="my-tabs1">
-				<li class="my-tab"><button class="btn active" id="adminView"
+				<li class="my-tab"><button class="btn" id="adminView"
 						onclick="location.href='adminView.ad'">회원 관리</button></li>
 				<li class="my-tab"><button class="btn" id="manageSeller"
 						onclick="location.href='manageSeller.ad'">판매자 전환</button></li>
@@ -27,7 +27,7 @@
 					<c:param name="category" value="QNA" />
 					<c:param name="viewName" value="adminQnaView" />
 				</c:url>
-				<li class="my-tab"><button class="btn" id="pList" onclick="location.href='pList.py'">거래내역</button></li>
+				<li class="my-tab"><button class="btn active" id="pList" onclick="location.href='pList.py'">거래내역</button></li>
 				<li class="my-tab"><button class="btn" id="qna"
 						onclick="location.href='${qnaList}'">문의글 관리</button></li>
 				<c:url var="adminNotice" value="adminNoticeView.ad">
