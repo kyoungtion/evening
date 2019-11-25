@@ -1,6 +1,11 @@
 package com.kh.evening.message.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.activation.CommandMap;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,35 +21,47 @@ import com.kh.evening.message.model.vo.Message;
 @SessionAttributes("loginUser")
 @Controller
 public class MessageController {
-	
+
 	@Autowired
 	private MessageService messageService;
-	
+
 	@RequestMapping("message.sr")
-	public ModelAndView rList(Model model, 
-				ModelAndView mv)  {
-		Member loginUser = (Member)model.getAttribute("loginUser");
+	public ModelAndView rList(Model model, ModelAndView mv) {
+		Member loginUser = (Member) model.getAttribute("loginUser");
 		ArrayList<Message> rlist = messageService.receiveList(loginUser.getUser_id());
 		ArrayList<Message> slist = messageService.sendList(loginUser.getUser_id());
-		System.out.println("rlist.toString	 :"+rlist.toString());
-		System.out.println("slist.toString	 :"+slist.toString());
-		System.out.println("rlist.size()	 :"+rlist.size());
-		System.out.println("slist.size()	 :"+slist.size());
+		System.out.println("rlist.toString	 :" + rlist.toString());
+		System.out.println("slist.toString	 :" + slist.toString());
+		System.out.println("rlist.size()	 :" + rlist.size());
+		System.out.println("slist.size()	 :" + slist.size());
 		int rlistCount = rlist.size();
 		int slistCount = slist.size();
 		mv.setViewName("message");
-		mv.addObject("rlist",rlist);
-		mv.addObject("slist",slist);
-		mv.addObject("rlistCount",rlistCount);
-		mv.addObject("slistCount",slistCount);
+		mv.addObject("rlist", rlist);
+		mv.addObject("slist", slist);
+		mv.addObject("rlistCount", rlistCount);
+		mv.addObject("slistCount", slistCount);
 		return mv;
-		
+
 	}
-	
+
 	@RequestMapping("write.sr")
 	public String write() {
 		System.out.println("글쓰기 function");
 		return "write";
 	}
-	
+
+	@RequestMapping("insertMessage.sr")
+	public ModelAndView insert(HttpServletRequest req, Model model) {
+		Member loginUser = (Member) model.getAttribute("loginUser");
+		Map param = new HashMap();
+		param.put("loginUser", loginUser.getUser_id());
+		param.put("username", req.getParameter("username"));
+		param.put("title", req.getParameter("title"));
+		param.put("subject", req.getParameter("subject"));
+		messageService.insertMessage(param);
+		return null;
+	}
+
+
 }

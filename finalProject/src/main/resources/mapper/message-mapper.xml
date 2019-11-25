@@ -17,5 +17,9 @@
 		#{user_ID}
 	</select>
 
-
+	<!-- 쪽지 쓰기 -->
+	<insert id="insertBoard" parameterType="java.util.HashMap">
+		INSERT INTO message 
+		VALUES(SEQ_MESSAGE.NEXTVAL,#{loginUser},#{username},#{title},#{subject},DEFAULT,DEFAULT,DEFAULT)
+	</insert>
 </mapper>

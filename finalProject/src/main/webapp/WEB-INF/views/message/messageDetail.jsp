@@ -284,55 +284,36 @@ input[type=submit]:active, input[type=submit]:focus {
 </head>
 <body>
 <div id="content">
-    <h1>쪽지 보내기</h1>
+    <h1>상세보기</h1>
 
-    <form action="insertMessage.sr" method=POST autocomplete="on" id="form">
+    <form action="" method=POST autocomplete="on" id="form">
         <p>
             <label for="username" class="icon-user" id="username"> 받는 사람
-                <span class="required">*</span>
+               
             </label>
-            <input type="text" name="username" id="username" required="required" placeholder="받는 사람"  />
+            
         </p>
-
-       <!--  <p>
-            <label for="usermail" class="icon-envelope"> E-mail address
-                <span class="required">*</span>
-            </label>
-            <input type="email" name="usermail" id="usermail" placeholder="I promise I hate spam too!" required="required" />
-        </p>
-
-        <p>
-            <label for="usersite" class="icon-link"> Website</label>
-            <input type="url" name="usersite" id="usersite" placeholder="eg: http://www.example.com" />
-        </p>
-
-        <p> -->
         <p>
             <label for="title" class="icon-bullhorn"> 제목
-            	<span class="required">*</span>
+            	
             </label>
-            <input type="text" name="title" id="title" required="required" placeholder="제목" />
+           
         </p>
 
         <p>
             <label for="message" class="icon-comment"> 내용
-                <span class="required">*</span>
+              
             </label>
             <textarea placeholder="내용" required="required" id="subject" name="subject"></textarea>
         </p>
         <p class="indication" style="float: right;">
-            <span class="required"> * </span>필수 항목 입니다.</p>
-
-        <input type="submit" value="보내기" style="text-align: center;" onclick="MessageCloser();" />
+      
+       
 
     </form>
 </div>
 <script type="text/javascript">
-	function MessageCloser(){
-		//부모창 reload
 
-		window.opener.location.reload();    
-			}
 </script>
 </body>
 </html>

@@ -29,12 +29,12 @@
 				<li class="my-tab active"><a href="message.sr">쪽지함</a></li>
 			</ul>
 		</div>
-		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 80%; padding: 0;">
+		<div class="col-md-10 col-md-offset-1" id="tabs" style="margin: 0; width: 80%; padding: 0;">
 			<div class="contact-wrap" style="height: 900px;">
 				<div class="container">
 					<ul class="tabs no-drag">
-						<li class="tab-link current" data-tab="tab-1">받은쪽지함</li>
-						<li class="tab-link" data-tab="tab-2">보낸쪽지함</li>
+						<li class="tab-link current" data-tab="tab-1"><a href="#tab-1">받은쪽지함</a></li>
+						<li class="tab-link" data-tab="tab-2"><a href="#tab-2">보낸쪽지함</a></li>
 					</ul>
 					<div id="tab-1" class="tab-content current">
 						<div class="container">
@@ -66,7 +66,7 @@
 												<td><c:out value="${list.M_SEND}" /></td>
 												<td><c:out value="${list.M_TITLE}" /></td>
 												<td><c:out value="${list.M_ENROLL_DATE}" /></td> --%>
-												<td><c:out value="${status.index+1}" /></td>
+												<td><c:out value="${status.count}" /></td>
 												<td><c:out value="${list.m_SEND}" /></td>
 												<td><c:out value="${list.m_TITLE}" /></td>
 												<td><c:out value="${list.m_ENROLL_DATE}" /></td>
@@ -109,12 +109,10 @@
 									</thead>
 									<tbody>
 										<c:forEach items="${slist}" var="list" varStatus="status">
-											<tr style="background-color: #FFFFFF; color: #333333;">
-												<%-- <td><c:out value="${list.M_NO}" /></td>
-												<td><c:out value="${list.M_SEND}" /></td>
-												<td><c:out value="${list.M_TITLE}" /></td>
-												<td><c:out value="${list.M_ENROLL_DATE}" /></td> --%>
-												<td><c:out value="${status.index+1}" /></td>
+											<tr style="background-color: #FFFFFF; color: #333333;" >
+											
+												
+												<td><c:out value="${status.count}" /></td>
 												<td><c:out value="${list.m_SEND}" /></td>
 												<td><c:out value="${list.m_TITLE}" /></td>
 												<td><c:out value="${list.m_ENROLL_DATE}" /></td>
@@ -136,7 +134,44 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+	/* 탭 메뉴 새로고침시 고정 스크립트 */
+	$(function(){
+		
+		$('#tabs').tabs();
+		var tabs = $('#tabs').tabs({
+			activate: function(event, ui){
+				var active = $('#tabs').tabs('option', 'active');
+				$.cookie('activeTabIndex', active);
+			}
+		});
+		
+		var activeTabIndex = $.cookie('activeTabIndex');
+		
+		if(activeTabIndex != undefined){
+			tabs.tabs('option','active',activeTabIndex);
+		}
+		
+		
+		
+		/* if (location.hash == "#tab-1"){         
+			$('.tabs').find('li').eq(0).addClass('current').siblings().removeClass('current');        
+			
+		} else if(location.hash == "#tab-2"){         
+			$('.tabs').find('li').eq(1).addClass('current').siblings().removeClass('current');         
+			
+		} else if(location.hash == "#tab-3"){         
+			$('.tabs').find('li').eq(2).addClass('current').siblings().removeClass('current');         
+		}
+		
+		$('ul.tabs li').click(function(){
+	        $('ul.tabs li').removeClass('current');
 
+	        $(this).addClass('current');
+		}); */
+	});
+	</script>
 
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />

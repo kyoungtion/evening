@@ -1,6 +1,7 @@
 package com.kh.evening.message.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,13 @@ public class MessageServiceImpl implements MessageService{
 	public ArrayList<Message> sendList(String user_ID) {
 		return messageDAO.sendList(sqlSession,user_ID);
 	}
+
+	@Override
+	public void insertMessage(Map param) {
+		messageDAO.insertMessage(sqlSession,param);
+		
+	}
+
 
 
 }
