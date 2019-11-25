@@ -64,11 +64,68 @@
 												</p>
 
 												<div class="cart">
-													<p>
-														<span class="addtocart"><a href="cart.html"><i class="icon-shopping-cart"></i></a></span> 
-														<span><a href="product-detail.html"><i class="icon-eye"></i></a></span> 
-														<span><a href="#"><i class="icon-heart3"></i></a></span>
-														<!-- <span><a href="add-to-wishlist.html"><i class="icon-bar-chart"></i></a></span> -->
+													<p> <!-- 좋아요 부분 -->
+														<span><a onclick="return false;" id="clickLike${ i.SG_ID }"><i class="" id="clickTest${ i.SG_ID }"></i><span id="likeCount${ i.SG_ID }">${ i.SG_LIKE }</span></a></span>
+														<input type="text" id="Check${ i.SG_ID }" value="false" hidden="hidden" >
+														<input type="text" id="CountCheck${ i.SG_ID }" value="false" hidden="hidden" >
+														<script>
+														
+														$(function(){
+														  $.ajax({
+														    url:"selectLikeCheck.bo",
+														    data:{
+														      user_Id : "${ loginUser.user_id}",
+														      sgId : "${ i.SG_ID}"
+														    },success: function(data){
+														      if(data.result == 1){
+														        $('#clickTest${ i.SG_ID }').attr('class','icon-heart3');
+														        $('#clickTest${ i.SG_ID }').css('font-size','16px');
+														        $('#Check${ i.SG_ID }').val(true);
+														        $('#CountCheck${ i.SG_ID }').val(true);
+														      }else if(data.result == 0){
+														        $('#clickTest${ i.SG_ID }').attr('class','icon-heart2');
+														        $('#clickTest${ i.SG_ID }').css('font-size','13px');
+														        $('#Check${ i.SG_ID }').val(data.check);
+														        $('#CountCheck${ i.SG_ID }').val(false);
+														      }
+														    }
+														  });
+														});
+														// 좋아요 눌렀을시 이벤트
+															$('#clickLike${ i.SG_ID }').on('click',function(){
+															  var userCheck = "${loginUser.user_id}";
+															  
+															  if(userCheck.length > 0){
+																  $.ajax({
+																    url: "selectLike.bo",
+																    data: {
+																      user_Id : "${ loginUser.user_id }",
+																      sgId : "${ i.SG_ID }",
+																      likeCheck : $('#Check${ i.SG_ID }').val()
+																    },
+																    success: function(data){
+																      if(data == 1){
+																        $('#clickTest${ i.SG_ID }').attr('class','icon-heart3');
+																        $('#clickTest${ i.SG_ID }').css('font-size','16px');
+																        if( $('#CountCheck${ i.SG_ID}').val() == 'false' ){
+																	    	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE + 1}");
+																        }else{
+																        	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE}");
+																        }
+																      }else if(data == 0){
+																        $('#clickTest${ i.SG_ID }').attr('class','icon-heart2');
+																        $('#clickTest${ i.SG_ID }').css('font-size','13px');
+																        if( $('#CountCheck${ i.SG_ID}').val() == 'true' ){
+																        	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE - 1}");
+																        }else{
+																	        $('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE }");
+																        }
+																      }
+																    }
+																  });
+															  }
+															});
+														</script>
 													</p>
 												</div>
 												
@@ -190,8 +247,49 @@
 						</div>
 
 							<div class="side">
+							<!-- 최근에 본 상품들 : 쿠키기능 이용 , 시간설정 5분(유통기한), 회원만 가능, 비회원은 이용불가 기능 -->
 								<h2>최근에 본 물건</h2>
-								<div>test</div>
+								<script>
+								$(function(){
+								  
+								  setTimeout(function(){
+								   location.reload(); 
+								  },5000);
+								  
+								});
+								</script>
+								<%
+									Cookie[] cookies = request.getCookies();
+								
+									for(Cookie co : cookies){
+									  if(co.getName().contains("history")){
+									    %>
+									    <c:forTokens var="coo" items="<%= co.getName() %>" delims="_"  varStatus="Status">
+									    	<c:if test="${ coo eq loginUser.user_id }">
+									    		<c:set var="coValue" value="<%= co.getValue() %>"/>
+									    		<!-- 이미지 셋팅(게시판 테이블, 이미지테이블) -->
+									    		<c:forEach var="j" items="${ af }" begin="0" end="${ fn:length(af) }">
+									    			<c:if test="${ j.SG_ID eq coValue }">
+									    				<c:forEach var="i" items="${ allList }" begin="0" end="${ fn:length(allList) }">
+															<c:if test="${ j.SG_ID eq i.SG_ID }">										    					
+													    		<div>
+														    		<c:url var="detailView" value="selectOne.bo">
+									                                    <c:param name="sgId" value="${ i.SG_ID }"/>
+									                                </c:url>
+														    		<img src="/evening/resources/thumbnail/${ j.RENAMEFILENAME }" style="width: 50px; height: 50px;">
+														    		<a href="${ detailView }" style="cursor: pointer;"> ${ i.SG_BNAME }</a> 
+													    		</div>
+												    		<br>
+												    		</c:if>
+									    				</c:forEach>
+									    			</c:if>									    		
+												</c:forEach>
+									    	</c:if>
+									    </c:forTokens>
+									    <%
+									  }
+									}
+								%>
 							</div>
 							 
 						</div>

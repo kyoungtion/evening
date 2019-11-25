@@ -6,7 +6,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-	<title>경매 거래 게시판</title>
+	<title>중고물품거래, 경매는 이브닝</title>
 	</head>
 	<body>
 	

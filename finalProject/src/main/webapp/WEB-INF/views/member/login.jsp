@@ -16,8 +16,8 @@
    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
    
   
-     
-   <!-- 구글 로그인 관련 --> 
+     <!-- 
+   구글 로그인 관련 
   <script src="https://ajax.googleleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="colors.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -36,11 +36,8 @@
          console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
        }
   </script> 
-       
-
-     
+        -->
         
-</script>
  
   <style rel="stylesheet">
     @charset "UTF-8";

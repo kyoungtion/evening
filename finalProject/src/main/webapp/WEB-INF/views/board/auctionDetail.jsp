@@ -293,7 +293,7 @@
 							</div>
 							<div style="width: 200px; float: left;">
 							<div style="width: 100%; height: 60px; display: inline-block;">
-			<!-- 입찰버튼 로그인시에만 뜨도록 하기(원활한 작업하기위해 일단 조건문 주석처리 -->
+			<!-- 입찰버튼 로그인시에만 뜨도록 하기(원활한 작업하기위해 일단 조건문 주석처리 ) -->
 			<c:if
 				test="${ !empty loginUser && loginUser.user_id != board.USER_ID }">
 				<form action="selectOne.bo" id="sendPrice" method="POST">
@@ -323,7 +323,6 @@
 				  }
 				}
 		</script>
-			<!-- <button class="btn btn-primary">입찰</button> -->
 			<!-- 본인 글 일시 -->
 			<c:if
 				test="${ !empty loginUser && loginUser.user_id == board.USER_ID }">
@@ -341,49 +340,6 @@
 				</div>
 			</div>
 		</div>
-		<%-- <div style="width: 100%; height: 60px; display: inline-block;">
-			<!-- 입찰버튼 로그인시에만 뜨도록 하기(원활한 작업하기위해 일단 조건문 주석처리 -->
-			<c:if
-				test="${ !empty loginUser && loginUser.user_id != board.USER_ID }">
-				<form action="selectOne.bo" id="sendPrice" method="POST">
-					<input type="number" hidden="hidden" id="auctionPrice"
-						name="auctionPrice"> <input type="number" hidden="hidden"
-						name="sgId" value="${ board.SG_ID }"> <input type="text"
-						hidden="hidden" name="userId" value="${ loginUser.user_id }">
-				</form>
-				<button class="btn btn-primary btn-outline"
-					style="float: right; margin: 0px 50px 0 0px;"
-					onclick="auctionStart()">입찰</button>
-			</c:if>
-			<script>
-			// 입찰 기능 ( 입찰액 조건문  : 시작가보다 높고 현재 경매가와 같으면 안되며 숫자만 입력받아야됨)
-				function auctionStart(){
-				  var price = prompt("입찰할 금액을 적어주세요.","숫자만 입력 가능!(100단위이상부터 가능) )");
-				  if( ( price >= ${ board.SG_SPRICE} && price > ${ board.SG_PRICE} ) ){
-				    var floorPrice = Math.floor(price/100) * 100;
-				    if(floorPrice == ${ board.SG_PRICE} ){
-				      alert("입력하신 입찰액 : "+price+"("+floorPrice+")가 현재 경매가와 같습니다.\n다시입력해주세요.");
-				    }else{
-					    $('#auctionPrice').val(floorPrice);
-					    $('#sendPrice').submit();
-				    }
-				  }else{
-				    alert("1. 숫자만 입력해 주세요. \n2. 최소 시작가 이상으로 입력해주세요.\n3. 현재 경매가보다 높게 입력해주세요.");
-				  }
-				}
-		</script>
-			<!-- <button class="btn btn-primary">입찰</button> -->
-			<!-- 본인 글 일시 -->
-			<c:if
-				test="${ !empty loginUser && loginUser.user_id == board.USER_ID }">
-				<c:url value="boardupdateForm.bo?type=2" var="bUpdate">
-					<c:param name="sgId" value="${board.SG_ID}" />
-				</c:url>
-				<button class="btn btn-primary"
-					onclick="location.href='${bUpdate}';">수정</button>
-				<button class="btn btn-primary" onclick="deleteBtn();">글삭제</button>
-			</c:if>
-		</div> --%>
 	</div>
 	</div>
 

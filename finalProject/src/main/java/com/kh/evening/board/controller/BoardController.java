@@ -37,6 +37,10 @@ import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.board.model.vo.Reply;
 import com.kh.evening.common.Pageination;
 
+/**
+ * @author KimHyunWoo
+ *
+ */
 @Controller
 public class BoardController {
 
@@ -103,11 +107,16 @@ public class BoardController {
     ArrayList<Board> alist = bService.boardList(pi,bMode);
     ArrayList<Attachment> af = bService.boardFileList();
     
+    // 페이징 처리 되지않은 모든 리스트 조회용 필요
+    String bCategory = null;
+    ArrayList<Board> allList = bService.boardAllList(bCategory);
+    
     if (alist != null) {
       mv.addObject("alist", alist);
       mv.addObject("pi",pi);
       mv.addObject("af", af);
       mv.addObject("modeSet", modeSet);
+      mv.addObject("allList",allList);
       mv.setViewName("secondGoodBoard");
     } else {
       throw new BoardException("중고 게시판 조회 실패.");
@@ -407,6 +416,7 @@ public class BoardController {
 	  return rlist;
 	}
 	
+	
 	@RequestMapping("createCookie.bo")
 	public void createCookie(@RequestParam(value="user_Id", required=false) String userId,@RequestParam(value="sgId") int sgId, HttpServletResponse response) {
 	  
@@ -414,7 +424,7 @@ public class BoardController {
 	    String cookieName = "history_"+userId+"_"+sgId;
 	    String cookieValue = Integer.toString(sgId);
 	    Cookie cookie = new Cookie(cookieName,cookieValue);
-	    cookie.setMaxAge(60*5);
+	    cookie.setMaxAge(60*2);
 	    response.addCookie(cookie);
 	  }
 	  
