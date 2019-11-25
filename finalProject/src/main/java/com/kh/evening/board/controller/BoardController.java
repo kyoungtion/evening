@@ -360,30 +360,30 @@ public class BoardController {
 	    }else {
 	      throw new BoardException("좋아요 추가 실패");
 	    }
-	  }
-	    
-	  for(GoodLike gl: likeList) {
-	    if(gl.getSg_id() == sgId) {
-	      // 있으면 수정
-	      if(gl.getGl_check() == 1) {
-	        gl.setGl_check(0);
-	        user.setGl_check(0);
-	      }else {
-	        gl.setGl_check(1);
-	        user.setGl_check(1);
-	      }
-	      // 좋아요값을 반대로 넣기(DB에 업데이트하는 과정)
-	      int changeCheck = bService.updateGoodLike(gl);
-	      if(changeCheck > 0) {
-	        // 성공시 게시판에도 좋아요 갯수 반영
-	        int boardLike = bService.updateBoardLike(user);
-	        if(boardLike > 0) {
-	          num.setGl_check(gl.getGl_check());
-            }else {
-              throw new BoardException("게시판 좋아요 최신화 실패");
-            }
-	      }else {
-	        throw new BoardException("좋아요 변경 실패");
+	  }else {
+	    for(GoodLike gl: likeList) {
+	      if(gl.getSg_id() == sgId) {
+	        // 있으면 수정
+	        if(gl.getGl_check() == 1) {
+	          gl.setGl_check(0);
+	          user.setGl_check(0);
+	        }else {
+	          gl.setGl_check(1);
+	          user.setGl_check(1);
+	        }
+	        // 좋아요값을 반대로 넣기(DB에 업데이트하는 과정)
+	        int changeCheck = bService.updateGoodLike(gl);
+	        if(changeCheck > 0) {
+	          // 성공시 게시판에도 좋아요 갯수 반영
+	          int boardLike = bService.updateBoardLike(user);
+	          if(boardLike > 0) {
+	            num.setGl_check(gl.getGl_check());
+	          }else {
+	            throw new BoardException("게시판 좋아요 최신화 실패");
+	          }
+	        }else {
+	          throw new BoardException("좋아요 변경 실패");
+	        }
 	      }
 	    }
 	  }
@@ -423,7 +423,7 @@ public class BoardController {
 	    String cookieName = "history_"+userId+"_"+sgId;
 	    String cookieValue = Integer.toString(sgId);
 	    Cookie cookie = new Cookie(cookieName,cookieValue);
-	    cookie.setMaxAge(60*2);
+	    cookie.setMaxAge(60*5);
 	    response.addCookie(cookie);
 	  }
 	  

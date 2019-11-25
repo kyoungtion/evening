@@ -82,7 +82,7 @@
 														    url:"selectLikeCheck.bo",
 														    data:{
 														      user_Id : "${ loginUser.user_id}",
-														      sgId : "${ i.SG_ID}"
+														      sgId : "${i.SG_ID}"
 														    },success: function(data){
 														      if(data.result == 1){
 														        $('#clickTest${ i.SG_ID }').attr('class','icon-heart3');
@@ -114,6 +114,7 @@
 																      if(data == 1){
 																        $('#clickTest${ i.SG_ID }').attr('class','icon-heart3');
 																        $('#clickTest${ i.SG_ID }').css('font-size','16px');
+																        $('#Check${ i.SG_ID }').val(true);
 																        if( $('#CountCheck${ i.SG_ID}').val() == 'false' ){
 																	    	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE + 1}");
 																        }else{
@@ -275,7 +276,7 @@
 								<h2>최근에 본 물건</h2>
 								<script>
 								$(function(){
-								  
+								   
 								  setTimeout(function(){
 								   location.reload(); 
 								  },5000);
@@ -284,6 +285,7 @@
 								</script>
 								<%
 									Cookie[] cookies = request.getCookies();
+									int maxNum = 0;
 								
 									for(Cookie co : cookies){
 									  if(co.getName().contains("history")){
@@ -295,7 +297,8 @@
 									    		<c:forEach var="j" items="${ af }" begin="0" end="${ fn:length(af) }">
 									    			<c:if test="${ j.SG_ID eq coValue }">
 									    				<c:forEach var="i" items="${ allList }" begin="0" end="${ fn:length(allList) }">
-															<c:if test="${ j.SG_ID eq i.SG_ID }">										    					
+															<c:if test="${ j.SG_ID eq i.SG_ID }">
+															<% if(maxNum < 18){ maxNum += 1; %>										    					
 													    		<div>
 														    		<c:url var="detailView" value="selectOne.bo">
 									                                    <c:param name="sgId" value="${ i.SG_ID }"/>
@@ -304,6 +307,7 @@
 														    		<a href="${ detailView }" style="cursor: pointer;"> ${ i.SG_BNAME }</a> 
 													    		</div>
 												    		<br>
+												    		<% } %>
 												    		</c:if>
 									    				</c:forEach>
 									    			</c:if>									    		
