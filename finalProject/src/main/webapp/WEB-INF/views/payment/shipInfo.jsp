@@ -66,7 +66,7 @@
 					<div class="form-group">
 						<div class="col-md-6">
 							<label for="email">이메일</label>
-							<input type="text" id="email" class="form-control" name="P_EMAIL" placeholder="">
+							<input type="text" id="email" class="form-control" name="P_EMAIL" value="${ loginUser.user_email }" placeholder="">
 						</div>
 							<div class="col-md-6">
 								<label for="Phone">전화 번호</label>

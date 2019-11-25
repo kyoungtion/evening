@@ -35,10 +35,10 @@ public class PaymentServiceImpl implements PaymentService{
 		return pDao.selectPaymentList(sqlSession, pi);
 	}
 
-	@Override
+/*	@Override
 	public int deletePayment(Payment p) {
 		return pDao.deletePayment(sqlSession, p);
-	}
+	}*/
 
 	@Override
 	public int getSearchListCount(Map<String, String> parameters) {
@@ -48,6 +48,12 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public ArrayList<Payment> selectSearchList(PageInfo pi, Map<String, String> parameters) {
 		return pDao.selectSearchList(sqlSession, pi, parameters);
+	}
+
+	@Override
+	public int deletePayment(String[] idArray) {
+		// TODO Auto-generated method stub
+		return pDao.deletePayment(sqlSession, idArray);
 	}
 	
 }

@@ -123,13 +123,29 @@ public class PaymentController {
 		return mv;
 	}
 	
-	// 결제 취소 요청
+/*	// 결제 취소 요청
 	@RequestMapping("pdelete.py")
-	public String deletePayment(@ModelAttribute Payment p, SessionStatus status) {
+	public String deletePayment(@ModelAttribute Payment p, SessionStatus status,
+								@RequestParam("ids") String ids) {
+		String[] idArray = ids.split(",")
 		int result = pService.deletePayment(p);
 		
 		if(result > 0) {
 			status.setComplete();
+			return "redirect:home.do";
+		}else {
+			throw new PaymentException("결제 취소 요청을 실패하였습니다.");
+		}
+	}*/
+	// 결제 취소 요청
+	@RequestMapping("pdelete.py")
+	public String deletePayment(@RequestParam("ids") String ids) {
+		String[] idArray = ids.split(",");
+		System.out.println("ids : " + ids);
+		int result = pService.deletePayment(idArray);
+		System.out.println("idArray : " + idArray);
+		
+		if(result > 0) {
 			return "redirect:home.do";
 		}else {
 			throw new PaymentException("결제 취소 요청을 실패하였습니다.");

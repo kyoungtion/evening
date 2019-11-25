@@ -296,7 +296,7 @@ public class MemberController {
       String[] idArray = ids.split(",");
       
       int result = mService.deleteAllMember(idArray);
-      
+      System.out.println("idArray: " + idArray);
       if(result > 0) {
          return "redirect:adminView.ad";
       } else {

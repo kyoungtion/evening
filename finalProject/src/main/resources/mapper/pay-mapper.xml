@@ -11,18 +11,27 @@
 	<select id="getListCount" resultType="_int">
 		select count(*)
 		from payment
-		where P_STATUS='Y'
-		
+		where P_STATUS='Y'		
 	</select>
 	
 	<select id="selectPaymentList" resultType="Payment">
 		select *
-		from paymentr
+		from payment
 		order by P_NO desc
 	</select>
 	
-	<update id="deletePayment" parameterType="Payment">
-		update payment set p_status='N' p_update_date=sysdate where p_=#{p_ID}
+<!-- 	<update id="deletePayment" parameterType="Payment">
+		update payment set p_status='N', p_update_date=sysdate
+		where p_ID=#{p_ID} and p_NO=#{p_NO}
+	</update> -->
+	<update id="deletePayment" parameterType="string">
+		update payment set p_status='N', p_update_date=sysdate
+		<trim prefix="where" prefixOverrides="and|or">
+			gp_ID in
+			<foreach collection="array" item="item" index="index" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</trim>	
 	</update>
 	
 	<select id="selectSearchListCount" resultType="_int" parameterType="map">

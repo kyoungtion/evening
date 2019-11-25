@@ -17,11 +17,13 @@ public interface PaymentService {
 
 	ArrayList<Payment> selectPaymentList(PageInfo pi);
 
-	int deletePayment(Payment p);
+	/*int deletePayment(Payment p);*/
 
 	int getSearchListCount(Map<String, String> parameters);
 
 	ArrayList<Payment> selectSearchList(PageInfo pi, Map<String, String> parameters);
+
+	int deletePayment(String[] idArray);
 
 
 }

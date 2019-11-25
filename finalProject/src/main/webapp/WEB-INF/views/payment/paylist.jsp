@@ -15,12 +15,14 @@
 <%-- 		<c:url var="pList" value="paylistSearch.py">	
 		</c:url> --%>
 		<div class="my-panel" style="width:80%;">
-			<div class="col-md-10 col-md-offset-1" style="margin:0; width:100%;">
+			<div class="col-md-10 col-md-offset-1" style="margin-left:20%; width:80%;">
 				<div class="contact-wrap">
 					<form style="height:100%; margin-left:0%;">
 						<div class="row">
 							<div class="col-md-12" style="margin-bottom:5%;">
+							 <c:if test="${ loginUser.user_id eq admin }">
 							<span id="titlespan2">총 결제 내역 수 : ${ pi.listCount }</span>
+							 </c:if> 
 							</div>
 						</div>
 						
@@ -49,11 +51,48 @@
 									<th scope="col">수정 날짜</th>
 									<!-- <th cope="col">결제 update date</th> -->
 									<th scope="col">결제상태</th>
+									<c:if test="${ loginUser.user_id ne 'admin' }">
 									<th scope="col">선택</th>
+									</c:if>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="p" items="${ list }">
+							<!-- 결제 내역 -->
+							<c:set var="Count" value="1"/>
+							<c:if test="${ fn:length(list) > 0 }">							
+							<c:forEach var="p" items="${ list }" begin="0" end="${ fn:length(list) }" varStatus="paystatus">
+							<c:if test="${ loginUser.user_id ne 'admin' && p.p_ID eq loginUser.user_name }">	
+									<tr>
+<%-- 									<tr style="background-color:#FFFFFF; color:#333333;">
+										 <td id="P_ID${pt.index }" class="P_ID" name="P_ID">${p.P_ID }</td>
+										<td class="subject" id="subject"><span class="PID">${p.P_ID }</span>
+										<span class="rWrap Before ${pt.index }"> [ </span><span><font
+												id="rCount${pt.index}"></font></span><span
+											class="rWrap After ${pt.index}"> ] </span></td> --%>
+	
+										<td>${ Count }</td>
+										<c:set var="Count" value="${ Count+1 }" />									
+										<td>${p.p_ID}</td>
+										<td>${p.p_NICKNAME}</td>
+										<td >${p.gp_ID}</td>
+										<td>${p.MONEY}</td>
+										<td>${p.PAYDAY}</td>
+										<td>${p.p_UPDATE_DATE }</td>
+										<td style="text-align:center;">${p.p_STATUS}</td>
+										<td><input class="chk" id="chk" name="chk"
+														type="checkbox" value="${ gp_ID }"></td>
+										<!-- <td><input type="checkbox" style="margin-left:10%;"></td> -->
+									</tr>
+								</c:if>
+								</c:forEach>								
+								</c:if>
+								<c:remove var="Count" />
+								
+								
+								
+								<c:if test="${ fn:length(list) > 0 }">
+								<c:forEach var="p" items="${ list }" begin="0" end="${ fn:length(list) }" varStatus="paystatus">
+								<c:if test="${ loginUser.user_id eq 'admin' }">
 									<tr>
 <%-- 									<tr style="background-color:#FFFFFF; color:#333333;">
 										 <td id="P_ID${pt.index }" class="P_ID" name="P_ID">${p.P_ID }</td>
@@ -62,7 +101,7 @@
 												id="rCount${pt.index}"></font></span><span
 											class="rWrap After ${pt.index}"> ] </span></td> --%>
 
-										<td>${p.p_No}</td>
+										<td>${ paystatus.count }</td>
 										<td>${p.p_ID}</td>
 										<td>${p.p_NICKNAME}</td>
 										<td >${p.gp_ID}</td>
@@ -70,9 +109,15 @@
 										<td>${p.PAYDAY}</td>
 										<td>${p.p_UPDATE_DATE }</td>
 										<td style="text-align:center;">${p.p_STATUS}</td>
+										<c:if test="${ loginUser.user_id ne 'admin' }">
 										<td><input type="checkbox" style="margin-left:10%;"></td>
+										</c:if>
 									</tr>
+								</c:if>
 								</c:forEach>
+								
+								</c:if>
+								
 							</tbody>
 						</table>
 					</div>
@@ -140,10 +185,12 @@
 							</c:if>
 						</ul>						
 					</div>
-						
+					<c:if test="${ loginUser.user_id ne 'admin' }">	
 					<div class="col-md-5" style="text-align:center; left:35%;">
-						<button type="button" onclick="location.href='${pdelete}'" class="btn btn-outline-dark">결제 취소 요청</button>
+						<%-- <button type="button" onclick="location.href='${pdelete}'" class="btn btn-outline-dark">결제 취소 요청</button> --%>
+						<button type="button" id="pdelete" class="btn btn-outline-dark">결제 취소 요청</button>
 					</div>
+					</c:if>
 									
 				</div>
 				
@@ -152,6 +199,24 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+	$('#pdelete').on('click', function() {
+		if (confirm("결제 취소 하시겠습니까?")) {
+
+			var ids = "";
+			$('input:checkbox:checked').each(function(index) {
+				if (index != 0) {
+					ids += "," + $(this).val();
+				} else {
+					ids += $(this).val();
+				}
+
+				location.href = "pdelete.py?ids=" + ids;
+			});
+		}
+	});	
+	</script>
 	
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 	
