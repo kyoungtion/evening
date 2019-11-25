@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,11 +12,13 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="evPage" style="height:auto;width: 100%;background: #ffffff;  text-align: center; ">
-		<form id="insertForm" action="uInsert.bo?type=2" method="post" enctype="multipart/form-data">
+		<form id="insertForm" action="uInsert.bo" method="post" enctype="multipart/form-data">
 			<div style="width: 90%; height: auto; background: #f5f5f5;display: inline-block;
 		 ">
 				<br>
 				<input type="hidden" name="b_Category" value="A">
+				<input type="hidden" name="USER_ID" value="${ loginUser.user_id }">
+				<input type="hidden" name="SG_NAME" value="${ loginUser.nickName }">
 				<div style="height: auto;width: 150px;">
 					<h2>상품 등록</h2>
 				</div>
@@ -110,6 +113,22 @@
 								</div>
 								
 							</div>
+							<div class="col-md-12" style="width: 25%;">
+									<label for="country">경매 기간</label>
+									<div class="form-group">
+										<div class="form-field" style="width: 100%;">
+											<i class="icon icon-arrow-down3"></i>
+											<select name="aDay" id="category" class="form-control">
+												<option value=1>1 Day</option>
+												<option value=3>3 Day</option>
+												<option value=5>5 Day</option>
+												<option value=7>7 Day</option>
+												<option value=14>14 Day</option>
+											</select>
+										</div>
+										
+									</div>
+								</div>
 						</div>
 					</div>
 

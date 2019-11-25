@@ -3,8 +3,12 @@ package com.kh.evening.board.controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.sql.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +40,8 @@ import com.kh.evening.board.model.vo.GoodLike;
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.board.model.vo.Reply;
 import com.kh.evening.common.Pageination;
+
+import oracle.sql.DATE;
 
 /**
  * @author KimHyunWoo
@@ -426,20 +432,23 @@ public class BoardController {
 	    cookie.setMaxAge(60*5);
 	    response.addCookie(cookie);
 	  }
-	  
 	}
-	
 
 
 	@RequestMapping("uInsert.bo")
 	public String usedInsert(@ModelAttribute Board b, @RequestParam("smImg") MultipartFile uploadFile,
-			HttpServletRequest request, HttpServletResponse response,@RequestParam("type") int type) {
+			HttpServletRequest request, HttpServletResponse response,@RequestParam("aDay") int aDay) {
 		if (b.getSG_DELIVERY() == null) {
 			b.setSG_DELIVERY("N");
 		} else {
 			b.setSG_AREA("");
 		}
-
+		Calendar time = new GregorianCalendar();
+		time.add(Calendar.DATE, +aDay);
+		Date date = new Date(time.getTimeInMillis());
+		b.setSG_END_DATE(date);
+		
+		
 		Attachment atm = new Attachment();
 		String renameFileName = "";
 		if (uploadFile != null && !uploadFile.isEmpty()) {
