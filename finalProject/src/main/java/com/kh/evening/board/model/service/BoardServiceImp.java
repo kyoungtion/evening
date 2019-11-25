@@ -1,6 +1,8 @@
 package com.kh.evening.board.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -142,6 +144,25 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public int replyUpdate(Reply r) {
 		return bDAO.replyUpdate(sqlSession,r);
+	}
+
+	
+
+	@Override
+	public int getBoardListCount(Map<String, String> map) {
+		return bDAO.myBoardListCount(sqlSession, map);
+	}
+
+
+	@Override
+	public ArrayList<Board> myBoardList(PageInfo pi, Map<String, String> map) {
+		return bDAO.myBoardList(sqlSession, pi, map);
+	}
+
+	@Override
+	public ArrayList<Board> myBoardList(PageInfo pi, String bc) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -194,6 +194,33 @@
 		WHERE REPLY_ID=#{REPLY_ID}
 	</update>
 
-  	
-
+  	<!-- 이경희 -->
+  	<select id="myBoardList" parameterType="map" resultType="Board">
+  		select *
+  		from second_goods
+  		WHERE SG_STATUS='N' and user_id = #{user_id}
+		<choose>
+			<when test="bc.equals('A')">
+				AND B_CATEGORY='A'
+			</when>
+			<when test="bc.equals('SG')">
+				AND B_CATEGORY='SG'
+			</when>
+		</choose>
+		order by sg_id desc
+  	</select>
+	
+	<select id="myBoardListCount" parameterType="map" resultType="_int">
+		select count(*)
+		from second_goods
+		where sg_status='N' and user_id=#{user_id}
+		<choose>
+			<when test="bc.equals('A')">
+				AND B_CATEGORY='A'
+			</when>
+			<when test="bc.equals('SG')">
+				AND B_CATEGORY='SG'
+			</when>
+		</choose>
+	</select>
 </mapper>

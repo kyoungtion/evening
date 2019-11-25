@@ -1,6 +1,8 @@
 package com.kh.evening.board.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
+
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -132,6 +134,16 @@ public int geyReplyListCount(SqlSession sqlSession, int sgid) {
 
 public int replyUpdate(SqlSession sqlSession, Reply r) {
 	return sqlSession.update("boardMapper.replyUpdate",r);
+}
+
+public ArrayList<Board> myBoardList(SqlSession sqlSession, PageInfo pi, Map<String, String> map) {
+	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+	RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
+	return (ArrayList)sqlSession.selectList("boardMapper.myBoardList", map, rb);
+}
+
+public int myBoardListCount(SqlSession sqlSession, Map<String, String> map) {
+	return sqlSession.selectOne("boardMapper.myBoardListCount", map);
 }
 
 
