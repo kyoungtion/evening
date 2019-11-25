@@ -44,13 +44,14 @@
 						<div class="row content" style="height: 800px;">
 							<div class="row content table" style="height: 600px;">
 								<div style="float:left; width:150px;">
-								<select id="memberType">
+								
+								<select id="memberType" style="border:2px solid whitesmoke !important">
 									<option value="NM">일반회원</option>
 									<option value="HM">판매자회원</option>
 								</select>
 								</div>
 								<div style="float:right;">
-									<select id="searchfor" name="searchfor">
+									<select id="searchfor" name="searchfor" style="border:2px solid whitesmoke !important">
 											<option value="user_id">아이디</option>
 											<option value="user_name">이름</option>
 										</select> <input id="searchText" name="searchText" type="search" placeholder="전체 회원대상 검색" onkeyup="enterkey();" /> 
@@ -118,7 +119,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:if test="${ !empty dList }">
+										<c:if test="${ list == null && dList != null }">
 											<c:forEach var="m" items="${dList}" varStatus="st">
 												<tr style="background-color: #FFFFFF; color: #333333;">
 													<td class="displaynone" id="listLength">${fn:length(list)}</td>
@@ -150,7 +151,7 @@
 												</tr>
 											</c:forEach>
 										</c:if>
-										<c:if test="${ !empty list  }">
+										<c:if test="${ list != null && dList == null  }">
 											<c:forEach var="m" items="${list}" varStatus="st">
 												<tr style="background-color: #FFFFFF; color: #333333;">
 													<td class="displaynone" id="listLength">${fn:length(list)}</td>
@@ -190,13 +191,13 @@
 							<div
 								style="width: 100%; border-top: 1px solid whitesmoke; height: 100px; padding-top: 10px;">
 								<div class="row">
-									<c:if test="${ !empty list }">
+									<c:if test="${ list != null && dList == null }">
 										<div style="text-align:right; margin-right:20px;">
 											<!-- <button class="btn-primary">등급변경</button> -->
 											<button type="button" class="btn-danger" id="deleteAllMember">선택회원 전부 비활성화</button>
 										</div>
 									</c:if>
-									<c:if test="${ empty list }">
+									<c:if test="${ list == null && dList != null }">
 										<div style="text-align:right; margin-right:20px;">
 											<!-- <button class="btn-primary">등급변경</button> -->
 											<button type="button" class="btn-danger" id="activateAllMember">선택회원 전부 활성화</button>
@@ -333,14 +334,26 @@
 		}); */
 		
 		$(function(){
-			
 			$('#memberType').val('${memberType}').prop('selected', true);
-
-			$('#memberType').change(function(){
-				var memberType = $('#memberType').val();
-				console.log(memberType);
-				location.href="adminView.ad?mType="+memberType;
-			});
+			
+			//활성회원 조회시
+			if('${list}' != null && '${dList}' == ""){
+				
+				$('#memberType').change(function(){
+					var memberType = $('#memberType').val();
+					console.log(memberType);
+					location.href="adminView.ad?mType="+memberType;
+				});	
+			}
+			
+			//비활성회원 조회시
+			if('${list}' == "" && '${dList}' != null){
+				$('#memberType').change(function(){
+					var memberType = $('#memberType').val();
+					console.log(memberType);
+					location.href="deactivatedMember.ad?mType="+memberType;
+				});	
+			}
 		});
 		
 	</script>

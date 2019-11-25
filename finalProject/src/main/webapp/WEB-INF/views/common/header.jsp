@@ -84,7 +84,6 @@
 		value="${ pageContext.servletContext.contextPath }"
 		scope="application" />
 
-
 	<header class="ebHeader">
 		<div class="ebHeader-bar no-drag">
 			<div style="height: 100%; overflow: hidden;">
@@ -159,15 +158,13 @@
 				<!-- 관리자 로그인 시 -->
 				<c:if test="${ !empty sessionScope.loginUser && loginUser.user_id eq 'admin' }">
 					<div id="navTag">
-
-					<ul id="hNav">
-						<!-- 관리자 페이지 -->
-						<li id="userLi"><span>${ loginUser.rankCode.rank_img }</span>&nbsp;<b>${ loginUser.nickName }</b> 님.</li>
-						<li><a href="adminView.ad">관리자 메뉴</a></li>
-						<li><a href="logout.me" title="로그아웃"><i class="fas fa-sign-out-alt"></i></a></li>
-					</ul>
-				</div>
-
+						<ul id="hNav">
+							<!-- 관리자 페이지 -->
+							<li id="userLi"><span>${ loginUser.rankCode.rank_img }</span>&nbsp;<b>${ loginUser.nickName }</b> 님.</li>
+							<li><a href="adminView.ad">관리자 메뉴</a></li>
+							<li><a href="logout.me" title="로그아웃"><i class="fas fa-sign-out-alt"></i></a></li>
+						</ul>
+					</div>
 				</c:if>
 			</div>
 		</div>
@@ -177,7 +174,9 @@
 			location.href = "home.do";
 		});
 
-		
+		$(function(){
+			console.log("관리자 등급 : "+'${ loginUser}');
+		});
 	</script>
 	<div class="catalog no-drag">
 		<div style="text-align: center; display: inline-block;">
