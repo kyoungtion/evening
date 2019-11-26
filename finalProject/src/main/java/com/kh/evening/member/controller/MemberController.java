@@ -503,7 +503,6 @@ public class MemberController {
    
    // 회원가입용 컨트롤러
    
-   
    @RequestMapping("ebinsert.me")
    public String insertMember(@ModelAttribute Member m,
                      @RequestParam("zipcode1") String zipcode1,
@@ -581,6 +580,7 @@ public class MemberController {
    public String memberLogin(@ModelAttribute Member m ,Model model) {
       Member loginUser = mService.memberLogin(m);
    
+      System.out.println(loginUser);
       
       if(bcryptPasswordEncoder.matches(m.getUser_pwd(), loginUser.getUser_pwd())) {
          model.addAttribute("loginUser",loginUser);
@@ -617,7 +617,7 @@ public class MemberController {
    // 아이디, 비밀번호 찾기 컨트롤러
    @RequestMapping("search.me")
    public String Search(){
-      
+       
       return "SearchIdPwd";
    }
    
@@ -670,30 +670,34 @@ public class MemberController {
 	   
 	  	   
 	   if(m != null) {
+		   // 임시비밀번호 생성
 		   String newPwd = FindUtil.getNewPwd();
+		   
+		   // 임시비밀번호 DB에 암호화 
+		   String encPwd = bcryptPasswordEncoder.encode(newPwd);
 		   
 		   System.out.println("newPwd : " + newPwd);
 		   
 		   Map<String ,String> map2 = new HashMap<>();
 		   
 		   map2.put("user_id", user_id);
-		   map2.put("newPwd",newPwd);
+		   map2.put("encPwd",encPwd);
 		   
 		   System.out.println("22제발 되라..: " +map2);
 		   
 		   mService.changePwd(map2);
 		   
-		   String subject = "[Evening] 임시 비밀번호 입니다.";
+		   String subject = "[Evening] 에서 발급한 임시 비밀번호 입니다.";
            
            String msg = "";
            msg += "<br> <br> <div align='center' style='border:1px solid black;'>";
-           msg += "<h3 style='color: blue';><strong>" + user_id + "<br>";
-           msg += "님</strong>의 임시 비밀번호 입니다. 로그인 후 비밀번호를 변경하세요.</h3>";
+               msg += "님</strong>의 임시 비밀번호 입니다. 로그인 후 비밀번호를 변경하세요.</h3>";
            msg += "<p> 임시 비밀번호 : <strong>" + newPwd + "<br> <br> </strong></p></div> ";
            
            MailUtil.sendMail(user_email, subject, msg);
            
-           mv.setViewName("updatePwd");
+           
+           mv.setViewName("login");
            return mv;
         } else {
            int check = 0;
