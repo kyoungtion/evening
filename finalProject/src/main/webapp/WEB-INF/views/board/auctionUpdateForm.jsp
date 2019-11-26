@@ -45,7 +45,7 @@
 							<div class=" row">
 								<div class="col-md-12">
 									<div class="form-group">
-										<label for="fname">제 목</label> <input type="text"
+										<label for="fname">제 목</label> <input type="text" readonly="readonly"
 											name="SG_BNAME" id="companyname" class="form-control"
 											placeholder="제목" value="${ board.SG_BNAME }">
 									</div>
