@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EVENING : 관리자 메뉴</title>
+<title>중고물품 거래, 경매는 이브닝 : 관리자 메뉴</title>
 <style>
 .subject:hover {
 	cursor: pointer;
@@ -71,6 +71,7 @@
 					<c:param name="category" value="QNA" />
 					<c:param name="viewName" value="adminQnaView" />
 				</c:url>
+				<li class="my-tab"><button class="btn" id="pList" onclick="location.href='pList.py'">거래내역</button></li>
 				<li class="my-tab"><button class="btn active" id="qna"
 						onclick="location.href='${qnaList}'">문의글 관리</button></li>
 				<c:url var="adminNotice" value="adminNoticeView.ad">

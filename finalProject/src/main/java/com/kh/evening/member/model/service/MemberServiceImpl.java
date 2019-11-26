@@ -115,13 +115,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int getDeActiMemberListCount() {
-		return mDAO.getDeActiMemberListCount(sqlSession);
+	public int getDeActiMemberListCount(String memberType) {
+		return mDAO.getDeActiMemberListCount(sqlSession, memberType);
 	}
 
 	@Override
-	public ArrayList<Member> getDeActiMemberList(PageInfo pi) {
-		return mDAO.getDeActiMemberList(sqlSession, pi);
+	public ArrayList<Member> getDeActiMemberList(PageInfo pi, String memberType) {
+		return mDAO.getDeActiMemberList(sqlSession, pi, memberType);
 	}
 
 	@Override

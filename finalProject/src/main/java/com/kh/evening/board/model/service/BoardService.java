@@ -1,6 +1,8 @@
 package com.kh.evening.board.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
+
 import com.kh.evening.board.model.vo.Attachment;
 import com.kh.evening.board.model.vo.AuctionHistory;
 import com.kh.evening.board.model.vo.Board;
@@ -59,5 +61,13 @@ public interface BoardService {
 	int getReplyListCount(int sG_ID);
 
 	int replyUpdate(Reply r);
+
+	int getBoardListCount(Map<String, String> map);
+
+	ArrayList<Board> myBoardList(PageInfo pi, Map<String, String> map);
+
+	int getAuctionHistoryCount(String user_id);
+
+	ArrayList<AuctionHistory> getAuctionHistoryList(PageInfo pi, String user_id);
 
 }
