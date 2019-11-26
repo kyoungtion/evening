@@ -302,7 +302,7 @@
                               							<c:set var="Count" value="${ Count+1 }" />   
 														<td>${p.p_ID}</td>
 														<td>${p.p_NICKNAME}</td>
-														<td>${p.gp_ID}</td>
+														<td>${p.sg_ID}</td>
 														<td>${p.MONEY}</td>
 														<td>${p.PAYDAY}</td>
 														<td>${p.p_UPDATE_DATE }</td>

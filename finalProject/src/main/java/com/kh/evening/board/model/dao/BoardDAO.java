@@ -166,9 +166,6 @@ public ArrayList<Board> myLikeList(SqlSession sqlSession, PageInfo pi, Map<Strin
 	return (ArrayList)sqlSession.selectList("boardMapper.myLikeList", map, rb);
 }
 
-public int deleteAuc(SqlSession sqlSession, AuctionHistory au) {
-	return sqlSession.update("boardMapper.deleteAuc");
-}
 
 
 

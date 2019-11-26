@@ -171,6 +171,27 @@ public class PaymentController {
       }
    }
    
+	  @RequestMapping("deleteAuc.py")
+	   public String deleteAuc(@RequestParam("sgId") int sgId, @RequestParam("aId") int aId) {	  
+		  
+		  AuctionHistory au = new AuctionHistory();
+		  au.setSg_Id(sgId);
+		  au.setA_Id(aId);
+		  
+		  int result = pService.deleteAuction(au);
+		  
+		  if(result > 0) {
+			  int maxPrice = pService.auctionMaxPrice(sgId);
+			  
+			  if(maxPrice < 1) {
+				  throw new PaymentException(sgId + "의 입찰 취소가 실패하였습니다.");
+			  }
+		  }else {
+			  throw new PaymentException("취소 실패");
+		  }
+		  
+		  return "detail.me";
+	   }
  
    
 	

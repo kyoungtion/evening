@@ -5,7 +5,7 @@
 
 	<insert id="insertPay" parameterType="Payment">
 	insert into payment
-	values(p_NO_SEQ.nextval,#{p_ID},#{p_NICKNAME},#{p_ADDRESS},#{p_PHONE},#{p_EMAIL},sysdate,sysdate,default,#{MONEY},#{MEMO},#{gp_ID})
+	values(p_NO_SEQ.nextval,#{p_ID},#{p_NICKNAME},#{p_ADDRESS},#{p_PHONE},#{p_EMAIL},sysdate,sysdate,default,#{MONEY},#{MEMO},#{sg_ID})
 	</insert>
 	
 	<select id="getListCount" resultType="_int">
@@ -66,6 +66,40 @@
 		</choose>
 		order by p_no desc
 	</select>
+	
+	<resultMap type="AuctionHistory" id="HistoryResultSet">
+		<id property="a_Id" column="A_ID"/>
+		<result property="User_Id" column="USER_ID"/>
+		<result property="Sg_Id" column="SG_ID"/>
+		<result property="a_Price" column="A_PRICE"/>
+		<result property="a_Enroll_Date" column="A_ENROLL_DATE"/>
+		<result property="a_Check" column="A_CHECK"/>
+		<association property="payment" javaType="Payment">
+			<id property="p_No" column="P_NO"/>
+			<result property="p_ID" column="P_ID"/>
+			<result property="p_NICKNAME" column="P_NICKNAME"/>
+			<result property="p_ADDRESS" column="P_ADDRESS"/>
+			<result property="p_PHONE" column="P_PHONE"/>
+			<result property="p_EMAIL" column="P_EMAIL"/>
+			<result property="PAYDAY" column="PAYDAY"/>
+			<result property="p_UPDATE_DATE" column="P_UPDATE_DATE"/>
+			<result property="p_STATUS" column="P_SATUS"/>
+			<result property="MONEY" column="MONEY"/>
+			<result property="MEMO" column="MEMO"/>
+			<result property="sg_ID" column="SG_ID"/>
+		</association>
+		</resultMap>
+		
+		<update id="deleteAuction" parameterType="AuctionHistory">
+			UPDATE AUCTION_HISTORY SET A_CHECK='Y'
+			WHERE A_ID=#{a_Id}
+		</update>
+		
+		<update id="auctioinMaxPrice" parameterType="_int">
+			UPDATE SECOND_GOODS
+			SET SG_PRICE = ( SELECT MAX(A_PRICE) FROM AUCTION_HISTORY WHERE SG_ID=#{sgId} AND A_CHECK='N')
+			WHERE SG_ID = #{sgId}
+		</update>
 	
 	
 </mapper>

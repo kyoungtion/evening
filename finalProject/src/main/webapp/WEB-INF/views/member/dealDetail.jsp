@@ -99,7 +99,7 @@ ul.tabs li{width:48% !important;}
 											<td>${ a.a_Price }</td>
 											<c:if test="${ a.a_Check == 'N'}">
 												<td id="cancel"><button onclick="deleteAuc();" class="btn btn-danger update">취소</button></td>
-												<form action="deleteAuc.bo" method="get" id="deleteAuctionHistory">
+												<form action="deleteAuc.py" method="get" id="deleteAuctionHistory">
 													<input type="number" value="${ a.sg_Id }" name="sgId">
 													<input type="number" value="${ a.a_Id }" name="aId">
 												</form>
