@@ -569,8 +569,8 @@ public class BoardController {
 			  }
 			  
 			  if(updatePenalty > 0) {
-			    
-			    model.addAttribute("loginUser",user);
+			    Member loginUser = mService.memberLogin(user);
+			    model.addAttribute("loginUser",loginUser);
 			  }
 			    return "redirect:auctionList.bo";
 			}
