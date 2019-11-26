@@ -49,8 +49,9 @@
 							<button
 								onclick="window.open('write.sr', '글쓰기', 'top=10, left=10, width=555, height=670, status=no, menubar=no, toolbar=no, resizable=no');"
 								class="btn btn-primary ">글쓰기</button>
-							
+
 							<div id="hs" class="row content" style="height: 650px;">
+							<form action="delete.sr">
 								<table border="1" summary="" class="content-table" id="rtable">
 									<colgroup id=""
 										class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 ">
@@ -65,6 +66,7 @@
 											<th id="hs" scope="col">보낸사람</th>
 											<th id="hs" scope="col">제목</th>
 											<th id="hs" scope="col">받은날짜</th>
+											<th id="hs" scope="col">선택</th>
 
 										</tr>
 									</thead>
@@ -76,7 +78,6 @@
 													<c:if test="${list.m_CLICKED eq 'N'}">
 														<tr style="background-color: #FFFFFF; color: #333333;"
 															class="rMessage" id="${list.m_NO}">
-
 													</c:if>
 													<c:if test="${list.m_CLICKED eq 'Y'}">
 														<tr style="background-color: #FFFFFF; color: gray;"
@@ -86,6 +87,7 @@
 													<td><c:out value="${list.m_SEND}" /></td>
 													<td><c:out value="${list.m_TITLE}" /></td>
 													<td><c:out value="${list.m_ENROLL_DATE}" /></td>
+													<td><input type="checkbox" name="delete" value="${list.m_NO}"/>
 													</tr>
 												</c:forEach>
 											</c:when>
@@ -98,6 +100,9 @@
 
 									</tbody>
 								</table>
+								  <input type="submit" value="삭제"/>
+
+								</form>
 							</div>
 							<div class="row">
 								<div class="col-md-8"
@@ -128,7 +133,7 @@
 											<th id="hs" scope="col">받는사람</th>
 											<th id="hs" scope="col">제목</th>
 											<th id="hs" scope="col">보낸날짜</th>
-
+											<th id="hs" scope="col">선택</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -159,7 +164,8 @@
 											</c:otherwise>
 										</c:choose>
 									</tbody>
-								</table>
+								</table> 
+								
 							</div>
 							<div class="row">
 								<div class="col-md-8"
@@ -181,7 +187,7 @@
 	<script>
 		$(document).ready(function() {
 			$('#rtable').DataTable({
-				
+
 				"info" : false,
 				"order" : [ [ 0, "desc" ] ],
 				"stateSave" : true
@@ -191,7 +197,7 @@
 
 		$(document).ready(function() {
 			$('#stable').DataTable({
-				
+
 				"info" : false,
 				"order" : [ [ 0, "desc" ] ],
 				"stateSave" : true

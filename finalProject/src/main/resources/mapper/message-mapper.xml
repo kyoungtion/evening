@@ -41,4 +41,9 @@
 	<select id="getCount" parameterType="string" resultType="_int" >
 		SELECT COUNT(*) FROM MESSAGE WHERE M_CLICKED = 'N' AND M_RECEIVE=#{user_id}
 	</select>
+	
+	<!-- 쪽지 삭제 -->
+	<update id="deleteRow" parameterType="java.lang.String" >
+		update MESSAGE SET  M_STATUS = 'Y' WHERE M_NO=#{seq}
+	</update>
 </mapper>

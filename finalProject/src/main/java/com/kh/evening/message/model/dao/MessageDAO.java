@@ -33,14 +33,16 @@ public class MessageDAO {
 		return sqlSession.selectList("messageMapper.smessageDetail",sparam);
 	}
 
-
-
 	public int checkUpdate(SqlSessionTemplate sqlSession, Map rparam) {
 		return sqlSession.update("messageMapper.checkUpdate",rparam);
 	}
 
 	public int getCount(SqlSessionTemplate sqlSession, String user_id) {
 		return sqlSession.selectOne("messageMapper.getCount",user_id);
+	}
+
+	public int deleteRow(SqlSessionTemplate sqlSession, String seq) {
+		return sqlSession.update("messageMapper.deleteRow",seq);
 	}
 
 

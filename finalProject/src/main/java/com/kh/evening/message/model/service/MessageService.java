@@ -37,6 +37,13 @@ public interface MessageService {
 
 
 
+	int deleteRow(String seq);
+
+
+
+
+
+
 
 
 

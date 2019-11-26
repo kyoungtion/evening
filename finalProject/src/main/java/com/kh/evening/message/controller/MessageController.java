@@ -98,6 +98,20 @@ public class MessageController {
 		
 	}
 	
+	@RequestMapping("delete.sr")
+	public String delete(@RequestParam("delete") String[] delete, ModelMap modelMap) {
+		for(String seq : delete) {
+			System.out.println("delete :"+delete);
+			System.out.println("delete.toString() :"+delete.toString());
+			
+			System.out.println(seq);
+			System.out.println(seq.toString());
+			int deleteRow = messageService.deleteRow(seq);
+		}
+		return "redirect:message.sr";
+		
+	}
+	
 	
 	
 }

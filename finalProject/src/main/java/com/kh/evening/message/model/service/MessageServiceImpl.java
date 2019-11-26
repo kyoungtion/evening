@@ -57,6 +57,11 @@ public class MessageServiceImpl implements MessageService{
 		return messageDAO.getCount(sqlSession,user_id);
 	}
 
+	@Override
+	public int deleteRow(String seq) {
+		return messageDAO.deleteRow(sqlSession,seq);
+	}
+
 
 
 	
