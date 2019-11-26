@@ -88,10 +88,10 @@ public class MessageController {
 		sparam.put("m_NO", Integer.parseInt(req.getParameter("m_NO")) );
 		sparam.put("loginUser", loginUser.getUser_id());
 		List<Map<String,Object>> slist = messageService.smessageDetail(sparam);
-		int updateCheck = messageService.checkUpdate(sparam);
+//		int updateCheck = messageService.checkUpdate(sparam);
 		System.out.println("slist     :"+slist);
 		System.out.println("slist.toString()     :"+slist.toString());
-		System.out.println("updateCheck  :" + updateCheck);
+//		System.out.println("updateCheck  :" + updateCheck);
 		mv.addObject("slist", slist);
 		mv.setViewName("sDetail");
 		return mv;

@@ -119,6 +119,7 @@
 						<div class="container">
 
 							<div id="hs" class="row content" style="height: 600px;">
+							
 								<table border="1" summary="" class="content-table" id="stable">
 									<colgroup id=""
 										class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 ">
@@ -133,7 +134,7 @@
 											<th id="hs" scope="col">받는사람</th>
 											<th id="hs" scope="col">제목</th>
 											<th id="hs" scope="col">보낸날짜</th>
-											<th id="hs" scope="col">선택</th>
+										
 										</tr>
 									</thead>
 									<tbody>
@@ -154,6 +155,7 @@
 													<td><c:out value="${list.m_RECEIVE}" /></td>
 													<td><c:out value="${list.m_TITLE}" /></td>
 													<td><c:out value="${list.m_ENROLL_DATE}" /></td>
+													
 													</tr>
 												</c:forEach>
 											</c:when>
@@ -166,6 +168,7 @@
 									</tbody>
 								</table> 
 								
+								 </form>
 							</div>
 							<div class="row">
 								<div class="col-md-8"
