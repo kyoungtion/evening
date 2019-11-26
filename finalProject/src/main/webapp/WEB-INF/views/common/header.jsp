@@ -130,7 +130,7 @@
 					<div id="navTag">
 						<ul id="hNav">
 							<li id="userLi"><span title="${loginUser.rankCode.rank_name }">${ loginUser.rankCode.rank_img }</span>&nbsp;<b>${ loginUser.nickName }</b> 님 반갑습니다.</li>
-							<li><a href="auctionList.bo">경매</a></li>
+							<li><a href="secondgoodList.bo">경매</a></li>
 							<li><a href="usedListAll.ud">중고거래</a></li>
 							<li class="nav_sub"><a href="gList.ge?category=Community">게시판</a>
 								<div style="position: fixed;">

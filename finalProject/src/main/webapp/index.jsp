@@ -228,7 +228,7 @@
 										<p class="price">
 											<c:choose>
 												<c:when test="${ i.b_Category eq 'A' }">
-												급매가
+												현재 경매가
 										 	</c:when>
 												<c:when test="${ i.b_Category eq 'SG' }">
 										 		가격
@@ -240,7 +240,7 @@
 
 										<p class="price">
 											<c:if test="${ i.b_Category eq 'A' }">
-												경매시작가<span> <br>
+												경매 시작가<span> <br>
 													<fmt:formatNumber value="${i.SG_SPRICE }" type="currency" />
 												</span>
 											</c:if>
