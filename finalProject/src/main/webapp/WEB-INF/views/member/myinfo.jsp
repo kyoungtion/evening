@@ -314,7 +314,6 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 															<h3><a onclick="oneClick(${i.SG_ID});" style="cursor: pointer;">${ i.SG_BNAME }</a></h3>
 															<p class="price">가격<span> <br> <fmt:formatNumber value="${i.SG_PRICE }" type="currency"/></span></p>
 														</div>
-														
 													</div>
 												</div>
 											</c:forEach>
@@ -353,86 +352,84 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 															<fmt:parseNumber value="${ enroll1.time / (1000*60*60*24) }" integerOnly="true" var="enrollDays1"/>
 															<fmt:parseNumber value="${ end1.time / (1000*60*60*24) }" integerOnly="true" var="endDays1"/>
 				
-																<p class="tag">
-																	<c:if test="${ ( nowDays1 - enrollDays1 ) <= 7 }">
-																		<span class="new">New</span>
-																	</c:if>
-																	<c:if test="${ (endDays1 - nowDays1) >= 0 }">
-																		<span class="sale">D - ${ endDays1 - nowDays1 }</span>
-																	</c:if>
-																	<c:if test="${ (endDays1 - nowDays1) < 0 }">
-																		<span class="sale">경매 종료</span>
-																	</c:if>
-																</p>
-				
-																<div class="cart">
-																	<p> <!-- 좋아요 부분 -->
-																		<span><a onclick="return false;" id="clickLike${ i1.SG_ID }"><i class="" id="clickTest${ i1.SG_ID }"></i><span id="likeCount${ i1.SG_ID }">${ i1.SG_LIKE }</span></a></span>
-																		<input type="text" id="Check${ i1.SG_ID }" value="false" hidden="hidden" >
-																		<input type="text" id="CountCheck${ i1.SG_ID }" value="false" hidden="hidden" >
-																		<script>
-																		
-																		$(function(){
-																		  $.ajax({
-																		    url:"selectLikeCheck.bo",
-																		    data:{
-																		      user_Id : "${ loginUser.user_id}",
-																		      sgId : "${ i1.SG_ID}"
-																		    },success: function(data){
-																		      if(data.result == 1){
-																		        $('#clickTest${ i1.SG_ID }').attr('class','icon-heart3');
-																		        $('#clickTest${ i1.SG_ID }').css('font-size','16px');
-																		        $('#Check${ i1.SG_ID }').val(true);
-																		        $('#CountCheck${ i1.SG_ID }').val(true);
-																		      }else if(data.result == 0){
-																		        $('#clickTest${ i1.SG_ID }').attr('class','icon-heart2');
-																		        $('#clickTest${ i1.SG_ID }').css('font-size','13px');
-																		        $('#Check${ i1.SG_ID }').val(data.check);
-																		        $('#CountCheck${ i1.SG_ID }').val(false);
-																		      }
-																		    }
-																		  });
+															<p class="tag">
+																<c:if test="${ ( nowDays1 - enrollDays1 ) <= 7 }">
+																	<span class="new">New</span>
+																</c:if>
+																<c:if test="${ (endDays1 - nowDays1) >= 0 }">
+																	<span class="sale">D - ${ endDays1 - nowDays1 }</span>
+																</c:if>
+																<c:if test="${ (endDays1 - nowDays1) < 0 }">
+																	<span class="sale">경매 종료</span>
+																</c:if>
+															</p>
+			
+															<div class="cart">
+																<p> <!-- 좋아요 부분 -->
+																	<span><a onclick="return false;" id="clickLike${ i1.SG_ID }"><i class="" id="clickTest${ i1.SG_ID }"></i><span id="likeCount${ i1.SG_ID }">${ i1.SG_LIKE }</span></a></span>
+																	<input type="text" id="Check${ i1.SG_ID }" value="false" hidden="hidden" >
+																	<input type="text" id="CountCheck${ i1.SG_ID }" value="false" hidden="hidden" >
+																	<script>
+																	
+																	$(function(){
+																	  $.ajax({
+																	    url:"selectLikeCheck.bo",
+																	    data:{
+																	      user_Id : "${ loginUser.user_id}",
+																	      sgId : "${ i1.SG_ID}"
+																	    },success: function(data){
+																	      if(data.result == 1){
+																	        $('#clickTest${ i1.SG_ID }').attr('class','icon-heart3');
+																	        $('#clickTest${ i1.SG_ID }').css('font-size','16px');
+																	        $('#Check${ i1.SG_ID }').val(true);
+																	        $('#CountCheck${ i1.SG_ID }').val(true);
+																	      }else if(data.result == 0){
+																	        $('#clickTest${ i1.SG_ID }').attr('class','icon-heart2');
+																	        $('#clickTest${ i1.SG_ID }').css('font-size','13px');
+																	        $('#Check${ i1.SG_ID }').val(data.check);
+																	        $('#CountCheck${ i1.SG_ID }').val(false);
+																	      }
+																	    }
+																	  });
+																	});
+																	// 좋아요 눌렀을시 이벤트
+																		$('#clickLike${ i1.SG_ID }').on('click',function(){
+																		  var userCheck = "${loginUser.user_id}";
+																		  
+																		  if(userCheck.length > 0){
+																			  $.ajax({
+																			    url: "selectLike.bo",
+																			    data: {
+																			      user_Id : "${ loginUser.user_id }",
+																			      sgId : "${ i1.SG_ID }",
+																			      likeCheck : $('#Check${ i1.SG_ID }').val()
+																			    },
+																			    success: function(data){
+																			      if(data == 1){
+																			        $('#clickTest${ i1.SG_ID }').attr('class','icon-heart3');
+																			        $('#clickTest${ i1.SG_ID }').css('font-size','16px');
+																			        if( $('#CountCheck${ i1.SG_ID}').val() == 'false' ){
+																				    	$('#likeCount${ i1.SG_ID }').html("${ i1.SG_LIKE + 1}");
+																			        }else{
+																			        	$('#likeCount${ i1.SG_ID }').html("${ i1.SG_LIKE}");
+																			        }
+																			      }else if(data == 0){
+																			        $('#clickTest${ i1.SG_ID }').attr('class','icon-heart2');
+																			        $('#clickTest${ i1.SG_ID }').css('font-size','13px');
+																			        if( $('#CountCheck${ i1.SG_ID}').val() == 'true' ){
+																			        	$('#likeCount${ i1.SG_ID }').html("${ i1.SG_LIKE - 1}");
+																			        }else{
+																				        $('#likeCount${ i1.SG_ID }').html("${ i1.SG_LIKE }");
+																			        }
+																			      }
+																			    }
+																			  });
+																		  }
 																		});
-																		// 좋아요 눌렀을시 이벤트
-																			$('#clickLike${ i1.SG_ID }').on('click',function(){
-																			  var userCheck = "${loginUser.user_id}";
-																			  
-																			  if(userCheck.length > 0){
-																				  $.ajax({
-																				    url: "selectLike.bo",
-																				    data: {
-																				      user_Id : "${ loginUser.user_id }",
-																				      sgId : "${ i1.SG_ID }",
-																				      likeCheck : $('#Check${ i1.SG_ID }').val()
-																				    },
-																				    success: function(data){
-																				      if(data == 1){
-																				        $('#clickTest${ i1.SG_ID }').attr('class','icon-heart3');
-																				        $('#clickTest${ i1.SG_ID }').css('font-size','16px');
-																				        if( $('#CountCheck${ i1.SG_ID}').val() == 'false' ){
-																					    	$('#likeCount${ i1.SG_ID }').html("${ i1.SG_LIKE + 1}");
-																				        }else{
-																				        	$('#likeCount${ i1.SG_ID }').html("${ i1.SG_LIKE}");
-																				        }
-																				      }else if(data == 0){
-																				        $('#clickTest${ i1.SG_ID }').attr('class','icon-heart2');
-																				        $('#clickTest${ i1.SG_ID }').css('font-size','13px');
-																				        if( $('#CountCheck${ i1.SG_ID}').val() == 'true' ){
-																				        	$('#likeCount${ i1.SG_ID }').html("${ i1.SG_LIKE - 1}");
-																				        }else{
-																					        $('#likeCount${ i1.SG_ID }').html("${ i1.SG_LIKE }");
-																				        }
-																				      }
-																				    }
-																				  });
-																			  }
-																			});
-																		</script>
-																	</p>
-																</div>
-																
+																	</script>
+																</p>
+															</div>
 														</div>
-														
 														<div class="desc">
 															<c:url var="detailView" value="selectOne.bo">
 							                                    <c:param name="sgId" value="${ i1.SG_ID }"/>
@@ -642,7 +639,6 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 					location.href="myinfo.me?bCategory=SG";
 				}
 			});
-			
 		});
 	
 		$(function(){

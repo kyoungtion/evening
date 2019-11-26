@@ -95,7 +95,7 @@ ul.tabs li{width:48% !important;}
 											<td>${ a.sg_Id }</td>
 											<td class="displaynone"></td>
 											<td>${ a.board.SG_NAME }</td>
-											<td>${ a.board.SG_PRICE }</td>
+											<td>${ a.board.SG_SPRICE }</td>
 											<td>${ a.a_Price }</td>
 											<c:if test="${ a.a_Check == 'N'}">
 												<td id="cancel"><button onclick="deleteAuc();" class="btn btn-danger update">취소</button></td>

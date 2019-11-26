@@ -6,163 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>중고물품거래, 경매는 이브닝</title>
-<style>
-/* Insert Css */
-.form-field {
-	width: 45%;
-	float: left;
-	margin: 0 0 0 30px;
-}
-
-/*  */
-* {
-	/* list-style: none; */
-	/* font-family: Georgia, 'Times New Roman', Times, serif; */
-	
-}
-
-#t1 {
-	height: 30px;
-	width: 800px;
-	background: whitesmoke;
-	position: relative;
-}
-
-.Ttoolbal li {
-	float: left;
-	height: 100%;
-}
-
-.Ttoolbal {
-	display: inline-block;
-}
-
-.Ttoolbal>li>button {
-	min-width: 30px;
-	height: 100%;
-	border: 0 none;
-	background-color: transparent;
-	cursor: pointer
-}
-
-.Ttoolbal>li>button:hover {
-	background-color: #383838;
-}
-
-.Ttoolbal>li {
-	margin-right: 5px;
-}
-
-/* i{
-        font-weight: bold;
-    } */
-.inFontTag.on .font-style-bar {
-	height: 200px;
-}
-
-.font-style-bar {
-	width: 150px;
-	height: 0px;
-	background: blanchedalmond;
-	position: absolute;
-	overflow-y: scroll;
-}
-
-.clickspan {
-	width: 0;
-	height: 0;
-	border-left: 4px solid transparent;
-	border-right: 4px solid transparent;
-	border-top: 4px solid #999;
-	right: 4px;
-	top: 16.5px;
-}
-
-.on .font-size-bar {
-	height: 200px;
-}
-
-.font-size-bar {
-	width: 80px;
-	height: 0px;
-	background: #999;
-	position: absolute;
-	overflow-y: scroll;
-}
-
-.on .text-sort-bar {
-	height: 90px;
-}
-
-.text-sort-bar {
-	width: 40px;
-	height: 0px;
-	background: #999;
-	position: absolute;
-	overflow: hidden;
-}
-
-.on .int-sort-bar {
-	height: 180px;
-}
-
-.int-sort-bar {
-	width: 150px;
-	height: 0px;
-	background: #999;
-	position: absolute;
-	overflow: hidden;
-}
-
-.on .int-video-bar {
-	height: 60px;
-}
-
-.int-video-bar {
-	width: 300px;
-	height: 0px;
-	background: #999;
-	position: absolute;
-	overflow: hidden;
-	margin-left: -120px;
-}
-
-.uls {
-	padding: 0;
-	height: auto;
-}
-
-.uls li {
-	width: 100%;
-	height: 30px;
-}
-
-.uls>* {
-	display: inline-block;
-}
-
-.fontC {
-	display: none;
-}
-
-.font-C.on .fontC {
-	display: block;
-}
-
-#insertField {
-	text-align: initial;
-}
-
-#insertField ul {
-	list-style: initial;
-}
-
-input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button
-	{
-	-webkit-appearance: none;
-	margin: 0;
-}
-</style>
+<link rel="stylesheet" href="resources/css/bUpdate.css">
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
@@ -201,7 +45,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 							<div class=" row">
 								<div class="col-md-12">
 									<div class="form-group">
-										<label for="fname">제 목</label> <input type="text"
+										<label for="fname">제 목</label> <input type="text" readonly="readonly"
 											name="SG_BNAME" id="companyname" class="form-control"
 											placeholder="제목" value="${ board.SG_BNAME }">
 									</div>
@@ -275,9 +119,8 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<label for="companyname">경매 시작가</label> <input type="number"
-											name="SG_SPRICE" id="towncity" class="form-control"
-											placeholder="0원" value="${board.SG_SPRICE }">
+										<label for="companyname">경매 시작가</label>
+										 <input type="number" readonly="readonly" name="SG_SPRICE" id="towncity" class="form-control" placeholder="0원" value="${board.SG_SPRICE }">
 									</div>
 								</div>
 
@@ -341,51 +184,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 			</ul>
 		</form>
 
-		<script>
-			function shumnailImgChange(value) {
-				if (value.files && value.files[0]) {
-
-					var reader = new FileReader();
-
-					reader.onload = function(e) {
-
-						$('#smImgTag').attr('src', e.target.result);
-
-					}
-					reader.readAsDataURL(value.files[0]);
-
-				}
-			};
-			$('input[name="SG_DEAL"]').change(function() {
-				if ($(this).val() == "DELIVERY") {
-					$('input[name="SG_DELIVERY"]').removeAttr("disabled");
-					$('#radios2').css("opacity", 0);
-					$('#radios').css("opacity", 1);
-				} else {
-					$('#radios2').css("opacity", 1);
-					$('#radios').css("opacity", 0);
-					$('input[name="SG_DELIVERY"]').attr("disabled", "true");
-				}
-			});
-			function saveBtn() {
-				var deletImgArr = new Array();
-				var imgArray = $('#insertField img');
-				$('#textForm').val(
-						document.getElementById('insertField').innerHTML);
-
-				for (var i = 0; i < imgArray.length; i++) {
-					deletImgArr[i] = imgArray.eq(i).attr('name');
-				}
-				$('#imgNames').val(imgNamesArr);
-				$('#deletImg').val(deletImgArr);
-				$('#insertForm').submit();
-			};
-
-			function shumnailImg() {
-				$('#smImg').click();
-			};
-		</script>
-
+		<script src="resources/js/bInsert.js"></script>
 		<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

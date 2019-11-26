@@ -3,13 +3,14 @@ package com.kh.evening.member.controller;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 //import org.apache.catalina.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.mail.javamail.JavaMailSender;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.kh.evening.board.model.service.BoardService;
 import com.kh.evening.board.model.vo.Attachment;
 import com.kh.evening.board.model.vo.AuctionHistory;
@@ -559,6 +559,7 @@ public class MemberController {
 			mv.addObject("alist", alist);
 			mv.addObject("pi", pi);
 			mv.addObject("af", af);
+			mv.addObject("bc", bc);
 			mv.setViewName("favorites");
 		}
 		return mv;
@@ -1086,6 +1087,35 @@ public class MemberController {
 		}
 
 		if (loginUser != null) {
+		  // 징계유저의 경우 : 징계기간이 끝났는지 확인(끝났을시 등급 초승달로 복구)
+		  Date today = new Date();
+		  SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd");
+		  String todays = timeFormat.format(today);
+		  String dbDays = timeFormat.format(loginUser.getPenalty_date());
+		  
+		  try {
+            Date dbDayD = timeFormat.parse(dbDays);
+            Date todayD = timeFormat.parse(todays);
+            
+            long result = dbDayD.getTime() - todayD.getTime();
+            long resultDay = result / (1000 * 60 * 60 * 24);
+            
+            int updatePenalty = 0;
+            if(resultDay <= 0) {
+              // 등급을 초기등급으로 변경함
+              loginUser.setRank_code("NM");
+              updatePenalty = mService.updatePenaltyPoint(loginUser);
+            }
+            
+            if(updatePenalty > 0) {
+              // 변경 성공시 등급 이미지 재매치
+              loginUser = mService.memberLogin(loginUser);
+            }
+            
+          } catch (ParseException e) {
+            e.printStackTrace();
+          }
+		  
 			model.addAttribute("loginUser", loginUser);
 			return "redirect:home.do";
 		} else {

@@ -103,7 +103,7 @@
 
 	<insert id="insertBoard" parameterType="Board">
 		INSERT INTO SECOND_GOODS
-		VALUES(SEQ_SG.NEXTVAL,'admin',#{b_Category},#{SG_BNAME},'운영자',#{TAG_NAME},DEFAULT,#{SG_PRICE},#{SG_SPRICE},#{SG_INFO},DEFAULT,SYSDATE,SYSDATE,DEFAULT,SYSDATE,#{SG_DEAL},#{SG_AREA},#{SG_DELIVERY},DEFAULT)
+		VALUES(SEQ_SG.NEXTVAL,#{USER_ID},#{b_Category},#{SG_BNAME},#{SG_NAME},#{TAG_NAME},DEFAULT,#{SG_PRICE},#{SG_SPRICE},#{SG_INFO},DEFAULT,SYSDATE,SYSDATE,DEFAULT,#{SG_END_DATE},#{SG_DEAL},#{SG_AREA},#{SG_DELIVERY},DEFAULT)
 	</insert>
 
 	<insert id="attachmentInsert" parameterType="Attachment">
@@ -113,7 +113,7 @@
 	</insert>
 	
 	<insert id="insertReply" parameterType="Reply">
-		INSERT INTO REPLY VALUES(SEQ_G_REPLY.nextval,#{USER_ID},#{NICKNAME},#{SG_ID},#{REPLY_INFO},(select max(reply_id) from reply)+1,SYSDATE,SYSDATE,default)
+		INSERT INTO REPLY VALUES(SEQ_G_REPLY.nextval,#{USER_ID},#{NICKNAME},#{SG_ID},#{REPLY_INFO},SEQ_G_REPLY.nextval,SYSDATE,SYSDATE,default)
 	</insert>
 	<insert id="insertReplyAdd" parameterType="Reply">
 		INSERT INTO REPLY VALUES(SEQ_G_REPLY.nextval,#{USER_ID},#{NICKNAME},#{SG_ID},#{REPLY_INFO},#{REPLY_ID},SYSDATE,SYSDATE,default)
@@ -164,7 +164,7 @@
 	</update>
 	
 	<select id="selectReplyList" parameterType="Reply" resultType="Reply">
-  		select * 
+  		select REPLY_ID,to_char(REPLY_UPDATE_DATE,'yy.mm.dd hh24:mi') REPLY_DATE,USER_ID,NICKNAME,SG_ID,REPLY_INFO,REPLY_ADD,REPLY_ENROLL_DATE,REPLY_UPDATE_DATE
   		from reply
   		where SG_ID = #{sgId} and REPLY_STATUS = 'N'
   		order by REPLY_ADD asc,REPLY_ID
