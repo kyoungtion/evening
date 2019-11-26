@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>중고 거래, 경매는 이브닝 : 내가 쓴글</title>
 <style>
 .subject:hover {
 	cursor:pointer;
@@ -40,10 +40,13 @@
 			</ul>
 		</div> -->
 		<ul class="my-tabs">
-			<li class="my-tab" onclick="clickRefresh();"><a href="myinfo.me">내 정보 보기</a></li>
+			<li class="my-tab" onclick="clickRefresh();"><a href="myinfo.me">내
+					정보 보기</a></li>
 			<li class="my-tab"><a href="favorites.me">관심상품목록</a></li>
-			<li class="my-tab" onclick="clickRefresh();"><a href="dealDetail.me">거래내역</a></li>
-			<li class="my-tab active"><a href="mypost.me?category=Community">내가 쓴 글</a></li>
+			<li class="my-tab"><a href="dealDetail.me">입찰내역</a></li>
+			<li class="my-tab"><a href="pList.py">결제내역</a></li>
+			<li class="my-tab active"><a href="mypost.me?category=Community">내가
+					쓴 글</a></li>
 		</ul>
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 80%; padding: 0;">
 			<div class="contact-wrap" style="height: 900px;">
@@ -113,24 +116,22 @@
 										</tbody>
 									</table>
 								</div>
-								
-								
 								<br>
 								<div class="row">
 									<div class="col-md-5"
 										style="text-align: center; left: 24%; width: 350px;">
 										<c:set var="cate" value="${category }"/>
 										<ul class="pagination">
-											<!-- 이전 -->
-											<c:if test="${ pi.currentPage <= 1} ">
-												<li class="disabled"><a href="#">«</a></li>
+											<!-- 이전 페이지 -->
+											<c:if test="${ pi.currentPage <= 1 }">
+												<li class="disabled"><a>&laquo;</a></li>
 											</c:if>
 											<c:if test="${ pi.currentPage > 1 }">
 												<c:url var="before" value="mypost.me">
 													<c:param name="page" value="${ pi.currentPage - 1 } " />
 													<c:param name="category" value="${ cate }" />
 												</c:url>
-												<li><a href="${ before }">«</a></li>
+												<li><a href="${ before }">&laquo;</a></li>
 											</c:if>
 											<!-- 페이지 -->
 											<c:forEach var="p" begin="${ pi.startPage }"
@@ -148,14 +149,14 @@
 											</c:forEach>
 											<!-- 다음 -->
 											<c:if test="${ pi.currentPage >= pi.maxPage }">
-												<li class="disabled"><a href="#">»</a></li>
+												<li class="disabled"><a href="#">&raquo;</a></li>
 											</c:if>
 											<c:if test="${ pi.currentPage < pi.maxPage }">
 												<c:url var="after" value="mypost.me">
 													<c:param name="page" value="${ pi.currentPage + 1 } " />
 													<c:param name="category" value="${ cate }" />
 												</c:url>
-												<li><a href="${ after }">»</a></li>
+												<li><a href="${ after }">&raquo;</a></li>
 											</c:if>
 										</ul>
 									</div>

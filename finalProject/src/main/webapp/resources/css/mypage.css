@@ -286,7 +286,7 @@ tbody tr td {
 
 .my-tabs li.active{background: white !important; font-weight: bold;}
 
-.form-control.sidebar.colorlib-form-2 {background: #fdf8f4 !important; border: 2px solid whitesmoke !important; height: 45px;}
+.form-control.sidebar.colorlib-form-2 {background: white !important; border: 2px solid whitesmoke !important; height: 45px;}
 
 li.tab-link {
 	opacity : 0.9;

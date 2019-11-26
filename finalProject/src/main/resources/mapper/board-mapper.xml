@@ -194,6 +194,135 @@
 		WHERE REPLY_ID=#{REPLY_ID}
 	</update>
 
-  	
-
+  	<!-- 이경희 -->
+  	<select id="myBoardList" parameterType="map" resultType="Board">
+  		select *
+  		from second_goods
+  		WHERE SG_STATUS='N' and user_id = #{user_id}
+		<choose>
+			<when test='bc eq "A"'>
+				AND B_CATEGORY='A'
+			</when>
+			<when test='bc eq "SG"'>
+				AND B_CATEGORY='SG'
+			</when>
+		</choose>
+		order by sg_id desc
+  	</select>
+	
+	<select id="myBoardListCount" parameterType="map" resultType="_int">
+		select count(*)
+		from second_goods
+		where sg_status='N' and user_id=#{user_id}
+		<choose>
+			<when test='bc eq "A"'>
+				AND B_CATEGORY='A'
+			</when>
+			<when test='bc eq "SG"'>
+				AND B_CATEGORY='SG'
+			</when>
+		</choose>
+	</select>
+	
+	<resultMap type="AuctionHistory" id="HistoryResultSet">
+		<id property="a_Id" column="A_ID"/>
+		<result property="User_Id" column="USER_ID"/>
+		<result property="Sg_Id" column="SG_ID"/>
+		<result property="a_Price" column="A_PRICE"/>
+		<result property="a_Enroll_Date" column="A_ENROLL_DATE"/>
+		<result property="a_Check" column="A_CHECK"/>
+		<association property="board" javaType="Board">
+			<id property="SG_ID" column="SG_ID"/>
+			<result property="USER_ID" column="USER_ID"/>
+			<result property="b_Category" column="B_CATEGORY"/>
+			<result property="SG_BNAME" column="SG_BNAME"/>
+			<result property="TAG_NAME" column="TAG_NAME"/>
+			<result property="SG_NAME" column="SG_NAME"/>
+			<result property="SG_COUNT" column="SG_COUNT"/>
+			<result property="SG_LIKE" column="SG_LIKE"/>
+			<result property="SG_PRICE" column="SG_PRICE"/>
+			<result property="SG_SPRICE" column="SG_SPRICE"/>
+			<result property="SG_INFO" column="SG_INFO"/>
+			<result property="SG_CHECK" column="SG_CHECK"/>
+			<result property="SG_ENROLL_DATE" column="SG_ENROLL_DATE"/>
+			<result property="SG_UPDATE_DATE" column="SG_UPDATE_DATE"/>
+			<result property="SG_STATUS" column="SG_STATUS"/>
+			<result property="SG_END_DATE" column="SG_END_DATE"/>
+			<result property="SG_DEAL" column="SG_DEAL"/>
+			<result property="SG_AREA" column="SG_AREA"/>
+			<result property="SG_DELIVERY" column="SG_DELIVERY"/>
+		</association>
+	</resultMap>
+	
+	<select id="getAuctionHistoryCount" resultType="_int" parameterType="string">
+		select count(a.sg_id)
+		from auction_history a
+		join second_goods s on(a.sg_id = s.sg_id)
+		where a.user_id = #{user_id} and s.sg_status='N'
+	</select>
+	
+	<select id="getAuctionHistoryList" resultMap="HistoryResultSet" parameterType="string">
+		select a.*, s.*
+		from auction_history a
+		join second_goods s on(a.sg_id = s.sg_id)
+		where a.user_id = #{user_id} and s.sg_status='N'
+	</select>
+	
+	<resultMap type="GoodLike" id="LikeResultSet">
+		<id property="Gl_Id" column="GL_ID"/>
+		<result property="User_Id" column="USER_ID"/>
+		<result property="Sg_id" column="SG_ID"/>
+		<result property="Gl_check" column="GL_CHECK"/>
+		<association property="board" javaType="Board">
+			<id property="SG_ID" column="SG_ID"/>
+			<result property="USER_ID" column="USER_ID"/>
+			<result property="b_Category" column="B_CATEGORY"/>
+			<result property="SG_BNAME" column="SG_BNAME"/>
+			<result property="TAG_NAME" column="TAG_NAME"/>
+			<result property="SG_NAME" column="SG_NAME"/>
+			<result property="SG_COUNT" column="SG_COUNT"/>
+			<result property="SG_LIKE" column="SG_LIKE"/>
+			<result property="SG_PRICE" column="SG_PRICE"/>
+			<result property="SG_SPRICE" column="SG_SPRICE"/>
+			<result property="SG_INFO" column="SG_INFO"/>
+			<result property="SG_CHECK" column="SG_CHECK"/>
+			<result property="SG_ENROLL_DATE" column="SG_ENROLL_DATE"/>
+			<result property="SG_UPDATE_DATE" column="SG_UPDATE_DATE"/>
+			<result property="SG_STATUS" column="SG_STATUS"/>
+			<result property="SG_END_DATE" column="SG_END_DATE"/>
+			<result property="SG_DEAL" column="SG_DEAL"/>
+			<result property="SG_AREA" column="SG_AREA"/>
+			<result property="SG_DELIVERY" column="SG_DELIVERY"/>
+		</association>
+	</resultMap>
+	
+	<select id="myLikeListCount" resultType="_int" parameterType="map">
+		select count(g.gl_id)
+		from good_like g
+		join second_goods s on(g.sg_id = s.sg_id)
+		where g.user_id = #{user_id} and g.gl_check = 1 and s.sg_status = 'N'
+		<choose>
+			<when test='bc eq "A"'>
+				AND s.B_CATEGORY='A'
+			</when>
+			<when test='bc eq "SG"'>
+				AND s.B_CATEGORY='SG'
+			</when>
+		</choose>
+	</select>
+	
+	<select id="myLikeList" resultMap="LikeResultSet" parameterType="map">
+		select *
+		from good_like g
+		join second_goods s on(g.sg_id = s.sg_id)
+		where g.user_id = #{user_id} and g.gl_check = 1 and s.sg_status = 'N'
+		<choose>
+			<when test='bc eq "A"'>
+				AND s.B_CATEGORY='A'
+			</when>
+			<when test='bc eq "SG"'>
+				AND s.B_CATEGORY='SG'
+			</when>
+		</choose>
+	</select>
 </mapper>

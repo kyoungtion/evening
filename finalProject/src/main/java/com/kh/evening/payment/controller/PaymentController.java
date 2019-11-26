@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +22,7 @@ import com.kh.evening.board.model.service.BoardService;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.common.Pageination;
+import com.kh.evening.member.model.vo.Member;
 import com.kh.evening.payment.model.exception.PaymentException;
 import com.kh.evening.payment.model.service.PaymentService;
 import com.kh.evening.payment.model.vo.Payment;
@@ -64,8 +68,11 @@ public class PaymentController {
 	}
 	// 결제 목록
 	@RequestMapping("pList.py")
-	public ModelAndView pList(@RequestParam(value="page", required=false) Integer page,
+	public ModelAndView pList(Model model, HttpServletRequest request, @RequestParam(value="page", required=false) Integer page,
 						ModelAndView mv)	{
+		/*Member m = (Member)model.getAttribute("loginUser");*/
+		HttpSession session = request.getSession();
+		Member m = (Member)session.getAttribute("loginUser");
 		int currentPage = 1;
 		if(page != null) {
 			currentPage = page;
@@ -76,11 +83,12 @@ public class PaymentController {
 		ArrayList<Payment> list = pService.selectPaymentList(pi);
 		if(list != null) {
 			mv.addObject("list", list);
-			System.out.println(list);
 			mv.addObject("pi", pi);
-			System.out.println(pi);
-			mv.setViewName("paylist");
-			System.out.println(mv);
+			if(m.getUser_id().equals("admin")) {
+				mv.setViewName("adminPaylist");
+			} else {
+				mv.setViewName("paylist");
+			}
 		}else {
 			throw new PaymentException("결제 내역 조회에 실패하였습니다.");
 		}
@@ -124,16 +132,18 @@ public class PaymentController {
 	}
 	
 	// 결제 취소 요청
-	@RequestMapping("pdelete.py")
-	public String deletePayment(@ModelAttribute Payment p, SessionStatus status) {
-		int result = pService.deletePayment(p);
-		
-		if(result > 0) {
-			status.setComplete();
-			return "redirect:home.do";
-		}else {
-			throw new PaymentException("결제 취소 요청을 실패하였습니다.");
-		}
-	}
+   @RequestMapping("pdelete.py")
+   public String deletePayment(@RequestParam("ids") String ids) {
+      String[] idArray = ids.split(",");
+      System.out.println("ids : " + ids);
+      int result = pService.deletePayment(idArray);
+      System.out.println("idArray : " + idArray);
+      
+      if(result > 0) {
+         return "redirect:pList.py";
+      }else {
+         throw new PaymentException("결제 취소 요청을 실패하였습니다.");
+      }
+   }
 	
 }

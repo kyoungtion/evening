@@ -96,14 +96,14 @@ public class MemberDAO {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectSearchMemberList", parameters, rb);
 	}
 
-	public int getDeActiMemberListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("memberMapper.getDeActiMemberListCount");
+	public int getDeActiMemberListCount(SqlSessionTemplate sqlSession, String memberType) {
+		return sqlSession.selectOne("memberMapper.getDeActiMemberListCount", memberType);
 	}
 
-	public ArrayList<Member> getDeActiMemberList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Member> getDeActiMemberList(SqlSessionTemplate sqlSession, PageInfo pi, String memberType) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList) sqlSession.selectList("memberMapper.getDeActiMemberList", null, rb);
+		return (ArrayList) sqlSession.selectList("memberMapper.getDeActiMemberList", memberType, rb);
 	}
 
 	public int activateMember(SqlSessionTemplate sqlSession, Member m) {
