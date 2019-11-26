@@ -11,11 +11,7 @@
 	<select id="getListCount" resultType="_int">
 		select count(*)
 		from payment
-<<<<<<< HEAD
-		where P_STATUS='Y'		
-=======
 		where P_STATUS='Y'
->>>>>>> 54e29a289140ba06e06a93dadc7338487d91637f
 	</select>
 	
 	<select id="selectPaymentList" resultMap="payResultSet">
@@ -72,7 +68,7 @@
 		order by p_no desc
 	</select>
 	
-<<<<<<< HEAD
+
 	<resultMap type="AuctionHistory" id="HistoryResultSet">
 		<id property="a_Id" column="A_ID"/>
 		<result property="User_Id" column="USER_ID"/>
@@ -106,7 +102,7 @@
 			SET SG_PRICE = ( SELECT MAX(A_PRICE) FROM AUCTION_HISTORY WHERE SG_ID=#{sgId} AND A_CHECK='N')
 			WHERE SG_ID = #{sgId}
 		</update>
-=======
+
 	<resultMap type="Payment" id="payResultSet">
 		<id property="p_No" column="P_NO"/>
 		<result property="p_ID" column="P_ID"/>
@@ -142,7 +138,7 @@
 			<result property="SG_DELIVERY" column="SG_DELIVERY"/>
 		</association>
 	</resultMap>
->>>>>>> 54e29a289140ba06e06a93dadc7338487d91637f
+
 	
 	
 </mapper>

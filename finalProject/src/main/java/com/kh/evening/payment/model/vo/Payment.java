@@ -28,12 +28,7 @@ public class Payment {
 	private String p_STATUS;	// 결제 상태
 	private int MONEY;			// 결제 금액
 	private String MEMO;		// 배송시 메모
-<<<<<<< HEAD
 	private String sg_ID;		// 상품 정보
-
-=======
-	private int gp_ID;		// 상품 정보
->>>>>>> 54e29a289140ba06e06a93dadc7338487d91637f
 
 	private Board board;
 
