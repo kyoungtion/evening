@@ -195,7 +195,7 @@
 				               if(data.rlist[i].REPLY_ADD!=data.rlist[i2].REPLY_ADD){
 				            	   t1='<div name="'+ data.rlist[i].REPLY_ID+'" class="comment"><div style=" width: 95%;"><div><span style="width: 20px; height: 20px; background: white;">아이콘</span><span>';
 					               t2='</span></div><div><span id="'+data.rlist[i].REPLY_ID+'">';
-					               t3='</span></div><div><span>'+data.rlist[i].REPLY_UPDATE_DATE+'</span></div><div style="height: 20px;">';
+					               t3='</span></div><div><span>'+data.rlist[i].REPLY_DATE+'</span></div><div style="height: 20px;">';
 					               t4='<button class="replyAddForm" onclick="replyAdd(this);" value=';
 					               t5='>답글</button>';
 					               t6='<button onclick="replyUpdate(this);" value="'+data.rlist[i].REPLY_ID+'">수정</button><button onclick="replyDelete(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button>';
@@ -211,7 +211,7 @@
 				               if(data.rlist[i].REPLY_ADD==data.rlist[i2].REPLY_ADD){
 					            	t1='<div name="'+ data.rlist[i].REPLY_ID+'" class="comment" style="background: gray;"><div class="comment2"></div><div style="padding-left: 60px; width: 90%;"><div><span style="width: 20px; height: 20px; background: white;">아이콘</span><span>';
 					            	t2='</span></div><div><span id="'+data.rlist[i].REPLY_ID+'">';
-					            	t3='</span></div><div><span>'+data.rlist[i].REPLY_UPDATE_DATE+'</span></div>';
+					            	t3='</span></div><div><span>'+data.rlist[i].REPLY_DATE+'</span></div>';
 					            	t4='<button type="button" onclick="replyAddUpdate(this);" value="'+data.rlist[i].REPLY_ID+'">수정</button><button onclick="replyDeleteAdd(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button>';
 					            	t5='</div></div>';
 		                		  if((data.rlist[i].USER_ID)==userId && empty){
@@ -223,7 +223,7 @@
 	                	  }else{
 	                		   t1='<div name="'+ data.rlist[i].REPLY_ID+'" class="comment"><div style=" width: 95%;"><div><span style="width: 20px; height: 20px; background: white;">아이콘</span><span>';
 				               t2='</span></div><div><span id="'+data.rlist[i].REPLY_ID+'">';
-				               t3='</span></div><div><span>'+data.rlist[i].REPLY_UPDATE_DATE+'</span></div><div style="height: 20px;">';
+				               t3='</span></div><div><span>'+data.rlist[i].REPLY_DATE+'</span></div><div style="height: 20px;">';
 				               t4='<button class="replyAddForm" onclick="replyAdd(this);" value=';
 				               t5='>답글</button>';
 				               t6='<button onclick="replyUpdate(this);" value="'+data.rlist[i].REPLY_ID+'">수정</button><button onclick="replyDelete(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button>';

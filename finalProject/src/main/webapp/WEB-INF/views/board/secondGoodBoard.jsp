@@ -22,7 +22,7 @@
 					<div class="col-md-10 col-md-push-2">
 						<div class="row row-pb-lg">
 						
-						<c:if test="${loginUser.rank_code eq 'NM' }">
+						<c:if test='${ loginUser.rank_code != "E" && loginUser.rank_code != "NM" }'>
 							<button class="btn btn-primary btn-outline"style="float: right; margin: 0px 50px 0 0px;"
 							onclick="location.href='insertF.bo?type=1';">±Û¾²±â</button>
 						</c:if>
