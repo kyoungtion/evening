@@ -170,4 +170,14 @@ public class BoardServiceImp implements BoardService {
 		return bDAO.getAuctionHistoryList(sqlSession, pi, user_id);
 	}
 
+	@Override
+	public ArrayList<Board> myLikeList(PageInfo pi, String user_id) {
+		return bDAO.myLikeList(sqlSession, pi, user_id);
+	}
+
+	@Override
+	public int myLikeListCount(String user_id) {
+		return bDAO.myLikeListCount(sqlSession, user_id);
+	}
+
 }
