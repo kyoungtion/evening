@@ -96,7 +96,7 @@ public class BoardController {
     }
 
     return mv;
-  }
+  } 
   
   @RequestMapping("secondgoodList.bo")
   public ModelAndView secondGoodList(@RequestParam(value="page", required=false) Integer page, ModelAndView mv, @RequestParam(value="mode", required=false) String mode) {
@@ -443,7 +443,7 @@ public class BoardController {
 
 	@RequestMapping("uInsert.bo")
 	public String usedInsert(@ModelAttribute Board b, @RequestParam("smImg") MultipartFile uploadFile,
-			HttpServletRequest request, HttpServletResponse response,@RequestParam("aDay") int aDay) {
+			HttpServletRequest request, HttpServletResponse response,@RequestParam("aDay") int aDay,@RequestParam("type") int type) {
 		if (b.getSG_DELIVERY() == null) {
 			b.setSG_DELIVERY("N");
 		} else {
@@ -495,7 +495,8 @@ public class BoardController {
 			int result = bService.insertAttachment(atm);
 
 			if (result > 0) {
-				return "redirect:home.do";
+			  if(type==1)return "redirect:secondgoodList.bo";
+			  else return "redirect:auctionList.bo";
 			} else {
 				for (int i = 0; i < allName.length; i++) {
 					if (!allName[i].equals("N")) {

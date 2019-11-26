@@ -12,7 +12,7 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="evPage" style="height:auto;width: 100%;background: #ffffff;  text-align: center; ">
-		<form id="insertForm" action="uInsert.bo" method="post" enctype="multipart/form-data">
+		<form id="insertForm" action="uInsert.bo?type=2" method="post" enctype="multipart/form-data">
 			<div style="width: 90%; height: auto; background: #f5f5f5;display: inline-block;
 		 ">
 				<br>
