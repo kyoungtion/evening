@@ -3,7 +3,7 @@
 	var sgId=parseInt($('#sgId').val());
 	var userId=$('#userId').val();
 	var nickName=$('#nickName').val();
-	var replyA='<div id="replyAdd" class="comment" style="background: gray;"><div class="comment2"></div><div style="padding-left: 60px; "><textarea id="replyArea2"></textarea><button class="replyAddBtn" onclick="test(this);" value=';
+	var replyA='<div id="replyAdd" class="comment" style="background: lightgray;"><div class="comment2"></div><div style="padding-left: 60px; "><textarea id="replyArea2"></textarea><button class="replyAddBtn" onclick="test(this);" value=';
 	var replyA2='>댓글쓰기</button></div></div>';
 	var replyB=1;
 	var replyUpNum=0;
@@ -193,13 +193,13 @@
 		                i2=parseInt(i)-1;
 		                if(i>0){
 				               if(data.rlist[i].REPLY_ADD!=data.rlist[i2].REPLY_ADD){
-				            	   t1='<div name="'+ data.rlist[i].REPLY_ID+'" class="comment"><div style=" width: 95%;"><div><span style="width: 20px; height: 20px; background: white;">아이콘</span><span>';
+				            	   t1='<div name="'+ data.rlist[i].REPLY_ID+'" class="comment"><div style=" width: 95%;"><div><img src="/evening/resources/img/replyIcon.png"><span>';
 					               t2='</span></div><div><span id="'+data.rlist[i].REPLY_ID+'">';
-					               t3='</span></div><div><span>'+data.rlist[i].REPLY_DATE+'</span></div><div style="height: 20px;">';
+					               t3='</span></div><div><span>'+data.rlist[i].REPLY_DATE+'</span></div><div>';
 					               t4='<button class="replyAddForm" onclick="replyAdd(this);" value=';
 					               t5='>답글</button>';
 					               t6='<button onclick="replyUpdate(this);" value="'+data.rlist[i].REPLY_ID+'">수정</button><button onclick="replyDelete(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button>';
-					               t7='<div style="float: right;">좋아요<span>0</span></div></div></div></div>';
+					               t7='</div></div></div>';
 					           if((data.rlist[i].USER_ID)==userId && empty){
 				                	 $tableBody.append(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+t4+data.rlist[i].REPLY_ID+t5+t6+t7);				            	
 					            }else if((data.rlist[i].USER_ID)!=userId && empty){
@@ -209,7 +209,7 @@
 				            	}
 				               }	                 
 				               if(data.rlist[i].REPLY_ADD==data.rlist[i2].REPLY_ADD){
-					            	t1='<div name="'+ data.rlist[i].REPLY_ID+'" class="comment" style="background: gray;"><div class="comment2"></div><div style="padding-left: 60px; width: 90%;"><div><span style="width: 20px; height: 20px; background: white;">아이콘</span><span>';
+					            	t1='<div name="'+ data.rlist[i].REPLY_ID+'" class="comment" style="background: lightgray;"><div class="comment2"></div><div style="padding-left: 60px; width: 90%;"><div><img src="/evening/resources/img/replyIcon.png"><span>';
 					            	t2='</span></div><div><span id="'+data.rlist[i].REPLY_ID+'">';
 					            	t3='</span></div><div><span>'+data.rlist[i].REPLY_DATE+'</span></div>';
 					            	t4='<button type="button" onclick="replyAddUpdate(this);" value="'+data.rlist[i].REPLY_ID+'">수정</button><button onclick="replyDeleteAdd(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button>';
@@ -221,13 +221,13 @@
 					            	}
 				               }
 	                	  }else{
-	                		   t1='<div name="'+ data.rlist[i].REPLY_ID+'" class="comment"><div style=" width: 95%;"><div><span style="width: 20px; height: 20px; background: white;">아이콘</span><span>';
+	                		   t1='<div name="'+ data.rlist[i].REPLY_ID+'" class="comment"><div style=" width: 95%;"><div><img src="/evening/resources/img/replyIcon.png"><span>';
 				               t2='</span></div><div><span id="'+data.rlist[i].REPLY_ID+'">';
-				               t3='</span></div><div><span>'+data.rlist[i].REPLY_DATE+'</span></div><div style="height: 20px;">';
+				               t3='</span></div><div><span>'+data.rlist[i].REPLY_DATE+'</span></div><div>';
 				               t4='<button class="replyAddForm" onclick="replyAdd(this);" value=';
 				               t5='>답글</button>';
 				               t6='<button onclick="replyUpdate(this);" value="'+data.rlist[i].REPLY_ID+'">수정</button><button onclick="replyDelete(this);" value="'+data.rlist[i].REPLY_ID+'">삭제</button>';
-				               t7='<div style="float: right;">좋아요<span>0</span></div></div></div></div>';
+				               t7='</div></div></div>';
 				               if((data.rlist[i].USER_ID)==userId && empty){
 			                	 $tableBody.append(t1+decodeURIComponent(data.rlist[i].NICKNAME.replace(/\+/g, " "))+t2+decodeURIComponent(data.rlist[i].REPLY_INFO.replace(/\+/g, " "))+t3+t4+data.rlist[i].REPLY_ID+t5+t6+t7);				            	
 				               }else if((data.rlist[i].USER_ID)!=userId && empty){
