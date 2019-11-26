@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +22,7 @@ import com.kh.evening.board.model.service.BoardService;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.common.Pageination;
+import com.kh.evening.member.model.vo.Member;
 import com.kh.evening.payment.model.exception.PaymentException;
 import com.kh.evening.payment.model.service.PaymentService;
 import com.kh.evening.payment.model.vo.Payment;
@@ -64,8 +68,12 @@ public class PaymentController {
 	}
 	// 결제 목록
 	@RequestMapping("pList.py")
-	public ModelAndView pList(@RequestParam(value="page", required=false) Integer page,
+	public ModelAndView pList(Model model, HttpServletRequest request, @RequestParam(value="page", required=false) Integer page,
 						ModelAndView mv)	{
+		/*Member m = (Member)model.getAttribute("loginUser");*/
+		HttpSession session = request.getSession();
+		Member m = (Member)session.getAttribute("loginUser");
+		System.out.println(m);
 		int currentPage = 1;
 		if(page != null) {
 			currentPage = page;
@@ -76,11 +84,12 @@ public class PaymentController {
 		ArrayList<Payment> list = pService.selectPaymentList(pi);
 		if(list != null) {
 			mv.addObject("list", list);
-			System.out.println(list);
 			mv.addObject("pi", pi);
-			System.out.println(pi);
-			mv.setViewName("paylist");
-			System.out.println(mv);
+			if(m.getUser_id().equals("admin")) {
+				mv.setViewName("adminPaylist");
+			} else {
+				mv.setViewName("paylist");
+			}
 		}else {
 			throw new PaymentException("결제 내역 조회에 실패하였습니다.");
 		}

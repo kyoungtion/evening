@@ -40,216 +40,150 @@
 		<div class="col-md-10 col-md-offset-1"
 			style="margin: 0; width: 100%; background: whitesmoke;">
 			<div class="contact-wrap" style="height: 900px; padding: 0;">
-				<form style="height: 100%;">
 					<div class="container">
-						<div class="row content" style="height: 800px;">
-							<div class="row content table" style="height: 600px;">
-								<div style="float:left; width:150px;">
-								
-								<select id="memberType" style="border:2px solid whitesmoke !important">
-									<option value="NM">일반회원</option>
-									<option value="HM">판매자회원</option>
-								</select>
-								</div>
-								<div style="float:right;">
-									<select id="searchfor" name="searchfor" style="border:2px solid whitesmoke !important">
-											<option value="user_id">아이디</option>
-											<option value="user_name">이름</option>
-										</select> <input id="searchText" name="searchText" type="search" placeholder="전체 회원대상 검색" onkeyup="enterkey();" /> 
-										<input type="hidden" id="category" value="${ cate }">
-										<button type="button" id="searchMemberBtn" style="background: none; border: 0;">
-											<i class="fas fa-search"></i>
-									</button><br>
-								</div>
-								<br>
-								<hr>
-								<br>
-								<c:if test="${ list != null && dList == null }">
-									<button type="button" class=" btn btn-default" onclick="location.href='deactivatedMember.ad'" style="float:right;">비활성된 회원 모두 보기</button><br>
-								</c:if>
-								<c:if test="${ list == null && dList != null}">
-									<button type="button" class=" btn btn-default" onclick="location.href='adminView.ad'" style="float:right;">활성 회원 모두 보기</button><br>
-								</c:if>
-								<input type="checkbox" id="selectAll"> <label
-									for="selectAll">전체선택</label>
-								<script>
-									$(function() {
-										$('#selectAll').click(function() {
-											if ($('#selectAll').is(":checked")) {
-												$("input[name='chk']").prop('checked',true);
-											} else {
-												$("input[name='chk']").prop('checked',false);
-											}
-										});
-
-										$('#chk').on('click',function() {
-											if ($('#chk').is(":checked") == false) {
-												$('#selectAll').attr("checked",false);
-											}
-										});
-									});
-								</script>
+					<form style="height: 100%; margin-left: 0%;">
+						<div class="row content" style="height: 700px !important;">
+							<div class="col-md-12" style="margin-bottom: 5%;">
+								<span class="titlespan2" id="listCount"></span>
+							</div>
+							<div class="row content2" style="padding: 0 30px; height:100%;">
 								<table border="1" summary="" class="content-table">
-									<colgroup>
-										<col style="width: 2%">
-										<col style="width: 6%;">
-										<col style="width: 10%;">
-										<col style="width: 10%;">
-										<col style="width: 12%;">
-										<col style="width: 35%;">
-										<col style="width: 10%;">
-										<col style="width: 10%;">
-										<col style="width: 5%;">
+									<colgroup
+										class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 ">
+										<col style="width: 50px;">
+										<col style="width: 100px;">
+										<col style="width: 100px;">
+										<col style="width: 200px;">
+										<col style="width: 100px;">
+										<col style="width: 100px;">
+										<%-- <col style="width: 100px;" class=""> --%>
+										<col style="width: 100px;">
+										<col style="width: 100px;">
+										<col style="width: 55px;">
 									</colgroup>
 									<thead>
 										<tr style="">
-											<th scope="col"><i class="fas fa-check"></i></th>
+											<th scope="col">번호</th>
 											<th scope="col">아이디</th>
-											<th scope="col">이름(별명)</th>
-											<th scope="col">연락처</th>
-											<th scope="col">이메일</th>
-											<th scope="col">주소</th>
-											<c:if test="${ !empty list }">
-												<th scope="col">가입일</th>
-											</c:if>
-											<c:if test="${ empty list }">
-												<th scope="col">탈퇴일</th>
-											</c:if>
-											<th scope="col">등급</th>
-											<th scope="col" style="text-align: center;">설정</th>
+											<th scope="col">닉네임</th>
+											<th scope="col">상품명</th>
+											<th scope="col">금액</th>
+											<th scope="col">결제 날짜</th>
+											<th scope="col">수정 날짜</th>
+											<!-- <th cope="col">결제 update date</th> -->
+											<th scope="col">결제상태</th>
+											<th scope="col">선택</th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:if test="${ list == null && dList != null }">
-											<c:forEach var="m" items="${dList}" varStatus="st">
-												<tr style="background-color: #FFFFFF; color: #333333;">
-													<td class="displaynone" id="listLength">${fn:length(list)}</td>
-													<td><input class="chk" id="chk" name="chk"
-														type="checkbox" value="${ m.user_id }"></td>
-													<td id="user_id${st.index}">${ m.user_id }</td>
-													<td>${ m.user_name }(${m.nickName })</td>
-													<td>${ m.phone }</td>
-													<td>${ m.user_email }</td>
-													<td>${ m.address }</td>
-													<td>${ m.update_date }</td>
-													<td>${ m.rankCode.rank_name }( ${ m.rankCode.rank_img }
-														)</td>
-													<td style="text-align: center;">
-														<ul class="nav navbar panel_toolbox">
-															<li class="dropdown"><a href=""
-																class="dropdown-toggle" data-toggle="dropdown"
-																role="button" aria-haspopup="true" aria-expanded="false"><i
-																	class="fas fa-cog"></i></a>
-																<ul class="dropdown-menu" role="menu"
-																	x-placement="bottom-start"
-																	style="position: absolute; transform: translate3d(-5px, 30px, 0px); top: 0px; left: 0px; will-change: transform;">
-																	<li><a class="dropdown-item memberActivate"
-																		id="memberActivate.${st.index }">회원 활성화</a></li>
-																</ul>
-															</li>
-														</ul>
-													</td>
-												</tr>
-											</c:forEach>
+										<c:if test="${ loginUser != null && loginUser.user_id == 'admin' }">
+											<c:set var="pList" value="${ list }"/>
 										</c:if>
-										<c:if test="${ list != null && dList == null  }">
-											<c:forEach var="m" items="${list}" varStatus="st">
-												<tr style="background-color: #FFFFFF; color: #333333;">
-													<td class="displaynone" id="listLength">${fn:length(list)}</td>
-													<td><input class="chk" id="chk" name="chk"
-														type="checkbox" value="${ m.user_id }"></td>
-													<td id="user_id${st.index}">${ m.user_id }</td>
-													<td>${ m.user_name }(${m.nickName })</td>
-													<td>${ m.phone }</td>
-													<td>${ m.user_email }</td>
-													<td>${ m.address }</td>
-													<td>${ m.enroll_date }</td>
-													<td>${ m.rankCode.rank_name }( ${ m.rankCode.rank_img }
-														)</td>
-													<td style="text-align: center;">
-														<ul class="nav navbar panel_toolbox">
-															<li class="dropdown"><a href=""
-																class="dropdown-toggle" data-toggle="dropdown"
-																role="button" aria-haspopup="true" aria-expanded="false"><i
-																	class="fas fa-cog"></i></a>
-																<ul class="dropdown-menu" role="menu"
-																	x-placement="bottom-start"
-																	style="position: absolute; transform: translate3d(-5px, 30px, 0px); top: 0px; left: 0px; will-change: transform;">
-																	<li><a class="dropdown-item memberLevel"
-																		id="memberLevel.${st.index }">등급 조정</a></li>
-																	<li><a class="dropdown-item memberDelete"
-																		id="memberDelete.${st.index }">회원 삭제</a></li>
-																</ul>
-															</li>
-														</ul>
-													</td>
-												</tr>
-											</c:forEach>
-										</c:if>
+										<c:forEach var="p" items="${ pList }" varStatus="vs">
+											<tr>
+												<%-- 									<tr style="background-color:#FFFFFF; color:#333333;">
+												 <td id="P_ID${pt.index }" class="P_ID" name="P_ID">${p.P_ID }</td>
+												<td class="subject" id="subject"><span class="PID">${p.P_ID }</span>
+												<span class="rWrap Before ${pt.index }"> [ </span><span><font
+														id="rCount${pt.index}"></font></span><span
+													class="rWrap After ${pt.index}"> ] </span></td> --%>
+				
+												<td>${p.p_No}</td>
+												<td>${p.p_ID}</td>
+												<td>${p.p_NICKNAME}</td>
+												<td>${p.gp_ID}</td>
+												<td>${p.MONEY}</td>
+												<td>${p.PAYDAY}</td>
+												<td>${p.p_UPDATE_DATE }</td>
+												<td style="text-align: center;">${p.p_STATUS}</td>
+												<td><input type="checkbox" style="margin-left: 10%;"></td>
+												<c:set var="listCount" value="${ fn:length(pList) }"/>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
-							<div
-								style="width: 100%; border-top: 1px solid whitesmoke; height: 100px; padding-top: 10px;">
-								<div class="row">
-									<c:if test="${ list != null && dList == null }">
-										<div style="text-align:right; margin-right:20px;">
-											<!-- <button class="btn-primary">등급변경</button> -->
-											<button type="button" class="btn-danger" id="deleteAllMember">선택회원 전부 비활성화</button>
-										</div>
-									</c:if>
-									<c:if test="${ list == null && dList != null }">
-										<div style="text-align:right; margin-right:20px;">
-											<!-- <button class="btn-primary">등급변경</button> -->
-											<button type="button" class="btn-danger" id="activateAllMember">선택회원 전부 활성화</button>
-										</div>
-									</c:if>
-									<div class="col-md-5" style="text-align: center; width: 100%;">
-										
-										<!-- </div> -->
-										<ul class="pagination">
-											<!-- 이전 페이지 -->
-											<c:if test="${ pi.currentPage <= 1 }">
-												<li class="disabled"><a>&laquo;</a></li>
-											</c:if>
-											<c:if test="${ pi.currentPage > 1 }">
-												<c:url var="before" value="adminView.ad">
-													<c:param name="page" value="${ pi.currentPage - 1 } " />
-												</c:url>
-												<li><a href="${ before }">«</a></li>
-											</c:if>
-											<!-- 페이지 -->
-											<c:forEach var="p" begin="${ pi.startPage }"
-												end="${ pi.endPage }">
-												<c:if test="${ p eq pi.currentPage }">
-													<li class="active"><a>${ p }</a></li>
-												</c:if>
-												<c:if test="${ p ne pi.currentPage }">
-													<c:url var="pagination" value="adminView.ad">
-														<c:param name="page" value="${ p } " />
-													</c:url>
-													<li><a href="${ pagination }">${ p }</a></li>
-												</c:if>
-											</c:forEach>
-											<!-- 다음 -->
-											<c:if test="${ pi.currentPage >= pi.maxPage }">
-												<li class="disabled"><a href="#">»</a></li>
-											</c:if>
-											<c:if test="${ pi.currentPage < pi.maxPage }">
-												<c:url var="after" value="adminView.ad">
-													<c:param name="page" value="${ pi.currentPage + 1 } " />
-												</c:url>
-												<li><a href="${ after }">»</a></li>
-											</c:if>
-										</ul>
-									</div>
-								</div>
-								
+							<div class="col-md-5" style="text-align: center; width:100px; float: right;">
+								<button type="button" onclick="location.href='${pdelete}'"
+									class="btn btn-outline-dark">결제 취소 요청</button>
 							</div>
 						</div>
 						<br>
+						<script>
+							$(function(){
+								var listCount = ${listCount};
+								$('#listCount').text("총 결제 내역 수 : " + listCount);
+							});
+						</script>
+						
+						<br>
+						<div class="row">
+							<div class="col-md-5"
+								style="text-align: center; left: 35%; width: 350px;">
+
+								<%-- 						<input type="submit" value="검색" formaction="paylistSearch.py">
+							<select name="search_option">
+								<option value="p_ID" 
+								<c:if test="${map.search_option == 'p_ID' }">selected</c:if>>아이디</option>
+								<option value="p_NICKNAME" 
+								<c:if test="${map.search_option == 'p_NICKNAME' }">selected</c:if>>닉네임</option>
+								<option value="p_STATUS" 
+								<c:if test="${map.search_option == 'p_STATUS' }">selected</c:if>>결제상태</option>						
+							</select>
+							<input name="keyword" value="${map.keyword }>
+							<input type="submit" value="조회"> --%>
+
+								<select id="searchfor" name="searchfor" style="border: 2px solid whitesmoke;">
+									<option value="p_ID">아이디</option>
+									<option value="p_NICKNAME">닉네임</option>
+									<option value="p_STATUS">결제 상태</option>
+								</select> <input id="searchText" name="searchText" type="search" /> <input
+									type="hidden">
+								<button type="button" id="searchBtn2"
+									style="background: none; border: 0;">
+									<i class="fas fa-search"></i>
+								</button>
+
+								<ul class="pagination">
+									<!-- 이전 -->
+									<c:if test="${ pi.currentPage <= 1 }">
+										<li class="disabled"><a href="#">◁</a></li>
+									</c:if>
+									<c:if test="${ pi.currentPage > 1 }">
+										<c:url var="before" value="pList.py">
+											<c:param name="page" value="${ pi.currentPage - 1 }" />
+										</c:url>
+										<li><a href="${ before }">◀</a></li>
+									</c:if>
+									<!-- 페이지 -->
+									<c:forEach var="p" begin="${ pi.startPage }"
+										end="${ pi.endPage }">
+										<c:if test="${ p eq pi.currentPage }">
+											<li class="active"><a>${ p }</a></li>
+										</c:if>
+										<c:if test="${ p ne pi.currentPage }">
+											<c:url var="pagination" value="pList.py">
+												<c:param name="page" value="${ p }" />
+											</c:url>
+											<li><a href="${ pagination }">${ p }</a></li>
+										</c:if>
+									</c:forEach>
+									<!-- 다음 -->
+									<c:if test="${ pi.currentPage >= pi.maxPage }">
+										<li class="disabled"><a href="#">▶</a></li>
+									</c:if>
+									<c:if test="${ pi.currentPage < pi.maxPage }">
+										<c:url var="after" value="pList.py">
+											<c:param name="page" value="${ pi.currentPage + 1 }" />
+										</c:url>
+										<li><a href="${ after }">▷</a></li>
+									</c:if>
+								</ul>
+							</div>
+							
+						</div>
+						</form>
 					</div>
-				</form>
 			</div>
 		</div>
 	</div>

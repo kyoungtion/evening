@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>중고 거래, 경매는 이브닝 : 입찰 내역</title>
 
 <style>
 .update {font-size:10px !important; padding:5px !important;}

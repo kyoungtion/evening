@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EVENING : 관리자 메뉴</title>
+<title>중고물품 거래, 경매는 이브닝 : 관리자 메뉴</title>
 <style>
 .active {
 	background: gray;
