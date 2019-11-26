@@ -226,7 +226,7 @@
 							<div style="width: 200px; float: left;">
 							<div style="width: 100%; height: 60px; display: inline-block;">
 			<!-- 입찰버튼 로그인시에만 뜨도록 하기 -->
-			<c:if test="${ !empty loginUser && loginUser.user_id != board.USER_ID && !endAuction eq true }">
+			<c:if test='${ !empty loginUser && loginUser.user_id != board.USER_ID && !endAuction eq "true" }'>
 				<form action="selectOne.bo" id="sendPrice" method="POST">
 					<input type="number" hidden="hidden" id="auctionPrice" name="auctionPrice"> 
 					<input type="number" hidden="hidden" name="sgId" value="${ board.SG_ID }"> 
@@ -252,7 +252,7 @@
 				}
 			</script>
 			<!-- 본인 글 일시 && !endAuction eq true-->
-			<c:if test="${ !empty loginUser && loginUser.user_id == board.USER_ID  }">
+			<c:if test='${ !empty loginUser && loginUser.user_id == board.USER_ID && !endAuction eq "true"  }'>
 				<c:url value="boardupdateForm.bo?type=2" var="bUpdate">
 					<c:param name="sgId" value="${board.SG_ID}" />
 				</c:url>
