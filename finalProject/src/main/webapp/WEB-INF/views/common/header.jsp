@@ -146,7 +146,7 @@
 									<ul id="test">
 										<li onclick="clickRefresh();"><a href="myinfo.me">내정보보기</a></li>
 										<li><a href="favorites.me">관심 목록</a></li>
-										<li><a href="dealDetail.me">거래 내역</a></li>
+										<li><a href="dealDetail.me">입찰 내역</a></li>
 										<li><a href="pList.py">결제 내역</a></li>
 										<li><a href="mypost.me">내가 쓴 글</a></li>
 									</ul>

@@ -92,7 +92,7 @@
 						                              <td>${p.p_ID}</td>
 						                              <td>${p.p_NICKNAME}</td>
 						                              <td >${p.gp_ID}</td>
-						                              <td>${p.MONEY}</td>
+						                              <td>${p.board.SG_BNAME}</td>
 						                              <td>${p.PAYDAY}</td>
 						                              <td>${p.p_UPDATE_DATE }</td>
 						                              <td style="text-align:center;">${p.p_STATUS}</td>

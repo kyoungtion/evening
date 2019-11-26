@@ -28,17 +28,31 @@
 								<div class="form-group">
 									<div class="col-md-6">
 										<label for="fname">이름</label>
-										<input type="text" value="${ loginUser.user_name }" id="pname" class="form-control" name="P_ID">
+										<input type="text" value="${ loginUser.user_id }" id="pname" class="form-control" name="P_ID">
 										<input type="hidden" value="${ loginUser.nickName }" id="pnickname" class="form-control" name="P_NICKNAME">
 									</div>
 								</div>
 								
 					<div class="form-group">
 						<div class="col-md-6">
+						<c:forTokens var="addr" items="${ loginUser.address }" delims="/" varStatus="status">
+							<c:if test="${ status.index eq 0 && addr >= '0' && addr <= '99999' }">
+								<c:set var="post" value="${ addr }"/>
+							</c:if>
+							<c:if test="${ status.index eq 0 && !(addr >= '0' && addr <= '99999') }">
+								<c:set var="address1" value="${ addr }"/>
+							</c:if>
+							<c:if test="${ status.index eq 1 }">
+								<c:set var="address1" value="${ addr }"/>
+							</c:if>
+							<c:if test="${ status.index eq 2 }">
+								<c:set var="address2" value="${ addr }"/>
+							</c:if>
+						</c:forTokens>
 							<label for="addr">주소</label>
 		
 							<input type="text" id="address2" class="form-control" placeholder=""
-							   name="post" style="text-align: left; margin-bottom: 10px;" onclick="mapsearch();">
+							   name="post" style="text-align: left; margin-bottom: 10px;" value="${ post }" onclick="mapsearch();">
 <!-- 							   
 							 <button onclick="postCheck();">클릭</button>
 							<script>
@@ -52,11 +66,11 @@
 							<div class="form-group">
 							<div class="col-md-6">
 							<input type="text" id="address2" class="form-control" placeholder=""
-							name="addr1" style="text-align: left">
+							name="addr1" value="${ address1 }" style="text-align: left">
 							</div>
 							 <div class="col-md-6">
 											  
-							<input type="text" id="address2" class="form-control" placeholder=""
+							<input type="text" id="address2"  value="${ address2 }" class="form-control" placeholder=""
 							name="addr2" style="text-align: left">
 							</div>
 											  
@@ -66,11 +80,11 @@
 					<div class="form-group">
 						<div class="col-md-6">
 							<label for="email">이메일</label>
-							<input type="text" id="email" class="form-control" name="P_EMAIL" placeholder="">
+							<input type="text" id="email" class="form-control" value="${ loginUser.user_email }" name="P_EMAIL" placeholder="">
 						</div>
 							<div class="col-md-6">
 								<label for="Phone">전화 번호</label>
-								<input type="text" id="phone" name="P_PHONE" class="form-control" placeholder="">
+								<input type="text" id="phone" name="P_PHONE" value="${ loginUser.phone }" class="form-control" placeholder="">
 							</div>
 						<div class="form-group">
 							<div class="col-md-12">
@@ -80,12 +94,13 @@
 							
 							<div class="col-md-12">
 							<label for="money">상품 이름</label>
-							<input type="text" id="gp_id" name="gp_ID" value="${ b.SG_BNAME }" class="form-control" placeholder="">
+							<input type="text" value="${ b.SG_BNAME }" class="form-control">
+							<input type="hidden"  id="gp_id" name="gp_ID" value="${ b.SG_ID }" class="form-control" placeholder="" readonly>
 							</div>
 							
 							<div class="col-md-12">
 							<label for="money">금액</label>
-							<input type="text" id="money" name="MONEY" value="${b.SG_PRICE }" class="form-control" placeholder="">
+							<input type="text" id="money" name="MONEY" value="${b.SG_PRICE }" class="form-control" placeholder="" readonly>
 							</div>
 						</div>
 					</div>
