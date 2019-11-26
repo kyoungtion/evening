@@ -10,14 +10,6 @@
 	var replyUplb="";
 	var replyUpTag="";
 	
-	function deleteBtn() {
-		var con_test = confirm("정말 삭제 하시겠습니까?\n(마감전에 삭제할시 패널티를 받을수 있습니다.)");
-		if (con_test) {
-			//alert(${board.SG_ID});
-			location.href = "deleteBoard.bo?sgId="+sgId+"&type=1";
-			
-		}
-	};
 	$('#replyTag').click(function (e) {		
 		if(replyUpNum!=0){
 		if (!$(e.target).is('div[name='+replyUpNum+'],div[name="'+replyUpNum+'"] *,div[name='+replyUpNum+'] button' ) && e.target.value!=replyUpNum) {
