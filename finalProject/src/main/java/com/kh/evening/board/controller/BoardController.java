@@ -6,26 +6,23 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
-
 import com.kh.evening.board.model.exception.BoardException;
 import com.kh.evening.board.model.service.BoardService;
 import com.kh.evening.board.model.vo.Attachment;
@@ -36,16 +33,22 @@ import com.kh.evening.board.model.vo.GoodLike;
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.board.model.vo.Reply;
 import com.kh.evening.common.Pageination;
+import com.kh.evening.member.model.service.MemberService;
+import com.kh.evening.member.model.vo.Member;
 
 /**
  * @author KimHyunWoo
  *
  */
+@SessionAttributes("loginUser")
 @Controller
 public class BoardController {
 
   @Autowired
   private BoardService bService;
+  
+  @Autowired
+  private MemberService mService;
 
   @RequestMapping("auctionList.bo")
   public ModelAndView auctionList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv, @RequestParam(value="mode", required=false) String mode) {
@@ -533,14 +536,42 @@ public class BoardController {
 	}
 	
 	@RequestMapping("deleteBoard.bo")
-	public String deleteBoard(@RequestParam("sgId") int sgId,@RequestParam("type") int type) {
+	public String deleteBoard(@RequestParam("sgId") int sgId,@RequestParam("type") int type,Model model) {
 		int result = bService.deleteBoard(sgId);
+		int updatePenalty = 0;
 		if(result>0) {
 			if(type==1) return "redirect:secondgoodList.bo";
-			else return "redirect:auctionList.bo";
+			else {
+			  Member user = (Member)model.getAttribute("loginUser");
+			  int penaltyPoint = user.getPenalty_point();
+			  
+			  if(penaltyPoint == 2) {
+			    user.setRank_code("E");
+			    user.setPenalty_point(0);
+			    user.setPenalty_stack(1);
+			    updatePenalty = mService.updatePenaltyPoint(user);
+			  }else {
+			    user.setPenalty_point(user.getPenalty_point()+1);
+			    updatePenalty = mService.updatePenaltyPoint(user);
+			  }
+			  
+			  if(updatePenalty > 0) {
+			    
+			    model.addAttribute("loginUser",user);
+			  }
+			    return "redirect:auctionList.bo";
+			}
 		}else {
 			return "error";
 		}
+	}
+	
+	@RequestMapping("CountTime.bo")
+	@ResponseBody
+	public void CountTime(@RequestParam("hour") int hour,@RequestParam("minute") int minute, @RequestParam("second") int second) {
+	  System.out.println(hour);
+	  System.out.println(minute);
+	  System.out.println(second);
 	}
 
 }

@@ -105,15 +105,34 @@
 
 	<div class="evPage"
 		style="height: auto; width: 100%; background: #ffffff; text-align: center;">
-		<div class="pg"
-			style="width: 65%; height: 1100px; display: inline-block; background: #f5f5f5;">
+		<div class="pg" style="width: 1000px; height: 1130px; display: inline-block; background: #f5f5f5;">
 			<br>
 			<div class="headLine" style="width: auto; display: inline-block;">
 				<h2>${board.SG_BNAME }</h2>
 				<img src="/evening/resources/thumbnail/${at.RENAMEFILENAME}"
 					style="width: 500px; height: 500px;"> <br> <br>
-				<p style="border-top: 1px solid gray;">${board.SG_ENROLL_DATE}<br>
-				</p>
+				<p style="border-top: 1px solid gray;">${board.SG_ENROLL_DATE} </p>
+				<!-- 경매 마감 날짜 계산 -->
+				<jsp:useBean id="now" class="java.util.Date"/>
+				<fmt:parseDate var="enroll" value="${ board.SG_ENROLL_DATE }" pattern="yyyy-MM-dd"/>
+				<fmt:parseDate var="end" value="${ board.SG_END_DATE }" pattern="yyyy-MM-dd"/>
+				
+				<fmt:parseNumber value="${ now.time / (1000*60*60*24) }" integerOnly="true" var="nowDays"/>
+				<fmt:parseNumber value="${ enroll.time / (1000*60*60*24) }" integerOnly="true" var="enrollDays"/>
+				<fmt:parseNumber value="${ end.time / (1000*60*60*24) }" integerOnly="true" var="endDays"/>
+				
+					<span class="" style="color: red; font-size: 25px;">
+						<c:if test="${ (endDays - nowDays) > 0 }">
+							D - ${ endDays - nowDays }
+						</c:if>
+						<c:if test="${ (endDays - nowDays) == 0 }">
+							D - Day
+						</c:if>
+						<c:if test="${ (endDays - nowDays) < 0 }">
+							경매 종료
+							<c:set var="endAuction" value="true"/>
+						</c:if>
+					</span>
 			</div>
 			<div style="height: 300px; width: 100%; background: #f5f5f5;">
 				<div style="display: inline-block;">
@@ -149,20 +168,14 @@
 										<div class="col-md-12">
 											<div class="radio" style="background-color: white;">
 												<c:if test="${ board.SG_DEAL eq 'DIRECT' }">
-													<label><input type="radio" name="dealType"
-														checked="checked"><span style="color: #ff8400;">직
-															거래</span></label>
+													<label><input type="radio" name="dealType" checked="checked"><span style="color: #ff8400;">직 거래</span></label>
 												&nbsp;&nbsp;&nbsp;&nbsp;
-												<label><input type="radio" name="dealType"
-														disabled="disabled">택배 거래</label>
+												<label><input type="radio" name="dealType" disabled="disabled">택배 거래</label>
 												</c:if>
 												<c:if test="${ board.SG_DEAL eq 'DELIVERY' }">
-													<label><input type="radio" name="dealType"
-														disabled="disabled">직 거래</label>
+													<label><input type="radio" name="dealType" disabled="disabled">직 거래</label>
 												&nbsp;&nbsp;&nbsp;&nbsp;
-												<label><input type="radio" name="dealType"
-														checked="checked"><span style="color: #ff8400;">택배
-															거래</span></label>
+												<label><input type="radio" name="dealType" checked="checked"><span style="color: #ff8400;">택배 거래</span></label>
 												</c:if>
 											</div>
 										</div>
@@ -202,6 +215,9 @@
 							<br> <br>
 							<div style="width: 200px; height: 50px; float: left; margin-top: 10px;">
 								<span class="new">#${board.TAG_NAME}</span>
+								<c:if test="${ ( nowDays - enrollDays ) <= 7 }">
+									<span class="new">New</span>
+								</c:if>	
 							</div>
 							<div style="width: 200px; height: 50px; float: left;">
 								<!-- 좋아요랑 조회수 표시 -->
@@ -294,8 +310,7 @@
 							<div style="width: 200px; float: left;">
 							<div style="width: 100%; height: 60px; display: inline-block;">
 			<!-- 입찰버튼 로그인시에만 뜨도록 하기(원활한 작업하기위해 일단 조건문 주석처리 ) -->
-			<c:if
-				test="${ !empty loginUser && loginUser.user_id != board.USER_ID }">
+			<c:if test="${ !empty loginUser && loginUser.user_id != board.USER_ID && !endAuction eq true }">
 				<form action="selectOne.bo" id="sendPrice" method="POST">
 					<input type="number" hidden="hidden" id="auctionPrice"
 						name="auctionPrice"> <input type="number" hidden="hidden"
@@ -323,14 +338,12 @@
 				  }
 				}
 		</script>
-			<!-- 본인 글 일시 -->
-			<c:if
-				test="${ !empty loginUser && loginUser.user_id == board.USER_ID }">
+			<!-- 본인 글 일시 && !endAuction eq true-->
+			<c:if test="${ !empty loginUser && loginUser.user_id == board.USER_ID  }">
 				<c:url value="boardupdateForm.bo?type=2" var="bUpdate">
 					<c:param name="sgId" value="${board.SG_ID}" />
 				</c:url>
-				<button class="btn btn-primary"
-					onclick="location.href='${bUpdate}';">수정</button>
+				<button class="btn btn-primary" onclick="location.href='${bUpdate}';">수정</button>
 				<button class="btn btn-primary" onclick="deleteBtn();">글삭제</button>
 			</c:if>
 		</div>
@@ -342,7 +355,6 @@
 		</div>
 	</div>
 	</div>
-
 	<div style="width: 90%; height: 500px; display: inline-block;">${board.SG_INFO }</div>
 	<!-- 댓글 -->
 	<div id="replyTag">
@@ -384,7 +396,7 @@
 	<script>
 		function deleteBtn(){
 			
-			var con_test = confirm("정말 삭제 하시겠습니까?");
+			var con_test = confirm("정말 삭제 하시겠습니까?\n(마감전에 삭제할시 패널티를 받을수 있습니다.)");
 			if(con_test){
 				//alert(${board.SG_ID});
 				location.href="deleteBoard.bo?sgId=${board.SG_ID}&type=2";

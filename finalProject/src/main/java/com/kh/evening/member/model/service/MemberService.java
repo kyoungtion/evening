@@ -72,6 +72,8 @@ int getSellerListCount();
 
 ArrayList<Member> getSellerList(PageInfo pi);
 
+int updatePenaltyPoint(Member user);
+
 
 
 }

@@ -21,9 +21,10 @@
 				<div class="row">
 					<div class="col-md-10 col-md-push-2">
 						<div class="row row-pb-lg">
-
-						<button class="btn btn-primary btn-outline"style="float: right; margin: 0px 50px 0 0px;"
-							onclick="location.href='insertF.bo?type=2';">글쓰기</button>
+						
+						<c:if test='${ loginUser.rank_code != "E" && loginUser.rank_code != "NM" }'>
+							<button class="btn btn-primary btn-outline"style="float: right; margin: 0px 50px 0 0px;" onclick="location.href='insertF.bo?type=2';">글쓰기</button>
+						</c:if>
 								
 						<h2><span style="font-size: 50px;">경매 거래 게시판</span></h2>
 						

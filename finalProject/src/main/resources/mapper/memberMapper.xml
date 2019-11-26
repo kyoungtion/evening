@@ -309,4 +309,15 @@
 			</foreach>
 		</trim>
 	</update>
+	
+	
+	<update id="updatePenaltyPoint" parameterType="Member">
+		UPDATE MEMBER
+		SET RANK_CODE=#{rank_code}, PENALTY_POINT=#{penalty_point}, PENALTY_STACK=#{penalty_stack}
+		<if test='rank_code == "E" '>
+				, PENALTY_DATE= SYSDATE+5
+		</if>
+		WHERE USER_ID=#{user_id}
+	</update>
+	
 </mapper>
