@@ -266,7 +266,15 @@
 		<br>
 	</div>
 	<hr>
-
+	<script>
+	function deleteBtn() {
+		var con_test = confirm("정말 삭제 하시겠습니까?");
+		if (con_test) {
+			//alert(${board.SG_ID});
+			location.href = "deleteBoard.bo?sgId="+sgId+"&type=1";
+			
+		}
+	</script>
 	<script src="resources/js/detail.js"></script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
