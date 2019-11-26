@@ -73,7 +73,6 @@ public class PaymentController {
 		/*Member m = (Member)model.getAttribute("loginUser");*/
 		HttpSession session = request.getSession();
 		Member m = (Member)session.getAttribute("loginUser");
-		System.out.println(m);
 		int currentPage = 1;
 		if(page != null) {
 			currentPage = page;

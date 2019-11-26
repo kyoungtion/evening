@@ -123,7 +123,6 @@ public class MemberController {
 		PageInfo pi = Pageination.getQnaPageInfo(currentPage, listCount);
 		
 		ArrayList<AuctionHistory> list = bService.getAuctionHistoryList(pi, user_id);
-		System.out.println(list);
 		if(list != null) {
 			mv.addObject("pi", pi).addObject("list", list).setViewName("dealDetail");
 		} else {
