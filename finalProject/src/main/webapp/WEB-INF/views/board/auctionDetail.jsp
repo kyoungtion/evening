@@ -259,6 +259,8 @@
 				<button class="btn btn-primary" onclick="location.href='${bUpdate}';">수정</button>
 				<button class="btn btn-primary" onclick="deleteBtn();">글삭제</button>
 			</c:if>
+			<br><br>
+			<button class="btn btn-primary btn-outline" style="margin-left: 85px;" onclick="location.href ='auctionList.bo'">목록으로 가기</button>
 		</div>
 		</div>
 						</div>
