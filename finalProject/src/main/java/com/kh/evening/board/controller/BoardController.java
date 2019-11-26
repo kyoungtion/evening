@@ -539,5 +539,20 @@ public class BoardController {
 			return "error";
 		}
 	}
+	
+	  @RequestMapping("deleteAuc.bo")
+	   public String deleteAuc(@RequestParam("sgId") int sgId, @RequestParam("aId") int aId) {	  
+		  
+		  AuctionHistory au = new AuctionHistory();
+		  au.setSg_Id(sgId);
+		  au.setA_Id(aId);
+		  int result = bService.deleteAuc(au);
+		  
+		  if(result > 0) {
+			  int maxPrice = bService.auctionMaxPrice(sgId);
+		  }
+		  
+		  return "detail.me";
+	   }
 
 }

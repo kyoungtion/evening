@@ -28,7 +28,7 @@
 								<div class="form-group">
 									<div class="col-md-6">
 										<label for="fname">이름</label>
-										<input type="text" value="${ loginUser.user_name }" id="pname" class="form-control" name="P_ID">
+										<input type="text" value="${ loginUser.user_id }" id="pname" class="form-control" name="P_ID" readonly>
 										<input type="hidden" value="${ loginUser.nickName }" id="pnickname" class="form-control" name="P_NICKNAME">
 									</div>
 								</div>
@@ -37,8 +37,8 @@
 						<div class="col-md-6">
 							<label for="addr">주소</label>
 		
-							<input type="text" id="address2" class="form-control" placeholder=""
-							   name="post" style="text-align: left; margin-bottom: 10px;" onclick="mapsearch();">
+							<input type="text" id="address2" class="form-control" placeholder="필수로 입력해 주세요"
+							   name="post" style="text-align: left; margin-bottom: 10px;" onclick="mapsearch();" required="required">
 <!-- 							   
 							 <button onclick="postCheck();">클릭</button>
 							<script>
@@ -52,7 +52,7 @@
 							<div class="form-group">
 							<div class="col-md-6">
 							<input type="text" id="address2" class="form-control" placeholder=""
-							name="addr1" style="text-align: left">
+							name="addr1" style="text-align: left" required="required">
 							</div>
 							 <div class="col-md-6">
 											  
@@ -66,16 +66,16 @@
 					<div class="form-group">
 						<div class="col-md-6">
 							<label for="email">이메일</label>
-							<input type="text" id="email" class="form-control" name="P_EMAIL" value="${ loginUser.user_email }" placeholder="">
+							<input type="text" id="email" class="form-control" name="P_EMAIL" value="${ loginUser.user_email }" placeholder="" readonly>
 						</div>
 							<div class="col-md-6">
 								<label for="Phone">전화 번호</label>
-								<input type="text" id="phone" name="P_PHONE" class="form-control" placeholder="">
+								<input type="text" id="phone" name="P_PHONE" class="form-control" placeholder="필수로 입력해 주세요" required>
 							</div>
 						<div class="form-group">
 							<div class="col-md-12">
 							<label for="memo">배송시 메모</label>
-							<input type="text" id="memo" class="form-control" name="MEMO" placeholder="">
+							<input type="text" id="memo" class="form-control" name="MEMO" placeholder="" >
 							</div>
 							
 							<div class="col-md-12">

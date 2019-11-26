@@ -4,7 +4,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	<!DOCTYPE html>
 	<html>
@@ -16,8 +16,8 @@
 	</head>
 	<body>
 		<c:import url="/WEB-INF/views/common/header.jsp" />
-<%-- 		<c:url var="pList" value="paylistSearch.py">	
-		</c:url> --%>
+		<c:url var="pList" value="paylistSearch.py">	
+		</c:url>
 		<div class="my-panel" style="width:80%;">
 			<div class="col-md-10 col-md-offset-1" style="margin-left:20%; width:80%;">
 				<div class="contact-wrap">
@@ -39,7 +39,7 @@
 							<col style="width: 200px;">
 							<col style="width: 100px;">
 							<col style="width: 100px;">
-							<%-- <col style="width: 100px;" class=""> --%>
+							<col style="width: 100px;" class="">
 							<col style="width: 100px;">
 							<col style="width: 60px;">
 							<col style="width: 55px;">
@@ -67,12 +67,12 @@
 							<c:forEach var="p" items="${ list }" begin="0" end="${ fn:length(list) }" varStatus="paystatus">
 							<c:if test="${ loginUser.user_id ne 'admin' && p.p_ID eq loginUser.user_name }">	
 									<tr>
-<%-- 									<tr style="background-color:#FFFFFF; color:#333333;">
+									<tr style="background-color:#FFFFFF; color:#333333;">
 										 <td id="P_ID${pt.index }" class="P_ID" name="P_ID">${p.P_ID }</td>
 										<td class="subject" id="subject"><span class="PID">${p.P_ID }</span>
 										<span class="rWrap Before ${pt.index }"> [ </span><span><font
 												id="rCount${pt.index}"></font></span><span
-											class="rWrap After ${pt.index}"> ] </span></td> --%>
+											class="rWrap After ${pt.index}"> ] </span></td>
 	
 										<td>${ Count }</td>
 										<c:set var="Count" value="${ Count+1 }" />									
@@ -97,12 +97,12 @@
 								<c:forEach var="p" items="${ list }" begin="0" end="${ fn:length(list) }" varStatus="paystatus">
 								<c:if test="${ loginUser.user_id eq 'admin' }">
 									<tr>
-<%-- 									<tr style="background-color:#FFFFFF; color:#333333;">
+									<tr style="background-color:#FFFFFF; color:#333333;">
 										 <td id="P_ID${pt.index }" class="P_ID" name="P_ID">${p.P_ID }</td>
 										<td class="subject" id="subject"><span class="PID">${p.P_ID }</span>
 										<span class="rWrap Before ${pt.index }"> [ </span><span><font
 												id="rCount${pt.index}"></font></span><span
-											class="rWrap After ${pt.index}"> ] </span></td> --%>
+											class="rWrap After ${pt.index}"> ] </span></td>
 
 										<td>${ paystatus.count }</td>
 										<td>${p.p_ID}</td>
@@ -129,7 +129,7 @@
 					<div class="row">
 						<div class="col-md-5" style="text-align: center; left: 35%; width: 350px;">
 						
-<%-- 						<input type="submit" value="검색" formaction="paylistSearch.py">
+						<input type="submit" value="검색" formaction="paylistSearch.py">
 						<select name="search_option">
 							<option value="p_ID" 
 							<c:if test="${map.search_option == 'p_ID' }">selected</c:if>>아이디</option>
@@ -139,7 +139,7 @@
 							<c:if test="${map.search_option == 'p_STATUS' }">selected</c:if>>결제상태</option>						
 						</select>
 						<input name="keyword" value="${map.keyword }>
-						<input type="submit" value="조회"> --%>
+						<input type="submit" value="조회">
 					
 						<select id="searchfor" name="searchfor">
 							<option value="p_ID">아이디</option>
@@ -190,13 +190,12 @@
 					</div>
 					<c:if test="${ loginUser.user_id ne 'admin' }">	
 					<div class="col-md-5" style="text-align:center; left:35%;">
-						<%-- <button type="button" onclick="location.href='${pdelete}'" class="btn btn-outline-dark">결제 취소 요청</button> --%>
+						<button type="button" onclick="location.href='${pdelete}'" class="btn btn-outline-dark">결제 취소 요청</button>
 						<button type="button" id="pdelete" class="btn btn-outline-dark">결제 취소 요청</button>
 					</div>
-					</c:if>
+					</c:if> --%> 
 									
-=======
-	pageEncoding="UTF-8"%>
+<!-- ------------------------------------------------------ -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -394,7 +393,6 @@
 							</form>
 						</div>
 					</div>
->>>>>>> e68660c1ab4e986cdda22d2038923bd4bab44b47
 				</div>
 			</div>
 		</div>
@@ -416,51 +414,13 @@
 	      }
 	   });    
 	
-<<<<<<< HEAD
-	<script>
- 	$('#pdelete').on('click', function() {
-		if (confirm("결제 취소 하시겠습니까?")) {
-
-			var ids = "";
-			$('input:checkbox:checked').each(function(index) {
-				if (index != 0) {
-					ids += "," + $(this).val();
-				} else {
-					ids += $(this).val();
-				}
-
-				location.href = "pdelete.py?ids=" + ids;
-			});
-		}
-	});	 
-/* 	$('#pdelete').on('click', function() {
-		var confirm_val = confirm("결제 취소 하시겠습니까?");
-		
-		if(confirm_val){
-			var checkArr = new Array();
-			
-			$("input[class='chk']:checked").each(function(){
-				checkArr.push($(this).attr("data-pNum"));
-			});
-			
-			$.ajax({
-				url : "/pdelete.py",
-				type: "post"
-				data : {chk : checkArr },
-				success : function(){
-					location.href="plist";
-					}
-				});
-			}
-		}); */
 	</script>
 	
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 	
 	</body>
 	</html>
-	</script>
 
-	<c:import url="/WEB-INF/views/common/footer.jsp" />
+
 </body>
 </html>

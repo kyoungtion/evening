@@ -169,7 +169,7 @@
 						<li><a href="pList.py">결제 내역</a></li>
 						<li><a href="logout.me" title="로그아웃"><i class="fas fa-sign-out-alt"></i></a></li>
 					</ul>
-				</div>
+<%-- 				</div>
 
 						<ul id="hNav">
 							<!-- 관리자 페이지 -->
@@ -177,7 +177,7 @@
 							<li><a href="pList.py">결제내역 확인</a></li>
 							<li><a href="adminView.ad">관리자 메뉴</a></li>
 							<li><a href="logout.me" title="로그아웃"><i class="fas fa-sign-out-alt"></i></a></li>
-						</ul>
+						</ul> --%>
 					</div>
 				</c:if>
 			</div>

@@ -74,4 +74,6 @@ public interface BoardService {
 
 	int myLikeListCount(Map<String, String> map);
 
+	int deleteAuc(AuctionHistory au);
+
 }

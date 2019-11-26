@@ -6,10 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-<<<<<<< HEAD
-=======
 import javax.servlet.http.HttpServletRequest;
->>>>>>> e68660c1ab4e986cdda22d2038923bd4bab44b47
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.evening.board.model.service.BoardService;
+import com.kh.evening.board.model.vo.AuctionHistory;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.common.Pageination;
@@ -136,7 +135,6 @@ public class PaymentController {
 		return mv;
 	}
 	
-<<<<<<< HEAD
 /*	// 결제 취소 요청
 	@RequestMapping("pdelete.py")
 	public String deletePayment(@ModelAttribute Payment p, SessionStatus status,
@@ -151,20 +149,6 @@ public class PaymentController {
 			throw new PaymentException("결제 취소 요청을 실패하였습니다.");
 		}
 	}*/
-	// 결제 취소 요청
-	@RequestMapping("pdelete.py")
-	public String deletePayment(@RequestParam("ids") String ids) {
-		String[] idArray = ids.split(",");
-		System.out.println("ids : " + ids);
-		int result = pService.deletePayment(idArray);
-		System.out.println("idArray : " + idArray);
-		
-		if(result > 0) {
-			return "redirect:home.do";
-		}else {
-			throw new PaymentException("결제 취소 요청을 실패하였습니다.");
-		}
-	}
 /*	@ResponseBody
 	@RequestMapping(value="/deletePayment", method=RequestMethod.POST)
 	public int deletePayment(HttpSession session, 
@@ -172,7 +156,6 @@ public class PaymentController {
 
 
 	}*/
-=======
 	// 결제 취소 요청
    @RequestMapping("pdelete.py")
    public String deletePayment(@RequestParam("ids") String ids) {
@@ -187,6 +170,9 @@ public class PaymentController {
          throw new PaymentException("결제 취소 요청을 실패하였습니다.");
       }
    }
->>>>>>> e68660c1ab4e986cdda22d2038923bd4bab44b47
+   
+ 
+   
 	
+ 
 }

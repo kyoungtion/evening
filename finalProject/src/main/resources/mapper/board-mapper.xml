@@ -325,4 +325,9 @@
 			</when>
 		</choose>
 	</select>
+	
+	<update id="deleteAuc" parameterType="string">
+		update a_check='Y' where sg_id=#{sg_id}
+		and a_id=#{a_id}
+	</update>
 </mapper>

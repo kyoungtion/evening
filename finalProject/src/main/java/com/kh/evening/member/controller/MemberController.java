@@ -68,7 +68,6 @@ public class MemberController {
 
 //   @Autowired
 //   private Email email;
-<<<<<<< HEAD
    
    /*@Autowired
    JavaMailSender mailSender;*/
@@ -77,7 +76,7 @@ public class MemberController {
    
    // ****************************************이경희 작업부분
    
-   @RequestMapping("myinfo.me")
+  /* @RequestMapping("myinfo.me")
    public String myinfo() {
       return "myinfo";
    }
@@ -156,7 +155,7 @@ public class MemberController {
       return "updatePwd";
    }
    
-   /* 11/12 작업중*/
+    11/12 작업중
    @ResponseBody
    @RequestMapping("checkPwd.me")
    public String checkPwd(Member m, @RequestParam("user_id") String user_id, @RequestParam("user_pwd") String user_pwd){
@@ -487,12 +486,11 @@ public class MemberController {
          throw new MemberException("선택한 회원 등급 조정에 실패하였습니다.");
       }
    }
-   
+   */
    // ********************************************끝
    
 
    // 상은
-=======
 
 	/*
 	 * @Autowired JavaMailSender mailSender;
@@ -1002,7 +1000,7 @@ public class MemberController {
 	// ********************************************끝
 
 	// 상은
->>>>>>> e68660c1ab4e986cdda22d2038923bd4bab44b47
+
 // 상은 *******************
 	// 아이디 비밀번호 찾기 컨트롤러
 	@RequestMapping("searchidpwd.me")

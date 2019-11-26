@@ -180,4 +180,10 @@ public class BoardServiceImp implements BoardService {
 		return bDAO.myLikeListCount(sqlSession, map);
 	}
 
+	@Override
+	public int deleteAuc(AuctionHistory au) {
+		return bDAO.deleteAuc(sqlSession, au);
+	}
+
+
 }

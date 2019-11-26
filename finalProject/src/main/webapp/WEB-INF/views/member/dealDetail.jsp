@@ -98,8 +98,11 @@ ul.tabs li{width:48% !important;}
 											<td>${ a.board.SG_PRICE }</td>
 											<td>${ a.a_Price }</td>
 											<c:if test="${ a.a_Check == 'N'}">
-												<td id="cancel"><button onclick="deleteAuc();"
-														class="btn btn-danger update">취소</button></td>
+												<td id="cancel"><button onclick="deleteAuc();" class="btn btn-danger update">취소</button></td>
+												<form action="deleteAuc.bo" method="get" id="deleteAuctionHistory">
+													<input type="number" value="${ a.sg_Id }" name="sgId">
+													<input type="number" value="${ a.a_Id }" name="aId">
+												</form>
 											</c:if>
 											<c:if test="${ a.a_Check == 'Y' }">
 												<td><span>취소완료</span></td>
@@ -157,7 +160,7 @@ ul.tabs li{width:48% !important;}
 						function deleteAuc() {
 							
 							if(confirm("입찰 취소하시겠습니까? 취소하시면 패널티가 부여되며, 등급이 하락될 수 있습니다.")){
-								
+								$('#deleteAuctionHistory').submit();
 							};
 						}
 					</script>
