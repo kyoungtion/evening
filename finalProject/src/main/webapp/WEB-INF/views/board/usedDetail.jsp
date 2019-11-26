@@ -23,7 +23,7 @@
 	<input id="nickName" type="hidden" value="${ loginUser.nickName }">
 	
 		<div class="evPage"	style="height: auto; width: 100%; background: #ffffff; text-align: center;">
-			<div class="pg" style="width: 75%; height: 1050px; display: inline-block; background: #f5f5f5;">
+			<div class="pg" style="width: 1000px; height: 1130px; display: inline-block; background: #f5f5f5;">
 				<br>
 				<div class="headLine" style="width: auto; display: inline-block;">
 					<h2>${board.SG_BNAME }</h2>
