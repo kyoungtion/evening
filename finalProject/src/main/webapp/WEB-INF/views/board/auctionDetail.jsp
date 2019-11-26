@@ -152,7 +152,7 @@
 									<a id="likeCount">${ board.SG_LIKE }</a>
 								</div>
 								<script>
-									// 로그인한 유저가 좋아요를 했는지 않했는지
+									// 로그인한 유저가 좋아요를 했는지 않했는지 확인
 							  		var likeCheck = false;
 									var likeCountCheck = false;
 									
@@ -176,7 +176,7 @@
 									      }
 									    }
 									  });
-									  
+								  	// 쿠키 생성용 (최근 본 상품에 등록)
 									  $.ajax({
 									    url:"createCookie.bo",
 									    data:{
@@ -185,7 +185,6 @@
 									    }
 									  });
 									});
-									
 									// 좋아요 눌렀을시 이벤트
 										$('#clickTest').on('click',function(){
 										  var userCheck = "${ loginUser.user_id}";
@@ -221,23 +220,19 @@
 											    }
 											  });
 										  }
-										  
 										});
 									</script>
 							</div>
 							<div style="width: 200px; float: left;">
 							<div style="width: 100%; height: 60px; display: inline-block;">
-			<!-- 입찰버튼 로그인시에만 뜨도록 하기(원활한 작업하기위해 일단 조건문 주석처리 ) -->
+			<!-- 입찰버튼 로그인시에만 뜨도록 하기 -->
 			<c:if test="${ !empty loginUser && loginUser.user_id != board.USER_ID && !endAuction eq true }">
 				<form action="selectOne.bo" id="sendPrice" method="POST">
-					<input type="number" hidden="hidden" id="auctionPrice"
-						name="auctionPrice"> <input type="number" hidden="hidden"
-						name="sgId" value="${ board.SG_ID }"> <input type="text"
-						hidden="hidden" name="userId" value="${ loginUser.user_id }">
+					<input type="number" hidden="hidden" id="auctionPrice" name="auctionPrice"> 
+					<input type="number" hidden="hidden" name="sgId" value="${ board.SG_ID }"> 
+					<input type="text" hidden="hidden" name="userId" value="${ loginUser.user_id }">
 				</form>
-				<button class="btn btn-primary btn-outline"
-					style="float: right; margin: 0px 50px 0 0px;"
-					onclick="auctionStart()">입찰</button>
+				<button class="btn btn-primary btn-outline" style="float: right; margin: 0px 50px 0 0px;" onclick="auctionStart()">입찰</button>
 			</c:if>
 			<script>
 			// 입찰 기능 ( 입찰액 조건문  : 시작가보다 높고 현재 경매가와 같으면 안되며 숫자만 입력받아야됨)
@@ -255,7 +250,7 @@
 				    alert("1. 숫자만 입력해 주세요. \n2. 최소 시작가 이상으로 입력해주세요.\n3. 현재 경매가보다 높게 입력해주세요.");
 				  }
 				}
-		</script>
+			</script>
 			<!-- 본인 글 일시 && !endAuction eq true-->
 			<c:if test="${ !empty loginUser && loginUser.user_id == board.USER_ID  }">
 				<c:url value="boardupdateForm.bo?type=2" var="bUpdate">

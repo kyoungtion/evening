@@ -62,25 +62,31 @@ public class BoardController {
   @RequestMapping("auctionList.bo")
   public ModelAndView auctionList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv, @RequestParam(value="mode", required=false) String mode) {
     int currentPage = 1;
+    // 페이징 : 현재 페이지 설정
     if (page != null) {
       currentPage = page;
     }
     
+    // 정렬 순서 설정 : 기본값 recent(최신순)
     String modeSet = "recent";
     if (mode != null) {
       modeSet = mode;
     }
     
+    // 게시물 종류 선택
     String boardCategory = "A";
     int listCount = bService.getBoardListCount(boardCategory);
     PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
 
+    // 정렬순서와 게시물 종류 설정 (동적 쿼리)
     BoardMode bMode = new BoardMode(modeSet, boardCategory);
     
+    // 경매 리스트
     ArrayList<Board> alist = bService.boardList(pi,bMode);
+    // 첨부파일 리스트
     ArrayList<Attachment> af = bService.boardFileList();
     
-    // 페이징 처리 되지않은 모든 리스트 조회용 필요
+    // 페이징 처리 되지않은 모든 리스트 조회용 필요(쿠키 확인용: 최근 본 상품)
     String bCategory = null;
     ArrayList<Board> allList = bService.boardAllList(bCategory);
     
@@ -139,7 +145,7 @@ public class BoardController {
   
   @RequestMapping("selectOne.bo")
   public ModelAndView selectOne(@RequestParam("sgId") int sgId,ModelAndView mv, @RequestParam(value="auctionPrice", required=false) Integer price,@RequestParam(value="userId",required=false) String userId) {
-    // 라산이 조회수 카운트 기능
+      // 라산 : 조회수 카운트 기능
      int a = bService.viewCount(sgId);
      
      if(price != null && userId != null) {
