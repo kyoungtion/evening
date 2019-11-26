@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+/* Insert Css */
+.form-field {
+	width: 45%;
+	float: left;
+	margin: 0 0 0 30px;
+}
+
+.new {
+	font-size: 11px;
+	background: #FFC300;
+	color: #fff;
+	padding: .3em .5em;
+	border-radius: 2px;
+	margin-right: 5px;
+}
+
+.sbViewAtag {
+	float: right;
+	width: 40px;
+	height: 50px;
+	margin: -5px 5px 0 0;
+	line-height: 1;
+	font-size: 10px
+}
+
+.sbViewAtag_img {
+	width: 100%;
+	height: 30px;
+	background: gray;
+}
+
+.row {
+	line-height: normal;
+}
+
+.radio {
+	background: white;
+}
+
+.comment {
+	height: auto;
+	border-bottom: 1px solid black;
+	padding: 20px 0 10px;
+	width: 100%;
+}
+
+.comment2 {
+	border-width: 0 0 1px 1px;
+	border-style: solid;
+	opacity: .4;
+	width: 15px;
+	float: left;
+	height: 15px;
+	margin: 10px 0px 0px 20px;
+}
+
+.comment div {
+	margin-bottom: 10px;
+}
+
+#replyTag {
+	width: 1000px;
+	height: 70px;
+	background: whitesmoke;
+	display: inline-block;
+	overflow: hidden;
+}
+#replyArea,#replyArea2,#replyUpArea{
+height: 95px; width: 80%; resize: none;
+}
+.replyAddBtn,.replyBtn,.replyUpBtn{
+width: 15%; height: 100px; float: right; margin-right: 15px;
+}
+.r_id{
+	display: none;
+}
+
+.comment img{
+	width: 25px;
+}

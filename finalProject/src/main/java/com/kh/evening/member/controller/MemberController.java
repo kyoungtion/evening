@@ -136,6 +136,7 @@ public class MemberController {
 			mv.addObject("alist", alist);
 			mv.addObject("pi", pi);
 			mv.addObject("af", af);
+			mv.addObject("bc", bc);
 			mv.setViewName("favorites");
 		}
 		return mv;

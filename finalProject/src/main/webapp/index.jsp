@@ -197,6 +197,7 @@
 																      if(data == 1){
 																        $('#clickTest${ i.SG_ID }').attr('class','icon-heart3');
 																        $('#clickTest${ i.SG_ID }').css('font-size','16px');
+																        $('#Check${ i.SG_ID }').val(true);
 																        if( $('#CountCheck${ i.SG_ID}').val() == 'false' ){
 																	    	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE + 1}");
 																        }else{
@@ -205,6 +206,7 @@
 																      }else if(data == 0){
 																        $('#clickTest${ i.SG_ID }').attr('class','icon-heart2');
 																        $('#clickTest${ i.SG_ID }').css('font-size','13px');
+																        $('#Check${ i.SG_ID }').val(true);
 																        if( $('#CountCheck${ i.SG_ID}').val() == 'true' ){
 																        	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE - 1}");
 																        }else{

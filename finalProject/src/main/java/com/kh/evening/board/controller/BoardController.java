@@ -3,29 +3,33 @@ package com.kh.evening.board.controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.sql.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
-
 import com.kh.evening.board.model.exception.BoardException;
 import com.kh.evening.board.model.service.BoardService;
 import com.kh.evening.board.model.vo.Attachment;
@@ -36,12 +40,24 @@ import com.kh.evening.board.model.vo.GoodLike;
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.board.model.vo.Reply;
 import com.kh.evening.common.Pageination;
+import com.kh.evening.member.model.service.MemberService;
+import com.kh.evening.member.model.vo.Member;
 
+import oracle.sql.DATE;
+
+/**
+ * @author KimHyunWoo
+ *
+ */
+@SessionAttributes("loginUser")
 @Controller
 public class BoardController {
 
   @Autowired
   private BoardService bService;
+  
+  @Autowired
+  private MemberService mService;
 
   @RequestMapping("auctionList.bo")
   public ModelAndView auctionList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv, @RequestParam(value="mode", required=false) String mode) {
@@ -103,11 +119,16 @@ public class BoardController {
     ArrayList<Board> alist = bService.boardList(pi,bMode);
     ArrayList<Attachment> af = bService.boardFileList();
     
+    // 페이징 처리 되지않은 모든 리스트 조회용 필요
+    String bCategory = null;
+    ArrayList<Board> allList = bService.boardAllList(bCategory);
+    
     if (alist != null) {
       mv.addObject("alist", alist);
       mv.addObject("pi",pi);
       mv.addObject("af", af);
       mv.addObject("modeSet", modeSet);
+      mv.addObject("allList",allList);
       mv.setViewName("secondGoodBoard");
     } else {
       throw new BoardException("중고 게시판 조회 실패.");
@@ -179,7 +200,7 @@ public class BoardController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 	    if (list != null) {
 	    	result.put("pi", pi);
-	    	result.put("rlist", list);	
+	    	result.put("rlist", list);
 	    }
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		gson.toJson(result,response.getWriter());
@@ -191,10 +212,6 @@ public class BoardController {
 	public String addReply(Reply r,HttpSession session,HttpServletRequest request) {
 //		Member loginUser = (Member)session.getAttribute("loginUser");
 //		String rWriter = loginUser.getId();
-		
-		r.setNICKNAME("testUser");
-		r.setUSER_ID("testId");
-		
 		int result=0;
 		boolean add = Boolean.parseBoolean(request.getParameter("add"));
 		
@@ -355,30 +372,30 @@ public class BoardController {
 	    }else {
 	      throw new BoardException("좋아요 추가 실패");
 	    }
-	  }
-	    
-	  for(GoodLike gl: likeList) {
-	    if(gl.getSg_id() == sgId) {
-	      // 있으면 수정
-	      if(gl.getGl_check() == 1) {
-	        gl.setGl_check(0);
-	        user.setGl_check(0);
-	      }else {
-	        gl.setGl_check(1);
-	        user.setGl_check(1);
-	      }
-	      // 좋아요값을 반대로 넣기(DB에 업데이트하는 과정)
-	      int changeCheck = bService.updateGoodLike(gl);
-	      if(changeCheck > 0) {
-	        // 성공시 게시판에도 좋아요 갯수 반영
-	        int boardLike = bService.updateBoardLike(user);
-	        if(boardLike > 0) {
-	          num.setGl_check(gl.getGl_check());
-            }else {
-              throw new BoardException("게시판 좋아요 최신화 실패");
-            }
-	      }else {
-	        throw new BoardException("좋아요 변경 실패");
+	  }else {
+	    for(GoodLike gl: likeList) {
+	      if(gl.getSg_id() == sgId) {
+	        // 있으면 수정
+	        if(gl.getGl_check() == 1) {
+	          gl.setGl_check(0);
+	          user.setGl_check(0);
+	        }else {
+	          gl.setGl_check(1);
+	          user.setGl_check(1);
+	        }
+	        // 좋아요값을 반대로 넣기(DB에 업데이트하는 과정)
+	        int changeCheck = bService.updateGoodLike(gl);
+	        if(changeCheck > 0) {
+	          // 성공시 게시판에도 좋아요 갯수 반영
+	          int boardLike = bService.updateBoardLike(user);
+	          if(boardLike > 0) {
+	            num.setGl_check(gl.getGl_check());
+	          }else {
+	            throw new BoardException("게시판 좋아요 최신화 실패");
+	          }
+	        }else {
+	          throw new BoardException("좋아요 변경 실패");
+	        }
 	      }
 	    }
 	  }
@@ -410,6 +427,7 @@ public class BoardController {
 	  return rlist;
 	}
 	
+	
 	@RequestMapping("createCookie.bo")
 	public void createCookie(@RequestParam(value="user_Id", required=false) String userId,@RequestParam(value="sgId") int sgId, HttpServletResponse response) {
 	  
@@ -420,23 +438,24 @@ public class BoardController {
 	    cookie.setMaxAge(60*5);
 	    response.addCookie(cookie);
 	  }
-	  
 	}
-	
 
 
 	@RequestMapping("uInsert.bo")
 	public String usedInsert(@ModelAttribute Board b, @RequestParam("smImg") MultipartFile uploadFile,
-			HttpServletRequest request, HttpServletResponse response,@RequestParam("type") int type) {
+			HttpServletRequest request, HttpServletResponse response,@RequestParam("aDay") int aDay) {
 		if (b.getSG_DELIVERY() == null) {
 			b.setSG_DELIVERY("N");
 		} else {
 			b.setSG_AREA("");
 		}
-		System.out.println(b.getB_Category());
-
+		Calendar time = new GregorianCalendar();
+		time.add(Calendar.DATE, +aDay);
+		Date date = new Date(time.getTimeInMillis());
+		b.setSG_END_DATE(date);
+		
+		
 		Attachment atm = new Attachment();
-//		b.setSG_PRICE(Integer.parseInt(b.getSG_PRICE()));
 		String renameFileName = "";
 		if (uploadFile != null && !uploadFile.isEmpty()) {
 
@@ -450,7 +469,6 @@ public class BoardController {
 				e.printStackTrace();
 			}
 		}
-//		request.getParameter("imgNames");
 
 		String[] allName = request.getParameter("imgNames").split(",");
 		String[] saveName = request.getParameter("deletImg").split(",");
@@ -530,14 +548,42 @@ public class BoardController {
 	}
 	
 	@RequestMapping("deleteBoard.bo")
-	public String deleteBoard(@RequestParam("sgId") int sgId,@RequestParam("type") int type) {
+	public String deleteBoard(@RequestParam("sgId") int sgId,@RequestParam("type") int type,Model model) {
 		int result = bService.deleteBoard(sgId);
+		int updatePenalty = 0;
 		if(result>0) {
 			if(type==1) return "redirect:secondgoodList.bo";
-			else return "redirect:auctionList.bo";
+			else {
+			  Member user = (Member)model.getAttribute("loginUser");
+			  int penaltyPoint = user.getPenalty_point();
+			  
+			  if(penaltyPoint == 2) {
+			    user.setRank_code("E");
+			    user.setPenalty_point(0);
+			    user.setPenalty_stack(1);
+			    updatePenalty = mService.updatePenaltyPoint(user);
+			  }else {
+			    user.setPenalty_point(user.getPenalty_point()+1);
+			    updatePenalty = mService.updatePenaltyPoint(user);
+			  }
+			  
+			  if(updatePenalty > 0) {
+			    
+			    model.addAttribute("loginUser",user);
+			  }
+			    return "redirect:auctionList.bo";
+			}
 		}else {
 			return "error";
 		}
+	}
+	
+	@RequestMapping("CountTime.bo")
+	@ResponseBody
+	public void CountTime(@RequestParam("hour") int hour,@RequestParam("minute") int minute, @RequestParam("second") int second) {
+	  System.out.println(hour);
+	  System.out.println(minute);
+	  System.out.println(second);
 	}
 
 }

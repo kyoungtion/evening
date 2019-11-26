@@ -146,6 +146,10 @@ public class MemberDAO {
 		return (ArrayList)sqlSession.selectList("memberMapper.getSellerList", null, rb);
 	}
 
+  public int updatePenaltyPoint(SqlSessionTemplate sqlSession, Member user) {
+    return sqlSession.update("memberMapper.updatePenaltyPoint",user);
+  }
+
 //   public Member searchId(SqlSessionTemplate sqlSession, String user_name,String user_email) {
 //      return (Member) sqlSession.selectMap("memberMapper.searchId",user_name,user_email);
 //   }

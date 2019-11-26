@@ -175,4 +175,9 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.getSellerList(sqlSession, pi);
 	}
 
+  @Override
+  public int updatePenaltyPoint(Member user) {
+    return mDAO.updatePenaltyPoint(sqlSession,user);
+  }
+
 }
