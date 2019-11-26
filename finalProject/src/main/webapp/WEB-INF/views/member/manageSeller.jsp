@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EVENING : 관리자 메뉴</title>
+<title>중고물품 거래, 경매는 이브닝 : 관리자 메뉴</title>
 <style>
 .active {
 	background: gray;
@@ -19,14 +19,15 @@
 	<div class="my-panel" style="width: 100%; height: 1000px;">
 		<div style="width: 100%; text-align: center !important; padding: 10px;">
 			<ul class="my-tabs1">
-				<li class="my-tab"><button class="btn " id="adminView"
+				<li class="my-tab"><button class="btn" id="adminView"
 						onclick="location.href='adminView.ad'">회원 관리</button></li>
+				<li class="my-tab"><button class="btn active" id="manageSeller"
+						onclick="location.href='manageSeller.ad'">판매자 전환</button></li>
 				<c:url var="qnaList" value="qna.ad">
 					<c:param name="category" value="QNA" />
 					<c:param name="viewName" value="adminQnaView" />
 				</c:url>
-				<li class="my-tab"><button class="btn active" id="manageSeller"
-						onclick="location.href='manageSeller.ad'">판매자 전환</button></li>
+				<li class="my-tab"><button class="btn" id="pList" onclick="location.href='pList.py'">거래내역</button></li>
 				<li class="my-tab"><button class="btn" id="qna"
 						onclick="location.href='${qnaList}'">문의글 관리</button></li>
 				<c:url var="adminNotice" value="adminNoticeView.ad">
@@ -34,7 +35,6 @@
 				</c:url>
 				<li class="my-tab"><button class="btn" id="insertNotice"
 						onclick="location.href='${adminNotice}'">공지사항 관리</button></li>
-				
 			</ul>
 		</div>
 		<div class="col-md-10 col-md-offset-1"

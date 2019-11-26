@@ -146,7 +146,8 @@
 									<ul id="test">
 										<li onclick="clickRefresh();"><a href="myinfo.me">내정보보기</a></li>
 										<li><a href="favorites.me">관심 목록</a></li>
-										<li onclick="clickRefresh();"><a href="dealDetail.me">거래 내역</a></li>
+										<li><a href="dealDetail.me">거래 내역</a></li>
+										<li><a href="pList.py">결제 내역</a></li>
 										<li><a href="mypost.me">내가 쓴 글</a></li>
 									</ul>
 								</div></li>
@@ -161,6 +162,7 @@
 						<ul id="hNav">
 							<!-- 관리자 페이지 -->
 							<li id="userLi"><span>${ loginUser.rankCode.rank_img }</span>&nbsp;<b>${ loginUser.nickName }</b> 님.</li>
+							<li><a href="pList.py">결제내역 확인</a></li>
 							<li><a href="adminView.ad">관리자 메뉴</a></li>
 							<li><a href="logout.me" title="로그아웃"><i class="fas fa-sign-out-alt"></i></a></li>
 						</ul>

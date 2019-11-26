@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>중고 거래, 경매는 이브닝 : 관심상품목록</title>
 <style>
 
 .product-container {
@@ -33,10 +33,13 @@
 			</ul>
 		</div> -->
 		<ul class="my-tabs">
-			<li class="my-tab" onclick="clickRefresh();"><a href="myinfo.me">내 정보 보기</a></li>
+			<li class="my-tab" onclick="clickRefresh();"><a href="myinfo.me">내
+					정보 보기</a></li>
 			<li class="my-tab active"><a href="favorites.me">관심상품목록</a></li>
-			<li class="my-tab" onclick="clickRefresh();"><a href="dealDetail.me">거래내역</a></li>
-			<li class="my-tab"><a href="mypost.me?category=Community">내가 쓴 글</a></li>
+			<li class="my-tab"><a href="dealDetail.me">입찰내역</a></li>
+			<li class="my-tab"><a href="pList.py">결제내역</a></li>
+			<li class="my-tab"><a href="mypost.me?category=Community">내가
+					쓴 글</a></li>
 		</ul>
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 80%; padding: 0;">
 			<div class="contact-wrap" style="height: 900px;">
