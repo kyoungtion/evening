@@ -7,102 +7,20 @@
 <head>
 <meta charset="UTF-8">
 <title>중고물품거래, 경매는 이브닝</title>
-<style>
-/* Insert Css */
-.form-field {
-	width: 45%;
-	float: left;
-	margin: 0 0 0 30px;
-}
-
-.new {
-	font-size: 11px;
-	background: #FFC300;
-	color: #fff;
-	padding: .3em .5em;
-	border-radius: 2px;
-	margin-right: 5px;
-}
-
-.sbViewAtag {
-	float: right;
-	width: 40px;
-	height: 50px;
-	margin: -5px 5px 0 0;
-	line-height: 1;
-	font-size: 10px
-}
-
-.sbViewAtag_img {
-	width: 100%;
-	height: 30px;
-	background: gray;
-}
-
-.row {
-	line-height: normal;
-}
-
-.radio {
-	background: white;
-}
-
-/* 댓글  */
-.comment {
-	height: auto;
-	border-bottom: 1px solid black;
-	padding: 20px 0 10px;
-	width: 100%;
-}
-
-.comment2 {
-	border-width: 0 0 1px 1px;
-	border-style: solid;
-	opacity: .4;
-	width: 15px;
-	float: left;
-	height: 15px;
-	margin: 10px 0px 0px 20px;
-}
-
-.comment div {
-	margin-bottom: 10px;
-}
-
-#replyTag {
-	width: 1000px;
-	height: 70px;
-	background: whitesmoke;
-	display: inline-block;
-	overflow: hidden;
-}
-
-#replyArea, #replyArea2,#replyUpArea {
-	height: 95px;
-	width: 80%;
-	resize: none;
-}
-
-.replyAddForm {
-	float: left;
-}
-
-.replyAddBtn, .replyBtn {
-	width: 15%;
-	height: 100px;
-	float: right;
-	margin-right: 15px;
-}
-
-.r_id {
-	display: none;
-}
-/* 댓글 끝 */
-</style>
+<link rel="stylesheet" href="resources/css/detail.css">
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
-
+	<c:if test="${ empty loginUser }">
+		<input id="empty" type="hidden" value="">
+	</c:if>
+	<c:if test="${ !empty loginUser }">
+		<input id="empty" type="hidden" value="on">
+	</c:if>
+	<input id="sgId" type="hidden" value="${ board.SG_ID }">
+	<input id="userId" type="hidden" value="${ loginUser.user_id }">
+	<input id="nickName" type="hidden" value="${ loginUser.nickName }">
+	
 	<div class="evPage"
 		style="height: auto; width: 100%; background: #ffffff; text-align: center;">
 		<div class="pg" style="width: 1000px; height: 1130px; display: inline-block; background: #f5f5f5;">
@@ -659,6 +577,7 @@
 	      };
 	</script>
 	</div>
+	<script src="resources/js/detail.js"></script>
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
