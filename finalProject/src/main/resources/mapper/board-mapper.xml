@@ -267,4 +267,46 @@
 		join second_goods s on(a.sg_id = s.sg_id)
 		where a.user_id = #{user_id} and s.sg_status='N'
 	</select>
+	
+	<resultMap type="GoodLike" id="LikeResultSet">
+		<id property="Gl_Id" column="GL_ID"/>
+		<result property="User_Id" column="USER_ID"/>
+		<result property="Sg_id" column="SG_ID"/>
+		<result property="Gl_check" column="GL_CHECK"/>
+		<association property="board" javaType="Board">
+			<id property="SG_ID" column="SG_ID"/>
+			<result property="USER_ID" column="USER_ID"/>
+			<result property="b_Category" column="B_CATEGORY"/>
+			<result property="SG_BNAME" column="SG_BNAME"/>
+			<result property="TAG_NAME" column="TAG_NAME"/>
+			<result property="SG_NAME" column="SG_NAME"/>
+			<result property="SG_COUNT" column="SG_COUNT"/>
+			<result property="SG_LIKE" column="SG_LIKE"/>
+			<result property="SG_PRICE" column="SG_PRICE"/>
+			<result property="SG_SPRICE" column="SG_SPRICE"/>
+			<result property="SG_INFO" column="SG_INFO"/>
+			<result property="SG_CHECK" column="SG_CHECK"/>
+			<result property="SG_ENROLL_DATE" column="SG_ENROLL_DATE"/>
+			<result property="SG_UPDATE_DATE" column="SG_UPDATE_DATE"/>
+			<result property="SG_STATUS" column="SG_STATUS"/>
+			<result property="SG_END_DATE" column="SG_END_DATE"/>
+			<result property="SG_DEAL" column="SG_DEAL"/>
+			<result property="SG_AREA" column="SG_AREA"/>
+			<result property="SG_DELIVERY" column="SG_DELIVERY"/>
+		</association>
+	</resultMap>
+	
+	<select id="myLikeListCount" resultType="_int">
+		select count(g.gl_id)
+		from good_like g
+		join second_goods s on(g.sg_id = s.sg_id)
+		where g.user_id = #{user_id}
+	</select>
+	
+	<select id="myLikeList" resultMap="LikeResultSet">
+		select *
+		from good_like g
+		join second_goods s on(g.sg_id = s.sg_id)
+		where g.user_id = #{user_id}
+	</select>
 </mapper>

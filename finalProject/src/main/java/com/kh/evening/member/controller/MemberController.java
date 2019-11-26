@@ -106,8 +106,29 @@ public class MemberController {
 	}
 
 	@RequestMapping("favorites.me")
-	public String favorites() {
-		return "favorites";
+	public ModelAndView favorites(Model model, @RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+		Member m = (Member)model.getAttribute("loginUser");
+		String user_id = m.getUser_id();
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		ArrayList<Attachment> af = bService.boardFileList();
+		
+		int listCount = bService.myLikeListCount(user_id);
+		PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Board> alist = bService.myLikeList(pi, user_id);
+		System.out.println("좋아요"+alist);
+		if(alist != null) {
+			mv.addObject("alist", alist);
+			mv.addObject("pi", pi);
+			mv.addObject("af", af);
+			mv.setViewName("favorites");
+		}
+		return mv;
 	}
 
 	@RequestMapping("dealDetail.me")
