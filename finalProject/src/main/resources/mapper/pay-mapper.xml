@@ -32,6 +32,11 @@
 				#{item}
 			</foreach>
 		</trim>	
+			<foreach collection="array" item="item" index="index"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</trim>
 	</update>
 	
 	<select id="selectSearchListCount" resultType="_int" parameterType="map">

@@ -38,9 +38,9 @@ public interface MemberService {
 
    ArrayList<Gesipan> selectMyPost(PageInfo pi, Map<String, String> map);
 
-   int getMemberListCount();
+   int getMemberListCount(String mType);
 
-   ArrayList<Member> getMembers(PageInfo pi);
+   ArrayList<Member> getMembers(PageInfo pi, String mType);
 
    int updateRankCode(Member m);
 
@@ -50,9 +50,9 @@ public interface MemberService {
 
    ArrayList<Member> getSearchMemberList(PageInfo pi, Map<String, String> parameters);
 
-   int getDeActiMemberListCount();
+   int getDeActiMemberListCount(String memberType);
 
-   ArrayList<Member> getDeActiMemberList(PageInfo pi);
+   ArrayList<Member> getDeActiMemberList(PageInfo pi, String memberType);
 
    int activateMember(Member m);
 
@@ -67,6 +67,10 @@ public interface MemberService {
    int acceptMember(Member m);
 
    int acceptAllMember(String[] idArray);
+
+int getSellerListCount();
+
+ArrayList<Member> getSellerList(PageInfo pi);
 
 
 
