@@ -23,5 +23,7 @@ public interface PaymentService {
 
 	ArrayList<Payment> selectSearchList(PageInfo pi, Map<String, String> parameters);
 
+	int deletePayment(String[] idArray);
+
 
 }

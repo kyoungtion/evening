@@ -296,17 +296,33 @@
 		</association>
 	</resultMap>
 	
-	<select id="myLikeListCount" resultType="_int">
+	<select id="myLikeListCount" resultType="_int" parameterType="map">
 		select count(g.gl_id)
 		from good_like g
 		join second_goods s on(g.sg_id = s.sg_id)
-		where g.user_id = #{user_id}
+		where g.user_id = #{user_id} and g.gl_check = 1 and s.sg_status = 'N'
+		<choose>
+			<when test='bc eq "A"'>
+				AND s.B_CATEGORY='A'
+			</when>
+			<when test='bc eq "SG"'>
+				AND s.B_CATEGORY='SG'
+			</when>
+		</choose>
 	</select>
 	
-	<select id="myLikeList" resultMap="LikeResultSet">
+	<select id="myLikeList" resultMap="LikeResultSet" parameterType="map">
 		select *
 		from good_like g
 		join second_goods s on(g.sg_id = s.sg_id)
-		where g.user_id = #{user_id}
+		where g.user_id = #{user_id} and g.gl_check = 1 and s.sg_status = 'N'
+		<choose>
+			<when test='bc eq "A"'>
+				AND s.B_CATEGORY='A'
+			</when>
+			<when test='bc eq "SG"'>
+				AND s.B_CATEGORY='SG'
+			</when>
+		</choose>
 	</select>
 </mapper>

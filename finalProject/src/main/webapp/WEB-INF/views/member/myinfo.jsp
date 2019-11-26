@@ -209,8 +209,8 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 											<h6>여러 회원들에게 당신의 중고제품을 판매할 수 있습니다</h6>
 											<h6>경매로도 거래가 가능해요<i class="far fa-smile"></i></h6>
 											<br><br>
-											<button type="button" class="btn btn-primary seller" onclick="location.href='secondgoodList.bo'">중고거래 하러가기&nbsp;<i class="fas fa-long-arrow-alt-right"></i></button>
-											<button type="button" class="btn btn-primary seller" onclick="location.href='auctionList.bo'">경매거래 하러가기&nbsp;<i class="fas fa-long-arrow-alt-right"></i></button>
+											<button type="button" class="btn btn-primary seller" onclick="location.href='secondgoodList.bo'">중고거래 하러가기</button>
+											<button type="button" class="btn btn-primary seller" onclick="location.href='auctionList.bo'">경매거래 하러가기</button>
 										</div>
 									</c:if>
 								</div>
@@ -263,10 +263,6 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 											<option value="SG">중고제품</option>
 											<option value="A">경매제품</option>
 										</select><br>
-										<!-- 여기안에 상품 리스트 넣으면 됨 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  -->
-										
-										
-										
 										<!-- 중고 리스트 -->
 										<div class="product-list">
 										<c:if test="${ alist != null && bc == 'SG' }">

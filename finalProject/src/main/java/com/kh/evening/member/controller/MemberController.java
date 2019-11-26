@@ -106,9 +106,14 @@ public class MemberController {
 	}
 
 	@RequestMapping("favorites.me")
-	public ModelAndView favorites(Model model, @RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+	public ModelAndView favorites(Model model, @RequestParam(value="bCategory", required=false) String bCategory, @RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
 		Member m = (Member)model.getAttribute("loginUser");
 		String user_id = m.getUser_id();
+		
+		String bc = "SG";
+		if(bCategory != null) {
+			bc = bCategory;
+		}
 		
 		int currentPage = 1;
 		if(page != null) {
@@ -117,10 +122,15 @@ public class MemberController {
 		
 		ArrayList<Attachment> af = bService.boardFileList();
 		
-		int listCount = bService.myLikeListCount(user_id);
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("bc", bc);
+		map.put("user_id", user_id);
+		int listCount = bService.myLikeListCount(map);
 		PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Board> alist = bService.myLikeList(pi, user_id);
+		
+		ArrayList<Board> alist = bService.myLikeList(pi, map);
 		System.out.println("좋아요"+alist);
 		if(alist != null) {
 			mv.addObject("alist", alist);

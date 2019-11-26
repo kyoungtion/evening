@@ -20,9 +20,16 @@
 		from payment
 		order by P_NO desc
 	</select>
-	
-	<update id="deletePayment" parameterType="Payment">
-		update payment set p_status='N' p_update_date=sysdate where p_=#{p_ID}
+
+	<update id="deletePayment" parameterType="string">
+		update payment set p_status='N', p_update_date=sysdate
+		<trim prefix="where" prefixOverrides="and|or">
+			p_NO in
+			<foreach collection="array" item="item" index="index"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</trim>
 	</update>
 	
 	<select id="selectSearchListCount" resultType="_int" parameterType="map">

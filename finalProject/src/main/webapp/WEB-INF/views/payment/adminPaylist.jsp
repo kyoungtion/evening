@@ -72,40 +72,39 @@
 											<th scope="col">수정 날짜</th>
 											<!-- <th cope="col">결제 update date</th> -->
 											<th scope="col">결제상태</th>
-											<th scope="col">선택</th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:if test="${ loginUser != null && loginUser.user_id == 'admin' }">
-											<c:set var="pList" value="${ list }"/>
+									<c:if test="${ fn:length(list) > 0 }">
+                        				<c:forEach var="p" items="${ list }" begin="0" end="${ fn:length(list) }" varStatus="paystatus">
+												<c:if test="${ loginUser != null && loginUser.user_id == 'admin' }">
+													<c:set var="pList" value="${ list }"/>
+												</c:if>
+												<tr>
+													<%-- 									<tr style="background-color:#FFFFFF; color:#333333;">
+													 <td id="P_ID${pt.index }" class="P_ID" name="P_ID">${p.P_ID }</td>
+													<td class="subject" id="subject"><span class="PID">${p.P_ID }</span>
+													<span class="rWrap Before ${pt.index }"> [ </span><span><font
+															id="rCount${pt.index}"></font></span><span
+														class="rWrap After ${pt.index}"> ] </span></td> --%>
+					
+													<td>${ paystatus.count }</td>
+						                              <td>${p.p_ID}</td>
+						                              <td>${p.p_NICKNAME}</td>
+						                              <td >${p.gp_ID}</td>
+						                              <td>${p.MONEY}</td>
+						                              <td>${p.PAYDAY}</td>
+						                              <td>${p.p_UPDATE_DATE }</td>
+						                              <td style="text-align:center;">${p.p_STATUS}</td>
+						                              <c:if test="${ loginUser.user_id ne 'admin' }">
+						                              <td><input type="checkbox" style="margin-left:10%;"></td>
+						                              </c:if>
+													<c:set var="listCount" value="${ fn:length(pList) }"/>
+												</tr>
+											</c:forEach>
 										</c:if>
-										<c:forEach var="p" items="${ pList }" varStatus="vs">
-											<tr>
-												<%-- 									<tr style="background-color:#FFFFFF; color:#333333;">
-												 <td id="P_ID${pt.index }" class="P_ID" name="P_ID">${p.P_ID }</td>
-												<td class="subject" id="subject"><span class="PID">${p.P_ID }</span>
-												<span class="rWrap Before ${pt.index }"> [ </span><span><font
-														id="rCount${pt.index}"></font></span><span
-													class="rWrap After ${pt.index}"> ] </span></td> --%>
-				
-												<td>${p.p_No}</td>
-												<td>${p.p_ID}</td>
-												<td>${p.p_NICKNAME}</td>
-												<td>${p.gp_ID}</td>
-												<td>${p.MONEY}</td>
-												<td>${p.PAYDAY}</td>
-												<td>${p.p_UPDATE_DATE }</td>
-												<td style="text-align: center;">${p.p_STATUS}</td>
-												<td><input type="checkbox" style="margin-left: 10%;"></td>
-												<c:set var="listCount" value="${ fn:length(pList) }"/>
-											</tr>
-										</c:forEach>
 									</tbody>
 								</table>
-							</div>
-							<div class="col-md-5" style="text-align: center; width:100px; float: right;">
-								<button type="button" onclick="location.href='${pdelete}'"
-									class="btn btn-outline-dark">결제 취소 요청</button>
 							</div>
 						</div>
 						<br>
@@ -187,112 +186,6 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		$(function() {
-			$('.memberDelete').on('click', function() {
-				var user_id = $(this).attr('id');
-				var indexof = user_id.indexOf('.');
-				var i = user_id.substring(indexof + 1);
-
-				user_id = $('#user_id' + i).text();
-
-				if (confirm('해당 회원을 비활성화하시겠습니까?')) {
-					location.href = "memberDelete.ad?user_id=" + user_id;
-				}
-			});
-			
-			$('.memberActivate').on('click', function(){
-				var user_id = $(this).attr('id');
-				var indexof = user_id.indexOf('.');
-				var i = user_id.substring(indexof + 1);
-				
-				user_id = $('#user_id' + i).text();
-				
-				if(confirm('해당 회원을 활성화시키겠습니까?')){
-					location.href="memberActivate.ad?user_id=" + user_id;
-				}
-			});
-		});
-		$(function() {
-			$('.memberLevel').on('click',function() {
-				var user_id = $(this).attr('id');
-				var indexof = ($(this).attr('id')).indexOf('.');
-				var i = user_id.substring(indexof + 1);
-
-				user_id = $('#user_id' + i).text();
-
-				var url = "memberLevelView.ad?user_id="
-						+ user_id;
-				var name = "회원등급 조정";
-
-				console.log(url);
-				var option = "width=620px, height=450px, top=100, left=200, resizable=0, location=0, scrollbars=0, tollbars=0, status=0";
-				window.open(url, name, option);
-			});
-		});
-
-		$('#deleteAllMember').on('click', function() {
-			if (confirm("선택한 회원 모두 삭제하시겠습니까?")) {
-
-				var ids = "";
-				$('input:checkbox:checked').each(function(index) {
-					if (index != 0) {
-						ids += "," + $(this).val();
-					} else {
-						ids += $(this).val();
-					}
-
-					location.href = "deleteAllMember.ad?ids=" + ids;
-				});
-			}
-		});
-		
-		$('#activateAllMember').on('click', function(){
-			if(confirm("선택한 회원 모두 활성화시키겠습니까?")) {
-				var ids = "";
-				$('input:checkbox:checked').each(function(index){
-					if(index != 0){
-						ids += "," + $(this).val();
-					} else {
-						ids += $(this).val();
-					}
-					
-					location.href="activateAllMember.ad?ids="+ids;
-				});
-			}
-		});
-		
-		/* $(function(){
-			var memberType = ${memberType};
-			console.log(memberType);
-			$('#memberType').val(memberType).prop('selected', true);
-		}); */
-		
-		$(function(){
-			$('#memberType').val('${memberType}').prop('selected', true);
-			
-			//활성회원 조회시
-			if('${list}' != null && '${dList}' == ""){
-				
-				$('#memberType').change(function(){
-					var memberType = $('#memberType').val();
-					console.log(memberType);
-					location.href="adminView.ad?mType="+memberType;
-				});	
-			}
-			
-			//비활성회원 조회시
-			if('${list}' == "" && '${dList}' != null){
-				$('#memberType').change(function(){
-					var memberType = $('#memberType').val();
-					console.log(memberType);
-					location.href="deactivatedMember.ad?mType="+memberType;
-				});	
-			}
-		});
-		
-	</script>
-
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

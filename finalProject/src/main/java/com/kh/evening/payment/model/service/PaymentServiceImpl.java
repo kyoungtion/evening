@@ -49,5 +49,10 @@ public class PaymentServiceImpl implements PaymentService{
 	public ArrayList<Payment> selectSearchList(PageInfo pi, Map<String, String> parameters) {
 		return pDao.selectSearchList(sqlSession, pi, parameters);
 	}
+
+	@Override
+	public int deletePayment(String[] idArray) {
+		return pDao.deletePayment(sqlSession, idArray);
+	}
 	
 }

@@ -82,19 +82,18 @@
 												</tr>
 											</thead>
 											<tbody>
-												<c:if test="${ loginUser != null && loginUser.user_id != 'admin' }">
-													<%
-														List<Payment> list = (ArrayList<Payment>)request.getAttribute("list");
-														Member loginUser = (Member)session.getAttribute("loginUser");
-														List<Payment> pList = new ArrayList<>();
-														for (int i = 0; i < list.size(); i++) {
-															if(list.get(i).getP_ID().equals(loginUser.getUser_id())){
-																pList.add(list.get(i));
-															}
+												<%
+													List<Payment> list = (ArrayList<Payment>)request.getAttribute("list");
+													Member loginUser = (Member)session.getAttribute("loginUser");
+													List<Payment> pList = new ArrayList<>();
+													for (int i = 0; i < list.size(); i++) {
+														if(list.get(i).getP_ID().equals(loginUser.getUser_id())){
+															pList.add(list.get(i));
 														}
-														request.setAttribute("pList", pList);
-													%>
-												</c:if>
+													}
+													request.setAttribute("pList", pList);
+												%>
+												<c:set var="Count" value="1"/>
 												<c:if test="${ loginUser != null && loginUser.user_id == 'admin' }">
 													<c:set var="pList" value="${ list }"/>
 												</c:if>
@@ -107,7 +106,8 @@
 																id="rCount${pt.index}"></font></span><span
 															class="rWrap After ${pt.index}"> ] </span></td> --%>
 						
-														<td>${p.p_No}</td>
+														<td>${ Count }</td>
+                              							<c:set var="Count" value="${ Count+1 }" />   
 														<td>${p.p_ID}</td>
 														<td>${p.p_NICKNAME}</td>
 														<td>${p.gp_ID}</td>
@@ -115,7 +115,8 @@
 														<td>${p.PAYDAY}</td>
 														<td>${p.p_UPDATE_DATE }</td>
 														<td style="text-align: center;">${p.p_STATUS}</td>
-														<td><input type="checkbox" style="margin-left: 10%;"></td>
+														<td><input class="chk" id="chk" name="chk"
+                                          				type="checkbox" value="${ p.p_No }"></td>
 														<c:set var="listCount" value="${ fn:length(pList) }"/>
 													</tr>
 												</c:forEach>
@@ -123,7 +124,7 @@
 										</table>
 									</div>
 									<div class="col-md-5" style="text-align: center; width: 100px; float:right;">
-										<button type="button" onclick="location.href='${pdelete}'"
+										<button type="button" id="pdelete"
 											class="btn btn-outline-dark">결제 취소 요청</button>
 									</div>
 								</div>
@@ -204,6 +205,24 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	$('#pdelete').on('click', function() {
+	      if (confirm("결제 취소 하시겠습니까?")) {
+
+	         var ids = "";
+	         $('input:checkbox:checked').each(function(index) {
+	            if (index != 0) {
+	               ids += "," + $(this).val();
+	            } else {
+	               ids += $(this).val();
+	            }
+
+	            location.href = "pdelete.py?ids=" + ids;
+	         });
+	      }
+	   });    
+	
+	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
