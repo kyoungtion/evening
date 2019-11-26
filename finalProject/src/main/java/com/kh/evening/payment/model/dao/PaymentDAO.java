@@ -28,9 +28,9 @@ public class PaymentDAO {
 		return (ArrayList)sqlSession.selectList("payMapper.selectPaymentList", null, rowBounds);
 	}
 
-/*	public int deletePayment(SqlSessionTemplate sqlSession, Payment p) {
+	public int deletePayment(SqlSessionTemplate sqlSession, Payment p) {
 		return sqlSession.update("payMapper.deletePayment", p);
-	}*/
+	}
 
 	public int selectSearchListCount(SqlSessionTemplate sqlSession, Map<String, String> parameters) {
 		return sqlSession.selectOne("payMapper.selectSearchListCount", parameters);

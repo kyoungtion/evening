@@ -80,12 +80,12 @@
 							
 							<div class="col-md-12">
 							<label for="money">상품 이름</label>
-							<input type="text" id="gp_id" name="gp_ID" value="${ b.SG_BNAME }" class="form-control" placeholder="">
+							<input type="text" id="gp_id" name="gp_ID" value="${ b.SG_BNAME }" class="form-control" readonly placeholder="">
 							</div>
 							
 							<div class="col-md-12">
 							<label for="money">금액</label>
-							<input type="text" id="money" name="MONEY" value="${b.SG_PRICE }" class="form-control" placeholder="">
+							<input type="text" id="money" name="MONEY" value="${b.SG_PRICE }" class="form-control" readonly placeholder="">
 							</div>
 						</div>
 					</div>

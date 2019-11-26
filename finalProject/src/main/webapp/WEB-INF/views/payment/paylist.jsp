@@ -74,14 +74,13 @@
 										<c:set var="Count" value="${ Count+1 }" />									
 										<td>${p.p_ID}</td>
 										<td>${p.p_NICKNAME}</td>
-										<td >${p.gp_ID}</td>
+										<td>${p.gp_ID}</td>
 										<td>${p.MONEY}</td>
 										<td>${p.PAYDAY}</td>
 										<td>${p.p_UPDATE_DATE }</td>
 										<td style="text-align:center;">${p.p_STATUS}</td>
-										<td><input class="chk" id="chk" name="chk"
-														type="checkbox" value="${ gp_ID }"></td>
-										<!-- <td><input type="checkbox" style="margin-left:10%;"></td> -->
+ 										<td><input class="chk" id="chk" name="chk"
+														type="checkbox" value="${ p.p_No }"></td>
 									</tr>
 								</c:if>
 								</c:forEach>								
@@ -201,7 +200,7 @@
 	</div>
 	
 	<script>
-	$('#pdelete').on('click', function() {
+ 	$('#pdelete').on('click', function() {
 		if (confirm("결제 취소 하시겠습니까?")) {
 
 			var ids = "";
@@ -215,7 +214,27 @@
 				location.href = "pdelete.py?ids=" + ids;
 			});
 		}
-	});	
+	});	 
+/* 	$('#pdelete').on('click', function() {
+		var confirm_val = confirm("결제 취소 하시겠습니까?");
+		
+		if(confirm_val){
+			var checkArr = new Array();
+			
+			$("input[class='chk']:checked").each(function(){
+				checkArr.push($(this).attr("data-pNum"));
+			});
+			
+			$.ajax({
+				url : "/pdelete.py",
+				type: "post"
+				data : {chk : checkArr },
+				success : function(){
+					location.href="plist";
+					}
+				});
+			}
+		}); */
 	</script>
 	
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>
