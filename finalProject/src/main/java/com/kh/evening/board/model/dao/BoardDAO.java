@@ -156,14 +156,14 @@ public ArrayList<AuctionHistory> getAuctionHistoryList(SqlSession sqlSession, Pa
 	return (ArrayList)sqlSession.selectList("boardMapper.getAuctionHistoryList", user_id, rb);
 }
 
-public int myLikeListCount(SqlSession sqlSession, String user_id) {
-	return sqlSession.selectOne("boardMapper.myLikeListCount", user_id);
+public int myLikeListCount(SqlSession sqlSession, Map<String, String> map) {
+	return sqlSession.selectOne("boardMapper.myLikeListCount", map);
 }
 
-public ArrayList<Board> myLikeList(SqlSession sqlSession, PageInfo pi, String user_id) {
+public ArrayList<Board> myLikeList(SqlSession sqlSession, PageInfo pi, Map<String, String> map) {
 	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 	RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
-	return (ArrayList)sqlSession.selectList("boardMapper.myLikeList", user_id, rb);
+	return (ArrayList)sqlSession.selectList("boardMapper.myLikeList", map, rb);
 }
 
 

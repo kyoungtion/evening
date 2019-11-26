@@ -171,13 +171,13 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public ArrayList<Board> myLikeList(PageInfo pi, String user_id) {
-		return bDAO.myLikeList(sqlSession, pi, user_id);
+	public ArrayList<Board> myLikeList(PageInfo pi, Map<String, String> map) {
+		return bDAO.myLikeList(sqlSession, pi, map);
 	}
 
 	@Override
-	public int myLikeListCount(String user_id) {
-		return bDAO.myLikeListCount(sqlSession, user_id);
+	public int myLikeListCount(Map<String, String> map) {
+		return bDAO.myLikeListCount(sqlSession, map);
 	}
 
 }

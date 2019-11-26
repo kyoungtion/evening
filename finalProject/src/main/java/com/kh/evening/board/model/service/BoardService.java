@@ -70,8 +70,8 @@ public interface BoardService {
 
 	ArrayList<AuctionHistory> getAuctionHistoryList(PageInfo pi, String user_id);
 
-	ArrayList<Board> myLikeList(PageInfo pi, String user_id);
+	ArrayList<Board> myLikeList(PageInfo pi, Map<String, String> map);
 
-	int myLikeListCount(String user_id);
+	int myLikeListCount(Map<String, String> map);
 
 }

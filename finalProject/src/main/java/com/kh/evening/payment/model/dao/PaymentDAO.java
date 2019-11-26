@@ -42,6 +42,10 @@ public class PaymentDAO {
 		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("payMapper.selectSearchList", parameters, rb);
 	}
+
+	public int deletePayment(SqlSessionTemplate sqlSession, String[] idArray) {
+		return sqlSession.update("payMapper.deletePayment", idArray);
+	}
 	
 
 }
