@@ -17,7 +17,7 @@
 	
 	<select id="selectPaymentList" resultType="Payment">
 		select *
-		from paymentr
+		from payment
 		order by P_NO desc
 	</select>
 	

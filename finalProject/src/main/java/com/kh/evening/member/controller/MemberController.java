@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.evening.board.model.service.BoardService;
 import com.kh.evening.board.model.vo.Attachment;
+import com.kh.evening.board.model.vo.AuctionHistory;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.common.Pageination;
@@ -37,6 +38,7 @@ import com.kh.evening.member.model.exception.MemberException;
 import com.kh.evening.member.model.service.KakaoAPI;
 import com.kh.evening.member.model.service.MemberService;
 import com.kh.evening.member.model.vo.Member;
+import com.kh.evening.payment.model.service.PaymentService;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -50,6 +52,9 @@ public class MemberController {
 
 	@Autowired
 	private BoardService bService;
+	
+	@Autowired
+	private PaymentService pService;
 
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -93,7 +98,6 @@ public class MemberController {
 		int listCount = bService.getBoardListCount(map);
 		PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
 		ArrayList<Board> alist = bService.myBoardList(pi, map);
-		System.out.println(alist);
 		if(alist != null) {
 			mv.addObject("alist", alist).addObject("pi", pi).addObject("af", af).addObject("bc",bc).setViewName("myinfo");
 		}
@@ -102,13 +106,52 @@ public class MemberController {
 	}
 
 	@RequestMapping("favorites.me")
-	public String favorites() {
-		return "favorites";
+	public ModelAndView favorites(Model model, @RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+		Member m = (Member)model.getAttribute("loginUser");
+		String user_id = m.getUser_id();
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		ArrayList<Attachment> af = bService.boardFileList();
+		
+		int listCount = bService.myLikeListCount(user_id);
+		PageInfo pi = Pageination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Board> alist = bService.myLikeList(pi, user_id);
+		System.out.println("좋아요"+alist);
+		if(alist != null) {
+			mv.addObject("alist", alist);
+			mv.addObject("pi", pi);
+			mv.addObject("af", af);
+			mv.setViewName("favorites");
+		}
+		return mv;
 	}
 
 	@RequestMapping("dealDetail.me")
-	public String dealDetail() {
-		return "dealDetail";
+	public ModelAndView dealDetail(Model model,@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+		Member m = (Member)model.getAttribute("loginUser");
+		String user_id = m.getUser_id();
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = bService.getAuctionHistoryCount(user_id);
+		PageInfo pi = Pageination.getQnaPageInfo(currentPage, listCount);
+		
+		ArrayList<AuctionHistory> list = bService.getAuctionHistoryList(pi, user_id);
+		if(list != null) {
+			mv.addObject("pi", pi).addObject("list", list).setViewName("dealDetail");
+		} else {
+			throw new MemberException("해당 회원이 입찰중인 상품 리스트 조회에 실패하였습니다.");
+		}
+		
+		
+		return mv;
 	}
 
 	@RequestMapping("mypost.me")

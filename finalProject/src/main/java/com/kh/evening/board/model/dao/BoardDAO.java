@@ -146,6 +146,26 @@ public int myBoardListCount(SqlSession sqlSession, Map<String, String> map) {
 	return sqlSession.selectOne("boardMapper.myBoardListCount", map);
 }
 
+public int getAuctionHistoryCount(SqlSession sqlSession, String user_id) {
+	return sqlSession.selectOne("boardMapper.getAuctionHistoryCount", user_id);
+}
+
+public ArrayList<AuctionHistory> getAuctionHistoryList(SqlSession sqlSession, PageInfo pi, String user_id) {
+	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+	RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
+	return (ArrayList)sqlSession.selectList("boardMapper.getAuctionHistoryList", user_id, rb);
+}
+
+public int myLikeListCount(SqlSession sqlSession, String user_id) {
+	return sqlSession.selectOne("boardMapper.myLikeListCount", user_id);
+}
+
+public ArrayList<Board> myLikeList(SqlSession sqlSession, PageInfo pi, String user_id) {
+	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+	RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
+	return (ArrayList)sqlSession.selectList("boardMapper.myLikeList", user_id, rb);
+}
+
 
 
 
