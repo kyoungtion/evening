@@ -34,6 +34,8 @@ import com.kh.evening.member.model.exception.MemberException;
 import com.kh.evening.member.model.service.KakaoAPI;
 import com.kh.evening.member.model.service.MemberService;
 import com.kh.evening.member.model.vo.Member;
+import com.kh.evening.message.model.service.MessageService;
+import com.kh.evening.message.model.vo.Message;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -42,6 +44,8 @@ public class MemberController {
    @Autowired
    private MemberService mService;
    
+   @Autowired
+   private MessageService messageService;
    @Autowired
    private GesipanService gService;
    
@@ -567,7 +571,7 @@ public class MemberController {
 @RequestMapping(value="login.me", method=RequestMethod.POST)
    public String memberLogin(@ModelAttribute Member m ,Model model) {
       Member loginUser = mService.memberLogin(m);
-   
+      
       
       if(bcryptPasswordEncoder.matches(m.getUser_pwd(), loginUser.getUser_pwd())) {
          model.addAttribute("loginUser",loginUser);
@@ -577,7 +581,9 @@ public class MemberController {
       }
       
       if(loginUser != null) {
+    	 loginUser.setCount(messageService.getCount(loginUser.getUser_id()));
          model.addAttribute("loginUser", loginUser);
+        
          return "redirect:home.do";
       } else {
          throw new MemberException("로그인에 실패하였습니다.");

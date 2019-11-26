@@ -72,10 +72,12 @@ public class MessageController {
 		rparam.put("m_NO", Integer.parseInt(req.getParameter("m_NO")) );
 		rparam.put("loginUser", loginUser.getUser_id());
 		List<Map<String,Object>> rlist = messageService.rmessageDetail(rparam);
+		int updateCheck = messageService.checkUpdate(rparam);
 		System.out.println("rlist     :"+rlist);
 		System.out.println("rlist.toString()     :"+rlist.toString());
+		System.out.println("updateCheck  :" + updateCheck);
 		mv.addObject("rlist", rlist);
-		mv.setViewName("messageDetail");
+		mv.setViewName("rDetail");
 		return mv;
 		
 	}
@@ -86,12 +88,16 @@ public class MessageController {
 		sparam.put("m_NO", Integer.parseInt(req.getParameter("m_NO")) );
 		sparam.put("loginUser", loginUser.getUser_id());
 		List<Map<String,Object>> slist = messageService.smessageDetail(sparam);
+		int updateCheck = messageService.checkUpdate(sparam);
 		System.out.println("slist     :"+slist);
 		System.out.println("slist.toString()     :"+slist.toString());
+		System.out.println("updateCheck  :" + updateCheck);
 		mv.addObject("slist", slist);
-		mv.setViewName("messageDetail");
+		mv.setViewName("sDetail");
 		return mv;
 		
 	}
+	
+	
 	
 }

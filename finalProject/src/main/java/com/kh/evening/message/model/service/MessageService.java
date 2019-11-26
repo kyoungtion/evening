@@ -29,6 +29,13 @@ public interface MessageService {
 	List<Map<String, Object>> smessageDetail(Map sparam);
 
 
+	int checkUpdate(Map rparam);
+
+
+
+	int getCount(String user_id);
+
+
 
 
 

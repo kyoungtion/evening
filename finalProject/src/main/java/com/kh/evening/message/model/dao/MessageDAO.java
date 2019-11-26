@@ -35,6 +35,16 @@ public class MessageDAO {
 
 
 
+	public int checkUpdate(SqlSessionTemplate sqlSession, Map rparam) {
+		return sqlSession.update("messageMapper.checkUpdate",rparam);
+	}
+
+	public int getCount(SqlSessionTemplate sqlSession, String user_id) {
+		return sqlSession.selectOne("messageMapper.getCount",user_id);
+	}
+
+
+
 	
 
 }

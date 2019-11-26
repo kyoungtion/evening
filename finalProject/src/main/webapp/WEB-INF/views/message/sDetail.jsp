@@ -286,16 +286,17 @@ input[type=submit]:active, input[type=submit]:focus {
 </head>
 <body>
 <div id="content">
-    <h1>받은 쪽지 상세보기</h1>
-
-
-	<c:forEach var="list" items="${rlist}">
+   
+ 
+	<c:forEach var="list" items="${slist}">
+	
+	 <h1>보낸 쪽지 상세보기</h1>
     <form>
         <p>
-            <label for="username" class="icon-user" id="username"> 보낸 사람
+            <label for="username" class="icon-user" id="username"> 받는 사람
                
             </label>
-            <input type="text" name="username" id="username" readonly="readonly" value="${list.M_SEND}" />
+            <input type="text" name="username" id="username" readonly="readonly" value="${list.M_RECEIVE}" />
         </p>
 
      
@@ -315,6 +316,11 @@ input[type=submit]:active, input[type=submit]:focus {
         </p>
     </form>
     </c:forEach>
+    
+	
+	
+   
+    
 </div>
 
 

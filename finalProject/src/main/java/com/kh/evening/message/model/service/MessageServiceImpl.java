@@ -47,6 +47,18 @@ public class MessageServiceImpl implements MessageService{
 		return messageDAO.smessageDetail(sqlSession,sparam);
 	}
 
+	@Override
+	public int checkUpdate(Map rparam) {
+		return messageDAO.checkUpdate(sqlSession,rparam);
+	}
+
+	@Override
+	public int getCount(String user_id) {
+		return messageDAO.getCount(sqlSession,user_id);
+	}
+
+
+
 	
 
 

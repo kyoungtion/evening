@@ -131,7 +131,10 @@
 				<c:if test="${ !empty sessionScope.loginUser && loginUser.user_id ne 'admin'}">
 					<div id="navTag">
 						<ul id="hNav">
-							<li id="userLi"><span title="${loginUser.rankCode.rank_name }">${ loginUser.rankCode.rank_img }</span>&nbsp;<b>${ loginUser.nickName }</b> 님 반갑습니다.</li>
+							<li id="userLi"><span title="${loginUser.rankCode.rank_name }">${ loginUser.rankCode.rank_img }</span>&nbsp;<b>${ loginUser.nickName }</b> 님 반갑습니다.
+								<a href="message.sr">${loginUser.count}&nbsp;&nbsp;<i class="fa fa-envelope"></i></a>
+								
+							</li>
 							<li><a href="auctionList.bo">경매</a></li>
 							<li><a href="usedListAll.ud">중고거래</a></li>
 							<li><a href="javascript:void(0);"

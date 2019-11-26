@@ -7,6 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
+	type="text/css" />
+
+
+
 
 <style type="text/css">
 #hs {
@@ -43,9 +49,9 @@
 							<button
 								onclick="window.open('write.sr', '글쓰기', 'top=10, left=10, width=555, height=670, status=no, menubar=no, toolbar=no, resizable=no');"
 								class="btn btn-primary ">글쓰기</button>
-							<button onclick="write();" class="btn btn-primary ">삭제</button>
+							
 							<div id="hs" class="row content" style="height: 650px;">
-								<table border="1" summary="" class="content-table">
+								<table border="1" summary="" class="content-table" id="rtable">
 									<colgroup id=""
 										class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 ">
 										<col style="width: 50px;">
@@ -67,17 +73,19 @@
 											<c:when test="${fn:length(rlist) > 0}">
 
 												<c:forEach items="${rlist}" var="list" varStatus="status">
+													<c:if test="${list.m_CLICKED eq 'N'}">
+														<tr style="background-color: #FFFFFF; color: #333333;"
+															class="rMessage" id="${list.m_NO}">
 
-													<tr style="background-color: #FFFFFF; color: #333333;"
-														class="rMessage" id="${list.m_NO}">
-														<%-- <td><c:out value="${list.M_NO}" /></td>
-												<td><c:out value="${list.M_SEND}" /></td>
-												<td><c:out value="${list.M_TITLE}" /></td>
-												<td><c:out value="${list.M_ENROLL_DATE}" /></td> --%>
-														<td><c:out value="${status.count}" /></td>
-														<td><c:out value="${list.m_SEND}" /></td>
-														<td><c:out value="${list.m_TITLE}" /></td>
-														<td><c:out value="${list.m_ENROLL_DATE}" /></td>
+													</c:if>
+													<c:if test="${list.m_CLICKED eq 'Y'}">
+														<tr style="background-color: #FFFFFF; color: gray;"
+															class="rMessage" id="${list.m_NO}">
+													</c:if>
+													<td><c:out value="${status.count}" /></td>
+													<td><c:out value="${list.m_SEND}" /></td>
+													<td><c:out value="${list.m_TITLE}" /></td>
+													<td><c:out value="${list.m_ENROLL_DATE}" /></td>
 													</tr>
 												</c:forEach>
 											</c:when>
@@ -100,13 +108,13 @@
 
 					</div>
 					<script>
-					
+						
 					</script>
 					<div id="tab-2" class="tab-content">
 						<div class="container">
 
 							<div id="hs" class="row content" style="height: 600px;">
-								<table border="1" summary="" class="content-table">
+								<table border="1" summary="" class="content-table" id="stable">
 									<colgroup id=""
 										class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 ">
 										<col style="width: 50px;">
@@ -124,18 +132,23 @@
 										</tr>
 									</thead>
 									<tbody>
-																			
+
 										<c:choose>
 											<c:when test="${fn:length(slist) > 0}">
 
 												<c:forEach items="${slist}" var="list" varStatus="status">
-
-													<tr style="background-color: #FFFFFF; color: #333333;"
-														class="sMessage" id="${list.m_NO}">
-														<td><c:out value="${status.count}" /></td>
-														<td><c:out value="${list.m_RECEIVE}" /></td>
-														<td><c:out value="${list.m_TITLE}" /></td>
-														<td><c:out value="${list.m_ENROLL_DATE}" /></td>
+													<c:if test="${list.m_CLICKED eq 'N'}">
+														<tr style="background-color: #FFFFFF; color: #333333;"
+															class="sMessage" id="${list.m_NO}">
+													</c:if>
+													<c:if test="${list.m_CLICKED eq 'Y'}">
+														<tr style="background-color: #FFFFFF; color: gray;"
+															class="rMessage" id="${list.m_NO}">
+													</c:if>
+													<td><c:out value="${status.count}" /></td>
+													<td><c:out value="${list.m_RECEIVE}" /></td>
+													<td><c:out value="${list.m_TITLE}" /></td>
+													<td><c:out value="${list.m_ENROLL_DATE}" /></td>
 													</tr>
 												</c:forEach>
 											</c:when>
@@ -161,61 +174,94 @@
 			</div>
 		</div>
 	</div>
+	<script
+		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"
+		type="text/javascript"></script>
 
 	<script>
-	/* 탭 메뉴 새로고침시 고정 스크립트 */
-	$(function(){
-		
-		$('#tabs').tabs();
-		var tabs = $('#tabs').tabs({
-			activate: function(event, ui){
-				var active = $('#tabs').tabs('option', 'active');
-				$.cookie('activeTabIndex', active);
-			}
+		$(document).ready(function() {
+			$('#rtable').DataTable({
+				
+				"info" : false,
+				"order" : [ [ 0, "desc" ] ],
+				"stateSave" : true
+
+			});
 		});
-		
-		var activeTabIndex = $.cookie('activeTabIndex');
-		
-		if(activeTabIndex != undefined){
-			tabs.tabs('option','active',activeTabIndex);
-		}
-		
-		
-		
-		/* if (location.hash == "#tab-1"){         
-			$('.tabs').find('li').eq(0).addClass('current').siblings().removeClass('current');        
-			
-		} else if(location.hash == "#tab-2"){         
-			$('.tabs').find('li').eq(1).addClass('current').siblings().removeClass('current');         
-			
-		} else if(location.hash == "#tab-3"){         
-			$('.tabs').find('li').eq(2).addClass('current').siblings().removeClass('current');         
-		}
-		
-		$('ul.tabs li').click(function(){
-	        $('ul.tabs li').removeClass('current');
 
-	        $(this).addClass('current');
-		}); */
-	});
-	$(document).ready(function(){ 
-		$('.rMessage').on('click',function(){
-			var popUrl = "/evening/rDetail.sr?m_NO="+$(this).attr('id'); 
-			//팝업창에 출력될 페이지 URL 
-			var popOption = "top=10, left=10, width=555, height=670, status=no, menubar=no, toolbar=no, resizable=no;"; 
-			//팝업창 옵션(optoin)
-			window.open(popUrl,"",popOption); 
-			}); 
-		
-		$('.sMessage').on('click',function(){
-			var popUrl = "/evening/sDetail.sr?m_NO="+$(this).attr('id'); 
-			//팝업창에 출력될 페이지 URL 
-			var popOption = "top=10, left=10, width=555, height=670, status=no, menubar=no, toolbar=no, resizable=no;"; 
-			//팝업창 옵션(optoin)
-			window.open(popUrl,"",popOption); 
-			}); 
-	});
+		$(document).ready(function() {
+			$('#stable').DataTable({
+				
+				"info" : false,
+				"order" : [ [ 0, "desc" ] ],
+				"stateSave" : true
 
+			});
+		});
+
+		/* 탭 메뉴 새로고침시 고정 스크립트 */
+		$(function() {
+
+			$('#tabs').tabs();
+			var tabs = $('#tabs').tabs({
+				activate : function(event, ui) {
+					var active = $('#tabs').tabs('option', 'active');
+					$.cookie('activeTabIndex', active);
+				}
+			});
+
+			var activeTabIndex = $.cookie('activeTabIndex');
+
+			if (activeTabIndex != undefined) {
+				tabs.tabs('option', 'active', activeTabIndex);
+			}
+
+			/* if (location.hash == "#tab-1"){         
+				$('.tabs').find('li').eq(0).addClass('current').siblings().removeClass('current');        
+				
+			} else if(location.hash == "#tab-2"){         
+				$('.tabs').find('li').eq(1).addClass('current').siblings().removeClass('current');         
+				
+			} else if(location.hash == "#tab-3"){         
+				$('.tabs').find('li').eq(2).addClass('current').siblings().removeClass('current');         
+			}
+			
+			$('ul.tabs li').click(function(){
+			    $('ul.tabs li').removeClass('current');
+
+			    $(this).addClass('current');
+			}); */
+		});
+		$(document)
+				.ready(
+						function() {
+
+							$('.rMessage')
+									.on(
+											'click',
+											function() {
+												var popUrl = "/evening/rDetail.sr?m_NO="
+														+ $(this).attr('id');
+												//팝업창에 출력될 페이지 URL 
+												var popOption = "top=10, left=10, width=555, height=670, status=no, menubar=no, toolbar=no, resizable=no;";
+												//팝업창 옵션(optoin)
+												window.open(popUrl, "",
+														popOption);
+											});
+
+							$('.sMessage')
+									.on(
+											'click',
+											function() {
+												var popUrl = "/evening/sDetail.sr?m_NO="
+														+ $(this).attr('id');
+												//팝업창에 출력될 페이지 URL 
+												var popOption = "top=10, left=10, width=555, height=670, status=no, menubar=no, toolbar=no, resizable=no;";
+												//팝업창 옵션(optoin)
+												window.open(popUrl, "",
+														popOption);
+											});
+						});
 	</script>
 
 
