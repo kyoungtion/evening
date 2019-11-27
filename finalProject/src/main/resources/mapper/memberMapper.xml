@@ -23,13 +23,8 @@
 	<!-- 카카오 로그인 -->
 	<select id="kakaoId" parameterType="Member" resultType="Member">
 		select * from member
-		where status='Y'
-		<if test="user_email != null">
-			and user_email=#{user_email}
-		</if>
-		<if test="user_id != null">
-			and user_id=#{user_id}
-		</if>
+		where user_email=#{user_email}
+		
 	</select>
 
 
@@ -49,7 +44,24 @@
 		and phone= #{phone}
 	</select>
 
-	<!-- 비밀번호 찾기 -->
+	<!-- 비밀번호 변경 -->
+	
+	<select id="searchPwd" parameterType="map" resultType="Member">
+		select * 
+			from Member
+			where user_id=#{user_id, jdbcType=VARCHAR} 
+			and user_email= #{user_email, jdbcType=VARCHAR}
+	</select>
+	
+	
+	
+	<update id="changePwd" parameterType="map" >
+		update member
+			set user_pwd = #{newPwd}
+			 where user_id = #{user_id}
+	</update>
+	
+	<!--  -->
 	<!-- <select id="searchPwd" parameterType="String" resultType="String"> 
 		select user_pwd from Member where user_id = #{user_id} and user_email = #{user_email} 
 		</select> -->

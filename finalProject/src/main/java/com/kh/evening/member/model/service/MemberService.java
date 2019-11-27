@@ -76,4 +76,10 @@ int updatePenaltyPoint(Member user);
 
 
 
+
+Member memberSearchPwd(Map<String, String> map);
+
+int  changePwd(Map<String, String> map);
+
+
 }
