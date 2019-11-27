@@ -24,10 +24,10 @@
 	
 	<script>
 	$(function(){
-	  // 5마다 갱신 (최신화)
+	  // 10마다 갱신 (최신화)
 	  setTimeout(function(){
 	   location.reload(); 
-	  },5000);
+	  },10000);
 	  
 	});
 	</script>
