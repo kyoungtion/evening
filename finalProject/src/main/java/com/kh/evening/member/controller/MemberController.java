@@ -11,9 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-//import org.apache.catalina.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,12 +33,13 @@ import com.kh.evening.gesipan.model.service.GesipanService;
 import com.kh.evening.gesipan.model.vo.Gesipan;
 import com.kh.evening.member.email.FindUtil;
 import com.kh.evening.member.email.MailUtil;
-//import com.kh.evening.member.email.EmailSender;
 import com.kh.evening.member.model.exception.MemberException;
 import com.kh.evening.member.model.service.KakaoAPI;
 import com.kh.evening.member.model.service.MemberService;
 import com.kh.evening.member.model.vo.Member;
 import com.kh.evening.payment.model.service.PaymentService;
+import com.kh.evening.message.model.service.MessageService;
+import com.kh.evening.message.model.vo.Message;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -49,6 +48,9 @@ public class MemberController {
 	@Autowired
 	private MemberService mService;
 
+	@Autowired
+	private MessageService messageService;
+	
 	@Autowired
 	private GesipanService gService;
 
@@ -580,97 +582,97 @@ public class MemberController {
 	// ********************************************끝
 
 	
-// 상은
-   // 로그인용 컨트롤러
-   @RequestMapping("loginView.me")
-   public String login() {
-      return "login";
-   }
-   
-   @RequestMapping(value="kakaoCallback.me" ,method = { RequestMethod.GET, RequestMethod.POST })
-   public ModelAndView kakao(@RequestParam("code")String code,
-                         HttpSession session,
-                         HttpServletResponse response,
-                         ModelAndView mv,
-                         Model model) {
-      String access_Token = kakao.getAccessToken(code);
-      System.out.println("code : " + code);
-       HashMap<String, String> userInfo = kakao.getUserInfo(access_Token);
-       System.out.println("login Controller : " + userInfo);
-       
-       //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
-       if (userInfo.get("email") != null) {
-          
-          // 맴버 객체 생성 후 kakaoId 값 들고 디비로 넘어가서 가입된 멤버인지 확인하기
-          
-          Member m = new Member();
-          //m.setKakaoId(userInfo.get("kakaoId"));
-          m.setUser_email(userInfo.get("email"));
-          Member loginUser = mService.kakaoLogin(m);
-          System.out.println("kakaoLoing : " +loginUser );
-          if(loginUser != null ) {
-             model.addAttribute("loginUser", loginUser);
-             mv.setViewName("redirect:home.do");
-             
+	// 상은
 
-          }
-          
-           /*session.setAttribute("userId", userInfo.get("email"));
-           session.setAttribute("access_Token", access_Token);*/
-       }
-      return mv;
-      
-     
-   }
-   
-   // 암호화 후 로그인
-   @RequestMapping(value="login.me", method=RequestMethod.POST)
-   public String memberLogin(@ModelAttribute Member m ,Model model) {
-      Member loginUser = mService.memberLogin(m);
-      
-      if(bcryptPasswordEncoder.matches(m.getUser_pwd(), loginUser.getUser_pwd())) {
-         model.addAttribute("loginUser",loginUser);
-         
-      }else {
-         throw new MemberException("로그인에 실패하였습니다.");
-      }
-      
-      if(loginUser != null) {
-		// 징계유저의 경우 : 징계기간이 끝났는지 확인(끝났을시 등급 초승달로 복구)
-		if(loginUser.getRank_code().equals("E")) {
-		  Date today = new Date();
-		  SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd");
-		  String todays = timeFormat.format(today);
-		  String dbDays = timeFormat.format(loginUser.getPenalty_date());
-		  
-		  try {
-		    Date dbDayD = timeFormat.parse(dbDays);
-		    Date todayD = timeFormat.parse(todays);
-		    
-		    long result = dbDayD.getTime() - todayD.getTime();
-		    long resultDay = result / (1000 * 60 * 60 * 24);
-		    
-		    int updatePenalty = 0;
-		    if(resultDay <= 0) {
-		      // 등급을 초기등급으로 변경함
-		      loginUser.setRank_code("NM");
-		      updatePenalty = mService.updatePenaltyPoint(loginUser);
-		    }
-		    
-		    if(updatePenalty > 0) {
-		      // 변경 성공시 등급 이미지 재매치
-		      loginUser = mService.memberLogin(loginUser);
-		    }
-		    
-		  } catch (ParseException e) {
-		    e.printStackTrace();
-		  }
+	// 로그인용 컨트롤러
+	@RequestMapping("loginView.me")
+	public String login() {
+		return "login";
+	}
+
+	@RequestMapping(value = "kakaoCallback.me", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView kakao(@RequestParam("code") String code, HttpSession session, HttpServletResponse response,
+			ModelAndView mv, Model model) {
+		String access_Token = kakao.getAccessToken(code);
+		System.out.println("code : " + code);
+		HashMap<String, String> userInfo = kakao.getUserInfo(access_Token);
+		System.out.println("login Controller : " + userInfo);
+
+		// 클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
+		if (userInfo.get("email") != null) {
+
+			// 맴버 객체 생성 후 kakaoId 값 들고 디비로 넘어가서 가입된 멤버인지 확인하기
+
+			Member m = new Member();
+			// m.setKakaoId(userInfo.get("kakaoId"));
+			m.setUser_email(userInfo.get("email"));
+			Member loginUser = mService.kakaoLogin(m);
+			System.out.println("kakaoLoing : " + loginUser);
+			if (loginUser != null) {
+				model.addAttribute("loginUser", loginUser);
+				mv.setViewName("redirect:home.do");
+
+			}
+
+			/*
+			 * session.setAttribute("userId", userInfo.get("email"));
+			 * session.setAttribute("access_Token", access_Token);
+			 */
 		}
-         model.addAttribute("loginUser", loginUser);
-         return "redirect:home.do";
-      } else {
-         throw new MemberException("로그인에 실패하였습니다.");
-      }
+		return mv;
+
+	}
+
+	// 암호화 후 로그인
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "login.me", method = RequestMethod.POST)
+	public String memberLogin(@ModelAttribute Member m, Model model) {
+		Member loginUser = mService.memberLogin(m);
+
+		if (bcryptPasswordEncoder.matches(m.getUser_pwd(), loginUser.getUser_pwd())) {
+			model.addAttribute("loginUser", loginUser);
+
+		} else {
+			throw new MemberException("로그인에 실패하였습니다.");
+		}
+
+		if (loginUser != null) {
+			// 징계유저의 경우 : 징계기간이 끝났는지 확인(끝났을시 등급 초승달로 복구)
+			if (loginUser.getRank_code().equals("E")) {
+				Date today = new Date();
+				SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String todays = timeFormat.format(today);
+				String dbDays = timeFormat.format(loginUser.getPenalty_date());
+
+				try {
+					Date dbDayD = timeFormat.parse(dbDays);
+					Date todayD = timeFormat.parse(todays);
+
+					long result = dbDayD.getTime() - todayD.getTime();
+					long resultDay = result / (1000 * 60 * 60 * 24);
+
+					int updatePenalty = 0;
+					if (resultDay <= 0) {
+						// 등급을 초기등급으로 변경함
+						loginUser.setRank_code("NM");
+						updatePenalty = mService.updatePenaltyPoint(loginUser);
+					}
+
+					if (updatePenalty > 0) {
+						// 변경 성공시 등급 이미지 재매치
+						loginUser = mService.memberLogin(loginUser);
+					}
+
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			loginUser.setCount(messageService.getCount(loginUser.getUser_id()));
+			model.addAttribute("loginUser", loginUser);
+			return "redirect:home.do";
+		} else {
+			throw new MemberException("로그인에 실패하였습니다.");
+		}
       
    }
    
