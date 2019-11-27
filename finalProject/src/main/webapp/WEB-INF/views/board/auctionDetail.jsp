@@ -226,7 +226,7 @@
 							<div style="width: 200px; float: left;">
 							<div style="width: 100%; height: 60px; display: inline-block;">
 			<!-- 입찰버튼 로그인시에만 뜨도록 하기 -->
-			<c:if test="${ !empty loginUser && loginUser.user_id != board.USER_ID && !endAuction eq true }">
+			<c:if test='${ !empty loginUser && loginUser.user_id != board.USER_ID && !endAuction eq "true" }'>
 				<form action="selectOne.bo" id="sendPrice" method="POST">
 					<input type="number" hidden="hidden" id="auctionPrice" name="auctionPrice"> 
 					<input type="number" hidden="hidden" name="sgId" value="${ board.SG_ID }"> 
@@ -252,13 +252,15 @@
 				}
 			</script>
 			<!-- 본인 글 일시 && !endAuction eq true-->
-			<c:if test="${ !empty loginUser && loginUser.user_id == board.USER_ID  }">
+			<c:if test='${ !empty loginUser && loginUser.user_id == board.USER_ID && !endAuction eq "true"  }'>
 				<c:url value="boardupdateForm.bo?type=2" var="bUpdate">
 					<c:param name="sgId" value="${board.SG_ID}" />
 				</c:url>
 				<button class="btn btn-primary" onclick="location.href='${bUpdate}';">수정</button>
 				<button class="btn btn-primary" onclick="deleteBtn();">글삭제</button>
 			</c:if>
+			<br><br>
+			<button class="btn btn-primary btn-outline" style="margin-left: 85px;" onclick="location.href ='auctionList.bo'">목록으로 가기</button>
 		</div>
 		</div>
 						</div>
@@ -308,6 +310,7 @@
 	
 	</div>
 	<script>
+	var sgId=parseInt($('#sgId').val());
 	function deleteBtn() {
 		var con_test = confirm("정말 삭제 하시겠습니까?\n(마감전에 삭제할시 패널티를 받을수 있습니다.)");
 		if (con_test) {

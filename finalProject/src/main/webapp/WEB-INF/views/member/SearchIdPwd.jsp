@@ -290,25 +290,27 @@ body .container .content .signup-cont {
                  <div class="content">
                         <div class="signin-cont cont">
                                <form action="searchId.me" method="post" enctype="multipart/form-data">
+                                     
                                       <input type="text" name="user_name" id="user_name" class="inpt" required="required" placeholder="Your Name">
                                       <label for="email">Your Name</label>
                                       <input type="text" name="Phone" id="Phone" class="inpt" required="required" placeholder="Your Phone">
                                       <label for="Phone">Your Phone</label>
-                                            
                                             
                                       <div class="submit-wrap">
                                              <input type="submit" value="Sign in" class="submit">
                                              <a href="home.do" class="more">index</a>
                                       </div>
                                </form>
+                               
                              
                         </div>
                         <div class="signup-cont cont" name="Search password">
-                                            <form action="searchPwd.me" method="post" enctype="multipart/form-data">
+                                     
+                                      <form action="searchPwd.me" method="post" enctype="multipart/form-data">
                                       <input type="text" name="user_id" id="user_id" class="inpt" required="required" placeholder="Your id">
                                       <label for="name">Your name</label>
-                                            <input type="email" name="email" id="email" class="inpt" required="required" placeholder="Your email">
-                                      <label for="email">Your email</label>
+                                            <input type="email" name="user_email" id="user_email" class="inpt" required="required" placeholder="Your email">
+                                      <label for="user_email">Your email</label>
                                       
                                       <div class="submit-wrap">
                                              <input type="submit" value="Sign up" class="submit">

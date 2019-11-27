@@ -39,7 +39,7 @@ public class MemberDAO {
 	 * sqlsession.update("member.update_pw",m); }
 	 */
 	public Member kakaoId(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.selectOne("member.kakaoId", m);
+		return sqlSession.selectOne("memberMapper.kakaoId", m);
 	}
 
 // 경희
@@ -154,8 +154,14 @@ public class MemberDAO {
 //      return (Member) sqlSession.selectMap("memberMapper.searchId",user_name,user_email);
 //   }
 
-//   public String getPw(SqlSessionTemplate sqlSession, Map<String, Object> paramMap) {
-//      return sqlSession.selectOne("memberMapper.getPw", paramMap);
-//   }
+	public Member searchPwd(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.selectOne("memberMapper.searchPwd", map);
+	}
+
+	public int changePwd(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		System.out.println("DAOMap: " + map);
+		return sqlSession.update("memberMapper.changePwd",map);
+	}
+
 
 }

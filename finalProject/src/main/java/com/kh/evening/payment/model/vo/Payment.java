@@ -29,6 +29,7 @@ public class Payment {
 	private int MONEY;			// 결제 금액
 	private String MEMO;		// 배송시 메모
 	private int gp_ID;		// 상품 정보
+	private String gp_ID;		// 상품 정보
 
 	private Board board;
 

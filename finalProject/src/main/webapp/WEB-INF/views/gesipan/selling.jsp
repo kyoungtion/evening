@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EVENING : 커뮤니티</title>
+<title>중고물품 거래, 경매는 이브닝 : 삽니다</title>
 <style>
 #searchText {
 	width: 200px;

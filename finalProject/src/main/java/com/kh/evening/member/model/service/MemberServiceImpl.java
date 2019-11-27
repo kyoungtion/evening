@@ -180,4 +180,15 @@ public class MemberServiceImpl implements MemberService {
     return mDAO.updatePenaltyPoint(sqlSession,user);
   }
 
+	@Override
+	public Member memberSearchPwd(Map<String, String> map) {
+		return mDAO.searchPwd(sqlSession,map);
+	}
+
+	@Override
+	public int changePwd(Map<String, String> map) {
+		return mDAO.changePwd(sqlSession,map);
+	}
+	
+
 }

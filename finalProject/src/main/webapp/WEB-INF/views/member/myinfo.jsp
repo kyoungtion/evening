@@ -70,6 +70,7 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 			<li class="my-tab"><a href="pList.py">결제내역</a></li>
 			<li class="my-tab"><a href="mypost.me?category=Community">내가
 					쓴 글</a></li>
+			<li class="my-tab"><a href="message.sr">쪽지함</a></li>
 		</ul>
 		<div class="col-md-10 col-md-offset-1 mypage"
 			style="margin: 0; width: 80%; padding: 0;" id="tabs">
@@ -208,6 +209,19 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 											<h4>이미 판매자 회원입니다</h4>
 											<h6>여러 회원들에게 당신의 중고제품을 판매할 수 있습니다</h6>
 											<h6>경매로도 거래가 가능해요<i class="far fa-smile"></i></h6>
+											<br><br>
+											<button type="button" class="btn btn-primary seller" onclick="location.href='secondgoodList.bo'">중고거래 하러가기</button>
+											<button type="button" class="btn btn-primary seller" onclick="location.href='auctionList.bo'">경매거래 하러가기</button>
+										</div>
+									</c:if>
+									<c:if test="${ loginUser.rank_code eq 'E' }">
+										<div id="seller" class="no-drag">
+											<br>
+											<br> <img src="resources/images/eve-logo.png"><br>
+											<br>
+											<h4>이클립스등급의 회원은 판매자 전환 신청이 불가능합니다</h4>
+											<h6>강등된 지 일주일 후에 다시 초승달등급의 회원이 되었을 때</h6>
+											<h6>판매자 회원 신청이 가능합니다</h6>
 											<br><br>
 											<button type="button" class="btn btn-primary seller" onclick="location.href='secondgoodList.bo'">중고거래 하러가기</button>
 											<button type="button" class="btn btn-primary seller" onclick="location.href='auctionList.bo'">경매거래 하러가기</button>

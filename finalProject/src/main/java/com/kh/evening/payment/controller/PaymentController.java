@@ -173,13 +173,12 @@ public class PaymentController {
    
 	  @RequestMapping("deleteAuc.py")
 	   public String deleteAuc(@RequestParam("sgId") int sgId, @RequestParam("aId") int aId,
-			   @RequestParam(value="price", required=false) Integer price/*,@RequestParam("sprice") int sprice*/) {	  
+			   @RequestParam(value="price", required=false) Integer price) {	  
 		  
 		  AuctionHistory au = new AuctionHistory();
 		  au.setSg_Id(sgId);
 		  au.setA_Id(aId);
 		  au.setA_Price(price);
-		 /* au.setA_sPrice(sprice);*/
 		  
 		  int result = pService.deleteAuction(au);
 		  System.out.println("sgId :" + sgId);

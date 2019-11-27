@@ -40,6 +40,7 @@ ul.tabs li{width:48% !important;}
 				<li class="my-tab active"><a href="dealDetail.me">입찰내역</a></li>
 				<li class="my-tab"><a href="pList.py">결제내역</a></li>
 				<li class="my-tab"><a href="mypost.me?category=Community">내가 쓴 글</a></li>
+				<li class="my-tab"><a href="message.sr">쪽지함</a></li>
 			</ul>
 		<div class="col-md-10 col-md-offset-1" style="margin: 0; width: 80%; padding: 0;" id="tabs">
 			<div class="contact-wrap" style="height: 900px;">
@@ -94,15 +95,15 @@ ul.tabs li{width:48% !important;}
 											</c:if>
 											<td>${ a.sg_Id }</td>
 											<td class="displaynone"></td>
-											<td>${ a.board.SG_NAME }</td>
+											<td>${ a.board.SG_BNAME }</td>
 											<td>${ a.board.SG_SPRICE }</td>
 											<td>${ a.a_Price }</td>
 											<c:if test="${ a.a_Check == 'N'}">
-												<td id="cancel"><button onclick="deleteAuc();" class="btn btn-danger update">취소</button></td>
 												<form action="deleteAuc.py" method="get" id="deleteAuctionHistory">
-													<input type="number" value="${ a.sg_Id }" name="sgId">
-													<input type="number" value="${ a.a_Id }" name="aId">
-													<input type="number" value="${	a.a_Price }" name="price">
+													<input type="number" value="${ a.sg_Id }" name="sgId" hidden="hidden">
+													<input type="number" value="${ a.a_Id }" name="aId" hidden="hidden">
+													<input type="number" value="${	a.a_Price }" name="price" hidden="hidden">
+													<td id="cancel"><input type="submit" onclick="deleteAuc();" class="btn btn-danger update" value="취소"></td>
 												</form>
 											</c:if>
 											<c:if test="${ a.a_Check == 'Y' }">

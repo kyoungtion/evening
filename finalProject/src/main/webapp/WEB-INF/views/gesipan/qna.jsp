@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>커뮤니티</title>
+<title>중고물품 거래, 경매는 이브닝 : 커뮤니티</title>
 <style>
 #qnaBody td {
 	padding: 5px;

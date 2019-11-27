@@ -21,6 +21,6 @@ public class Message {
 	private String m_CONTENT;
 	private Date m_ENROLL_DATE;
 	private String m_STATUS;
-
+	private String m_CLICKED;
 
 }

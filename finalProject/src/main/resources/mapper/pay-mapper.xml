@@ -89,6 +89,7 @@
 			<result property="MONEY" column="MONEY"/>
 			<result property="MEMO" column="MEMO"/>
 			<result property="gp_ID" column="GP_ID"/>
+			<result property="gp_ID" column="gp_ID"/>
 		</association>
 		</resultMap>
 		
