@@ -11,10 +11,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
 	private Map<String,WebSocketSession> users = new ConcurrentHashMap<String,WebSocketSession>();
 	
-	/*
-	 * 클라이언트가 연결되면, 클라이언트의 관련된 WebSocketSession을 users 맵에 저장한다.
-	 * 이 users 맵은 채팅 메시지를 연결된 전체 클라이언트에 전달할 때 사용
-	 */
+	
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -23,11 +20,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 		
 	}
 	
-	/*
-	 * 클라이언트가 전송한 메시지를 users 맵에 보관한 전체 WebSocketSession에 다시 전달한다.
-	 * 클라이언트는 메시지를 수신하면 채팅 영역에 보여주도록 구현.
-	 * 특정 클라이언트가 채팅 메시지를 서버에 보내면 전체 클라이언트는 다시 그 메시지를 받아서 화면에 보여주게 된다.
-	 */
+	
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
