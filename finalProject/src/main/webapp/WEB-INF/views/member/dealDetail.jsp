@@ -99,11 +99,11 @@ ul.tabs li{width:48% !important;}
 											<td>${ a.board.SG_SPRICE }</td>
 											<td>${ a.a_Price }</td>
 											<c:if test="${ a.a_Check == 'N'}">
-												<td id="cancel"><button onclick="deleteAuc();" class="btn btn-danger update">취소</button></td>
 												<form action="deleteAuc.py" method="get" id="deleteAuctionHistory">
-													<input type="number" value="${ a.sg_Id }" name="sgId">
-													<input type="number" value="${ a.a_Id }" name="aId">
-													<input type="number" value="${	a.a_Price }" name="price">
+													<input type="number" value="${ a.sg_Id }" name="sgId" hidden="hidden">
+													<input type="number" value="${ a.a_Id }" name="aId" hidden="hidden">
+													<input type="number" value="${	a.a_Price }" name="price" hidden="hidden">
+													<td id="cancel"><input type="submit" deleteAuc();" class="btn btn-danger update" value="취소"></td>
 												</form>
 											</c:if>
 											<c:if test="${ a.a_Check == 'Y' }">
@@ -267,11 +267,6 @@ ul.tabs li{width:48% !important;}
 			}); */
 		});
 		
-		$(function(){
-			$('#tab-1').on('click', function(){
-				location.href="dealDetail.me";
-			});
-		});
 	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
