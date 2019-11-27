@@ -93,8 +93,6 @@
 							<div class="col-md-12">
 							<label for="money">상품 이름</label>
 
-							<input type="text" id="gp_id" name="gp_ID" value="${ b.SG_BNAME }" class="form-control" readonly placeholder="">
-
 							<input type="hidden"  id="gp_id" name="gp_ID" value="${ b.SG_ID }" class="form-control" placeholder="" readonly>
 
 							</div>

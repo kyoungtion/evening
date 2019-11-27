@@ -585,13 +585,13 @@ public class BoardController {
 		}
 	}
 
-	@RequestMapping("CountTime.bo")
+/*	@RequestMapping("CountTime.bo")
 	@ResponseBody
 	public void CountTime(@RequestParam("hour") int hour,@RequestParam("minute") int minute, @RequestParam("second") int second) {
 	  System.out.println(hour);
 	  System.out.println(minute);
 	  System.out.println(second);
-	}
+	}*/
 
 
 }
