@@ -57,7 +57,7 @@
 	var wsocket;
 	function connect() {
 		
-		wsocket = new WebSocket("ws://localhost:8989/evening/chat-ws.ch");
+		wsocket = new WebSocket("ws://localhost:9292/evening/chat-ws.ch");
 		wsocket.onopen = onOpen;
 		//서버로부터 메시지를 받으면 호출되는 함수 지정
 		wsocket.onmessage = onMessage;
