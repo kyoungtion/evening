@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.evening.board.model.vo.AuctionHistory;
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.payment.model.vo.Payment;
 
@@ -41,6 +42,19 @@ public class PaymentDAO {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("payMapper.selectSearchList", parameters, rb);
+	}
+
+	public int deletePayment(SqlSessionTemplate sqlSession, String[] idArray) {
+		return sqlSession.update("payMapper.deletePayment", idArray);
+	}
+
+
+	public int autionMaxPrice(SqlSessionTemplate sqlSession, int sgId) {
+		return sqlSession.update("payMapper.auctionMaxPrice", sgId);
+	}
+
+	public int deleteAuction(SqlSessionTemplate sqlSession, AuctionHistory au) {
+		return sqlSession.insert("payMapper.deleteAuction", au);
 	}
 	
 

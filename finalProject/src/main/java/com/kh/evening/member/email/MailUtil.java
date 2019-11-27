@@ -9,7 +9,7 @@ public class MailUtil {
 	      // Mail Server 설정
 	      String charSet = "utf-8";
 	      String hostSMTP ="smtp.naver.com";
-	      String hostSMTPid= "evening";
+	      String hostSMTPid= "evening1006";
 	      String hostSMTPpwd = "dlqmslda!!";
 	      
 	      // 보내는 사람

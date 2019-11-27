@@ -1,6 +1,8 @@
 package com.kh.evening.board.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
+
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -133,6 +135,37 @@ public int geyReplyListCount(SqlSession sqlSession, int sgid) {
 public int replyUpdate(SqlSession sqlSession, Reply r) {
 	return sqlSession.update("boardMapper.replyUpdate",r);
 }
+
+public ArrayList<Board> myBoardList(SqlSession sqlSession, PageInfo pi, Map<String, String> map) {
+	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+	RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
+	return (ArrayList)sqlSession.selectList("boardMapper.myBoardList", map, rb);
+}
+
+public int myBoardListCount(SqlSession sqlSession, Map<String, String> map) {
+	return sqlSession.selectOne("boardMapper.myBoardListCount", map);
+}
+
+public int getAuctionHistoryCount(SqlSession sqlSession, String user_id) {
+	return sqlSession.selectOne("boardMapper.getAuctionHistoryCount", user_id);
+}
+
+public ArrayList<AuctionHistory> getAuctionHistoryList(SqlSession sqlSession, PageInfo pi, String user_id) {
+	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+	RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
+	return (ArrayList)sqlSession.selectList("boardMapper.getAuctionHistoryList", user_id, rb);
+}
+
+public int myLikeListCount(SqlSession sqlSession, Map<String, String> map) {
+	return sqlSession.selectOne("boardMapper.myLikeListCount", map);
+}
+
+public ArrayList<Board> myLikeList(SqlSession sqlSession, PageInfo pi, Map<String, String> map) {
+	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+	RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
+	return (ArrayList)sqlSession.selectList("boardMapper.myLikeList", map, rb);
+}
+
 
 
 

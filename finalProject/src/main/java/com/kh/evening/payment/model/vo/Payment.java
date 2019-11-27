@@ -1,6 +1,9 @@
 package com.kh.evening.payment.model.vo;
 
 import java.sql.Date;
+
+import com.kh.evening.board.model.vo.Board;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +30,7 @@ public class Payment {
 	private String MEMO;		// 배송시 메모
 	private String gp_ID;		// 상품 정보
 
-
+	private Board board;
 
 
 	

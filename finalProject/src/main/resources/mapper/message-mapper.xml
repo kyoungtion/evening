@@ -17,5 +17,33 @@
 		#{user_ID}
 	</select>
 
-
+	<!-- 쪽지 쓰기 -->
+	<insert id="insertBoard" parameterType="java.util.HashMap">
+		INSERT INTO message 
+		VALUES(SEQ_MESSAGE.NEXTVAL,#{loginUser},#{username},#{title},#{subject},DEFAULT,DEFAULT,DEFAULT)
+	</insert>
+	
+	<!-- 상세보기 -->
+	<select id="rmessageDetail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+			SELECT * FROM MESSAGE WHERE M_NO = #{m_NO} AND M_STATUS='N'
+	</select>
+	
+	<!-- 상세보기 -->
+	<select id="smessageDetail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT * FROM MESSAGE WHERE M_NO = #{m_NO} AND M_STATUS='N' 
+	</select>
+	
+	<update id="checkUpdate" parameterType="java.util.HashMap">
+		UPDATE MESSAGE SET M_CLICKED = 'Y' WHERE M_NO=#{m_NO}
+	</update>
+	
+	<!-- 안읽은 쪽지  -->
+	<select id="getCount" parameterType="string" resultType="_int" >
+		SELECT COUNT(*) FROM MESSAGE WHERE M_CLICKED = 'N' AND M_RECEIVE=#{user_id}
+	</select>
+	
+	<!-- 쪽지 삭제 -->
+	<update id="deleteRow" parameterType="java.lang.String" >
+		update MESSAGE SET  M_STATUS = 'Y' WHERE M_NO=#{seq}
+	</update>
 </mapper>

@@ -5,19 +5,19 @@
 	<!-- 상은 -->
 	<insert id="insertMember" parameterType="Member">
 		insert into member
-		values(#{user_id}, default, #{user_pwd}, #{nickName},#{user_name},
-		#{phone}, #{user_residentNumber}, #{user_email}, #{address},
-		sysdate, sysdate, default, default,sysdate,default,default,default)
+		values(#{user_id}, default,#{user_pwd}, #{nickName},#{user_name},
+		#{phone},#{user_residentNumber},#{user_email}, #{address},
+		sysdate,sysdate,default,default,sysdate,default,default,default)
 	</insert>
 
 	<!-- 암호화 후 로그인 -->
 	<select id="selectOne" parameterType="Member"
 		resultType="Member" resultMap="MemberResultSet">
-
-		select *
-		from member
-		where user_id=#{user_id} and
-		status = 'N'
+		select m.*, r.*
+		from member m
+		join user_rank r on(m.rank_code = r.rank_code)
+		where m.user_id=#{user_id} and
+		m.status = 'N'
 	</select>
 
 	<!-- 카카오 로그인 -->
@@ -244,17 +244,33 @@
 		</choose>
 	</select>
 
-	<select id="getDeActiMemberListCount" resultType="_int">
+	<select id="getDeActiMemberListCount" resultType="_int" parameterType="string">
 		select count(*)
 		from member
 		where status='Y'
+		<choose>
+			<when test="memberType.equals('NM')">
+				and rank_code = 'NM'
+			</when>
+			<when test="memberType.equals('HM')">
+				and rank_code = 'HM'
+			</when>
+		</choose>
 	</select>
 
-	<select id="getDeActiMemberList" resultMap="MemberResultSet">
+	<select id="getDeActiMemberList" resultMap="MemberResultSet" parameterType="string">
 		select m.*, r.*
 		from member m
 		join user_rank r on(m.rank_code = r.rank_code)
 		where status = 'Y'
+		<choose>
+			<when test="memberType.equals('NM')">
+				and m.rank_code = 'NM'
+			</when>
+			<when test="memberType.equals('HM')">
+				and m.rank_code = 'HM'
+			</when>
+		</choose>
 		order by user_id asc
 	</select>
 
@@ -313,4 +329,15 @@
 			</foreach>
 		</trim>
 	</update>
+	
+	
+	<update id="updatePenaltyPoint" parameterType="Member">
+		UPDATE MEMBER
+		SET RANK_CODE=#{rank_code}, PENALTY_POINT=#{penalty_point}, PENALTY_STACK=#{penalty_stack}
+		<if test='rank_code == "E" '>
+				, PENALTY_DATE= SYSDATE+7
+		</if>
+		WHERE USER_ID=#{user_id}
+	</update>
+	
 </mapper>

@@ -115,13 +115,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int getDeActiMemberListCount() {
-		return mDAO.getDeActiMemberListCount(sqlSession);
+	public int getDeActiMemberListCount(String memberType) {
+		return mDAO.getDeActiMemberListCount(sqlSession, memberType);
 	}
 
 	@Override
-	public ArrayList<Member> getDeActiMemberList(PageInfo pi) {
-		return mDAO.getDeActiMemberList(sqlSession, pi);
+	public ArrayList<Member> getDeActiMemberList(PageInfo pi, String memberType) {
+		return mDAO.getDeActiMemberList(sqlSession, pi, memberType);
 	}
 
 	@Override
@@ -175,6 +175,10 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.getSellerList(sqlSession, pi);
 	}
 
+  @Override
+  public int updatePenaltyPoint(Member user) {
+    return mDAO.updatePenaltyPoint(sqlSession,user);
+  }
 
 	@Override
 	public Member memberSearchPwd(Map<String, String> map) {

@@ -1,0 +1,151 @@
+@charset "UTF-8";
+		/* Insert Css */
+		.form-field {
+			width: 45%; 
+			float: left;
+			margin: 0 0 0 30px;
+		}
+
+		#t1 {
+			height: 30px;
+			width: 800px;
+			background: whitesmoke;
+			position: relative;
+
+		}
+
+		.Ttoolbal li {
+			float: left;
+			height: 100%;
+		}
+
+		.Ttoolbal {
+			display: inline-block;
+		}
+
+		.Ttoolbal>li>button {
+			min-width: 30px;
+			height: 100%;
+			border: 0 none;
+			background-color: transparent;
+			cursor: pointer
+		}
+
+		.Ttoolbal>li>button:hover {
+			background-color: #383838;
+		}
+
+		.Ttoolbal>li {
+			margin-right: 5px;
+		}
+
+		/* i{
+        font-weight: bold;
+    } */
+		.inFontTag.on .font-style-bar {
+			height: 200px;
+		}
+
+		.font-style-bar {
+			width: 150px;
+			height: 0px;
+			background: blanchedalmond;
+			position: absolute;
+			overflow-y: scroll;
+		}
+
+		.clickspan {
+			width: 0;
+			height: 0;
+			border-left: 4px solid transparent;
+			border-right: 4px solid transparent;
+			border-top: 4px solid #999;
+			right: 4px;
+			top: 16.5px;
+		}
+
+		.on .font-size-bar {
+			height: 200px;
+		}
+
+		.font-size-bar {
+			width: 80px;
+			height: 0px;
+			background: #999;
+			position: absolute;
+			overflow-y: scroll;
+		}
+
+		.on .text-sort-bar {
+			height: 90px;
+		}
+
+		.text-sort-bar {
+			width: 40px;
+			height: 0px;
+			background: #999;
+			position: absolute;
+			overflow: hidden;
+		}
+
+		.on .int-sort-bar {
+			height: 180px;
+		}
+
+		.int-sort-bar {
+			width: 150px;
+			height: 0px;
+			background: #999;
+			position: absolute;
+			overflow: hidden;
+		}
+
+		.on .int-video-bar {
+			height: 60px;
+		}
+
+		.int-video-bar {
+			width: 300px;
+			height: 0px;
+			background: #999;
+			position: absolute;
+			overflow: hidden;
+			margin-left: -120px;
+		}
+
+		.uls {
+			padding: 0;
+			height: auto;
+		}
+
+		.uls li {
+			width: 100%;
+			height: 30px;
+		}
+
+		.uls>* {
+
+			display: inline-block;
+		}
+
+		.fontC {
+			display: none;
+		}
+
+		.font-C.on .fontC {
+			display: block;
+
+		}
+
+		#insertField {
+			text-align: initial;
+		}
+
+		#insertField ul {
+			list-style: initial;
+		}
+		input[type="number"]::-webkit-outer-spin-button,
+		input[type="number"]::-webkit-inner-spin-button {
+		    -webkit-appearance: none;
+		    margin: 0;
+		}

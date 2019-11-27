@@ -84,7 +84,6 @@
 		value="${ pageContext.servletContext.contextPath }"
 		scope="application" />
 
-
 	<header class="ebHeader">
 		<div class="ebHeader-bar no-drag">
 			<div style="height: 100%; overflow: hidden;">
@@ -129,9 +128,10 @@
 				<c:if test="${ !empty sessionScope.loginUser && loginUser.user_id ne 'admin'}">
 					<div id="navTag">
 						<ul id="hNav">
-							<li id="userLi"><span title="${loginUser.rankCode.rank_name }">${ loginUser.rankCode.rank_img }</span>&nbsp;<b>${ loginUser.nickName }</b> 님 반갑습니다.</li>
+							<li id="userLi"><span title="${loginUser.rankCode.rank_name }">${ loginUser.rankCode.rank_img }</span>&nbsp;<b>${ loginUser.nickName }</b> 님 반갑습니다.
+								<a href="message.sr"><i class="fa fa-envelope"></i></a></li>
 							<li><a href="auctionList.bo">경매</a></li>
-							<li><a href="usedListAll.ud">중고거래</a></li>
+							<li><a href="secondgoodList.bo">중고거래</a></li>
 							<li class="nav_sub"><a href="gList.ge?category=Community">게시판</a>
 								<div style="position: fixed;">
 									<ul id="test" style="height:75px !important;">
@@ -147,8 +147,10 @@
 									<ul id="test">
 										<li onclick="clickRefresh();"><a href="myinfo.me">내정보보기</a></li>
 										<li><a href="favorites.me">관심 목록</a></li>
-										<li onclick="clickRefresh();"><a href="dealDetail.me">거래 내역</a></li>
+										<li><a href="dealDetail.me">입찰 내역</a></li>
+										<li><a href="pList.py">결제 내역</a></li>
 										<li><a href="mypost.me">내가 쓴 글</a></li>
+										<li><a href="message.sr">쪽지함</a></li>
 									</ul>
 								</div></li>
 							<li><img src="../push_bell/img/bell.png" alt=""></li>
@@ -159,15 +161,13 @@
 				<!-- 관리자 로그인 시 -->
 				<c:if test="${ !empty sessionScope.loginUser && loginUser.user_id eq 'admin' }">
 					<div id="navTag">
-
-					<ul id="hNav">
-						<!-- 관리자 페이지 -->
-						<li id="userLi"><span>${ loginUser.rankCode.rank_img }</span>&nbsp;<b>${ loginUser.nickName }</b> 님.</li>
-						<li><a href="adminView.ad">관리자 메뉴</a></li>
-						<li><a href="logout.me" title="로그아웃"><i class="fas fa-sign-out-alt"></i></a></li>
-					</ul>
-				</div>
-
+						<ul id="hNav">
+							<!-- 관리자 페이지 -->
+							<li id="userLi"><span>${ loginUser.rankCode.rank_img }</span>&nbsp;<b>${ loginUser.nickName }</b> 님.</li>
+							<li><a href="adminView.ad">관리자 메뉴</a></li>
+							<li><a href="logout.me" title="로그아웃"><i class="fas fa-sign-out-alt"></i></a></li>
+						</ul>
+					</div>
 				</c:if>
 			</div>
 		</div>
@@ -177,7 +177,6 @@
 			location.href = "home.do";
 		});
 
-		
 	</script>
 	<div class="catalog no-drag">
 		<div style="text-align: center; display: inline-block;">

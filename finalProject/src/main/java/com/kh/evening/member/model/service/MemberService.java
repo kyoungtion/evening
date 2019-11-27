@@ -50,9 +50,9 @@ public interface MemberService {
 
    ArrayList<Member> getSearchMemberList(PageInfo pi, Map<String, String> parameters);
 
-   int getDeActiMemberListCount();
+   int getDeActiMemberListCount(String memberType);
 
-   ArrayList<Member> getDeActiMemberList(PageInfo pi);
+   ArrayList<Member> getDeActiMemberList(PageInfo pi, String memberType);
 
    int activateMember(Member m);
 
@@ -71,6 +71,8 @@ public interface MemberService {
 int getSellerListCount();
 
 ArrayList<Member> getSellerList(PageInfo pi);
+
+int updatePenaltyPoint(Member user);
 
 
 

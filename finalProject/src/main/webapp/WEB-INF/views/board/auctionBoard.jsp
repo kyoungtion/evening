@@ -6,7 +6,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-	<title>경매 거래 게시판</title>
+	<title>중고물품거래, 경매는 이브닝</title>
 	</head>
 	<body>
 	
@@ -21,9 +21,10 @@
 				<div class="row">
 					<div class="col-md-10 col-md-push-2">
 						<div class="row row-pb-lg">
-
-						<button class="btn btn-primary btn-outline"style="float: right; margin: 0px 50px 0 0px;"
-							onclick="location.href='insertF.bo?type=2';">글쓰기</button>
+						
+						<c:if test='${ loginUser.rank_code != "E" && loginUser.rank_code != "NM" }'>
+							<button class="btn btn-primary btn-outline"style="float: right; margin: 0px 50px 0 0px;" onclick="location.href='insertF.bo?type=2';">글쓰기</button>
+						</c:if>
 								
 						<h2><span style="font-size: 50px;">경매 거래 게시판</span></h2>
 						
@@ -49,7 +50,7 @@
 										<!-- 사진이 없을시 나타날 공백표시 -->
 										<c:remove var="k"/>
 										
-										<!-- 테스트용 ( 날짜 계산 )  -->
+										<!-- 날짜 계산  -->
 											<jsp:useBean id="now" class="java.util.Date"/>
 											<fmt:parseDate var="enroll" value="${ i.SG_ENROLL_DATE }" pattern="yyyy-MM-dd"/>
 											<fmt:parseDate var="end" value="${ i.SG_END_DATE }" pattern="yyyy-MM-dd"/>
@@ -72,17 +73,23 @@
 
 												<div class="cart">
 													<p> <!-- 좋아요 부분 -->
-														<span><a onclick="return false;" id="clickLike${ i.SG_ID }"><i class="" id="clickTest${ i.SG_ID }"></i><span id="likeCount${ i.SG_ID }">${ i.SG_LIKE }</span></a></span>
+														<span>
+															<a onclick="return false;" id="clickLike${ i.SG_ID }">
+																<i class="" id="clickTest${ i.SG_ID }"></i>
+																<span id="likeCount${ i.SG_ID }">${ i.SG_LIKE }</span>
+															</a>
+														</span>
 														<input type="text" id="Check${ i.SG_ID }" value="false" hidden="hidden" >
 														<input type="text" id="CountCheck${ i.SG_ID }" value="false" hidden="hidden" >
 														<script>
 														
 														$(function(){
+														  // loginUser를 조회 : 좋아요 여부 설정
 														  $.ajax({
 														    url:"selectLikeCheck.bo",
 														    data:{
 														      user_Id : "${ loginUser.user_id}",
-														      sgId : "${ i.SG_ID}"
+														      sgId : "${i.SG_ID}"
 														    },success: function(data){
 														      if(data.result == 1){
 														        $('#clickTest${ i.SG_ID }').attr('class','icon-heart3');
@@ -98,7 +105,7 @@
 														    }
 														  });
 														});
-														// 좋아요 눌렀을시 이벤트
+														// 좋아요 눌렀을시 이벤트(on/off)
 															$('#clickLike${ i.SG_ID }').on('click',function(){
 															  var userCheck = "${loginUser.user_id}";
 															  
@@ -114,6 +121,7 @@
 																      if(data == 1){
 																        $('#clickTest${ i.SG_ID }').attr('class','icon-heart3');
 																        $('#clickTest${ i.SG_ID }').css('font-size','16px');
+																        $('#Check${ i.SG_ID }').val(true);
 																        if( $('#CountCheck${ i.SG_ID}').val() == 'false' ){
 																	    	$('#likeCount${ i.SG_ID }').html("${ i.SG_LIKE + 1}");
 																        }else{
@@ -135,7 +143,6 @@
 														</script>
 													</p>
 												</div>
-												
 										</div>
 										
 										<div class="desc">
@@ -275,7 +282,7 @@
 								<h2>최근에 본 물건</h2>
 								<script>
 								$(function(){
-								  
+								   
 								  setTimeout(function(){
 								   location.reload(); 
 								  },5000);
@@ -283,20 +290,26 @@
 								});
 								</script>
 								<%
+									// 생성된 쿠키 가져오기
 									Cookie[] cookies = request.getCookies();
+									// 최근 본 상품 최대 갯수 설정
+									int maxNum = 0;
 								
 									for(Cookie co : cookies){
 									  if(co.getName().contains("history")){
 									    %>
 									    <c:forTokens var="coo" items="<%= co.getName() %>" delims="_"  varStatus="Status">
 									    	<c:if test="${ coo eq loginUser.user_id }">
+									    		<!-- 쿠키 값을 jstl로 사용하기위해 c:set 사용 -->
 									    		<c:set var="coValue" value="<%= co.getValue() %>"/>
-									    		<!-- 이미지 셋팅(게시판 테이블, 이미지테이블) -->
+									    		<!-- 이미지 셋팅(게시판 테이블i, 이미지테이블j) -->
 									    		<c:forEach var="j" items="${ af }" begin="0" end="${ fn:length(af) }">
 									    			<c:if test="${ j.SG_ID eq coValue }">
 									    				<c:forEach var="i" items="${ allList }" begin="0" end="${ fn:length(allList) }">
-															<c:if test="${ j.SG_ID eq i.SG_ID }">										    					
+															<c:if test="${ j.SG_ID eq i.SG_ID }">
+															<% if(maxNum < 18){ maxNum += 1; %>										    					
 													    		<div>
+													    		<!-- 클릭시 해당 게시글로 이동 -->
 														    		<c:url var="detailView" value="selectOne.bo">
 									                                    <c:param name="sgId" value="${ i.SG_ID }"/>
 									                                </c:url>
@@ -304,6 +317,7 @@
 														    		<a href="${ detailView }" style="cursor: pointer;"> ${ i.SG_BNAME }</a> 
 													    		</div>
 												    		<br>
+												    		<% } %>
 												    		</c:if>
 									    				</c:forEach>
 									    			</c:if>									    		
