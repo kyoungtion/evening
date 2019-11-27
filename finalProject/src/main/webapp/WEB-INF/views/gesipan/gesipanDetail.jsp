@@ -40,6 +40,10 @@ tbody td {
 	font-size: 12px;
 }
 
+.row.table {
+	min-height: 450px;
+}
+
 </style>
 </head>
 <body>
