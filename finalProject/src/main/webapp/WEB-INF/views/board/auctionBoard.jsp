@@ -148,6 +148,8 @@
 										<div class="desc">
 											<c:url var="detailView" value="selectOne.bo">
 			                                    <c:param name="sgId" value="${ i.SG_ID }"/>
+			                                    <c:param name="page" value="${ pi.currentPage }"/>
+			                                    <c:param name="mode" value="${ modeSet }"/>
 			                                 </c:url>
 			                                 <h3><a href="${ detailView }" style="cursor: pointer;">${ i.SG_BNAME }</a></h3>
 			                                 <p class="price">현재 경매가<span> <br> <fmt:formatNumber value="${i.SG_PRICE }" type="currency"/></span></p>

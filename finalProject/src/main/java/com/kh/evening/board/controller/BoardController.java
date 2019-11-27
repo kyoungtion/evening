@@ -144,7 +144,7 @@ public class BoardController {
   }
   
   @RequestMapping("selectOne.bo")
-  public ModelAndView selectOne(@RequestParam("sgId") int sgId,ModelAndView mv, @RequestParam(value="auctionPrice", required=false) Integer price,@RequestParam(value="userId",required=false) String userId) {
+  public ModelAndView selectOne(@RequestParam("sgId") int sgId,@RequestParam(value="page",required=false) Integer page,@RequestParam(value="mode",required=false)String mode,ModelAndView mv, @RequestParam(value="auctionPrice", required=false) Integer price,@RequestParam(value="userId",required=false) String userId) {
       // 라산 : 조회수 카운트 기능
      int a = bService.viewCount(sgId);
      
@@ -175,6 +175,9 @@ public class BoardController {
      // 게시판 타입에 따른 뷰화면 전환
      if(board != null) {
        if(board.getB_Category().equals("A")) {
+         if(mode != null) {
+           mv.addObject("page",page).addObject("mode",mode);
+         }
          mv.addObject("board",board).addObject("at",at).addObject("pi",new PageInfo()).setViewName("auctionDetail");
        }else {
          mv.addObject("board",board).addObject("at",at).addObject("pi",new PageInfo()).setViewName("usedDetail");
