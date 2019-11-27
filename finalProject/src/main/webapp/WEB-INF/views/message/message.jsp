@@ -280,7 +280,6 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 									.on(
 											'click',
 											function() {
-												location.reload();
 												var popUrl = "/evening/rDetail.sr?m_NO="
 														+ $(this).attr('id');
 												//팝업창에 출력될 페이지 URL 

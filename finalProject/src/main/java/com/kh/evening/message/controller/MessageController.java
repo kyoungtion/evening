@@ -34,12 +34,7 @@ public class MessageController {
 		Member loginUser = (Member) model.getAttribute("loginUser");
 		ArrayList<Message> rlist = messageService.receiveList(loginUser.getUser_id());
 		ArrayList<Message> slist = messageService.sendList(loginUser.getUser_id());
-		System.out.println("rlist.toString	 :" + rlist.toString());
-		System.out.println("slist.toString	 :" + slist.toString());
-		System.out.println("rlist.size()	 :" + rlist.size());
-		System.out.println("slist.size()	 :" + slist.size());
-		int rlistCount = rlist.size();
-		int slistCount = slist.size();
+		
 		mv.setViewName("message");
 		mv.addObject("rlist", rlist);
 		mv.addObject("slist", slist);

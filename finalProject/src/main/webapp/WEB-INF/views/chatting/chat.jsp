@@ -23,7 +23,6 @@
 	//resize 이벤트가 발생할때마다 사이즈를 조절
 	$(document).ready(function() {
 		$(window).resize(disable);
-		console.log("window 사이즈 조절 당하는 중")
 		disable();
 		getNotificationPermission();
 	});
@@ -58,6 +57,7 @@
 	function connect() {
 		
 		wsocket = new WebSocket("ws://localhost:9292/evening/chat-ws.ch");
+		//서버로부터 메시지를 받으면 호출되는 함수 지정
 		wsocket.onopen = onOpen;
 		//서버로부터 메시지를 받으면 호출되는 함수 지정
 		wsocket.onmessage = onMessage;
@@ -87,7 +87,6 @@
 		$('#message').val('');
 	}
 	function appendMessage(msg) {
-		
 		var $chatArea = $('#chatArea');
 		var $enter;
 		var $me;
@@ -117,28 +116,23 @@
 						img[1]="https://t1.daumcdn.net/friends/prod/category/category_apeach_on.png", 
 						img[2]="https://t1.daumcdn.net/friends/prod/category/category_muzi_on.png", 
 						img[3]="https://t1.daumcdn.net/friends/prod/category/category_frodo_on.png"
-						
      				function imgRandom(imgArr) {
       				  return imgArr[Math.floor(Math.random() * 3)];
    						 }
 					 // 데스크탑 알림 요청
 					 var options = {
-		       				
 								body:msg,
 								 icon: imgRandom(img),  
 								/* icon : "https://t1.daumcdn.net/friends/prod/category/category_rion_on.png", */
 								dir: 'rtl'
 		    }
 					 var notification = new Notification("채팅알림", options);
-		    
 		    // 3초뒤 알람 닫기
 		    setTimeout(function(){
 		        notification.close();
 		    },5000);
 					}
 				}
-		// var maxScroll = $('#chatArea').height();
-		// $('#chatArea').scrollTop(maxScroll);
 		var objDiv = document.getElementById("chatArea");
 objDiv.scrollTop = objDiv.scrollHeight;
 	}
