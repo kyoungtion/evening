@@ -88,7 +88,7 @@
 			<result property="p_STATUS" column="P_SATUS"/>
 			<result property="MONEY" column="MONEY"/>
 			<result property="MEMO" column="MEMO"/>
-			<result property="sg_ID" column="SG_ID"/>
+			<result property="gp_ID" column="gp_ID"/>
 		</association>
 		</resultMap>
 		
@@ -115,7 +115,7 @@
 		<result property="p_STATUS" column="P_STATUS"/>
 		<result property="MONEY" column="MONEY"/>
 		<result property="MEMO" column="MEMO"/>
-		<result property="sg_ID" column="SG_ID"/>
+		<result property="gp_ID" column="GP_ID"/>
 		<association property="board" javaType="Board">
 			<id property="SG_ID" column="SG_ID"/>
 			<result property="USER_ID" column="USER_ID"/>

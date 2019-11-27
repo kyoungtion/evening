@@ -53,13 +53,13 @@
 		
 
 							<input type="text" id="address2" class="form-control" placeholder="필수로 입력해 주세요"
-							   name="post" style="text-align: left; margin-bottom: 10px;" onclick="mapsearch();" required="required">
+							   name="post" value="${ post }" style="text-align: left; margin-bottom: 10px;" onclick="mapsearch();" required="required">
 						
 							</div>
 							<div class="form-group">
 							<div class="col-md-6">
 							<input type="text" id="address2" class="form-control" placeholder=""
-							name="addr1" style="text-align: left" required="required">
+							name="addr1" style="text-align: left" value="${ address1 }" required="required">
 							
 							</div>
 							 <div class="col-md-6">
@@ -79,7 +79,7 @@
 						</div>
 							<div class="col-md-6">
 								<label for="Phone">전화 번호</label>
-								<input type="text" id="phone" name="P_PHONE" class="form-control" placeholder="필수로 입력해 주세요" required>
+								<input type="text" id="phone" name="P_PHONE" class="form-control" value="${ loginUser.phone }" placeholder="필수로 입력해 주세요" required>
 
 						
 						</div>
@@ -93,7 +93,7 @@
 							<div class="col-md-12">
 							<label for="money">상품 이름</label>
 
-							<input type="text" id="gp_id" name="gp_ID" value="${ b.SG_BNAME }" class="form-control" readonly placeholder="">
+							<input type="text" id="gp_id" value="${ b.SG_BNAME }" class="form-control" readonly placeholder="">
 
 							<input type="hidden"  id="gp_id" name="gp_ID" value="${ b.SG_ID }" class="form-control" placeholder="" readonly>
 

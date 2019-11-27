@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>중고물품 거래, 경매는 이브닝</title>
 <script src="resources/js/jquery-3.4.1.min.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet' type='text/css'>
 <link href="https://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">

@@ -1,6 +1,6 @@
 
 	var empty = Boolean($('#empty').val());
-	var sgId=parseInt($('#sgId').val());
+	
 	var userId=$('#userId').val();
 	var nickName=$('#nickName').val();
 	var replyA='<div id="replyAdd" class="comment" style="background: lightgray;"><div class="comment2"></div><div style="padding-left: 60px; "><textarea id="replyArea2"></textarea><button class="replyAddBtn" onclick="test(this);" value=';

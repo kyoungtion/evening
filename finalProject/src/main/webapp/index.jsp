@@ -227,7 +227,8 @@
 										<c:url var="detailView" value="selectOne.bo">
 			                                    <c:param name="sgId" value="${ i.SG_ID }"/>
 		                                 </c:url>
-		                                 <h3><a href="${ detailView }" style="cursor: pointer;">${ i.SG_BNAME }</a></h3>
+                                       <h3><a href="${ detailView }" style="cursor: pointer;">${ i.SG_BNAME }</a></h3>
+
 										<p class="price">
 											<c:choose>
 												<c:when test="${ i.b_Category eq 'A' }">
@@ -399,7 +400,8 @@
 										<c:url var="detailView" value="selectOne.bo">
 			                                    <c:param name="sgId" value="${ i.SG_ID }"/>
 		                                 </c:url>
-		                                 <h3><a href="${ detailView }" style="cursor: pointer;">${ i.SG_BNAME }</a></h3>
+                                       <h3><a href="${ detailView }" style="cursor: pointer;">${ i.SG_BNAME }</a></h3>
+
 										<p class="price">
 											<c:choose>
 												<c:when test="${ i.b_Category eq 'A' }">

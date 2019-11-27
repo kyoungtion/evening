@@ -79,11 +79,11 @@ public class Pageination {
 
 		PageInfo pi = null;
 
-		int pageLimit = 10;
+		int pageLimit = 5;
 		int maxPage;
 		int startPage;
 		int endPage;
-		int boardLimit = 30;
+		int boardLimit = 5;
 
 		maxPage = (int) ((double) listCount / boardLimit + 0.9);
 

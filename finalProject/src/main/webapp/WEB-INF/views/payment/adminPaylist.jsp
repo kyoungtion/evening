@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EVENING : 관리자 메뉴</title>
+<title>EVENING : 관리자메뉴</title>
 <style>
 .active {
 	background: gray;
@@ -91,8 +91,8 @@
 													<td>${ paystatus.count }</td>
 						                              <td>${p.p_ID}</td>
 						                              <td>${p.p_NICKNAME}</td>
-						                              <td >${p.sg_ID}</td>
 						                              <td>${p.board.SG_BNAME}</td>
+						                              <td>${p.board.SG_PRICE}</td>
 						                              <td>${p.PAYDAY}</td>
 						                              <td>${p.p_UPDATE_DATE }</td>
 						                              <td style="text-align:center;">${p.p_STATUS}</td>

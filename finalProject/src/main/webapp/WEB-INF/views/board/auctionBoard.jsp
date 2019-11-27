@@ -6,7 +6,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-	<title>중고물품거래, 경매는 이브닝</title>
+	<title>중고물품 거래, 경매는 이브닝</title>
 	</head>
 	<body>
 	
@@ -22,7 +22,7 @@
 					<div class="col-md-10 col-md-push-2">
 						<div class="row row-pb-lg">
 						
-						<c:if test='${ loginUser.rank_code != "E" && loginUser.rank_code != "NM" }'>
+						<c:if test='${ loginUser.rank_code != "E" && loginUser.rank_code != "NM" && !empty loginUser }'>
 							<button class="btn btn-primary btn-outline"style="float: right; margin: 0px 50px 0 0px;" onclick="location.href='insertF.bo?type=2';">글쓰기</button>
 						</c:if>
 								
@@ -171,6 +171,7 @@
 									<c:if test="${ pi.currentPage > 1 }">
 										<c:url var="before" value="auctionList.bo">	
 											<c:param name="page" value="${ pi.currentPage - 1 }"/>
+											<c:param name="mode" value="${ modeSet }"/>
 										</c:url>
 										<li><a href="${ before }">&laquo;</a></li>
 									</c:if>
@@ -184,6 +185,7 @@
 										<c:if test="${ p ne pi.currentPage }">
 											<c:url var="pagination" value="auctionList.bo">
 												<c:param name="page" value="${ p }"/>
+												<c:param name="mode" value="${ modeSet }"/>
 											</c:url>
 											<li><a href="${ pagination }">${ p }</a></li>
 										</c:if>
@@ -196,6 +198,7 @@
 									<c:if test="${ pi.currentPage < pi.maxPage }">
 										<c:url var="after" value="auctionList.bo">
 											<c:param name="page" value="${ pi.currentPage + 1 }"/>
+											<c:param name="mode" value="${ modeSet }"/>
 										</c:url>
 										<li><a href="${ after }">&raquo;</a></li>
 									</c:if>

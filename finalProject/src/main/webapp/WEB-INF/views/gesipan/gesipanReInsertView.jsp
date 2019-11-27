@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>중고물품 거래, 경매는 이브닝</title>
 <style>
 #insertField {
 	background: white;

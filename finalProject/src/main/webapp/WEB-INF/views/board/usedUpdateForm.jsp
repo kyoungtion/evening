@@ -185,7 +185,7 @@
 			</ul>
 		</form>
 
-		<!-- <script>
+		<script>
 			function shumnailImgChange(value) {
 				if (value.files && value.files[0]) {
 
@@ -228,8 +228,8 @@
 			function shumnailImg() {
 				$('#smImg').click();
 			};
-		</script> -->
-		<script src="resources/js/bInsert.js"></script>
+		</script> 
+		
 		<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

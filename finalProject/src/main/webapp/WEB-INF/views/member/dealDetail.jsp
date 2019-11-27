@@ -95,7 +95,7 @@ ul.tabs li{width:48% !important;}
 											</c:if>
 											<td>${ a.sg_Id }</td>
 											<td class="displaynone"></td>
-											<td>${ a.board.SG_NAME }</td>
+											<td>${ a.board.SG_BNAME }</td>
 											<td>${ a.board.SG_SPRICE }</td>
 											<td>${ a.a_Price }</td>
 											<c:if test="${ a.a_Check == 'N'}">
@@ -103,7 +103,7 @@ ul.tabs li{width:48% !important;}
 													<input type="number" value="${ a.sg_Id }" name="sgId" hidden="hidden">
 													<input type="number" value="${ a.a_Id }" name="aId" hidden="hidden">
 													<input type="number" value="${	a.a_Price }" name="price" hidden="hidden">
-													<td id="cancel"><input type="submit" deleteAuc();" class="btn btn-danger update" value="취소"></td>
+													<td id="cancel"><input type="submit" onclick="deleteAuc();" class="btn btn-danger update" value="취소"></td>
 												</form>
 											</c:if>
 											<c:if test="${ a.a_Check == 'Y' }">

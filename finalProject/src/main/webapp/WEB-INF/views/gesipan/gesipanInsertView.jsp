@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>중고물품 거래, 경매는 이브닝</title>
 <style>
 #insertField {
 	background: white;
@@ -42,8 +42,14 @@
 							<div class="row form-group">
 								<div class="col-md-6 padding-bottom">
 									<label for="fname">게시글 제목</label> 
+									<c:if test="${ category =='QNA' }">
+									<input type="text" id="fname" name="g_title"
+										class="form-control" placeholder="게시글 제목을 입력하세요." value="문의사항입니다." required>
+									</c:if>
+									<c:if test="${ category != 'QNA' }">
 									<input type="text" id="fname" name="g_title"
 										class="form-control" placeholder="게시글 제목을 입력하세요." required>
+									</c:if>
 								</div>
 								<div class="col-md-6 padding-bottom">
 									<label for="fname">작성자</label> 
