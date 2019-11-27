@@ -68,7 +68,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 <style>
 * {
-	font-family: 'Noto Sans KR', sans-serif !important;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 #userLi {
