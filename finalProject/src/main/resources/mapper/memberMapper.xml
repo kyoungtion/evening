@@ -49,26 +49,18 @@
 	<select id="searchPwd" parameterType="map" resultType="Member">
 		select * 
 			from Member
-			where user_id=#{user_id, jdbcType=VARCHAR} 
-			and user_email= #{user_email, jdbcType=VARCHAR}
+			where user_id=#{user_id} 
+			and user_email= #{user_email}
 	</select>
-	
 	
 	
 	<update id="changePwd" parameterType="map" >
 		update member
-			set user_pwd = #{newPwd}
-			 where user_id = #{user_id}
+			set user_pwd =#{newPwd}
+			 where user_id =#{user_id}
 	</update>
 	
-	<!--  -->
-	<!-- <select id="searchPwd" parameterType="String" resultType="String"> 
-		select user_pwd from Member where user_id = #{user_id} and user_email = #{user_email} 
-		</select> -->
-
-	<!-- <select id="getPw" parameterType="java.util.Map" resultType="java.lang.String"> 
-		select user_pwd from Member where user_id = #{user_id} and user_email = #{user_email} 
-		</select> -->
+	
 
 	<update id="updateMember" parameterType="Member">
 		update member

@@ -9,11 +9,11 @@ public class MailUtil {
 	      // Mail Server 설정
 	      String charSet = "utf-8";
 	      String hostSMTP ="smtp.naver.com";
-	      String hostSMTPid= "evening1006";
-	      String hostSMTPpwd = "dlqmslda!";
+	      String hostSMTPid= "evening";
+	      String hostSMTPpwd = "dlqmslda!!";
 	      
 	      // 보내는 사람
-	      String fromEmail = "evening1006@naver.com";
+	      String fromEmail = "evening@naver.com";
 	      String fromName = "Evening";
 	      
 	      // email 전송

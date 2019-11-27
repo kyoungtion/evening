@@ -575,8 +575,7 @@ public class MemberController {
    
    
    // 암호화 후 로그인
-   @SuppressWarnings("unused")
-@RequestMapping(value="login.me", method=RequestMethod.POST)
+   @RequestMapping(value="login.me", method=RequestMethod.POST)
    public String memberLogin(@ModelAttribute Member m ,Model model) {
       Member loginUser = mService.memberLogin(m);
    
@@ -691,7 +690,8 @@ public class MemberController {
            
            String msg = "";
            msg += "<br> <br> <div align='center' style='border:1px solid black;'>";
-               msg += "님</strong>의 임시 비밀번호 입니다. 로그인 후 비밀번호를 변경하세요.</h3>";
+           msg += "<h3 style='color: blue';><strong>" + user_id + "<br>";
+           msg += "님</strong>의 임시 비밀번호 입니다. 로그인 후 비밀번호를 변경하세요.</h3>";
            msg += "<p> 임시 비밀번호 : <strong>" + newPwd + "<br> <br> </strong></p></div> ";
            
            MailUtil.sendMail(user_email, subject, msg);
