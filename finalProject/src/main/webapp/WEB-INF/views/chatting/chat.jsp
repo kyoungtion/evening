@@ -37,7 +37,7 @@
 		    Notification.requestPermission(function (result) {
 		        // 권한 거절
 		        if(result == 'denied') {
-		            alert('알림을 차단하셨습니다./n브라우저의 사이트 설정에서 변경하실 수 있습니다.');
+		            alert('알림을 차단하셨습니다. 브라우저의 사이트 설정에서 변경하실 수 있습니다.');
 		            return false;
 		        }
 		    });
@@ -65,23 +65,15 @@
 		$('#message').attr('disabled', false);
 	}
 	function onOpen(evt) {
-		
-		
 		var msg = 'msg:[' + $('#nickname').val() + '님 등장!]';
 		wsocket.send(msg);
-	
 	}
 	function onMessage(evt) {
 		var data = evt.data;
-	
 		if (data.substring(0, 4) == 'msg:') {
 			appendMessage(data.substring(4));
 			/* 닉네임 추출 == 자기 닉네임과 같은지 체크 */
-			
-			
 		}
-		
-		
 	}
 	function onClose(evt) {
 		//퇴장 한 이후 부과적인 작업이 있을 경우 명시
@@ -100,14 +92,7 @@
 		var $enter;
 		var $me;
 		var $you;
-		console.log(msg.substring(0,1));
-		
-		    
-		   
-		
-		
 			if(msg.substring(0,1)=='['){
-				//$('#MiddleCMA').append(msg + '<br>');
 				$enter = $("<div class='enterMsg'>").text(msg);
 				$chatArea.append($enter);
 			}else if(msg.substring(0,1)!='['){
@@ -115,15 +100,11 @@
 				var checkstr = str.split(':');
 				var checkname = checkstr[0];
 				var context = checkstr[1];
-				console.log("자른 checkname의 값 [nickname값이 나와야 한다]  !!" + checkname);
-				console.log($('nickname').val());
 				if(checkname == $('#nickname').val()){
-					//$('#chatMessageArea').append('<div class="msg">'+context + '<br>'+'</div>');
 					$me = $("<div class='msg meMsg'>").text(context);
 					$chatArea.append($me);
 					$chatArea.append("<br clear='all'>");
 				}else{
-					//$('#anotherCMA').append('<div class="msg">'+context + '<br>'+'</div>');
 					$name =$("<div class='name'><br>").text(checkname);
 					$you = $("<div class='msg youMsg'>").text(context);
 					$chatArea.append($name);

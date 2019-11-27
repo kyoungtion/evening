@@ -309,8 +309,12 @@ input[type=submit]:active, input[type=submit]:focus {
             <label for="message" class="icon-comment"> 내용
                
             </label>
-            <input type="text" name="subject" id="subject" readonly="readonly" value="${list.M_CONTENT}"/>
         
+        </p>
+           <p>
+        	<div id="subject" style="background-color: white;"> 
+        	${list.M_CONTENT}
+        	</div>
         </p>
     </form>
     </c:forEach>
