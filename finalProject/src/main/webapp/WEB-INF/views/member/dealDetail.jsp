@@ -231,7 +231,7 @@ ul.tabs li{width:48% !important;}
 	</div>
 	
 	<script>
-		$(function(){
+		/* $(function(){ */
 			
 			/* $('#tabs').tabs();
 			var tabs = $('#tabs').tabs({
@@ -264,13 +264,13 @@ ul.tabs li{width:48% !important;}
 	
 		        $(this).addClass('current');
 			}); */
-		});
+	/* 	}); */
 		
-		$(function(){
+	/* 	$(function(){
 			$('#tab-1').on('click', function(){
 				location.href="dealDetail.me";
 			});
-		});
+		}); */
 	</script>
 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />

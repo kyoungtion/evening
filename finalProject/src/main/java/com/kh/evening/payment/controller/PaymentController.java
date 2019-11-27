@@ -196,7 +196,7 @@ public class PaymentController {
 			  throw new PaymentException("취소 실패");
 		  }
 		  
-		  return "redirect:detail.me";
+		  return "redirect:dealDetail.me";
 	   }
  
    
