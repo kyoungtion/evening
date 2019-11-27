@@ -172,13 +172,18 @@ public class PaymentController {
    }
    
 	  @RequestMapping("deleteAuc.py")
-	   public String deleteAuc(@RequestParam("sgId") int sgId, @RequestParam("aId") int aId) {	  
+	   public String deleteAuc(@RequestParam("sgId") int sgId, @RequestParam("aId") int aId,
+			   @RequestParam(value="price", required=false) Integer price/*,@RequestParam("sprice") int sprice*/) {	  
 		  
 		  AuctionHistory au = new AuctionHistory();
 		  au.setSg_Id(sgId);
 		  au.setA_Id(aId);
+		  au.setA_Price(price);
+		 /* au.setA_sPrice(sprice);*/
 		  
 		  int result = pService.deleteAuction(au);
+		  System.out.println("sgId :" + sgId);
+		  System.out.println("aId : " + aId);
 		  
 		  if(result > 0) {
 			  int maxPrice = pService.auctionMaxPrice(sgId);
@@ -186,11 +191,12 @@ public class PaymentController {
 			  if(maxPrice < 1) {
 				  throw new PaymentException(sgId + "의 입찰 취소가 실패하였습니다.");
 			  }
+				  
 		  }else {
 			  throw new PaymentException("취소 실패");
 		  }
 		  
-		  return "detail.me";
+		  return "redirect:detail.me";
 	   }
  
    

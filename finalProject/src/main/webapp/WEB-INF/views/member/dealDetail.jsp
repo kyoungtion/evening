@@ -102,6 +102,7 @@ ul.tabs li{width:48% !important;}
 												<form action="deleteAuc.py" method="get" id="deleteAuctionHistory">
 													<input type="number" value="${ a.sg_Id }" name="sgId">
 													<input type="number" value="${ a.a_Id }" name="aId">
+													<input type="number" value="${	a.a_Price }" name="price">
 												</form>
 											</c:if>
 											<c:if test="${ a.a_Check == 'Y' }">
@@ -159,7 +160,7 @@ ul.tabs li{width:48% !important;}
 					<script>
 						function deleteAuc() {
 							
-							if(confirm("입찰 취소하시겠습니까? 취소하시면 패널티가 부여되며, 등급이 하락될 수 있습니다.")){
+							if(confirm("입찰 취소하시겠습니까? 취소하시면 패널티가 부여되며, 등급이 하락될 수 있습니다.") == true){
 								$('#deleteAuctionHistory').submit();
 							};
 						}

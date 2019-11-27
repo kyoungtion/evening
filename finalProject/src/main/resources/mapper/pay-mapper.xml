@@ -17,7 +17,7 @@
 	<select id="selectPaymentList" resultMap="payResultSet">
 		select p.*, s.*
 		from payment p
-		join second_goods s on (p.gp_id = s.sg_id)
+		join second_goods s on (p.sg_id = s.sg_id)
 		order by P_NO desc
 	</select>
 	
@@ -97,9 +97,9 @@
 			WHERE A_ID=#{a_Id}
 		</update>
 		
-		<update id="auctioinMaxPrice" parameterType="_int">
+		<update id="auctionMaxPrice" parameterType="_int">
 			UPDATE SECOND_GOODS
-			SET SG_PRICE = ( SELECT MAX(A_PRICE) FROM AUCTION_HISTORY WHERE SG_ID=#{sgId} AND A_CHECK='N')
+			SET SG_PRICE = ( SELECT nvl(max(a_price),0) FROM AUCTION_HISTORY WHERE SG_ID=#{sgId} AND A_CHECK='N' )
 			WHERE SG_ID = #{sgId}
 		</update>
 
@@ -115,7 +115,7 @@
 		<result property="p_STATUS" column="P_STATUS"/>
 		<result property="MONEY" column="MONEY"/>
 		<result property="MEMO" column="MEMO"/>
-		<result property="gp_ID" column="GP_ID"/>
+		<result property="sg_ID" column="SG_ID"/>
 		<association property="board" javaType="Board">
 			<id property="SG_ID" column="SG_ID"/>
 			<result property="USER_ID" column="USER_ID"/>

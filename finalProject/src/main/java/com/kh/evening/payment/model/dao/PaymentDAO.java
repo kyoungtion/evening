@@ -54,7 +54,7 @@ public class PaymentDAO {
 	}
 
 	public int deleteAuction(SqlSessionTemplate sqlSession, AuctionHistory au) {
-		return sqlSession.insert("payMapper", au);
+		return sqlSession.insert("payMapper.deleteAuction", au);
 	}
 	
 
