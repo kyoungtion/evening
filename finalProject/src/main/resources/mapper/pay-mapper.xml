@@ -5,7 +5,7 @@
 
 	<insert id="insertPay" parameterType="Payment">
 	insert into payment
-	values(p_NO_SEQ.nextval,#{p_ID},#{p_NICKNAME},#{p_ADDRESS},#{p_PHONE},#{p_EMAIL},sysdate,sysdate,default,#{MONEY},#{MEMO},#{sg_ID})
+	values(p_NO_SEQ.nextval,#{p_ID},#{p_NICKNAME},#{p_ADDRESS},#{p_PHONE},#{p_EMAIL},sysdate,sysdate,default,#{MONEY},#{MEMO},#{gp_ID})
 	</insert>
 	
 	<select id="getListCount" resultType="_int">
@@ -17,7 +17,7 @@
 	<select id="selectPaymentList" resultMap="payResultSet">
 		select p.*, s.*
 		from payment p
-		join second_goods s on (p.sg_id = s.sg_id)
+		join second_goods s on (p.gp_id = s.sg_id)
 		order by P_NO desc
 	</select>
 	
