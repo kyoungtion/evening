@@ -1,4 +1,4 @@
-package com.kh.evening.member.controller;
+﻿package com.kh.evening.member.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -33,6 +33,8 @@ import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.common.Pageination;
 import com.kh.evening.gesipan.model.service.GesipanService;
 import com.kh.evening.gesipan.model.vo.Gesipan;
+import com.kh.evening.member.email.FindUtil;
+import com.kh.evening.member.email.MailUtil;
 //import com.kh.evening.member.email.EmailSender;
 import com.kh.evening.member.model.exception.MemberException;
 import com.kh.evening.member.model.service.KakaoAPI;
@@ -577,203 +579,243 @@ public class MemberController {
 
 	// ********************************************끝
 
-	// 상은
-// 상은 *******************
-	// 아이디 비밀번호 찾기 컨트롤러
-	@RequestMapping("searchidpwd.me")
-	public String searchidpwd() {
-		return "searchidpwd";
-	}
+	
+// 상은
+   // 로그인용 컨트롤러
+   @RequestMapping("loginView.me")
+   public String login() {
+      return "login";
+   }
+   
+   @RequestMapping(value="kakaoCallback.me" ,method = { RequestMethod.GET, RequestMethod.POST })
+   public ModelAndView kakao(@RequestParam("code")String code,
+                         HttpSession session,
+                         HttpServletResponse response,
+                         ModelAndView mv,
+                         Model model) {
+      String access_Token = kakao.getAccessToken(code);
+      System.out.println("code : " + code);
+       HashMap<String, String> userInfo = kakao.getUserInfo(access_Token);
+       System.out.println("login Controller : " + userInfo);
+       
+       //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
+       if (userInfo.get("email") != null) {
+          
+          // 맴버 객체 생성 후 kakaoId 값 들고 디비로 넘어가서 가입된 멤버인지 확인하기
+          
+          Member m = new Member();
+          //m.setKakaoId(userInfo.get("kakaoId"));
+          m.setUser_email(userInfo.get("email"));
+          Member loginUser = mService.kakaoLogin(m);
+          System.out.println("kakaoLoing : " +loginUser );
+          if(loginUser != null ) {
+             model.addAttribute("loginUser", loginUser);
+             mv.setViewName("redirect:home.do");
+             
 
-	// 회원가입용 컨트롤러
-
-	@RequestMapping("ebinsert.me")
-	public String insertMember(@ModelAttribute Member m, @RequestParam("zipcode1") String zipcode1,
-			@RequestParam("addr") String addr, @RequestParam("addrDtl") String addrDtl) {
-
-		m.setAddress(zipcode1 + "/" + addr + "/" + addrDtl);
-
-		// 비밀번호 암호화
-
-		String encPwd = bcryptPasswordEncoder.encode(m.getUser_pwd());
-		m.setUser_pwd(encPwd);
-
-		System.out.println(m);
-
-		int result = mService.insertMember(m);
-
-		if (result > 0) {
-			return "redirect:home.do";
-		} else {
-			throw new MemberException("회원가입에 실패하였습니다.");
-		}
-
-	}
-
-	// 로그인용 컨트롤러
-	@RequestMapping("loginView.me")
-	public String login() {
-		return "login";
-	}
-
-	@RequestMapping(value = "kakaoCallback.me", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView kakao(@RequestParam("code") String code, HttpSession session, HttpServletResponse response,
-			ModelAndView mv, Model model) {
-		String access_Token = kakao.getAccessToken(code);
-		System.out.println("code : " + code);
-		HashMap<String, String> userInfo = kakao.getUserInfo(access_Token);
-		System.out.println("login Controller : " + userInfo);
-
-		// 클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
-		if (userInfo.get("email") != null) {
-
-			// 맴버 객체 생성 후 kakaoId 값 들고 디비로 넘어가서 가입된 멤버인지 확인하기
-
-			Member m = new Member();
-			// m.setKakaoId(userInfo.get("kakaoId"));
-			m.setUser_email(userInfo.get("email"));
-			Member loginUser = mService.kakaoLogin(m);
-			System.out.println("kakaoLoing : " + loginUser);
-			if (loginUser != null) {
-				model.addAttribute("loginUser", loginUser);
-				mv.setViewName("redirect:home.do");
-
-			}
-
-			/*
-			 * session.setAttribute("userId", userInfo.get("email"));
-			 * session.setAttribute("access_Token", access_Token);
-			 */
-		}
-		return mv;
-
-	}
-
-	// 암호화 후 로그인
-	@SuppressWarnings("unused")
-	@RequestMapping(value = "login.me", method = RequestMethod.POST)
-	public String memberLogin(@ModelAttribute Member m, Model model) {
-		Member loginUser = mService.memberLogin(m);
-
-		if (bcryptPasswordEncoder.matches(m.getUser_pwd(), loginUser.getUser_pwd())) {
-			model.addAttribute("loginUser", loginUser);
-
-		} else {
-			throw new MemberException("로그인에 실패하였습니다.");
-		}
-
-		if (loginUser != null) {
-		  // 징계유저의 경우 : 징계기간이 끝났는지 확인(끝났을시 등급 초승달로 복구)
-		  if(loginUser.getRank_code().equals("E")) {
-		    Date today = new Date();
-		    SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd");
-		    String todays = timeFormat.format(today);
-		    String dbDays = timeFormat.format(loginUser.getPenalty_date());
+          }
+          
+           /*session.setAttribute("userId", userInfo.get("email"));
+           session.setAttribute("access_Token", access_Token);*/
+       }
+      return mv;
+      
+     
+   }
+   
+   // 암호화 후 로그인
+   @RequestMapping(value="login.me", method=RequestMethod.POST)
+   public String memberLogin(@ModelAttribute Member m ,Model model) {
+      Member loginUser = mService.memberLogin(m);
+      
+      if(bcryptPasswordEncoder.matches(m.getUser_pwd(), loginUser.getUser_pwd())) {
+         model.addAttribute("loginUser",loginUser);
+         
+      }else {
+         throw new MemberException("로그인에 실패하였습니다.");
+      }
+      
+      if(loginUser != null) {
+		// 징계유저의 경우 : 징계기간이 끝났는지 확인(끝났을시 등급 초승달로 복구)
+		if(loginUser.getRank_code().equals("E")) {
+		  Date today = new Date();
+		  SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd");
+		  String todays = timeFormat.format(today);
+		  String dbDays = timeFormat.format(loginUser.getPenalty_date());
+		  
+		  try {
+		    Date dbDayD = timeFormat.parse(dbDays);
+		    Date todayD = timeFormat.parse(todays);
 		    
-		    try {
-		      Date dbDayD = timeFormat.parse(dbDays);
-		      Date todayD = timeFormat.parse(todays);
-		      
-		      long result = dbDayD.getTime() - todayD.getTime();
-		      long resultDay = result / (1000 * 60 * 60 * 24);
-		      
-		      int updatePenalty = 0;
-		      if(resultDay <= 0) {
-		        // 등급을 초기등급으로 변경함
-		        loginUser.setRank_code("NM");
-		        updatePenalty = mService.updatePenaltyPoint(loginUser);
-		      }
-		      
-		      if(updatePenalty > 0) {
-		        // 변경 성공시 등급 이미지 재매치
-		        loginUser = mService.memberLogin(loginUser);
-		      }
-		      
-		    } catch (ParseException e) {
-		      e.printStackTrace();
+		    long result = dbDayD.getTime() - todayD.getTime();
+		    long resultDay = result / (1000 * 60 * 60 * 24);
+		    
+		    int updatePenalty = 0;
+		    if(resultDay <= 0) {
+		      // 등급을 초기등급으로 변경함
+		      loginUser.setRank_code("NM");
+		      updatePenalty = mService.updatePenaltyPoint(loginUser);
 		    }
+		    
+		    if(updatePenalty > 0) {
+		      // 변경 성공시 등급 이미지 재매치
+		      loginUser = mService.memberLogin(loginUser);
+		    }
+		    
+		  } catch (ParseException e) {
+		    e.printStackTrace();
 		  }
-			model.addAttribute("loginUser", loginUser);
-			return "redirect:home.do";
-		} else {
-			throw new MemberException("로그인에 실패하였습니다.");
 		}
+         model.addAttribute("loginUser", loginUser);
+         return "redirect:home.do";
+      } else {
+         throw new MemberException("로그인에 실패하였습니다.");
+      }
+      
+   }
+   
+   // 유효성 검사
+   @RequestMapping("dupid.me")
+   public void idDuplicataCheck(HttpServletResponse response, String user_id) throws IOException {
+      boolean isUsable = mService.checkIdDup(user_id) == 0 ? true : false;
+      
+      response.getWriter().print(isUsable);
+   }
 
-	}
+   
+   // 로그아웃 컨트롤러
+   @RequestMapping("logout.me")
+   public String logout(SessionStatus status) {
+      status.setComplete();
+      return "redirect:home.do";
+   }
+   
+   
+   
+   
+   // 회원가입용 컨트롤러
+   
+   @RequestMapping("ebinsert.me")
+   public String insertMember(@ModelAttribute Member m,
+                     @RequestParam("zipcode1") String zipcode1,
+                     @RequestParam("addr") String addr,
+                     @RequestParam("addrDtl")String addrDtl) {
+      
+   m.setAddress(  zipcode1 + "/" + addr + "/" +addrDtl);
+   
+   // 비밀번호 암호화
+   
+   String encPwd = bcryptPasswordEncoder.encode(m.getUser_pwd());
+   m.setUser_pwd(encPwd);
+   
+   System.out.println(m);
+   
+   int result = mService.insertMember(m);
+   
+   if(result > 0) {
+      return "redirect:home.do";
+   }else {
+      throw new MemberException("회원가입에 실패하였습니다.");
+   }
+     
+          
+   }
+      
+   
+   // 아이디 찾기 컨트롤러
+   @RequestMapping("search.me")
+   public String Search(){
+       
+      return "SearchIdPwd";
+   }
+   
+   // 비밀번호 찾기 컨트롤러
+   @RequestMapping("searchidpwd.me")
+   public String searchidpwd() {
+      return "searchidpwd";
+   }
+   
+   
+   // 아이디 찾기
+   @RequestMapping(value="searchId.me", method=RequestMethod.POST)
+   @ResponseBody
+   public String searchId(@RequestParam("user_name") String user_name,
+                       @RequestParam("phone") String phone, 
+                       Model model,
+                       HttpServletResponse response) throws IOException {
+      
+     Member m = new Member();
+     m.setUser_name(user_name);
+     m.setPhone(phone);
 
-	// 유효성 검사
-	@RequestMapping("dupid.me")
-	public void idDuplicataCheck(HttpServletResponse response, String user_id) throws IOException {
-		boolean isUsable = mService.checkIdDup(user_id) == 0 ? true : false;
+     String searchId = mService.searchId(m);
+     
+    
+      return searchId;
+   }
+   
+   
+   // 비밀번호 찾기 새로운 비밀번호 발급
+   @RequestMapping(value="searchPwdView.me")
+   public ModelAndView memberSearchPwd(ModelAndView mv) {
+	   int check =1;
+	   mv.addObject("checkSep",check);
+	   mv.setViewName("redirect:home.do");
+	   System.out.println(mv);
+	   return mv; 
+	   
+   }
+   
+   @RequestMapping(value="searchPwd.me")
+   public ModelAndView memberSearchPwd2(@RequestParam("user_id")String user_id,
+		   								@RequestParam("user_email")String user_email,
+		   								ModelAndView mv) throws Exception {
+	   Map<String,String> map = new HashMap<String,String>();
+	   
+	   map.put("user_id", user_id);
+	   map.put("user_email", user_email);
+	   
+	   System.out.println("11들어와라 제발 : " + map);
+	   
+	   Member m = mService.memberSearchPwd(map);
+	   
+	  	   
+	   if(m != null) {
+		   // 임시비밀번호 생성
+		   String newPwd = FindUtil.getNewPwd();
+		   
+		   // 임시비밀번호 DB에 암호화 
+		   String encPwd = bcryptPasswordEncoder.encode(newPwd);
+		   
+		   System.out.println("newPwd : " + newPwd);
+		   
+		   Map<String ,String> map2 = new HashMap<>();
+		   
+		   map2.put("user_id", user_id);
+		   map2.put("encPwd",encPwd);
+		   
+		   System.out.println("22제발 되라..: " +map2);
+		   
+		   mService.changePwd(map2);
+		   
+		   String subject = "[Evening] 에서 발급한 임시 비밀번호 입니다.";
+           
+           String msg = "";
+           msg += "<br> <br> <div align='center' style='border:1px solid black;'>";
+               msg += "님</strong>의 임시 비밀번호 입니다. 로그인 후 비밀번호를 변경하세요.</h3>";
+           msg += "<p> 임시 비밀번호 : <strong>" + newPwd + "<br> <br> </strong></p></div> ";
+           
+           MailUtil.sendMail(user_email, subject, msg);
+           
+           
+           mv.setViewName("login");
+           return mv;
+        } else {
+           int check = 0;
+           mv.addObject("checkSep", check);
+           mv.setViewName("SearchIdPwd");
+           return mv;
+        }
 
-		response.getWriter().print(isUsable);
-	}
-
-	// 로그아웃 컨트롤러
-	@RequestMapping("logout.me")
-	public String logout(SessionStatus status) {
-		status.setComplete();
-		return "redirect:home.do";
-	}
-
-	// 아이디, 비밀번호 찾기 컨트롤러
-	@RequestMapping("search.me")
-	public String Search() {
-
-		return "SearchIdPwd";
-	}
-
-	// 아이디 찾기
-	@RequestMapping(value = "searchId.me", method = RequestMethod.POST)
-	@ResponseBody
-	public String searchId(@RequestParam("user_name") String user_name, @RequestParam("phone") String phone,
-			Model model, HttpServletResponse response) throws IOException {
-
-		Member m = new Member();
-		m.setUser_name(user_name);
-		m.setPhone(phone);
-
-		String searchId = mService.searchId(m);
-
-		return searchId;
-	}
-
-	// 비밀번호 찾기
-	/*
-	 * @RequestMapping(value="searchPwd", method = RequestMethod.POST) public void
-	 * searchPwd(
-	 * 
-	 * @RequestParam("user_id") String user_id,
-	 * 
-	 * @RequestParam("user_email")String user_email, Model model,
-	 * HttpServletResponse response) throws Exception {
-	 * 
-	 * Member m = new Member(); m.setUser_id(user_id); m.setUser_email(user_email);
-	 * service.searchPwd(response,m);
-	 * 
-	 * 
-	 * }
-	 */
-
-	/*
-	 * @RequestMapping(value="searchId", method=RequestMethod.POST) public String
-	 * searchId(HttpServletResponse response,
-	 * 
-	 * @RequestParam("user_name")String user_name,
-	 * 
-	 * @RequestParam("user_email")String user_email, Model model) {
-	 * 
-	 * model.addAttribute("user_id", mService.searchId(response,user_email,
-	 * user_name));
-	 * 
-	 * response.setContentType("text/html; charset=UTF-8"); PrintWriter out =
-	 * response.getWriter();
-	 * 
-	 * 
-	 * String user_id = Manager.searchId(user_name,user_email);
-	 * 
-	 * 
-	 * 
-	 * return "login"; }
-	 */
+     } 
 }
