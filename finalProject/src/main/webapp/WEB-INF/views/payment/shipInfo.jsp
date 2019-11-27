@@ -28,7 +28,7 @@
 								<div class="form-group">
 									<div class="col-md-6">
 										<label for="fname">이름</label>
-										<input type="text" value="${ loginUser.user_id }" id="pname" class="form-control" name="P_ID">
+										<input type="text" value="${ loginUser.user_id }" id="pname" class="form-control" name="P_ID" readonly>
 										<input type="hidden" value="${ loginUser.nickName }" id="pnickname" class="form-control" name="P_NICKNAME">
 									</div>
 								</div>
@@ -51,22 +51,16 @@
 						</c:forTokens>
 							<label for="addr">주소</label>
 		
-							<input type="text" id="address2" class="form-control" placeholder=""
-							   name="post" style="text-align: left; margin-bottom: 10px;" value="${ post }" onclick="mapsearch();">
-<!-- 							   
-							 <button onclick="postCheck();">클릭</button>
-							<script>
-								function postCheck(){
-									var str = $('#addr').val();
-									console.log(str);
-								}		
-							</script> -->
+
+							<input type="text" id="address2" class="form-control" placeholder="필수로 입력해 주세요"
+							   name="post" style="text-align: left; margin-bottom: 10px;" onclick="mapsearch();" required="required">
 						
 							</div>
 							<div class="form-group">
 							<div class="col-md-6">
 							<input type="text" id="address2" class="form-control" placeholder=""
-							name="addr1" value="${ address1 }" style="text-align: left">
+							name="addr1" style="text-align: left" required="required">
+							
 							</div>
 							 <div class="col-md-6">
 											  
@@ -80,27 +74,35 @@
 					<div class="form-group">
 						<div class="col-md-6">
 							<label for="email">이메일</label>
-							<input type="text" id="email" class="form-control" value="${ loginUser.user_email }" name="P_EMAIL" placeholder="">
+
+							<input type="text" id="email" class="form-control" name="P_EMAIL" value="${ loginUser.user_email }" placeholder="" readonly>
 						</div>
 							<div class="col-md-6">
 								<label for="Phone">전화 번호</label>
-								<input type="text" id="phone" name="P_PHONE" value="${ loginUser.phone }" class="form-control" placeholder="">
-							</div>
+								<input type="text" id="phone" name="P_PHONE" class="form-control" placeholder="필수로 입력해 주세요" required>
+
+						
+						</div>
+
 						<div class="form-group">
 							<div class="col-md-12">
 							<label for="memo">배송시 메모</label>
-							<input type="text" id="memo" class="form-control" name="MEMO" placeholder="">
+							<input type="text" id="memo" class="form-control" name="MEMO" placeholder="" >
 							</div>
 							
 							<div class="col-md-12">
 							<label for="money">상품 이름</label>
-							<input type="text" value="${ b.SG_BNAME }" class="form-control">
+
+							<input type="text" id="gp_id" name="gp_ID" value="${ b.SG_BNAME }" class="form-control" readonly placeholder="">
+
 							<input type="hidden"  id="gp_id" name="gp_ID" value="${ b.SG_ID }" class="form-control" placeholder="" readonly>
+
 							</div>
 							
 							<div class="col-md-12">
 							<label for="money">금액</label>
 							<input type="text" id="money" name="MONEY" value="${b.SG_PRICE }" class="form-control" placeholder="" readonly>
+
 							</div>
 						</div>
 					</div>
@@ -146,33 +148,10 @@ IMP.init('imp69358155');
 IMP.request_pay({
 pg: 'html5_inicis', // version 1.1.0부터 지원.
 
-/*
-'kakao':카카오페이,
-html5_inicis':이니시스(웹표준결제)'
-'nice':나이스페이
-'jtnet':제이티넷
-'uplus':LG유플러스
-'danal':다날
-'payco':페이코
-'syrup':시럽페이
-'paypal':페이팔
- */
  pay_method: 'card',
 
-/* 'samsung':삼성페이,
-'card':신용카드,
-'trans':실시간계좌이체,
-'vbank':가상계좌,
-'phone':휴대폰소액결제 */
-
 merchant_uid: '0111000' + new Date().getTime(),
-/*
-merchant_uid에 경우
-https://docs.iamport.kr/implementation/payment
-위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
-참고하세요.
-나중에 포스팅 해볼게요.
-*/
+
 name: '결제',
 //결제창에서 보여질 이름
 amount: $('#money').val(),
@@ -181,11 +160,6 @@ buyer_name: $('#fname').val(),
 buyer_tel: $('#phone').val(),
 buyer_addr: $('#addr').val(),
 m_redirect_url: 'https://www.yourdomain.com/payments/complete'
-/*
-모바일 결제시,
-결제가 끝나고 랜딩되는 URL을 지정
-(카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
-*/
 }, function (rsp) {
 console.log(rsp);
 if (rsp.success) {

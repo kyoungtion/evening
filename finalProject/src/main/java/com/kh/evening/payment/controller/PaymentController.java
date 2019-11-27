@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.evening.board.model.service.BoardService;
+import com.kh.evening.board.model.vo.AuctionHistory;
 import com.kh.evening.board.model.vo.Board;
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.common.Pageination;
@@ -131,6 +135,27 @@ public class PaymentController {
 		return mv;
 	}
 	
+/*	// 결제 취소 요청
+	@RequestMapping("pdelete.py")
+	public String deletePayment(@ModelAttribute Payment p, SessionStatus status,
+								@RequestParam("ids") String ids) {
+		String[] idArray = ids.split(",")
+		int result = pService.deletePayment(p);
+		
+		if(result > 0) {
+			status.setComplete();
+			return "redirect:home.do";
+		}else {
+			throw new PaymentException("결제 취소 요청을 실패하였습니다.");
+		}
+	}*/
+/*	@ResponseBody
+	@RequestMapping(value="/deletePayment", method=RequestMethod.POST)
+	public int deletePayment(HttpSession session, 
+					@RequestParam(value="chk[]") List<String> chArr, PayVO pa)
+
+
+	}*/
 	// 결제 취소 요청
    @RequestMapping("pdelete.py")
    public String deletePayment(@RequestParam("ids") String ids) {
@@ -145,5 +170,36 @@ public class PaymentController {
          throw new PaymentException("결제 취소 요청을 실패하였습니다.");
       }
    }
+   
+	  @RequestMapping("deleteAuc.py")
+	   public String deleteAuc(@RequestParam("sgId") int sgId, @RequestParam("aId") int aId,
+			   @RequestParam(value="price", required=false) Integer price/*,@RequestParam("sprice") int sprice*/) {	  
+		  
+		  AuctionHistory au = new AuctionHistory();
+		  au.setSg_Id(sgId);
+		  au.setA_Id(aId);
+		  au.setA_Price(price);
+		 /* au.setA_sPrice(sprice);*/
+		  
+		  int result = pService.deleteAuction(au);
+		  System.out.println("sgId :" + sgId);
+		  System.out.println("aId : " + aId);
+		  
+		  if(result > 0) {
+			  int maxPrice = pService.auctionMaxPrice(sgId);
+			  
+			  if(maxPrice < 1) {
+				  throw new PaymentException(sgId + "의 입찰 취소가 실패하였습니다.");
+			  }
+				  
+		  }else {
+			  throw new PaymentException("취소 실패");
+		  }
+		  
+		  return "redirect:detail.me";
+	   }
+ 
+   
 	
+ 
 }

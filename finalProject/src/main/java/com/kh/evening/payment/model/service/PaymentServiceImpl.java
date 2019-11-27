@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.evening.board.model.vo.AuctionHistory;
 import com.kh.evening.board.model.vo.PageInfo;
 import com.kh.evening.payment.model.dao.PaymentDAO;
 import com.kh.evening.payment.model.vo.Payment;
@@ -35,10 +36,10 @@ public class PaymentServiceImpl implements PaymentService{
 		return pDao.selectPaymentList(sqlSession, pi);
 	}
 
-	@Override
+/*	@Override
 	public int deletePayment(Payment p) {
 		return pDao.deletePayment(sqlSession, p);
-	}
+	}*/
 
 	@Override
 	public int getSearchListCount(Map<String, String> parameters) {
@@ -53,6 +54,16 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public int deletePayment(String[] idArray) {
 		return pDao.deletePayment(sqlSession, idArray);
+	}
+
+	@Override
+	public int auctionMaxPrice(int sgId) {
+		return pDao.autionMaxPrice(sqlSession, sgId);
+	}
+
+	@Override
+	public int deleteAuction(AuctionHistory au) {
+		return pDao.deleteAuction(sqlSession, au);
 	}
 	
 }

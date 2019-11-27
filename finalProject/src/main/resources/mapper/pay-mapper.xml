@@ -5,7 +5,7 @@
 
 	<insert id="insertPay" parameterType="Payment">
 	insert into payment
-	values(p_NO_SEQ.nextval,#{p_ID},#{p_NICKNAME},#{p_ADDRESS},#{p_PHONE},#{p_EMAIL},sysdate,sysdate,default,#{MONEY},#{MEMO},#{gp_ID})
+	values(p_NO_SEQ.nextval,#{p_ID},#{p_NICKNAME},#{p_ADDRESS},#{p_PHONE},#{p_EMAIL},sysdate,sysdate,default,#{MONEY},#{MEMO},#{sg_ID})
 	</insert>
 	
 	<select id="getListCount" resultType="_int">
@@ -17,19 +17,22 @@
 	<select id="selectPaymentList" resultMap="payResultSet">
 		select p.*, s.*
 		from payment p
-		join second_goods s on (p.gp_id = s.sg_id)
+		join second_goods s on (p.sg_id = s.sg_id)
 		order by P_NO desc
 	</select>
-
+	
+<!-- 	<update id="deletePayment" parameterType="Payment">
+		update payment set p_status='N', p_update_date=sysdate
+		where p_ID=#{p_ID} and p_NO=#{p_NO}
+	</update> -->
 	<update id="deletePayment" parameterType="string">
 		update payment set p_status='N', p_update_date=sysdate
 		<trim prefix="where" prefixOverrides="and|or">
 			p_NO in
-			<foreach collection="array" item="item" index="index"
-				open="(" separator="," close=")">
+			<foreach collection="array" item="item" index="index" open="(" separator="," close=")">
 				#{item}
 			</foreach>
-		</trim>
+		</trim>	
 	</update>
 	
 	<select id="selectSearchListCount" resultType="_int" parameterType="map">
@@ -65,6 +68,41 @@
 		order by p_no desc
 	</select>
 	
+
+	<resultMap type="AuctionHistory" id="HistoryResultSet">
+		<id property="a_Id" column="A_ID"/>
+		<result property="User_Id" column="USER_ID"/>
+		<result property="Sg_Id" column="SG_ID"/>
+		<result property="a_Price" column="A_PRICE"/>
+		<result property="a_Enroll_Date" column="A_ENROLL_DATE"/>
+		<result property="a_Check" column="A_CHECK"/>
+		<association property="payment" javaType="Payment">
+			<id property="p_No" column="P_NO"/>
+			<result property="p_ID" column="P_ID"/>
+			<result property="p_NICKNAME" column="P_NICKNAME"/>
+			<result property="p_ADDRESS" column="P_ADDRESS"/>
+			<result property="p_PHONE" column="P_PHONE"/>
+			<result property="p_EMAIL" column="P_EMAIL"/>
+			<result property="PAYDAY" column="PAYDAY"/>
+			<result property="p_UPDATE_DATE" column="P_UPDATE_DATE"/>
+			<result property="p_STATUS" column="P_SATUS"/>
+			<result property="MONEY" column="MONEY"/>
+			<result property="MEMO" column="MEMO"/>
+			<result property="sg_ID" column="SG_ID"/>
+		</association>
+		</resultMap>
+		
+		<update id="deleteAuction" parameterType="AuctionHistory">
+			UPDATE AUCTION_HISTORY SET A_CHECK='Y'
+			WHERE A_ID=#{a_Id}
+		</update>
+		
+		<update id="auctionMaxPrice" parameterType="_int">
+			UPDATE SECOND_GOODS
+			SET SG_PRICE = ( SELECT nvl(max(a_price),0) FROM AUCTION_HISTORY WHERE SG_ID=#{sgId} AND A_CHECK='N' )
+			WHERE SG_ID = #{sgId}
+		</update>
+
 	<resultMap type="Payment" id="payResultSet">
 		<id property="p_No" column="P_NO"/>
 		<result property="p_ID" column="P_ID"/>
@@ -77,7 +115,7 @@
 		<result property="p_STATUS" column="P_STATUS"/>
 		<result property="MONEY" column="MONEY"/>
 		<result property="MEMO" column="MEMO"/>
-		<result property="gp_ID" column="GP_ID"/>
+		<result property="sg_ID" column="SG_ID"/>
 		<association property="board" javaType="Board">
 			<id property="SG_ID" column="SG_ID"/>
 			<result property="USER_ID" column="USER_ID"/>
@@ -100,6 +138,7 @@
 			<result property="SG_DELIVERY" column="SG_DELIVERY"/>
 		</association>
 	</resultMap>
+
 	
 	
 </mapper>

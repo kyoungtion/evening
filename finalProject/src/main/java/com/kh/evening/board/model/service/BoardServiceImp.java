@@ -180,4 +180,6 @@ public class BoardServiceImp implements BoardService {
 		return bDAO.myLikeListCount(sqlSession, map);
 	}
 
+
+
 }

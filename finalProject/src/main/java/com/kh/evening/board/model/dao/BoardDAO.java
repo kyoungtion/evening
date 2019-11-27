@@ -169,4 +169,5 @@ public ArrayList<Board> myLikeList(SqlSession sqlSession, PageInfo pi, Map<Strin
 
 
 
+
 }
