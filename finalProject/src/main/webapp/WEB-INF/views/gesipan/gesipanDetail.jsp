@@ -236,7 +236,7 @@ tbody td {
 								<c:url var="gDelete" value="gDelete.ge">
 									<c:param name="page" value="${ page }"/>
 									<c:param name="g_id" value="${ g.g_id }"/>
-									<c:param name="category" value="${ cate }"/>
+									<c:param name="category" value="${ g.g_category }"/>
 								</c:url>
 								<%-- <c:set var="glist" value="document.referrer"/> --%>
 							</c:if>
