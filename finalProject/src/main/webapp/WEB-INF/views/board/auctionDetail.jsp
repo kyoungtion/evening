@@ -260,7 +260,11 @@
 				<button class="btn btn-primary" onclick="deleteBtn();">글삭제</button>
 			</c:if>
 			<br><br>
-			<button class="btn btn-primary btn-outline" style="margin-left: 85px;" onclick="location.href ='auctionList.bo'">목록으로 가기</button>
+			<c:url var="rollbackList" value="auctionList.bo">
+				<c:param name="page" value="${ page }"/>
+				<c:param name="mode" value="${ mode }"/>
+			</c:url>
+			<button class="btn btn-primary btn-outline" style="margin-left: 85px;" onclick="location.href='${ rollbackList }'">목록으로 가기</button>
 		</div>
 		</div>
 						</div>

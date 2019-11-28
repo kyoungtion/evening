@@ -261,7 +261,7 @@
 								  
 								  setTimeout(function(){
 								   location.reload(); 
-								  },5000);
+								  },10000);
 								  
 								});
 								</script>

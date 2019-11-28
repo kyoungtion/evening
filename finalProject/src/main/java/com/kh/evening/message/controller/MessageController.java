@@ -13,11 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.evening.member.model.service.MemberService;
 import com.kh.evening.member.model.vo.Member;
 import com.kh.evening.message.model.service.MessageService;
 import com.kh.evening.message.model.vo.Message;
@@ -29,17 +31,18 @@ public class MessageController {
 	@Autowired
 	private MessageService messageService;
 
+	@Autowired
+	private MemberService mService;
+	
 	@RequestMapping("message.sr")
-	public ModelAndView rList(Model model, ModelAndView mv) {
+	public ModelAndView rList(Model model, 	@ModelAttribute Member m,ModelAndView mv) {
 		Member loginUser = (Member) model.getAttribute("loginUser");
+		Member loginUser1 = mService.memberLogin(m);
 		ArrayList<Message> rlist = messageService.receiveList(loginUser.getUser_id());
 		ArrayList<Message> slist = messageService.sendList(loginUser.getUser_id());
-		System.out.println("rlist.toString	 :" + rlist.toString());
-		System.out.println("slist.toString	 :" + slist.toString());
-		System.out.println("rlist.size()	 :" + rlist.size());
-		System.out.println("slist.size()	 :" + slist.size());
-		int rlistCount = rlist.size();
-		int slistCount = slist.size();
+		loginUser.setCount(messageService.getCount(loginUser.getUser_id()));
+		
+		model.addAttribute("loginUser", loginUser1);
 		mv.setViewName("message");
 		mv.addObject("rlist", rlist);
 		mv.addObject("slist", slist);

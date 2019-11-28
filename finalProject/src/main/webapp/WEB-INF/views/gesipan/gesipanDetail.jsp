@@ -113,7 +113,7 @@ tbody td {
 									</tbody>
 								</table>
 							</div>
-							<c:if test="${ g.g_type != 'N' }">
+							<c:if test="${ g.g_type != 'N' && g.g_writer != 'admin'}">
 							<div class="row reply">
 								<b id="rCount"></b>
 								<b class="data_count"><em id="messagebyte">0</em>/300자</b>
@@ -322,6 +322,9 @@ tbody td {
 		});
 		
 		function getReplyList() {
+			if(g.g_writer != 'admin'){
+				
+			
 			var g_ref = ${ g.g_id };
 			$.ajax({
 				url: "rList.ge",
@@ -430,7 +433,7 @@ tbody td {
 				}
 			});
 			
-			
+			}
 		}
 		
 		$(function(){

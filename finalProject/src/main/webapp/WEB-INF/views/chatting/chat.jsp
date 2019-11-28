@@ -23,7 +23,6 @@
 	//resize 이벤트가 발생할때마다 사이즈를 조절
 	$(document).ready(function() {
 		$(window).resize(disable);
-		console.log("window 사이즈 조절 당하는 중")
 		disable();
 		getNotificationPermission();
 	});
@@ -37,7 +36,7 @@
 		    Notification.requestPermission(function (result) {
 		        // 권한 거절
 		        if(result == 'denied') {
-		            alert('알림을 차단하셨습니다./n브라우저의 사이트 설정에서 변경하실 수 있습니다.');
+		            alert('알림을 차단하셨습니다. 브라우저의 사이트 설정에서 변경하실 수 있습니다.');
 		            return false;
 		        }
 		    });
@@ -57,7 +56,8 @@
 	var wsocket;
 	function connect() {
 		
-		wsocket = new WebSocket("ws://localhost:8989/evening/chat-ws.ch");
+		wsocket = new WebSocket("ws://localhost:9292/evening/chat-ws.ch");
+		//서버로부터 메시지를 받으면 호출되는 함수 지정
 		wsocket.onopen = onOpen;
 		//서버로부터 메시지를 받으면 호출되는 함수 지정
 		wsocket.onmessage = onMessage;
@@ -65,23 +65,15 @@
 		$('#message').attr('disabled', false);
 	}
 	function onOpen(evt) {
-		
-		
 		var msg = 'msg:[' + $('#nickname').val() + '님 등장!]';
 		wsocket.send(msg);
-	
 	}
 	function onMessage(evt) {
 		var data = evt.data;
-	
 		if (data.substring(0, 4) == 'msg:') {
 			appendMessage(data.substring(4));
 			/* 닉네임 추출 == 자기 닉네임과 같은지 체크 */
-			
-			
 		}
-		
-		
 	}
 	function onClose(evt) {
 		//퇴장 한 이후 부과적인 작업이 있을 경우 명시
@@ -95,19 +87,11 @@
 		$('#message').val('');
 	}
 	function appendMessage(msg) {
-		
 		var $chatArea = $('#chatArea');
 		var $enter;
 		var $me;
 		var $you;
-		console.log(msg.substring(0,1));
-		
-		    
-		   
-		
-		
 			if(msg.substring(0,1)=='['){
-				//$('#MiddleCMA').append(msg + '<br>');
 				$enter = $("<div class='enterMsg'>").text(msg);
 				$chatArea.append($enter);
 			}else if(msg.substring(0,1)!='['){
@@ -115,15 +99,11 @@
 				var checkstr = str.split(':');
 				var checkname = checkstr[0];
 				var context = checkstr[1];
-				console.log("자른 checkname의 값 [nickname값이 나와야 한다]  !!" + checkname);
-				console.log($('nickname').val());
 				if(checkname == $('#nickname').val()){
-					//$('#chatMessageArea').append('<div class="msg">'+context + '<br>'+'</div>');
 					$me = $("<div class='msg meMsg'>").text(context);
 					$chatArea.append($me);
 					$chatArea.append("<br clear='all'>");
 				}else{
-					//$('#anotherCMA').append('<div class="msg">'+context + '<br>'+'</div>');
 					$name =$("<div class='name'><br>").text(checkname);
 					$you = $("<div class='msg youMsg'>").text(context);
 					$chatArea.append($name);
@@ -136,28 +116,23 @@
 						img[1]="https://t1.daumcdn.net/friends/prod/category/category_apeach_on.png", 
 						img[2]="https://t1.daumcdn.net/friends/prod/category/category_muzi_on.png", 
 						img[3]="https://t1.daumcdn.net/friends/prod/category/category_frodo_on.png"
-						
      				function imgRandom(imgArr) {
       				  return imgArr[Math.floor(Math.random() * 3)];
    						 }
 					 // 데스크탑 알림 요청
 					 var options = {
-		       				
 								body:msg,
 								 icon: imgRandom(img),  
 								/* icon : "https://t1.daumcdn.net/friends/prod/category/category_rion_on.png", */
 								dir: 'rtl'
 		    }
 					 var notification = new Notification("채팅알림", options);
-		    
 		    // 3초뒤 알람 닫기
 		    setTimeout(function(){
 		        notification.close();
 		    },5000);
 					}
 				}
-		// var maxScroll = $('#chatArea').height();
-		// $('#chatArea').scrollTop(maxScroll);
 		var objDiv = document.getElementById("chatArea");
 objDiv.scrollTop = objDiv.scrollHeight;
 	}
