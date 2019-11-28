@@ -186,7 +186,6 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 
 										<c:choose>
 											<c:when test="${fn:length(slist) > 0}">
-
 												<c:forEach items="${slist}" var="list" varStatus="status">
 													<c:if test="${list.m_CLICKED eq 'N'}">
 														<tr style="background-color: #FFFFFF; color: #333333;"
@@ -194,13 +193,12 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 													</c:if>
 													<c:if test="${list.m_CLICKED eq 'Y'}">
 														<tr style="background-color: #FFFFFF; color: gray;"
-															class="rMessage" id="${list.m_NO}">
+															class="sMessage" id="${list.m_NO}">
 													</c:if>
 													<td><c:out value="${status.count}" /></td>
 													<td><c:out value="${list.m_RECEIVE}" /></td>
 													<td><c:out value="${list.m_TITLE}" /></td>
 													<td><c:out value="${list.m_ENROLL_DATE}" /></td>
-													
 													</tr>
 												</c:forEach>
 											</c:when>
@@ -213,7 +211,7 @@ input:focus {background-color: white !important; border:1px solid lightgray !imp
 									</tbody>
 								</table> 
 								</div>
-								 </form>
+							</form>
 							</div>
 							<div class="row">
 								<div class="col-md-8"
