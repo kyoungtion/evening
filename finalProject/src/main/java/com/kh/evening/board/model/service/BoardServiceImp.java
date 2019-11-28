@@ -180,6 +180,11 @@ public class BoardServiceImp implements BoardService {
 		return bDAO.myLikeListCount(sqlSession, map);
 	}
 
+	@Override
+	public int updateall(String user_id) {
+		return bDAO.updateall(sqlSession, user_id);
+	}
+
 
 
 }

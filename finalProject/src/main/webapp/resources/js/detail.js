@@ -233,26 +233,29 @@
 	               }
 	               
 	               $('.pagination').html("");
-	               if(data.pi.currentPage<=1){
-	               $('.pagination').append('<li class="disabled"><a>&laquo;</a></li>');	            	 
+	               if(data.pi.maxPage>0){
+		            	   
+		               if(data.pi.currentPage<=1){
+		               $('.pagination').append('<li class="disabled"><a>&laquo;</a></li>');	            	 
+		               }
+						if(data.pi.currentPage>1){
+							$('.pagination').append('<li><a onclick="getReplyList('+(data.pi.currentPage-1)+')">&laquo;</a></li>');
+						}
+						for(var p=data.pi.startPage; p<=data.pi.endPage; p++){
+							if(p == data.pi.currentPage){
+								$('.pagination').append('<li class="active" value='+p+'><a>'+ p +'</a></li>');
+							}
+							if(p != data.pi.currentPage){							
+								$('.pagination').append('<li><a onclick="getReplyList('+p+')">'+ p +'</a></li>');
+							}
+						}
+						if(data.pi.currentPage >= data.pi.maxPage){
+							$('.pagination').append('<li class="disabled"><a href="#">&raquo;</a></li>');
+						}
+						if(data.pi.currentPage < data.pi.maxPage){
+							$('.pagination').append('<li><a onclick="getReplyList('+(data.pi.currentPage+1)+')">&raquo;</a></li>');
+						}
 	               }
-					if(data.pi.currentPage>1){
-						$('.pagination').append('<li><a onclick="getReplyList('+(data.pi.currentPage-1)+')">&laquo;</a></li>');
-					}
-					for(var p=data.pi.startPage; p<=data.pi.endPage; p++){
-						if(p == data.pi.currentPage){
-							$('.pagination').append('<li class="active" value='+p+'><a>'+ p +'</a></li>');
-						}
-						if(p != data.pi.currentPage){							
-							$('.pagination').append('<li><a onclick="getReplyList('+p+')">'+ p +'</a></li>');
-						}
-					}
-					if(data.pi.currentPage >= data.pi.maxPage){
-						$('.pagination').append('<li class="disabled"><a href="#">&raquo;</a></li>');
-					}
-					if(data.pi.currentPage < data.pi.maxPage){
-						$('.pagination').append('<li><a onclick="getReplyList('+(data.pi.currentPage+1)+')">&raquo;</a></li>');
-					}
 	            }
 	         });
 	      };

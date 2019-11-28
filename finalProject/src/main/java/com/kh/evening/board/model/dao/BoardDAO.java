@@ -166,6 +166,10 @@ public ArrayList<Board> myLikeList(SqlSession sqlSession, PageInfo pi, Map<Strin
 	return (ArrayList)sqlSession.selectList("boardMapper.myLikeList", map, rb);
 }
 
+public int updateall(SqlSession sqlSession, String user_id) {
+	return sqlSession.update("boardMapper.updateall",user_id);
+}
+
 
 
 

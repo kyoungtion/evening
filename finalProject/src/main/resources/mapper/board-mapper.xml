@@ -45,6 +45,11 @@
 			</when>
 		</choose>
 	</select>
+	
+	<update id="updateall" parameterType="AuctionHistory">
+		UPDATE AUCTION_HISTORY SET A_CHECK='Y'
+		WHERE A_PRICE NOT IN (SELECT MAX(A_PRICE) FROM AUCTION_HISTORY GROUP BY SG_ID)
+	</update>
 
 	<select id="getAuctionListCount" resultType="_int">
 		select count(*) from second_goods where sg_status='N'
