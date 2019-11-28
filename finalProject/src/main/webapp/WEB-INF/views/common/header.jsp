@@ -97,6 +97,9 @@
 					<ul id="hNav">
 						<li><a href="auctionList.bo">경매</a></li>
 						<li><a href="usedListAll.ud">중고거래</a></li>
+						<li><a href="javascript:void(0);"
+onclick="window.open('chat.ch', '채팅', 'top=10, left=10, width=430, height=560, status=no, menubar=no, toolbar=no, resizable=no');">
+									채팅</a></li>
 						<li><a href="pList.py">결제 내역</a></li>
 						<li class="nav_sub"><a href="gList.ge?category=Community">게시판</a>
 							<div style="position: fixed;">
@@ -119,7 +122,6 @@
 									<li><a href="mypost.me">내가 쓴 글</a></li>
 								</ul>
 							</div></li> -->
-						<li><img src="../push_bell/img/bell.png" alt=""></li>
 					</ul>
 				</div>
 
@@ -129,9 +131,12 @@
 					<div id="navTag">
 						<ul id="hNav">
 							<li id="userLi"><span title="${loginUser.rankCode.rank_name }">${ loginUser.rankCode.rank_img }</span>&nbsp;<b>${ loginUser.nickName }</b> 님 반갑습니다.
-								<a href="message.sr"><i class="fa fa-envelope"></i></a></li>
+								<a href="message.sr">${loginUser.count}&nbsp;&nbsp;<i class="fa fa-envelope"></i></a>
 							<li><a href="auctionList.bo">경매</a></li>
 							<li><a href="secondgoodList.bo">중고거래</a></li>
+							<li><a href="javascript:void(0);"
+onclick="window.open('chat.ch', '채팅', 'top=10, left=10, width=430, height=560, status=no, menubar=no, toolbar=no, resizable=no');">
+									채팅</a></li>
 							<li class="nav_sub"><a href="gList.ge?category=Community">게시판</a>
 								<div style="position: fixed;">
 									<ul id="test" style="height:75px !important;">
@@ -153,7 +158,6 @@
 										<li><a href="message.sr">쪽지함</a></li>
 									</ul>
 								</div></li>
-							<li><img src="../push_bell/img/bell.png" alt=""></li>
 							<li><a href="logout.me" title="로그아웃"><i class="fas fa-sign-out-alt fa-1x"></i></a></li>
 						</ul>
 					</div>
