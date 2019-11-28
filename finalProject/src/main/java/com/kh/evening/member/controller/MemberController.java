@@ -155,10 +155,20 @@ public class MemberController {
 			currentPage = page;
 		}
 		
-		int listCount = bService.getAuctionHistoryCount(user_id);
+		int listCount = bService.updateall(user_id);
+		
+		listCount = bService.getAuctionHistoryCount(user_id);
+		
 		PageInfo pi = Pageination.getQnaPageInfo(currentPage, listCount);
 		
+		
 		ArrayList<AuctionHistory> list = bService.getAuctionHistoryList(pi, user_id);
+
+		
+/*		for(AuctionHistory i : list ) {
+			if(i.getA_Price())
+			System.out.println(i);
+		}*/
 		if(list != null) {
 			mv.addObject("pi", pi).addObject("list", list).setViewName("dealDetail");
 		} else {

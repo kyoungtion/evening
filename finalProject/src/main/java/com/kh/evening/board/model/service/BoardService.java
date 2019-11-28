@@ -74,4 +74,6 @@ public interface BoardService {
 
 	int myLikeListCount(Map<String, String> map);
 
+	int updateall(String user_id);
+
 }
